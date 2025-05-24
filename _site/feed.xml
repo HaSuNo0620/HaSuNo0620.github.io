@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-05-24T21:38:22+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">東佑貴の備忘録</title><subtitle>私の個人的な備忘録とブログです。</subtitle><entry><title type="html">数式のテスト</title><link href="http://localhost:4000/2025/05/24/math-test.html" rel="alternate" type="text/html" title="数式のテスト" /><published>2025-05-24T21:00:00+09:00</published><updated>2025-05-24T21:00:00+09:00</updated><id>http://localhost:4000/2025/05/24/math-test</id><content type="html" xml:base="http://localhost:4000/2025/05/24/math-test.html"><![CDATA[<p>これはインライン数式のテストです。例えば、アインシュタインの有名な式は $E=mc^2$ です。
+また、円周率を $\pi$ と書くこともできます。</p>
+
+<p>これは別行立てのディスプレイ数式のテストです：</p>
+
+\[\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}\]
+
+<p>三角関数の重要な公式：
+\[ \sin^2\theta + \cos^2\theta = 1 \]</p>
+
+<p>Markdown との競合を避けるため、特にアンダースコア <code class="language-plaintext highlighter-rouge">_</code> やアスタリスク <code class="language-plaintext highlighter-rouge">*</code> を LaTeX のコマンド（添え字など）で使う場合は、数式全体を <code class="language-plaintext highlighter-rouge">$</code> や <code class="language-plaintext highlighter-rouge">$$</code> で囲んだ上で、Markdown のパーサーに解釈されないように注意が必要な場合があります。多くの場合、MathJax がうまく処理してくれます。</p>]]></content><author><name></name></author><summary type="html"><![CDATA[これはインライン数式のテストです。例えば、アインシュタインの有名な式は $E=mc^2$ です。 また、円周率を $\pi$ と書くこともできます。]]></summary></entry><entry><title type="html">最初の投稿です！</title><link href="http://localhost:4000/general/2025/05/24/my-first-post.html" rel="alternate" type="text/html" title="最初の投稿です！" /><published>2025-05-24T20:30:00+09:00</published><updated>2025-05-24T20:30:00+09:00</updated><id>http://localhost:4000/general/2025/05/24/my-first-post</id><content type="html" xml:base="http://localhost:4000/general/2025/05/24/my-first-post.html"><![CDATA[<p>こんにちは！これは私の最初のブログ投稿です。</p>
+
+<p>Jekyll と GitHub Pages を使ってブログを始めることができました。
+これから、学んだことや考えたことをここに書き留めていこうと思います。</p>
+
+<h2 id="markdown-も使えます">Markdown も使えます</h2>
+
+<ul>
+  <li>リストも</li>
+  <li>簡単です</li>
+</ul>
+
+<p>よろしくお願いします！</p>]]></content><author><name></name></author><category term="general" /><summary type="html"><![CDATA[こんにちは！これは私の最初のブログ投稿です。]]></summary></entry></feed>
