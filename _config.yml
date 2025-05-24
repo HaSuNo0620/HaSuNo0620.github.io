@@ -1,3 +1,3 @@
-theme: jekyll-theme-minima
-title: HaSuNoの備忘録
+theme: minima # 「jekyll-theme-minima」から「minima」に変更
+title: 東佑貴の備忘録
 description: 私の個人的な備忘録とブログです。
