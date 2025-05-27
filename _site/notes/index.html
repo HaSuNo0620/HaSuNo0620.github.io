@@ -19,19 +19,22 @@
 {"@context":"https://schema.org","@type":"WebPage","description":"私の個人的な備忘録とブログです。","headline":"備忘録","url":"http://localhost:4000/notes/"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
-    <link rel="icon" type="image/png" href="/assets/img/favicon.png"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="HaSuNoの備忘録" /><script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']], // インライン数式のためのデリミタ
-          displayMath: [['$$', '$$'], ['\\[', '\\]']], // ディスプレイ数式のためのデリミタ
-          processEscapes: true // \$などのエスケープを処理
-        },
-        svg: {
-          fontCache: 'global'
-        }
-      };
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="HaSuNoの備忘録" /><!-- <script type="text/javascript" src="config.js" defer></script>
+    <script type="text/javascript" id="MathJax-script" defer
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script> -->
+    <script>
+        window.MathJax = {
+          tex: {
+            packages: {'[+]': ['ams']},  // ← amsパッケージを明示的に有効化
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          }
+        };
     </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
 </head><body><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">HaSuNoの備忘録</a><nav class="site-nav">
@@ -51,19 +54,101 @@
       <div class="wrapper">
         <div class="home"><h1 class="page-heading">備忘録</h1>
 <h2 class="post-list-heading">Posts</h2>
-    <ul class="post-list"><li><span class="post-meta">May 24, 2025</span>
-        <h3>
-          <a class="post-link" href="/2025/05/24/math-test.html">
+    <ul class="post-list"><li><h3>
+          <a class="post-link" href="/physics/2025/05/27/1D_Ising_2.html">
+            1次元イジングモデルの厳密解(2)-帰納法-
+          </a>
+        </h3>
+        
+          <p class="post-meta">
+            <strong>Categories:</strong>
+            
+              
+              <a class="category-link" href="/categories/physics/">physics</a>
+            
+          </p>
+        
+        
+        <p class="post-meta">
+          <strong>Tags:</strong>
+          
+            
+            <a class="tag-link" href="/tags/1d_ising/">1D_Ising</a>
+          
+        </p>
+        
+      </li><li><h3>
+          <a class="post-link" href="/physics/2025/05/27/1D_Ising_1.html">
+            1次元イジングモデルの厳密解(1)-転送行列法-
+          </a>
+        </h3>
+        
+          <p class="post-meta">
+            <strong>Categories:</strong>
+            
+              
+              <a class="category-link" href="/categories/physics/">physics</a>
+            
+          </p>
+        
+        
+        <p class="post-meta">
+          <strong>Tags:</strong>
+          
+            
+            <a class="tag-link" href="/tags/1d_ising/">1D_Ising</a>
+          
+        </p>
+        
+      </li><li><h3>
+          <a class="post-link" href="/general/2025/05/24/math-test.html">
             数式のテスト
           </a>
-        </h3></li><li><span class="post-meta">May 24, 2025</span>
-        <h3>
+        </h3>
+        
+          <p class="post-meta">
+            <strong>Categories:</strong>
+            
+              
+              <a class="category-link" href="/categories/general/">general</a>
+            
+          </p>
+        
+        
+        <p class="post-meta">
+          <strong>Tags:</strong>
+          
+            
+            <a class="tag-link" href="/tags/test/">test</a>
+          
+        </p>
+        
+      </li><li><h3>
           <a class="post-link" href="/general/2025/05/24/my-first-post.html">
             最初の投稿です！
           </a>
-        </h3></li></ul>
-
-    <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p></div>
+        </h3>
+        
+          <p class="post-meta">
+            <strong>Categories:</strong>
+            
+              
+              <a class="category-link" href="/categories/general/">general</a>
+            
+          </p>
+        
+        
+        <p class="post-meta">
+          <strong>Tags:</strong>
+          
+            
+            <a class="tag-link" href="/tags/test/">test</a>
+          
+        </p>
+        
+      </li></ul>
+    
+</div>
 
       </div>
     </main><footer class="site-footer h-card">

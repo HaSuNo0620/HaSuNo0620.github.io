@@ -24,3 +24,36 @@ body {
 h1, h2 {
   color: #d9534f; // 少し暗めの赤色
 }
+
+// --- カテゴリ・タグリンクのスタイル ---
+
+// 共通のベーススタイル
+.category-link, .tag-link {
+  display: inline-block; // 横並びで、padding や margin を正しく適用するため
+  padding: 4px 10px;     // 上下4px、左右10pxの余白 (お好みで調整)
+  margin-right: 6px;     // 右隣の要素との間隔
+  margin-bottom: 6px;    // 下の行との間隔 (複数行になる場合)
+  font-size: 0.85em;     // 通常の文字より少し小さく
+  color: #ffffff;        // 文字色 (白)
+  text-decoration: none; // デフォルトの下線を消す
+  border-radius: 4px;    // 角を少し丸くする (お好みで調整)
+  transition: background-color 0.2s ease-in-out; // ホバー時の背景色変化を滑らかに
+}
+
+// カテゴリリンクの個別スタイル
+.category-link {
+  background-color: #4a86e8; // 例: ブルー系の背景色 (テーマカラーなどに合わせて変更してください)
+
+  &:hover {
+    background-color: #357ae8; // ホバー時: 少し濃いブルー
+  }
+}
+
+// タグリンクの個別スタイル
+.tag-link {
+  background-color: #6c757d; // 例: グレー系の背景色 (テーマカラーなどに合わせて変更してください)
+
+  &:hover {
+    background-color: #5a6268; // ホバー時: 少し濃いグレー
+  }
+}

@@ -304,6 +304,3 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages (~> 232)
-
-BUNDLED WITH
-   2.6.9

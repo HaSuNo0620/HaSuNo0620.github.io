@@ -1,0 +1,23 @@
+---
+layout: default # HaSuNo0620様のサイト構成に合わせてください
+---
+
+<div class="post-list">
+  <h1>タグ: {{ page.tag_name | default: page.tag }}</h1>
+
+  {% if site.tags[page.tag] %} 
+    <ul>
+      {% for post in site.tags[page.tag] %}
+        <li>
+          <h2>
+            <a href="{{ post.url | relative_url }}">
+              {{ post.title }}
+            </a>
+          </h2>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>このタグにはまだ記事がありません。</p>
+  {% endif %}
+</div>

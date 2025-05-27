@@ -1,5 +1,5 @@
 ---
-layout: home # 記事一覧用のレイアウト
+layout: notes_list # 記事一覧用のレイアウト
 title: 備忘録 # ナビゲーションに表示するテキスト
 permalink: /notes/
 ---

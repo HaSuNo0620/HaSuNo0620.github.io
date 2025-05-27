@@ -200,3 +200,11 @@ body { background-color: #f0f8ff; }
 .site-header { background-color: #333; border-top-color: #007bff; border-bottom-color: #007bff; }
 
 h1, h2 { color: #d9534f; }
+
+.category-link, .tag-link { display: inline-block; padding: 4px 10px; margin-right: 6px; margin-bottom: 6px; font-size: 0.85em; color: #ffffff; text-decoration: none; border-radius: 4px; transition: background-color 0.2s ease-in-out; }
+
+.category-link { background-color: #4a86e8; }
+.category-link:hover { background-color: #357ae8; }
+
+.tag-link { background-color: #6c757d; }
+.tag-link:hover { background-color: #5a6268; }
