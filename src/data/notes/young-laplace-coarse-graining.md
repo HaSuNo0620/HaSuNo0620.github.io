@@ -3,6 +3,7 @@ title: "Young–Laplace式は何を捨てているのか"
 summary: "Young–Laplace式を、曲面界面に働く力の釣り合いとして捉え直し、その力学的な粗視化が界面内部の何を残し、何を捨てているのかを考える。"
 publishedAt: 2026-09-09T19:06:00+09:00
 updatedAt: 2026-09-09
+area: "Physics"
 topics: ["interfacial physics", "capillarity", "coarse graining", "Young-Laplace"]
 status: growing
 ---
