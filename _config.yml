@@ -1,7 +1,16 @@
-theme: minima # 「jekyll-theme-minima」から「minima」に変更
-title: HaSuNoの備忘録
-description: 私の個人的な備忘録とブログです。
+theme: minima
+
+title: HaSuNo0620
+description: 物理、数学、コード、作品についての個人的なノートと実験。
+author: HaSuNo0620
+lang: ja
+
 header_pages:
   - index.md
   - notes.md
   - about.md
+
+show_excerpts: true
+
+minima:
+  date_format: "%Y.%m.%d"
