@@ -1,5 +1,10 @@
 ---
-layout: notes_list # 記事一覧用のレイアウト
-title: 備忘録 # ナビゲーションに表示するテキスト
+layout: notes_list
+title: Notes
 permalink: /notes/
 ---
+
+<p class="notes-intro">
+  勉強したこと、試した計算、実装メモ、考えている途中のこと。
+  完成度に関係なく、あとから辿れるように置いています。
+</p>
