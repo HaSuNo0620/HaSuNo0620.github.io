@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { topicSlug } from '../lib/topics';
 
 interface Props {
   title: string;
@@ -36,7 +37,9 @@ const areaId = area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g
         <time datetime={publishedAt.toISOString()}>{formatDate(publishedAt)}</time>
         {updatedAt && <span>updated {formatDate(updatedAt)}</span>}
         <a class="area-tag" href={`/topics/#${areaId}`}>{area}</a>
-        {topics.map((topic) => <span class="topic">#{topic}</span>)}
+        {topics.map((topic) => (
+          <a class="topic-link" href={`/topics/${topicSlug(topic)}/`}>#{topic}</a>
+        ))}
       </div>
     </header>
 
@@ -50,3 +53,15 @@ const areaId = area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g
     </footer>
   </article>
 </BaseLayout>
+
+<style>
+  .topic-link {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .topic-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+</style>

@@ -1,0 +1,156 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { topicSlug } from '../../lib/topics';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes', ({ data }) => !data.draft);
+  const topics = [...new Set(notes.flatMap((note) => note.data.topics))];
+
+  return topics.map((topic) => ({
+    params: { topic: topicSlug(topic) },
+    props: { topic },
+  }));
+}
+
+const { topic } = Astro.props;
+const notes = (await getCollection('notes', ({ data }) => !data.draft && data.topics.includes(topic)))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const relatedTopics = [...new Set(
+  notes.flatMap((note) => note.data.topics).filter((candidate) => candidate !== topic),
+)].sort((a, b) => a.localeCompare(b));
+
+const statusMark = { seed: '○', growing: '◐', evergreen: '●' };
+const areaId = (area: string) => area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+---
+
+<BaseLayout title={`#${topic}`} description={`小トピック「${topic}」に関係するNotes。`}>
+  <section class="index-intro topic-detail-intro">
+    <p class="section-label">subtopic / filtered view</p>
+    <a class="back-link" href="/topics/">← all topics</a>
+    <h1>#{topic}</h1>
+    <p>{notes.length} note{notes.length === 1 ? '' : 's'} がこの小トピックにつながっています。</p>
+  </section>
+
+  {relatedTopics.length > 0 && (
+    <section class="related-topics" aria-label="related subtopics">
+      <span>related</span>
+      <div class="index-topics">
+        {relatedTopics.map((related) => (
+          <a class="topic-link" href={`/topics/${topicSlug(related)}/`}>#{related}</a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <div class="topic-filtered-notes">
+    {notes.map((note) => (
+      <article class="topic-note-entry">
+        <div class="topic-note-entry-head">
+          <span class={`status-text status-${note.data.status}`}>{statusMark[note.data.status]}</span>
+          <a class="topic-note-title" href={`/notes/${note.id}/`}>{note.data.title}</a>
+        </div>
+        <p>{note.data.summary}</p>
+        <div class="topic-note-meta">
+          <a class="area-tag" href={`/topics/#${areaId(note.data.area)}`}>{note.data.area}</a>
+          {note.data.topics.map((noteTopic) => (
+            <a
+              class={`topic-link${noteTopic === topic ? ' is-current' : ''}`}
+              href={`/topics/${topicSlug(noteTopic)}/`}
+            >
+              #{noteTopic}
+            </a>
+          ))}
+        </div>
+      </article>
+    ))}
+  </div>
+</BaseLayout>
+
+<style>
+  .topic-detail-intro h1 {
+    font-size: clamp(46px, 8vw, 86px);
+  }
+
+  .related-topics {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 24px;
+    padding: 18px 0 28px;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .related-topics > span {
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+  }
+
+  .topic-link {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .topic-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .topic-link.is-current {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .topic-filtered-notes {
+    margin-top: 38px;
+    border-top: 1px solid var(--ink);
+  }
+
+  .topic-note-entry {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .topic-note-entry-head {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    align-items: baseline;
+  }
+
+  .topic-note-title {
+    font-size: 17px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .topic-note-title:hover {
+    color: var(--accent);
+  }
+
+  .topic-note-entry p {
+    max-width: 720px;
+    margin: 8px 0 12px 40px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.75;
+  }
+
+  .topic-note-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin-left: 40px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+  }
+
+  @media (max-width: 720px) {
+    .related-topics {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>

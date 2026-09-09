@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { topicSlug } from '../../lib/topics';
 
 const notes = (await getCollection('notes', ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
@@ -8,6 +9,7 @@ const statusLabel = { seed: '○ seed', growing: '◐ growing', evergreen: '● 
 const formatDate = (date: Date) => date.toLocaleDateString('ja-JP', {
   year: 'numeric', month: '2-digit', day: '2-digit',
 }).replaceAll('/', '.');
+const areaId = (area: string) => area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 ---
 
 <BaseLayout title="Notes" description="勉強、計算、実装、考察。完成した記事だけではなく途中の断片も含むノート。">
@@ -22,18 +24,46 @@ const formatDate = (date: Date) => date.toLocaleDateString('ja-JP', {
 
   <div class="notes-index">
     {notes.map((note) => (
-      <a class="index-row" href={`/notes/${note.id}/`}>
+      <article class="index-row">
         <div class="index-date">{formatDate(note.data.publishedAt)}</div>
         <div class="index-body">
           <div class="index-title-line">
             <span class={`status-text status-${note.data.status}`}>{statusLabel[note.data.status]}</span>
-            <h2>{note.data.title}</h2>
+            <h2><a href={`/notes/${note.id}/`}>{note.data.title}</a></h2>
           </div>
           <p>{note.data.summary}</p>
-          <div class="index-topics">{note.data.topics.map((topic) => <span>#{topic}</span>)}</div>
+          <div class="index-topics">
+            <a class="area-tag" href={`/topics/#${areaId(note.data.area)}`}>{note.data.area}</a>
+            {note.data.topics.map((topic) => (
+              <a class="topic-link" href={`/topics/${topicSlug(topic)}/`}>#{topic}</a>
+            ))}
+          </div>
         </div>
-        <div class="index-arrow">↗</div>
-      </a>
+        <a class="index-arrow" href={`/notes/${note.id}/`} aria-label={`${note.data.title}を読む`}>↗</a>
+      </article>
     ))}
   </div>
 </BaseLayout>
+
+<style>
+  .index-title-line h2 a,
+  .index-arrow,
+  .topic-link {
+    text-decoration: none;
+  }
+
+  .index-title-line h2 a:hover,
+  .index-arrow:hover,
+  .topic-link:hover {
+    color: var(--accent);
+  }
+
+  .topic-link {
+    color: var(--accent);
+  }
+
+  .topic-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+</style>
