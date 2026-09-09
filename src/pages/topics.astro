@@ -41,13 +41,13 @@ const areas = areaOrder
         </div>
 
         <div class="topic-area-topics">
-          <div class="index-topics" aria-label={`${area} subtopics`}>
+          <div class="index-topics subtopic-cloud" aria-label={`${area} subtopics`}>
             {subtopics.map((topic) => (
               <a class="topic-link" href={`/topics/${topicSlug(topic)}/`}>#{topic}</a>
             ))}
           </div>
 
-          <div class="topic-note-links">
+          <div class="topic-note-list">
             {areaNotes.map((note) => (
               <article class="topic-note-entry">
                 <div class="topic-note-entry-head">
@@ -68,3 +68,66 @@ const areas = areaOrder
     ))}
   </div>
 </BaseLayout>
+
+<style>
+  .subtopic-cloud {
+    padding: 16px 0 22px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .topic-link {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .topic-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .topic-note-list {
+    border-top: 0;
+  }
+
+  .topic-note-entry {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .topic-note-entry:last-child {
+    border-bottom: 0;
+  }
+
+  .topic-note-entry-head {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    align-items: baseline;
+  }
+
+  .topic-note-title {
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .topic-note-title:hover {
+    color: var(--accent);
+  }
+
+  .topic-note-entry p {
+    margin: 7px 0 10px 40px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.65;
+  }
+
+  .topic-note-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    margin-left: 40px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+  }
+</style>
