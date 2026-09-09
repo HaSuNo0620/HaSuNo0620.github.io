@@ -5,45 +5,67 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const notes = (await getCollection('notes', ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
-const groups = new Map<string, typeof notes>();
-for (const note of notes) {
-  for (const topic of note.data.topics) {
-    const list = groups.get(topic) ?? [];
-    list.push(note);
-    groups.set(topic, list);
-  }
-}
-
-const topics = [...groups.entries()]
-  .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
-
+const areaOrder = ['Physics', 'Mathematics', 'Computing', 'Culture & Media'] as const;
 const statusMark = { seed: '○', growing: '◐', evergreen: '●' };
+const areaId = (area: string) => area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+const areas = areaOrder
+  .map((area) => {
+    const areaNotes = notes.filter((note) => note.data.area === area);
+    const topicGroups = new Map<string, typeof notes>();
+
+    for (const note of areaNotes) {
+      for (const topic of note.data.topics) {
+        const list = topicGroups.get(topic) ?? [];
+        list.push(note);
+        topicGroups.set(topic, list);
+      }
+    }
+
+    const topics = [...topicGroups.entries()]
+      .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
+
+    return { area, areaNotes, topics };
+  })
+  .filter(({ areaNotes }) => areaNotes.length > 0);
 ---
 
-<BaseLayout title="Topics" description="Notes を日付ではなくテーマから辿るための地図。">
+<BaseLayout title="Topics" description="Notes を大きな分野と個別テーマの二階層から辿るための地図。">
   <section class="index-intro">
     <p class="section-label">map / connections</p>
     <h1>Topics</h1>
     <p>
-      Notes を時系列ではなく、テーマのまとまりから歩くための地図です。<br />
-      分類は固定せず、ノートが増えるたびに自然に変わります。
+      Notes を時系列ではなく、まず大きな分野から、その中の小さなテーマへ辿るための地図です。<br />
+      大トピックはなるべく少なく保ち、小トピックはNotesが増えるにつれて自然に育てます。
     </p>
   </section>
 
   <div class="topic-map-list">
-    {topics.map(([topic, entries]) => (
-      <section class="topic-group">
-        <div class="topic-group-head">
-          <h2>{topic}</h2>
-          <span>{entries.length} note{entries.length === 1 ? '' : 's'}</span>
+    {areas.map(({ area, areaNotes, topics }) => (
+      <section class="topic-area" id={areaId(area)}>
+        <div class="topic-area-head">
+          <p>area</p>
+          <h2>{area}</h2>
+          <span>{areaNotes.length} note{areaNotes.length === 1 ? '' : 's'}</span>
         </div>
-        <div class="topic-note-links">
-          {entries.map((note) => (
-            <a href={`/notes/${note.id}/`}>
-              <span class={`status-text status-${note.data.status}`}>{statusMark[note.data.status]}</span>
-              <strong>{note.data.title}</strong>
-              <small>{note.data.summary}</small>
-            </a>
+
+        <div class="topic-area-topics">
+          {topics.map(([topic, entries]) => (
+            <section class="topic-group">
+              <div class="topic-group-head">
+                <h3>{topic}</h3>
+                <span>{entries.length}</span>
+              </div>
+              <div class="topic-note-links">
+                {entries.map((note) => (
+                  <a href={`/notes/${note.id}/`}>
+                    <span class={`status-text status-${note.data.status}`}>{statusMark[note.data.status]}</span>
+                    <strong>{note.data.title}</strong>
+                    <small>{note.data.summary}</small>
+                  </a>
+                ))}
+              </div>
+            </section>
           ))}
         </div>
       </section>

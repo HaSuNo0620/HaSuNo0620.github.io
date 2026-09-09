@@ -2,6 +2,7 @@
 title: "アニメ作品をベクトルで見るという発想"
 summary: "先に分類軸を決めず、作品群の特徴表現から似た構造や潜在的なまとまりを抽出するための考え方を整理する。"
 publishedAt: 2026-09-09T18:50:00+09:00
+area: "Culture & Media"
 topics: ["anime", "data analysis", "representation learning"]
 status: seed
 ---

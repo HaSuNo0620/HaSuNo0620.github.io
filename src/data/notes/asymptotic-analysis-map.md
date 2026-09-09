@@ -2,6 +2,7 @@
 title: "漸近解析は何をしているのか — 道具の見取り図"
 summary: "正則摂動・特異摂動・境界層・WKB・多重尺度法を、何が破れて何を救う方法なのかという観点から整理する。"
 publishedAt: 2026-09-09T18:20:00+09:00
+area: "Mathematics"
 topics: ["asymptotic analysis", "perturbation theory", "mathematical physics"]
 status: growing
 ---

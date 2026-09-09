@@ -2,6 +2,7 @@
 title: "界面を考えるとき、何を見ればよいのか"
 summary: "密度プロファイル、相関、自由エネルギー、濡れ、長さスケールを同じ問題の異なる層として整理する。"
 publishedAt: 2026-09-09T18:40:00+09:00
+area: "Physics"
 topics: ["interfaces", "statistical mechanics", "liquid theory"]
 status: growing
 ---
