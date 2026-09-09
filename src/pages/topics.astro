@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const notes = (await getCollection('notes', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const groups = new Map<string, typeof notes>();
+for (const note of notes) {
+  for (const topic of note.data.topics) {
+    const list = groups.get(topic) ?? [];
+    list.push(note);
+    groups.set(topic, list);
+  }
+}
+
+const topics = [...groups.entries()]
+  .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
+
+const statusMark = { seed: '○', growing: '◐', evergreen: '●' };
+---
+
+<BaseLayout title="Topics" description="Notes を日付ではなくテーマから辿るための地図。">
+  <section class="index-intro">
+    <p class="section-label">map / connections</p>
+    <h1>Topics</h1>
+    <p>
+      Notes を時系列ではなく、テーマのまとまりから歩くための地図です。<br />
+      分類は固定せず、ノートが増えるたびに自然に変わります。
+    </p>
+  </section>
+
+  <div class="topic-map-list">
+    {topics.map(([topic, entries]) => (
+      <section class="topic-group">
+        <div class="topic-group-head">
+          <h2>{topic}</h2>
+          <span>{entries.length} note{entries.length === 1 ? '' : 's'}</span>
+        </div>
+        <div class="topic-note-links">
+          {entries.map((note) => (
+            <a href={`/notes/${note.id}/`}>
+              <span class={`status-text status-${note.data.status}`}>{statusMark[note.data.status]}</span>
+              <strong>{note.data.title}</strong>
+              <small>{note.data.summary}</small>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+</BaseLayout>

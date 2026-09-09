@@ -9,6 +9,8 @@ const path = Astro.url.pathname;
   </a>
   <nav aria-label="Primary navigation">
     <a href="/notes/" aria-current={path.startsWith('/notes') ? 'page' : undefined}>Notes</a>
+    <a href="/topics/" aria-current={path.startsWith('/topics') ? 'page' : undefined}>Topics</a>
+    <a href="/now/" aria-current={path.startsWith('/now') ? 'page' : undefined}>Now</a>
     <a href="/about/" aria-current={path.startsWith('/about') ? 'page' : undefined}>About</a>
     <a href="https://github.com/HaSuNo0620" target="_blank" rel="noreferrer">GitHub ↗</a>
   </nav>
