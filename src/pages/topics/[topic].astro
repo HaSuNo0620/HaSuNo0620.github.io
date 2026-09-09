@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { topicSlug } from '../../lib/topics';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes', ({ data }) => !data.draft);
+  const topics = [...new Set(notes.flatMap((note) => note.data.topics))];
+
+  return topics.map((topic) => ({
+    params: { topic: topicSlug(topic) },
+    props: { topic },
+  }));
+}
+
+const { topic } = Astro.props;
+const notes = (await getCollection('notes', ({ data }) => !data.draft && data.topics.includes(topic)))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const relatedTopics = [...new Set(
+  notes.flatMap((note) => note.data.topics).filter((candidate) => candidate !== topic),
+)].sort((a, b) => a.localeCompare(b));
+
+const statusMark = { seed: '○', growing: '◐', evergreen: '●' };
+const areaId = (area: string) => area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+---
+
+<BaseLayout title={`#${topic}`} description={`小トピック「${topic}」に関係するNotes。`}>
+  <section class="index-intro topic-detail-intro">
+    <p class="section-label">subtopic / filtered view</p>
+    <a class="back-link" href="/topics/">← all topics</a>
+    <h1>#{topic}</h1>
+    <p>{notes.length} note{notes.length === 1 ? '' : 's'} がこの小トピックにつながっています。</p>
+  </section>
+
+  {relatedTopics.length > 0 && (
+    <section class="related-topics" aria-label="related subtopics">
+      <span>related</span>
+      <div class="index-topics">
+        {relatedTopics.map((related) => (
+          <a class="topic-link" href={`/topics/${topicSlug(related)}/`}>#{related}</a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <div class="topic-filtered-notes">
+    {notes.map((note) => (
+      <article class="topic-note-entry">
+        <div class="topic-note-entry-head">
+          <span class={`status-text status-${note.data.status}`}>{statusMark[note.data.status]}</span>
+          <a class="topic-note-title" href={`/notes/${note.id}/`}>{note.data.title}</a>
+        </div>
+        <p>{note.data.summary}</p>
+        <div class="topic-note-meta">
+          <a class="area-tag" href={`/topics/#${areaId(note.data.area)}`}>{note.data.area}</a>
+          {note.data.topics.map((noteTopic) => (
+            <a
+              class={`topic-link${noteTopic === topic ? ' is-current' : ''}`}
+              href={`/topics/${topicSlug(noteTopic)}/`}
+            >
+              #{noteTopic}
+            </a>
+          ))}
+        </div>
+      </article>
+    ))}
+  </div>
+</BaseLayout>
