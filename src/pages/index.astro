@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const notes = (await getCollection('notes', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const recent = notes.slice(0, 4);
+
+const topicCounts = new Map<string, number>();
+for (const note of notes) {
+  for (const topic of note.data.topics) topicCounts.set(topic, (topicCounts.get(topic) ?? 0) + 1);
+}
+const topics = [...topicCounts.entries()]
+  .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  .slice(0, 9);
+
+const statusMark = { seed: '○', growing: '◐', evergreen: '●' };
+const formatDate = (date: Date) => date.toLocaleDateString('ja-JP', {
+  year: 'numeric', month: '2-digit', day: '2-digit',
+}).replaceAll('/', '.');
+---
+
+<BaseLayout>
+  <section class="home-hero">
+    <div class="hero-kicker">personal garden / since 2025</div>
+    <h1>考えている途中を、<br />消さないための場所。</h1>
+    <p class="hero-copy">
+      物理、数学、コード、アニメや漫画。興味が移るたびに、メモや計算や断片が増えていく。
+      完成品だけを並べるのではなく、まだ形になっていないものもそのまま残します。
+    </p>
+    <div class="hero-links">
+      <a href="/notes/">Notes を歩く <span>→</span></a>
+      <a href="/about/">この場所について <span>→</span></a>
+    </div>
+    <div class="hero-orbit" aria-hidden="true">
+      <span>∿</span><span>∴</span><span>⌁</span>
+    </div>
+  </section>
+
+  <section class="garden-section">
+    <div class="section-label">now orbiting</div>
+    <div class="topic-field">
+      {topics.length > 0 ? topics.map(([topic, count], index) => (
+        <span class={`floating-topic float-${(index % 6) + 1}`}>{topic}<sup>{count}</sup></span>
+      )) : (
+        <><span class="floating-topic float-1">statistical mechanics</span><span class="floating-topic float-2">interfaces</span><span class="floating-topic float-3">code</span></>
+      )}
+    </div>
+  </section>
+
+  <section class="garden-section recent-section">
+    <div class="section-heading">
+      <div>
+        <div class="section-label">recent fragments</div>
+        <h2>最近置いたもの</h2>
+      </div>
+      <a href="/notes/">all notes →</a>
+    </div>
+    <div class="fragment-list">
+      {recent.map((note) => (
+        <a class="fragment-row" href={`/notes/${note.id}/`}>
+          <span class="fragment-status" title={note.data.status}>{statusMark[note.data.status]}</span>
+          <time>{formatDate(note.data.publishedAt)}</time>
+          <span class="fragment-main">
+            <strong>{note.data.title}</strong>
+            <small>{note.data.summary}</small>
+          </span>
+          <span class="fragment-arrow">↗</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="home-note">
+    <span class="margin-mark">✳</span>
+    <p>
+      このサイト自体も完成形ではありません。ページ構成も分類も、置くものに合わせて変えていきます。
+    </p>
+  </section>
+</BaseLayout>

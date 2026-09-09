@@ -1,0 +1,14 @@
+{
+  "name": "hasuno0620-github-io",
+  "private": true,
+  "type": "module",
+  "version": "2.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^7.3.2"
+  }
+}

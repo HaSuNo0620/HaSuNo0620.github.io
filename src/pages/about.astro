@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About" description="HaSuNo0620 と、このサイトについて。">
+  <section class="about-page">
+    <header class="about-header">
+      <p class="section-label">about this place</p>
+      <h1>肩書きより、<br />引っかかったものを残す。</h1>
+    </header>
+
+    <div class="about-grid">
+      <div class="about-main">
+        <p class="about-lead">
+          大学院で物理を学びながら、気になったものを調べたり、計算したり、コードを書いたりしています。
+          ただ、このページは経歴を並べるためのプロフィールではありません。
+        </p>
+        <p>
+          何かを理解するとき、答えそのものより「なぜその見方をするのか」「別の見方にすると何が見えるのか」が気になります。
+          その途中で出てきた式、失敗した計算、面白かった構造、作品について考えたことまで、分野を分けすぎずに置いていくつもりです。
+        </p>
+        <p>
+          興味はかなり動くので、このサイトの形も固定しません。古いノートと新しい関心が同じ場所に混ざっていることを、むしろ残しておきたいと思っています。
+        </p>
+      </div>
+
+      <aside class="about-aside">
+        <div class="aside-block">
+          <span>often around</span>
+          <ul>
+            <li>statistical mechanics</li>
+            <li>soft matter & interfaces</li>
+            <li>mathematical physics</li>
+            <li>simulation & code</li>
+            <li>anime / manga analysis</li>
+          </ul>
+        </div>
+        <div class="aside-block">
+          <span>elsewhere</span>
+          <a href="https://github.com/HaSuNo0620">GitHub ↗</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
