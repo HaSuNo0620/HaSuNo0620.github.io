@@ -12,20 +12,10 @@ const areaId = (area: string) => area.toLowerCase().replace(/[^a-z0-9]+/g, '-').
 const areas = areaOrder
   .map((area) => {
     const areaNotes = notes.filter((note) => note.data.area === area);
-    const topicGroups = new Map<string, typeof notes>();
+    const subtopics = [...new Set(areaNotes.flatMap((note) => note.data.topics))]
+      .sort((a, b) => a.localeCompare(b));
 
-    for (const note of areaNotes) {
-      for (const topic of note.data.topics) {
-        const list = topicGroups.get(topic) ?? [];
-        list.push(note);
-        topicGroups.set(topic, list);
-      }
-    }
-
-    const topics = [...topicGroups.entries()]
-      .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
-
-    return { area, areaNotes, topics };
+    return { area, areaNotes, subtopics };
   })
   .filter(({ areaNotes }) => areaNotes.length > 0);
 ---
@@ -35,13 +25,13 @@ const areas = areaOrder
     <p class="section-label">map / connections</p>
     <h1>Topics</h1>
     <p>
-      Notes を時系列ではなく、まず大きな分野から、その中の小さなテーマへ辿るための地図です。<br />
-      大トピックはなるべく少なく保ち、小トピックはNotesが増えるにつれて自然に育てます。
+      Notes を時系列ではなく、大きな分野から辿るための地図です。<br />
+      小トピックは各Noteの特徴を示すタグとして残し、同じNoteはArea内に一度だけ表示します。
     </p>
   </section>
 
   <div class="topic-map-list">
-    {areas.map(({ area, areaNotes, topics }) => (
+    {areas.map(({ area, areaNotes, subtopics }) => (
       <section class="topic-area" id={areaId(area)}>
         <div class="topic-area-head">
           <p>area</p>
@@ -50,23 +40,20 @@ const areas = areaOrder
         </div>
 
         <div class="topic-area-topics">
-          {topics.map(([topic, entries]) => (
-            <section class="topic-group">
-              <div class="topic-group-head">
-                <h3>{topic}</h3>
-                <span>{entries.length}</span>
-              </div>
-              <div class="topic-note-links">
-                {entries.map((note) => (
-                  <a href={`/notes/${note.id}/`}>
-                    <span class={`status-text status-${note.data.status}`}>{statusMark[note.data.status]}</span>
-                    <strong>{note.data.title}</strong>
-                    <small>{note.data.summary}</small>
-                  </a>
-                ))}
-              </div>
-            </section>
-          ))}
+          <div class="index-topics" aria-label={`${area} subtopics`}>
+            {subtopics.map((topic) => <span>#{topic}</span>)}
+          </div>
+
+          <div class="topic-note-links">
+            {areaNotes.map((note) => (
+              <a href={`/notes/${note.id}/`}>
+                <span class={`status-text status-${note.data.status}`}>{statusMark[note.data.status]}</span>
+                <strong>{note.data.title}</strong>
+                <small>{note.data.summary}</small>
+                <small>#{note.data.topics.join(' · #')}</small>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
     ))}
