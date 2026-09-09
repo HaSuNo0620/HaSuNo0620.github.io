@@ -1,6 +1,6 @@
 ---
 title: "van der Waalsのdiffuse interface — 界面を密度場として解く"
-summary: "Gibbsが界面をsurface excessへ縮約したのに対し、van der Waalsは密度を空間場として扱い、有限幅界面と表面張力を界面構造から導く道を開いた。その現代的なsquare-gradient表現と限界までを整理する。"
+summary: "Gibbsが界面をsurface excessへ縮約したのに対し、van der Waalsは密度を空間場として扱い、有限幅界面と表面張力を界面構造から導く道を開いた。square-gradient近似が何を残し、何を捨てるのかまで整理する。"
 publishedAt: 2026-09-09T22:30:00+09:00
 updatedAt: 2026-09-09
 area: "Physics"
@@ -214,33 +214,97 @@ $$\text{diffuse profile}\quad\xrightarrow{\text{coarse grain}}\quad\text{Gibbs s
 
 という関係がある。
 
-## van der Waals理論がまだ捨てているもの
+## square-gradientは何を捨てたのか
 
-square-gradient theoryには明確な限界がある。
+van der Waals型のsquare-gradient theoryは、sharp interfaceよりははるかに多くの構造を残した。しかし、分子間相互作用の非局所性をそのまま保持した理論ではない。
 
-その導出では $k\ell\ll1$ という長波長条件を使った。したがって、分子直径スケールのpacking、oscillatory density profile、壁近傍のlayering、有限波数で強くなるbulk correlationなどは、最低次のsquare-gradient theoryでは基本的に落とされる。
+出発点では、非局所kernel $w(|\mathbf r-\mathbf r'|)$ が二点間の結合をすべて持っていた。それを長波長展開して最低次で切ることで、非局所kernel全体を局所的な係数 $\kappa$ へ圧縮している。
 
-Fourier空間で見れば、これはbulk responseを $k=0$ 周りだけで展開していることに対応する。
+Fourier空間で見ると、この操作はさらに明瞭になる。密度揺らぎに対する二次の自由エネルギーを概念的に
 
-つまりvan der Waals型理論は、界面内部をGibbsより詳しく解いた一方で、なお**液体の有限波数構造を粗視化している**。
+$$\Delta F^{(2)}=\frac12\int\frac{d\mathbf k}{(2\pi)^d}\,A(k)|\delta\rho_{\mathbf k}|^2$$
 
-この点は次の独立した問題になる。
+と書くと、square-gradient approximationは $A(k)$ の $k=0$ 近傍だけを
 
-> 長波長の $k\simeq0$ 理論を越えて、液体のstructure factorが持つ有限波数 $k_*$ を残すと、なぜ減衰振動やlayeringが現れるのか。
+$$A(k)=A_0+A_2k^2+O(k^4)$$
 
-これはvan der WaalsのNoteの中で詳しく追うより、**長波長界面理論から有限波数の液体構造へ**という別のトピックとして扱う方がよい。
+と展開していることに対応する。
+
+実空間の $A_2k^2$ が $|\nabla\rho|^2$ に対応する。したがってsquare-gradient theoryが保持しているのは、**十分長い波長に対するbulk responseの最初の曲率**である。
+
+逆に言えば、それ以外の $k$ 依存は捨てている。
+
+### 捨てたもの1：kernelの詳細な非局所形状
+
+元の非局所理論では、ある点の密度は周囲の有限距離にわたる密度分布と結合している。
+
+square-gradient theoryでは、この情報を $A_0$ と $A_2$、あるいは $f_0(\rho)$ と $\kappa$ のような少数の量へ縮約する。
+
+したがって、相互作用距離と同程度のスケールで密度が変化すると、$k\ell\ll1$ という前提そのものが崩れる。
+
+### 捨てたもの2：分子直径スケールのpacking
+
+高密度液体では、粒子は排除体積のために無関係には配置できない。ある粒子の周囲では隣接粒子が好まれる距離が生まれ、pair correlationは分子スケールで振動する。
+
+このようなpackingは、$k=0$ 近傍の情報ではなく、分子間距離に対応する**有限波数**の構造として現れる。
+
+最低次square-gradient theoryでは、このpreferred wavelengthを持つことができない。
+
+### 捨てたもの3：oscillatory layering
+
+壁や強い界面の近傍では、密度は単調にbulkへ戻るとは限らず、
+
+$$\rho(z)-\rho_b\sim e^{-\alpha z}\cos(qz+\phi)$$
+
+のように減衰振動することがある。
+
+ところがsquare-gradientの線形化から得られる基本的なbulk tailは
+
+$$\delta\rho(z)\sim e^{-z/\xi}$$
+
+のような単調減衰である。
+
+これは偶然ではない。$A(k)$ を $A_0+A_2k^2$ までしか残さなければ、有限の実波数を選ぶ構造が消えているからである。
+
+### 捨てたもの4：bulk correlationの有限波数構造
+
+一様液体のstructure factor $S(k)$ は、一般には $k=0$ だけで特徴づけられない。高密度液体では分子間距離に対応する有限 $k$ に第一ピークが現れる。
+
+square-gradient theoryは、そのような有限波数のsoftな応答を区別せず、長波長極限だけへ押し込める。
+
+したがって、壁がbulk液体自身のpreferred wavelengthを励起してlayeringを作る、といった現象は最低次の理論からは見えない。
+
+## 何を残し、何を捨てたか
+
+van der Waalsのdiffuse-interface theoryは、Young–LaplaceやGibbsが表面量へ縮約した界面から、密度場と有限の界面幅を取り戻した。
+
+しかしsquare-gradient approximationを採用した時点で、さらに一段の粗視化を行っている。
+
+概念的には、
+
+$$\text{full nonlocal interaction}\quad\longrightarrow\quad\text{long-wavelength moments}\quad\longrightarrow\quad f_0(\rho),\ \kappa$$
+
+である。
+
+この操作で残るのは、相分離を生むbulk thermodynamics、滑らかな密度変化、有限の界面幅、そしてそのプロファイルから得られる表面張力である。
+
+一方で捨てられるのは、kernelの細かな形、packing、有限波数のbulk correlation、分子スケールのlayeringである。
+
+したがってvan der Waalsの理論は「界面内部を解く理論」であると同時に、**界面内部のうち長波長成分だけを残した理論**でもある。
+
+ここが次の問いを自然に決める。
+
+> $k=0$ 周りだけを見るのをやめ、液体がもつ有限波数の構造を残すと、界面や壁近傍の密度場はどう変わるのか。
+
+この先では、bulk correlation、direct correlation function、structure factor $S(k)$、そしてfinite-$k$ responseを使って、square-gradientで捨てた構造を取り戻していく。
 
 ## 歴史の中での位置づけ
 
-ここまでの流れを整理すると、
+ここまでの流れを整理すると、Young–Laplaceは界面内部を捨てて $\gamma$ を与え、Gibbsは界面内部を解かずsurface excessとして熱力学へ組み込み、van der Waalsは有限幅の密度場を解いて界面構造から $\gamma$ を導く道を開いた。
 
-- Young–Laplace：界面内部を捨て、$\gamma$ を与えて力学を閉じる
-- Gibbs：界面内部を解かず、surface excessとして熱力学へ組み込む
-- van der Waals：有限幅の密度場を解き、界面構造から $\gamma$ を導く
+後にCahn–Hilliardは、このsquare-gradient型の自由エネルギーを一般の組成場に対する汎関数として整理し、保存則と組み合わせて相分離動力学へ発展させる。しかし静的な界面論の骨格だけを見れば、van der Waalsから続く同じsquare-gradient familyにある。
 
-となる。
-
-このあと歴史的には、square-gradient的な界面理論は後のLandau–GinzburgやCahn–Hilliardへ整理・一般化されていく。一方、液体固有のpackingや有限波数構造を保持するには、さらに非局所な液体論へ進む必要がある。
+一方、液体固有のpackingやfinite-$k$ structureを保持する方向は、square-gradientをさらに一般化するというより、そこで捨てた**非局所なbulk correlation**へ戻る方向である。
 
 ## References
 
