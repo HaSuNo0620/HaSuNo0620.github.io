@@ -8,7 +8,7 @@ topics: ["interfacial physics", "surface thermodynamics", "Gibbs dividing surfac
 status: growing
 ---
 
-[前のNote](/notes/young-laplace-coarse-graining/)では、Young–Laplace式を、界面内部の複雑な構造を表面張力 $\gamma$ という一個の量へ縮約した**力学的な界面法則**として捉えた。球面なら $\Delta p=2\gamma/R$、一般曲面なら $\Delta p=\gamma(1/R_1+1/R_2)$ である。
+[前のNote](/notes/young-laplace-coarse-graining/)では、Young–Laplace式を、界面内部の複雑な構造を表面張力 $\gamma$ という一個の量へ縮約した**力学的な界面法則**として捉えた。球面では $R$ を曲率半径とすれば $\Delta p=2\gamma/R$ となる。
 
 ここでは、その次にGibbsが何を加え、さらにTolmanが曲率の問題をどのように持ち込んだのかを一つの流れとして整理する。
 
@@ -30,11 +30,11 @@ Gibbsはこの問題に対して、界面領域の境界を決めるのではな
 
 平面界面を考え、dividing surfaceを $z=z_0$ に置く。成分 $i$ の参照密度は、左側ではbulk値 $\rho_i^\alpha$、右側ではbulk値 $\rho_i^\beta$ をそのままdividing surfaceまで外挿したものとする。
 
-実際の密度 $\rho_i(z)$ との差を積分して、面積あたりのsurface excessを
+実際の密度 $\rho_i(z)$ との差を積分すると、面積あたりのsurface excessは
 
 $$\Gamma_i(z_0)=\int_{-\infty}^{z_0}[\rho_i(z)-\rho_i^\alpha]dz+\int_{z_0}^{\infty}[\rho_i(z)-\rho_i^\beta]dz$$
 
-と定義する。
+と書ける。
 
 ここで重要なのは、$\Gamma_i$ が「界面スラブの中に実際に存在する分子数」ではないことである。これは、実在系から二つのbulk相を仮想的に外挿した参照系を引いた**差分量**である。
 
@@ -42,19 +42,35 @@ $$\Gamma_i(z_0)=\int_{-\infty}^{z_0}[\rho_i(z)-\rho_i^\alpha]dz+\int_{z_0}^{\inf
 
 ## dividing surfaceを動かすとexcessは変わる
 
-$z_0$ を $z_0\to z_0+\delta z$ と動かしても、実際の界面は何も変わらない。それにもかかわらずsurface excessは $\delta\Gamma_i=(\rho_i^\beta-\rho_i^\alpha)\delta z$ だけ変化する。
+$z_0$ を $z_0\to z_0+\delta z$ と動かしても、実際の界面は何も変わらない。それにもかかわらずsurface excessは
 
-$\Delta\rho_i=\rho_i^\beta-\rho_i^\alpha$ と置けば、変換は $\Gamma_i\to\Gamma_i+\Delta\rho_i\,\delta z$ と書ける。
+$$\delta\Gamma_i=(\rho_i^\beta-\rho_i^\alpha)\delta z$$
+
+だけ変化する。
+
+密度差を $\Delta\rho_i=\rho_i^\beta-\rho_i^\alpha$ と定義すれば、変換は
+
+$$\Gamma_i\longrightarrow\Gamma_i+\Delta\rho_i\,\delta z$$
+
+と書ける。
 
 一見すると、界面の吸着量が任意に変わってしまうように見える。しかし変わっているのは物理状態ではない。同じ実在系を「bulk $\alpha$ + surface + bulk $\beta$」へどう分配したかだけである。
 
 ## dividing-surface freedomはゲージ冗長性と読める
 
-surface excess vectorを $\boldsymbol{\Gamma}=(\Gamma_1,\ldots,\Gamma_n)$ とする。dividing surfaceの移動は $\boldsymbol{\Gamma}\to\boldsymbol{\Gamma}+\lambda\Delta\boldsymbol{\rho}$ と書ける。ここで $\lambda$ はdividing surfaceの変位である。
+surface excess vectorを $\boldsymbol{\Gamma}=(\Gamma_1,\ldots,\Gamma_n)$、bulk密度差のベクトルを $\Delta\boldsymbol{\rho}$ と書く。dividing surfaceを $\lambda$ だけ動かすと
+
+$$\boldsymbol{\Gamma}\longrightarrow\boldsymbol{\Gamma}+\lambda\Delta\boldsymbol{\rho}$$
+
+となる。
 
 実在する界面は同一なので、物理的に意味を持つのは一つの $\boldsymbol{\Gamma}$ そのものではなく、$\boldsymbol{\Gamma}+\lambda\Delta\boldsymbol{\rho}$ で互いに移り合う記述の同値類だと考えられる。
 
-形式的には、surface-excess space $\mathbb R^n$ から $\Delta\boldsymbol{\rho}$ 方向の冗長性を割った商空間 $\mathbb R^n/\operatorname{span}\{\Delta\boldsymbol{\rho}\}$ に物理情報が存在すると見ることができる。
+形式的には、surface-excess spaceからこの冗長な方向を割った
+
+$$\mathbb R^n/\operatorname{span}\{\Delta\boldsymbol{\rho}\}$$
+
+に物理情報が存在すると見ることができる。
 
 この意味で、Gibbs dividing surfaceの任意性は単なる曖昧さではなく、**記述のゲージ冗長性**と解釈できる。
 
@@ -62,9 +78,17 @@ surface excess vectorを $\boldsymbol{\Gamma}=(\Gamma_1,\ldots,\Gamma_n)$ とす
 
 ## Gibbs adsorption equationはなぜゲージ不変なのか
 
-界面熱力学では、Gibbs adsorption equation $d\gamma=-s^\sigma dT-\sum_i\Gamma_i d\mu_i$ が得られる。ところが各 $\Gamma_i$ はdividing surfaceに依存する。
+界面熱力学では、Gibbs adsorption equation
 
-それでも式全体が物理的に意味を持つのは、bulkのGibbs–Duhem関係があるからである。各相では $dp^\alpha=s^\alpha dT+\sum_i\rho_i^\alpha d\mu_i$、$dp^\beta=s^\beta dT+\sum_i\rho_i^\beta d\mu_i$ である。
+$$d\gamma=-s^\sigma dT-\sum_i\Gamma_i d\mu_i$$
+
+が得られる。ところが各 $\Gamma_i$ はdividing surfaceに依存する。
+
+それでも式全体が物理的に意味を持つのは、bulkのGibbs–Duhem関係があるからである。各相では
+
+$$\begin{aligned}dp^\alpha&=s^\alpha dT+\sum_i\rho_i^\alpha d\mu_i,\\ dp^\beta&=s^\beta dT+\sum_i\rho_i^\beta d\mu_i\end{aligned}$$
+
+である。
 
 平面界面の二相共存に沿っては $dp^\alpha=dp^\beta$ なので、
 
@@ -72,13 +96,21 @@ $$(s^\beta-s^\alpha)dT+\sum_i(\rho_i^\beta-\rho_i^\alpha)d\mu_i=0$$
 
 となる。
 
-したがって、dividing surfaceを動かしたときにsurface excessへ加わる $\Delta\boldsymbol{\rho}$ 方向の成分は、許された熱力学的変化に寄与しない。定温なら $\Delta\boldsymbol{\rho}\cdot d\boldsymbol{\mu}=0$ であり、$(\boldsymbol{\Gamma}+\lambda\Delta\boldsymbol{\rho})\cdot d\boldsymbol{\mu}=\boldsymbol{\Gamma}\cdot d\boldsymbol{\mu}$ となる。
+したがって、dividing surfaceを動かしたときにsurface excessへ加わる $\Delta\boldsymbol{\rho}$ 方向の成分は、許された熱力学的変化に寄与しない。定温では $\Delta\boldsymbol{\rho}\cdot d\boldsymbol{\mu}=0$ であり、実際に
+
+$$(\boldsymbol{\Gamma}+\lambda\Delta\boldsymbol{\rho})\cdot d\boldsymbol{\mu}=\boldsymbol{\Gamma}\cdot d\boldsymbol{\mu}$$
+
+となる。
 
 つまりGibbs adsorption equationが見るのは、surface excessの**ゲージ不変な成分**だけである。
 
 ## relative adsorptionはゲージ不変量になる
 
-二成分系なら、$\Gamma_2^{(1)}=\Gamma_2-(\Delta\rho_2/\Delta\rho_1)\Gamma_1$ という組合せを作れる。
+二成分系なら、relative adsorptionを
+
+$$\Gamma_2^{(1)}=\Gamma_2-\frac{\Delta\rho_2}{\Delta\rho_1}\Gamma_1$$
+
+と書ける。
 
 dividing surfaceを動かして $\Gamma_i\to\Gamma_i+\lambda\Delta\rho_i$ としても $\Gamma_2^{(1)}$ は変化しない。したがって、物理的な吸着を考えるときには、absoluteな $\Gamma_i$ よりも、このような**relative adsorption**が本質になる。
 
@@ -94,9 +126,17 @@ dividing surfaceを動かして $\Gamma_i\to\Gamma_i+\lambda\Delta\rho_i$ とし
 
 平面界面では、dividing surfaceの位置を動かしても表面張力 $\gamma$ は変わらない。しかし球形界面では事情が変わる。
 
-半径 $R$ の任意のdividing surfaceを選び、液滴のgrand potentialを $\Omega=-p_lV_l(R)-p_vV_v(R)+\gamma(R)A(R)$ と分解する。
+半径 $R$ の任意のdividing surfaceを選ぶと、液滴のgrand potentialは
 
-ここで物理的な液滴自体は固定したまま、帳簿上のdividing surfaceだけを動かす。球では $dV_l/dR=A$、$dA/dR=2A/R$ なので、$d\Omega/dR=0$ から
+$$\Omega=-p_lV_l(R)-p_vV_v(R)+\gamma(R)A(R)$$
+
+と分解できる。
+
+ここで物理的な液滴自体は固定したまま、帳簿上のdividing surfaceだけを動かす。球では
+
+$$\frac{dV_l}{dR}=A,\qquad \frac{dA}{dR}=\frac{2A}{R}$$
+
+なので、notionalな変化に対して $d\Omega/dR=0$ を課すと
 
 $$\Delta p=\frac{2\gamma(R)}{R}+\left[\frac{d\gamma}{dR}\right]_{\mathrm{notional}}$$
 
@@ -108,9 +148,13 @@ $$\Delta p=\frac{2\gamma(R)}{R}+\left[\frac{d\gamma}{dR}\right]_{\mathrm{notiona
 
 ## surface of tensionは力学的に特別な代表面である
 
-notional derivativeがゼロになる半径 $R_s$、すなわち $[d\gamma/dR]_{R_s}=0$ を満たすdividing surfaceを **surface of tension** と呼ぶ。
+notional derivativeがゼロになる半径を $R_s$ と書き、これを **surface of tension** と呼ぶ。定義条件は $[d\gamma/dR]_{R_s}=0$ である。
 
-この面では一般化されたLaplace式が $\Delta p=2\gamma_s/R_s$ へ戻る。つまりsurface of tensionは、**Young–Laplaceの力学的形を最も単純にするdividing surface**である。
+この面では一般化されたLaplace式が
+
+$$\Delta p=\frac{2\gamma_s}{R_s}$$
+
+へ戻る。つまりsurface of tensionは、**Young–Laplaceの力学的形を最も単純にするdividing surface**である。
 
 ゲージという見方を採用するなら、equimolar surfaceは物質量の条件で代表面を選び、surface of tensionは力学的条件で代表面を選ぶ。両者は同じdividing-surface freedomに対する、異なる二つの代表面選択だと読むことができる。
 
