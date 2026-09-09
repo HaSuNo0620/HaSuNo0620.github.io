@@ -2,6 +2,7 @@
 title: "1次元イジング模型の厳密解 (1) — 転送行列法"
 summary: "周期境界条件の1次元イジング模型を転送行列で書き、固有値から熱力学極限の自由エネルギーを得る。"
 publishedAt: 2025-05-27T21:25:00+09:00
+area: "Physics"
 topics: ["statistical mechanics", "Ising model", "linear algebra"]
 status: growing
 ---
