@@ -32,12 +32,7 @@ Gibbsはこの問題に対して、界面領域の境界を決めるのではな
 
 実際の密度 $\rho_i(z)$ との差を積分して、面積あたりのsurface excessを
 
-$$
-\Gamma_i(z_0)=
-\int_{-\infty}^{z_0}\!\left[\rho_i(z)-\rho_i^\alpha\right]dz
-+
-\int_{z_0}^{\infty}\!\left[\rho_i(z)-\rho_i^\beta\right]dz
-$$
+$$\Gamma_i(z_0)=\int_{-\infty}^{z_0}[\rho_i(z)-\rho_i^\alpha]dz+\int_{z_0}^{\infty}[\rho_i(z)-\rho_i^\beta]dz$$
 
 と定義する。
 
@@ -73,11 +68,7 @@ surface excess vectorを $\boldsymbol{\Gamma}=(\Gamma_1,\ldots,\Gamma_n)$ とす
 
 平面界面の二相共存に沿っては $dp^\alpha=dp^\beta$ なので、
 
-$$
-(s^\beta-s^\alpha)dT
-+
-\sum_i(\rho_i^\beta-\rho_i^\alpha)d\mu_i=0
-$$
+$$(s^\beta-s^\alpha)dT+\sum_i(\rho_i^\beta-\rho_i^\alpha)d\mu_i=0$$
 
 となる。
 
@@ -107,13 +98,7 @@ dividing surfaceを動かして $\Gamma_i\to\Gamma_i+\lambda\Delta\rho_i$ とし
 
 ここで物理的な液滴自体は固定したまま、帳簿上のdividing surfaceだけを動かす。球では $dV_l/dR=A$、$dA/dR=2A/R$ なので、$d\Omega/dR=0$ から
 
-$$
-\Delta p
-=
-\frac{2\gamma(R)}{R}
-+
-\left[\frac{d\gamma}{dR}\right]_{\mathrm{notional}}
-$$
+$$\Delta p=\frac{2\gamma(R)}{R}+\left[\frac{d\gamma}{dR}\right]_{\mathrm{notional}}$$
 
 を得る。
 
@@ -139,24 +124,11 @@ notional derivativeがゼロになる半径 $R_s$、すなわち $[d\gamma/dR]_{
 
 ## Tolman length
 
-Tolman lengthは、大きな液滴すなわち平面極限でのこの差として
-
-$\delta_\infty=\lim_{R_s\to\infty}(R_e-R_s)$
-
-と定義する。このNoteではこの符号規約を用いる。
+Tolman lengthは、大きな液滴すなわち平面極限での差 $\delta_\infty=\lim_{R_s\to\infty}(R_e-R_s)$ と定義する。このNoteではこの符号規約を用いる。
 
 Tolmanの理論では、$\delta(R_s)$ が十分滑らかに平面極限へ近づくとき、surface of tensionにおける表面張力は大半径で
 
-$$
-\gamma_s(R_s)
-=
-\gamma_\infty
-\left[
-1-
-\frac{2\delta_\infty}{R_s}
-+O(R_s^{-2})
-\right]
-$$
+$$\gamma_s(R_s)=\gamma_\infty\left[1-\frac{2\delta_\infty}{R_s}+O(R_s^{-2})\right]$$
 
 と展開される。
 
