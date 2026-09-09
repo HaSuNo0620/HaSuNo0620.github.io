@@ -3,53 +3,99 @@ layout: default
 title: Home
 ---
 
-<section class="hero">
-  <p class="eyebrow">HaSuNo0620 / personal notes & experiments</p>
-  <h1>考えたこと、作ったもの、<br>途中のもの。</h1>
-  <p class="hero-lead">
-    物理や数学を考えたり、コードを書いたり、作品について考えたり。
-    ここは、完成品だけでなく途中の思考も置いておくための個人的な場所です。
-  </p>
-  <div class="hero-actions">
-    <a class="button button-primary" href="{{ '/notes/' | relative_url }}">Notes を読む</a>
-    <a class="button button-ghost" href="{{ '/about/' | relative_url }}">About</a>
+<section class="garden-hero">
+  <div class="garden-hero-copy">
+    <p class="site-kicker">HaSuNo0620 / somewhere on the web</p>
+    <h1>気になったものを、<br>気になったまま置いておく。</h1>
+    <p class="garden-lead">
+      物理、数学、コード、作品について考えたこと。
+      まとまったものも、まだ途中のものも、あとで拾い直せるように残しています。
+    </p>
+  </div>
+
+  <aside class="now-note" aria-label="このサイトにあるもの">
+    <p class="scribble-label">on this desk</p>
+    <ul>
+      <li>physics / math</li>
+      <li>simulation / code</li>
+      <li>anime / manga</li>
+      <li>unfinished thoughts</li>
+    </ul>
+    <span class="now-note-mark" aria-hidden="true">↘</span>
+  </aside>
+</section>
+
+<nav class="garden-paths" aria-label="サイトの入口">
+  <a href="{{ '/notes/' | relative_url }}">
+    <span class="path-no">01</span>
+    <span class="path-main">Notes</span>
+    <span class="path-sub">勉強、計算、実装、考察</span>
+    <span class="path-arrow" aria-hidden="true">→</span>
+  </a>
+  <a href="{{ '/about/' | relative_url }}">
+    <span class="path-no">02</span>
+    <span class="path-main">About</span>
+    <span class="path-sub">この場所と、いまの興味</span>
+    <span class="path-arrow" aria-hidden="true">→</span>
+  </a>
+  <a href="https://github.com/HaSuNo0620">
+    <span class="path-no">03</span>
+    <span class="path-main">GitHub</span>
+    <span class="path-sub">コードと制作物の置き場</span>
+    <span class="path-arrow" aria-hidden="true">↗</span>
+  </a>
+</nav>
+
+<section class="interest-strip" aria-label="興味の領域">
+  <p class="scribble-label">things keep crossing</p>
+  <div class="interest-line">
+    <span>statistical mechanics</span>
+    <i>×</i>
+    <span>soft matter</span>
+    <i>×</i>
+    <span>mathematics</span>
+    <i>×</i>
+    <span>simulation</span>
+    <i>×</i>
+    <span>code</span>
+    <i>×</i>
+    <span>anime & manga</span>
   </div>
 </section>
 
-<section class="home-grid" aria-label="このサイトについて">
-  <article class="home-card">
-    <span class="card-index">01</span>
-    <h2>考える</h2>
-    <p>物理、数学、統計力学、その周辺。理解したことだけでなく、考えている途中も残します。</p>
-  </article>
-  <article class="home-card">
-    <span class="card-index">02</span>
-    <h2>作る</h2>
-    <p>コード、小さなツール、実験的なプロジェクト。完成度よりも、試したことを記録します。</p>
-  </article>
-  <article class="home-card">
-    <span class="card-index">03</span>
-    <h2>眺める</h2>
-    <p>アニメや漫画をはじめ、気になったものを自分なりの視点で眺め直します。</p>
-  </article>
-</section>
-
-<section class="recent-notes">
+<section class="recent-notes garden-recent">
   <div class="section-heading-row">
     <div>
-      <p class="eyebrow">Recent</p>
+      <p class="scribble-label">recent fragments</p>
       <h2>最近の Notes</h2>
     </div>
-    <a class="text-link" href="{{ '/notes/' | relative_url }}">すべて見る →</a>
+    <a class="text-link" href="{{ '/notes/' | relative_url }}">archive →</a>
   </div>
 
   <div class="note-list-simple">
-    {% for post in site.posts limit:3 %}
+    {% for post in site.posts limit:4 %}
       <a class="note-row" href="{{ post.url | relative_url }}">
         <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time>
-        <span class="note-row-title">{{ post.title | escape }}</span>
+        <span>
+          <span class="note-row-title">{{ post.title | escape }}</span>
+          {% if post.categories.size > 0 or post.tags.size > 0 %}
+            <span class="note-row-meta">
+              {% if post.categories.size > 0 %}{{ post.categories | join: " / " }}{% endif %}
+              {% if post.categories.size > 0 and post.tags.size > 0 %} · {% endif %}
+              {% if post.tags.size > 0 %}{{ post.tags | join: " / " }}{% endif %}
+            </span>
+          {% endif %}
+        </span>
         <span class="note-arrow" aria-hidden="true">↗</span>
       </a>
     {% endfor %}
   </div>
+</section>
+
+<section class="site-note">
+  <p class="scribble-label">note</p>
+  <p>
+    このサイトは完成させるものというより、使いながら少しずつ形を変えていく場所です。
+    古いノートも、そのとき何を考えていたかの記録として残しています。
+  </p>
 </section>
