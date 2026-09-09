@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Now" description="いま考えていること、勉強していること、育てているテーマ。">
+  <section class="index-intro">
+    <p class="section-label">now / 2026.09</p>
+    <h1>Now</h1>
+    <p>
+      長期的な肩書きではなく、いま頭の中を回っているもの。<br />
+      興味が移れば、このページもそのまま書き換わります。
+    </p>
+  </section>
+
+  <div class="now-grid">
+    <section class="now-thread">
+      <span>01 / interfaces</span>
+      <h2>界面を、微視的構造から考える</h2>
+      <p>
+        固体近傍の液体で生じる layering、相関、自由エネルギー、濡れ。
+        巨視的な境界条件がどのスケールから現れるのかを、統計力学からつなげて考えたい。
+      </p>
+      <a href="/notes/interface-thinking-map/">界面の見取り図 →</a>
+    </section>
+
+    <section class="now-thread">
+      <span>02 / asymptotics</span>
+      <h2>スケールが分かれるときの数学</h2>
+      <p>
+        境界層、WKB、多重尺度法、特異摂動。
+        近似公式を覚えるより、どの極限で何が失われ、どの座標を導入すると構造が戻るのかに興味がある。
+      </p>
+      <a href="/notes/asymptotic-analysis-map/">漸近解析の見取り図 →</a>
+    </section>
+
+    <section class="now-thread">
+      <span>03 / special functions</span>
+      <h2>特殊関数を「個別の公式」にしない</h2>
+      <p>
+        楕円積分、Jacobi楕円関数、Weierstrass関数、複素トーラス。
+        関数を暗記するのではなく、なぜその関数が必要になり、どんな幾何や微分方程式とつながるのかを見渡したい。
+      </p>
+      <a href="/notes/elliptic-functions-map/">楕円関数の見取り図 →</a>
+    </section>
+
+    <section class="now-thread">
+      <span>04 / representations</span>
+      <h2>先に分類軸を決めない分析</h2>
+      <p>
+        アニメ作品のような複雑な対象を、既存ジャンルへ押し込む前に高次元表現へ置く。
+        類似度、埋め込み、クラスタ、境界例から、作品群の側にある構造を見つけたい。
+      </p>
+      <a href="/notes/anime-vector-analysis/">ベクトル分析のメモ →</a>
+    </section>
+  </div>
+
+  <aside class="now-footnote">
+    <span>✳</span>
+    <p>Last updated: 2026.09.09 — 「Now」は固定プロフィールではなく、その時点の作業机のスナップショットです。</p>
+  </aside>
+</BaseLayout>
