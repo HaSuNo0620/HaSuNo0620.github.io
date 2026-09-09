@@ -2,6 +2,7 @@
 title: "楕円関数をどう見渡すか — 積分の逆関数から複素トーラスまで"
 summary: "楕円積分の逆関数としてのJacobi楕円関数と、二重周期関数としてのWeierstrass楕円関数をひとつの地図に置く。"
 publishedAt: 2026-09-09T18:30:00+09:00
+area: "Mathematics"
 topics: ["elliptic functions", "special functions", "complex analysis"]
 status: growing
 ---
