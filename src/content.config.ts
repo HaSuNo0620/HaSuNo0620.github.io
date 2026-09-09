@@ -9,6 +9,7 @@ const notes = defineCollection({
     summary: z.string(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
+    area: z.enum(['Physics', 'Mathematics', 'Computing', 'Culture & Media']),
     topics: z.array(z.string()).default([]),
     status: z.enum(['seed', 'growing', 'evergreen']).default('growing'),
     draft: z.boolean().default(false),
