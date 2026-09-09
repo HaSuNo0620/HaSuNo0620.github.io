@@ -1,0 +1,15 @@
+---
+const path = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <a class="site-mark" href="/" aria-label="Home">
+    <span class="site-mark-dot"></span>
+    <span>HaSuNo0620</span>
+  </a>
+  <nav aria-label="Primary navigation">
+    <a href="/notes/" aria-current={path.startsWith('/notes') ? 'page' : undefined}>Notes</a>
+    <a href="/about/" aria-current={path.startsWith('/about') ? 'page' : undefined}>About</a>
+    <a href="https://github.com/HaSuNo0620" target="_blank" rel="noreferrer">GitHub ↗</a>
+  </nav>
+</header>
