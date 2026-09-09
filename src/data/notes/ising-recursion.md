@@ -2,6 +2,7 @@
 title: "1次元イジング模型の厳密解 (2) — 再帰的構成"
 summary: "開境界条件で最後のスピンを固定した部分分配関数を導入し、分配関数を再帰的に構成する。"
 publishedAt: 2025-05-27T21:30:00+09:00
+area: "Physics"
 topics: ["statistical mechanics", "Ising model", "recursion"]
 status: growing
 ---
