@@ -1,59 +1,428 @@
 ---
 ---
-// ↑ この2行の --- の間には、何も書かないでください。(コメントも空白行も不要です)
-//   また、1行目の --- の前にも何もあってはいけません。
 
-// Minimaのデフォルトスタイルをインポートします
 @import "minima";
 
-// ここから下に独自のスタイルを記述していきます
+:root {
+  --bg: #f7f7f4;
+  --surface: #ffffff;
+  --surface-soft: #efefea;
+  --text: #1d1f21;
+  --muted: #6d706f;
+  --line: #d9d9d2;
+  --accent: #465b73;
+  --accent-soft: #dfe7ee;
+  --shadow: 0 16px 40px rgba(24, 28, 32, 0.06);
+}
 
-// 例1: サイト全体の背景色を変える
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background-color: #f0f8ff; // アリスブルーという薄い青色
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
 }
 
-// 例2: サイトのヘッダーの背景色を変える
+.wrapper {
+  max-width: 960px;
+  padding-right: 28px;
+  padding-left: 28px;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: var(--text);
+}
+
 .site-header {
-  background-color: #333; // 暗い灰色
-  border-top-color: #007bff; // 上部のボーダーを青色に
-  border-bottom-color: #007bff; // 下部のボーダーを青色に
+  min-height: 68px;
+  border-top: 0;
+  border-bottom: 1px solid var(--line);
+  background: rgba(247, 247, 244, 0.92);
+  backdrop-filter: blur(14px);
 }
 
-// 例3: 記事のタイトル (h1, h2) の色を変える
-h1, h2 {
-  color: #d9534f; // 少し暗めの赤色
+.site-title,
+.site-title:visited {
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 68px;
 }
 
-// --- カテゴリ・タグリンクのスタイル ---
-
-// 共通のベーススタイル
-.category-link, .tag-link {
-  display: inline-block; // 横並びで、padding や margin を正しく適用するため
-  padding: 4px 10px;     // 上下4px、左右10pxの余白 (お好みで調整)
-  margin-right: 6px;     // 右隣の要素との間隔
-  margin-bottom: 6px;    // 下の行との間隔 (複数行になる場合)
-  font-size: 0.85em;     // 通常の文字より少し小さく
-  color: #ffffff;        // 文字色 (白)
-  text-decoration: none; // デフォルトの下線を消す
-  border-radius: 4px;    // 角を少し丸くする (お好みで調整)
-  transition: background-color 0.2s ease-in-out; // ホバー時の背景色変化を滑らかに
+.site-nav {
+  line-height: 68px;
 }
 
-// カテゴリリンクの個別スタイル
-.category-link {
-  background-color: #4a86e8; // 例: ブルー系の背景色 (テーマカラーなどに合わせて変更してください)
+.site-nav .page-link {
+  color: var(--muted);
+  font-size: 14px;
+  margin-left: 28px;
+  text-decoration: none;
+}
 
-  &:hover {
-    background-color: #357ae8; // ホバー時: 少し濃いブルー
+.site-nav .page-link:hover {
+  color: var(--text);
+}
+
+.page-content {
+  padding: 72px 0 88px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+h1 {
+  line-height: 1.25;
+}
+
+h2 {
+  margin-top: 2.2em;
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero {
+  padding: 28px 0 84px;
+}
+
+.hero h1 {
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(42px, 7vw, 78px);
+  font-weight: 650;
+  letter-spacing: -0.065em;
+  line-height: 1.08;
+}
+
+.hero-lead {
+  max-width: 680px;
+  margin: 30px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.9;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.button-primary {
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--bg) !important;
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--text) !important;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 0 92px;
+}
+
+.home-card {
+  min-height: 240px;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.home-card .card-index {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+}
+
+.home-card h2 {
+  margin: 44px 0 12px;
+  font-size: 24px;
+}
+
+.home-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.recent-notes {
+  padding-top: 8px;
+}
+
+.section-heading-row {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.section-heading-row h2 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.text-link {
+  color: var(--muted);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.note-list-simple {
+  border-top: 1px solid var(--line);
+}
+
+.note-row {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 21px 2px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.note-row:hover .note-row-title {
+  color: var(--accent);
+}
+
+.note-row time {
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+}
+
+.note-row-title {
+  font-weight: 600;
+}
+
+.note-arrow {
+  color: var(--muted);
+}
+
+.about-intro {
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 42px;
+}
+
+.about-intro h1 {
+  margin: 0 0 20px;
+  font-size: clamp(42px, 7vw, 68px);
+}
+
+.about-lead {
+  max-width: 720px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.9;
+}
+
+.page-heading,
+.post-title {
+  font-size: clamp(38px, 6vw, 56px);
+}
+
+.post-list-heading {
+  margin-top: 32px;
+  color: var(--muted);
+  font-size: 13px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.post-list > li {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+  margin: 0;
+}
+
+.post-list > li:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.post-link {
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.post-meta,
+.post-categories,
+.post-tags {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.category-link,
+.tag-link {
+  display: inline-block;
+  margin: 4px 4px 0 0;
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.category-link:hover,
+.tag-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.post-content {
+  font-size: 16px;
+}
+
+.post-content p,
+.post-content li {
+  line-height: 1.9;
+}
+
+.post-content pre,
+.post-content code {
+  border-color: var(--line);
+  background: var(--surface-soft);
+}
+
+.site-footer {
+  padding: 34px 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 12px;
+}
+
+.footer-inner p {
+  margin: 0;
+}
+
+.footer-inner a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+@media (max-width: 720px) {
+  .wrapper {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .page-content {
+    padding-top: 48px;
+  }
+
+  .hero {
+    padding-bottom: 56px;
+  }
+
+  .hero h1 br {
+    display: none;
+  }
+
+  .home-grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 64px;
+  }
+
+  .home-card {
+    min-height: 190px;
+  }
+
+  .home-card h2 {
+    margin-top: 28px;
+  }
+
+  .note-row {
+    grid-template-columns: 90px 1fr auto;
+    gap: 12px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
   }
 }
 
-// タグリンクの個別スタイル
-.tag-link {
-  background-color: #6c757d; // 例: グレー系の背景色 (テーマカラーなどに合わせて変更してください)
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17191b;
+    --surface: #202326;
+    --surface-soft: #272a2d;
+    --text: #f0f1ed;
+    --muted: #a3a8a5;
+    --line: #363a3c;
+    --accent: #b8cce0;
+    --accent-soft: #26394c;
+    --shadow: none;
+  }
 
-  &:hover {
-    background-color: #5a6268; // ホバー時: 少し濃いグレー
+  .site-header {
+    background: rgba(23, 25, 27, 0.9);
   }
 }
