@@ -30,6 +30,8 @@ const formatDate = (date: Date) => date.toLocaleDateString('ja-JP', {
     </p>
     <div class="hero-links">
       <a href="/notes/">Notes を歩く <span>→</span></a>
+      <a href="/topics/">Topics から辿る <span>→</span></a>
+      <a href="/now/">いま考えていること <span>→</span></a>
       <a href="/about/">この場所について <span>→</span></a>
     </div>
     <div class="hero-orbit" aria-hidden="true">
@@ -38,7 +40,10 @@ const formatDate = (date: Date) => date.toLocaleDateString('ja-JP', {
   </section>
 
   <section class="garden-section">
-    <div class="section-label">now orbiting</div>
+    <div class="section-heading compact-heading">
+      <div class="section-label">now orbiting</div>
+      <a href="/topics/">topic map →</a>
+    </div>
     <div class="topic-field">
       {topics.length > 0 ? topics.map(([topic, count], index) => (
         <span class={`floating-topic float-${(index % 6) + 1}`}>{topic}<sup>{count}</sup></span>
