@@ -44,3 +44,26 @@ const areaId = (area: string) => area.toLowerCase().replace(/[^a-z0-9]+/g, '-').
     ))}
   </div>
 </BaseLayout>
+
+<style>
+  .index-title-line h2 a,
+  .index-arrow,
+  .topic-link {
+    text-decoration: none;
+  }
+
+  .index-title-line h2 a:hover,
+  .index-arrow:hover,
+  .topic-link:hover {
+    color: var(--accent);
+  }
+
+  .topic-link {
+    color: var(--accent);
+  }
+
+  .topic-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+</style>
