@@ -1,8 +1,9 @@
 """Shared Matplotlib figure style for HaSuNo0620.github.io.
 
-Figure Style v1.2 prioritizes browser readability: large mathematical labels,
-large legends, heavy data/theory strokes, and transparent figures that visually
-belong to the page.
+Figure Style v1.3 prioritizes browser readability: large labels and legends,
+heavy data/theory strokes, transparent figures, and conventional mathematical
+typography. Variables are italic inside mathtext; prose is never put in math
+mode, and operators/units should use their standard upright forms.
 """
 from __future__ import annotations
 
@@ -103,7 +104,6 @@ def apply_site_style() -> None:
                 "DejaVu Sans",
             ],
             "mathtext.fontset": "stix",
-            "mathtext.default": "it",
             "axes.formatter.use_mathtext": True,
             "text.color": COLORS["ink"],
             "lines.linewidth": LINEWIDTH["primary"],
