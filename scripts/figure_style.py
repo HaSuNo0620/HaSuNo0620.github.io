@@ -1,7 +1,8 @@
 """Shared Matplotlib figure style for HaSuNo0620.github.io.
 
-Figure Style v1.1 prioritizes browser readability: larger text, heavier strokes,
-and transparent figures that visually belong to the page.
+Figure Style v1.2 prioritizes browser readability: large mathematical labels,
+large legends, heavy data/theory strokes, and transparent figures that visually
+belong to the page.
 """
 from __future__ import annotations
 
@@ -33,29 +34,29 @@ FIGSIZE_WIDE = (7.6, 3.6)
 FIGSIZE_TALL = (7.6, 5.2)
 
 FONT_SIZE = {
-    "axis": 17,
-    "tick": 14,
-    "legend": 14,
-    "annotation": 15,
-    "panel": 16,
+    "axis": 19,
+    "tick": 16,
+    "legend": 18,
+    "annotation": 17,
+    "panel": 18,
 }
 
 LINEWIDTH = {
-    "primary": 3.2,
-    "secondary": 2.6,
-    "reference": 1.5,
-    "axis": 1.4,
-    "grid": 0.9,
-    "errorbar": 1.5,
+    "primary": 4.5,
+    "secondary": 3.6,
+    "reference": 2.0,
+    "axis": 1.8,
+    "grid": 1.1,
+    "errorbar": 1.8,
 }
 
-MARKERSIZE = 7.0
+MARKERSIZE = 8.5
 
 SERIES_STYLES = (
-    {"linestyle": "-", "linewidth": 3.2},
-    {"linestyle": "--", "linewidth": 2.6},
-    {"linestyle": ":", "linewidth": 2.6},
-    {"linestyle": "-.", "linewidth": 2.6},
+    {"linestyle": "-", "linewidth": 4.5},
+    {"linestyle": "--", "linewidth": 3.6},
+    {"linestyle": ":", "linewidth": 3.6},
+    {"linestyle": "-.", "linewidth": 3.6},
 )
 
 
@@ -86,7 +87,7 @@ def apply_site_style() -> None:
             "axes.axisbelow": True,
             "grid.color": COLORS["line"],
             "grid.linewidth": LINEWIDTH["grid"],
-            "grid.alpha": 0.52,
+            "grid.alpha": 0.48,
             "xtick.color": COLORS["muted"],
             "ytick.color": COLORS["muted"],
             "xtick.labelsize": FONT_SIZE["tick"],
@@ -101,6 +102,9 @@ def apply_site_style() -> None:
                 "Yu Gothic",
                 "DejaVu Sans",
             ],
+            "mathtext.fontset": "stix",
+            "mathtext.default": "it",
+            "axes.formatter.use_mathtext": True,
             "text.color": COLORS["ink"],
             "lines.linewidth": LINEWIDTH["primary"],
             "lines.markersize": MARKERSIZE,
@@ -129,7 +133,7 @@ def style_axes(ax, *, xlabel=None, ylabel=None, grid=True, zero_x=False, zero_y=
     ax.spines["right"].set_visible(False)
     ax.spines["left"].set_color(COLORS["ink"])
     ax.spines["bottom"].set_color(COLORS["ink"])
-    ax.tick_params(axis="both", which="major", length=5, width=1.2)
+    ax.tick_params(axis="both", which="major", length=5.5, width=1.4)
     ax.grid(grid, which="major")
     ax.grid(False, which="minor")
     if zero_x:
@@ -158,7 +162,7 @@ def plot_data(ax, x, y, *, yerr=None, label=None, marker="o", **kwargs):
         "mec": COLORS["ink"],
         "mfc": COLORS["paper"],
         "elinewidth": LINEWIDTH["errorbar"],
-        "capsize": 3.0,
+        "capsize": 3.5,
         "linestyle": "none",
         "label": label,
     }
@@ -171,7 +175,12 @@ def shade_uncertainty(ax, x, lower, upper, *, color=None, alpha=0.15, **kwargs):
 
 
 def direct_label(ax, x: float, y: float, text: str, *, color=None, **kwargs):
-    defaults = {"fontsize": FONT_SIZE["annotation"], "color": color or COLORS["ink"], "ha": "left", "va": "center"}
+    defaults = {
+        "fontsize": FONT_SIZE["annotation"],
+        "color": color or COLORS["ink"],
+        "ha": "left",
+        "va": "center",
+    }
     defaults.update(kwargs)
     return ax.text(x, y, text, **defaults)
 
