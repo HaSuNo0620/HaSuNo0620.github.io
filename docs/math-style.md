@@ -1,4 +1,4 @@
-# Math Style v1
+# Math Style v1.1
 
 HaSuNo0620.github.io の本文・キャプション・図で用いる数式表記の共通ルール。目的は、数式を強調しすぎず本文へ自然に埋め込みつつ、物理量・条件・関係式を通常文と視覚的に区別することである。
 
@@ -42,11 +42,42 @@ HaSuNo0620.github.io の本文・キャプション・図で用いる数式表�
 - 説明的な添字は roman にする：$p_{\mathrm{dw}}$, $F_{\mathrm{visc}}$。
 - 演算子は `\operatorname{}` または標準コマンドを使う：$\operatorname{Tr}$, $\ln$, $\cos$。
 - 単位や語としてのラベルは `\mathrm{}` を使う。
+- 数字・演算子・括弧まで手動で italic にしない。通常の TeX の math class に任せる。
 - 日本語の句読点は原則として数式の外側に置く。
 
-## 5. Markdown / MathJax 安全規則
+## 5. Markdown / MathJax の処理順
 
-Markdown の Setext heading 誤認を避けるため、display math 内で `=` だけの行を作らない。
+このサイトでは `remark-math` を使い、Markdown が通常文として解釈する前に `$...$` と `$$...$$` を math node として保護する。その後 `rehype-mathjax/browser` を介して既存の MathJax に渡す。
+
+この構成により、行列や `aligned` で使う TeX の行区切り `\\` が CommonMark の backslash escape として潰れない。著者側では通常の LaTeX と同じ書き方を使う。
+
+### 行列
+
+```text
+$$
+\begin{pmatrix}
+a & b\\
+c & d
+\end{pmatrix}
+$$
+```
+
+### 複数行の式
+
+```text
+$$
+\begin{aligned}
+A&=B\\
+ &=C.
+\end{aligned}
+$$
+```
+
+Markdown 対策のために `\\` をさらに二重化するような特殊記法は使わない。
+
+## 6. Setext heading との衝突を避ける
+
+math node として保護されるため以前より安全だが、可読性のため display math 内で `=` だけの行は作らない。
 
 避ける：
 
@@ -66,39 +97,32 @@ A=B
 $$
 ```
 
-複数行なら `aligned` を使う。
-
-```text
-$$
-\begin{aligned}
-A&=B\\
- &=C.
-\end{aligned}
-$$
-```
-
-## 6. Captions
+## 7. Captions
 
 図キャプション中の物理量も本文と同じく inline math を使う。たとえば「$q=0$ 周辺に応答が集中する」と書き、code span や raw Unicode で代用しない。
 
-## 7. Headings
+## 8. Headings
 
 見出しに物理量を含める場合も `$R=1$`, `$q\xi$` のように inline math を使う。ただし見出し全体を数式にしない。
 
-## 8. Figure labels
+## 9. Figure labels
 
-図中の変数・式は本文の数式と同じ視覚言語にする。SVG を `<img>` として読み込む場合 MathJax は SVG 内部を組版しないため、変数・式ラベルには数式用 serif / italic font stack を使い、説明語は通常の sans-serif と分ける。
+図中の変数・式は本文の数式と同じ視覚言語にする。ただし SVG を `<img>` として読み込む場合 MathJax は SVG 内部を組版しないので、Figure Style 側で役割を明示的に分ける。
 
-例：軸の $h/J$, $C(r)$, $\chi(q)/\chi(0)$ は math style、`exact`, `low-T asymptote` は text style とする。
+- variable identifier: italic
+- number / operator / punctuation / unit / prose: upright
 
-## 9. Pre-publish checklist
+「数式フォントを使う」ことと「全体を斜体にする」ことは同義ではない。詳細は [`docs/figure-style.md`](figure-style.md) を参照する。
+
+## 10. Pre-publish checklist
 
 - [ ] 本文中の物理量・短い式が `$...$` になっている
 - [ ] code span を数式代わりに使っていない
 - [ ] 短い条件だけの不要な display math がない
 - [ ] display math は中心式・導出・行列などに限定されている
+- [ ] 行列・`aligned` の行区切りが通常の `\\` で書かれている
 - [ ] display math 内に `=` 単独行がない
 - [ ] 説明的添字が roman になっている
 - [ ] caption と figure label の数式表記が本文と一致している
 
-この文書を **Math Style v1** の基準とする。
+この文書を **Math Style v1.1** の基準とする。
