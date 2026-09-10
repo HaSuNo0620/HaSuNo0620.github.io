@@ -504,11 +504,11 @@ $$
 \langle s_i\rangle
 =
 \chi(q)h_q\cos(qi+\phi)
-+O(h_q^2)
++O(h_q^3)
 }
 $$
 
-となる。
+となる。$h_i=0$ を基準とすれば、全スピン反転と $h_q\to-h_q$ の対称性により磁化は $h_q$ の奇関数であり、二次の補正は現れない。
 
 ![空間振動外場と磁化応答](/figures/ising-r1/spatial-field-response.svg)
 
