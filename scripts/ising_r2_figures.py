@@ -125,8 +125,8 @@ def boundary_figure():
           '<text class="legend" x="558" y="61">spectral boundary</text>',
           f'<line class="muteddot" x1="490" y1="89" x2="544" y2="89"/>',
           math_text(558,95,[("κ",'var'),(" = 1/2",'roman')],anchor='start',size=18)]
-    a.append('<text class="text" x="120" y="78">monotone correlations</text>')
-    a.append('<text class="text" x="420" y="292">damped oscillatory correlations</text>')
+    a.append('<text class="text" x="142" y="292">monotone correlations</text>')
+    a.append('<text class="text" x="382" y="160">damped oscillatory correlations</text>')
     save('oscillatory-boundary.svg',a)
 
 
