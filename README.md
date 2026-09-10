@@ -25,4 +25,9 @@ Each note has a status:
 - `growing`: still developing
 - `evergreen`: reasonably stable
 
+## Figure style
+
+Figures follow the site-wide **Figure Style v1** in [`docs/figure-style.md`](docs/figure-style.md).
+Matplotlib helpers and semantic defaults live in [`scripts/figure_style.py`](scripts/figure_style.py).
+
 GitHub Pages deployment is handled by `.github/workflows/deploy.yml`.
