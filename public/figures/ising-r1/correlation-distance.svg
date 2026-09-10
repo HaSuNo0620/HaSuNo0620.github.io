@@ -1,41 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="760" height="440" viewBox="0 0 760 440">
-<rect width="100%" height="100%" fill="white"/>
-<text x="380.0" y="26" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="600">Nearest-neighbor correlation  C(r) = tanh(βJ)^r</text>
-<line x1="80" y1="45" x2="80" y2="375" stroke="#222" stroke-width="1.2"/>
-<line x1="80" y1="375" x2="730" y2="375" stroke="#222" stroke-width="1.2"/>
-<line x1="80.00" y1="45" x2="80.00" y2="375" stroke="#e5e5e5" stroke-width="1"/>
-<text x="80.00" y="398" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12">0</text>
-<line x1="188.33" y1="45" x2="188.33" y2="375" stroke="#e5e5e5" stroke-width="1"/>
-<text x="188.33" y="398" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12">5</text>
-<line x1="296.67" y1="45" x2="296.67" y2="375" stroke="#e5e5e5" stroke-width="1"/>
-<text x="296.67" y="398" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12">10</text>
-<line x1="405.00" y1="45" x2="405.00" y2="375" stroke="#e5e5e5" stroke-width="1"/>
-<text x="405.00" y="398" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12">15</text>
-<line x1="513.33" y1="45" x2="513.33" y2="375" stroke="#e5e5e5" stroke-width="1"/>
-<text x="513.33" y="398" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12">20</text>
-<line x1="621.67" y1="45" x2="621.67" y2="375" stroke="#e5e5e5" stroke-width="1"/>
-<text x="621.67" y="398" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12">25</text>
-<line x1="730.00" y1="45" x2="730.00" y2="375" stroke="#e5e5e5" stroke-width="1"/>
-<text x="730.00" y="398" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12">30</text>
-<line x1="80" y1="375.00" x2="730" y2="375.00" stroke="#e5e5e5" stroke-width="1"/>
-<text x="70" y="379.00" text-anchor="end" font-family="system-ui, sans-serif" font-size="12">0</text>
-<line x1="80" y1="294.12" x2="730" y2="294.12" stroke="#e5e5e5" stroke-width="1"/>
-<text x="70" y="298.12" text-anchor="end" font-family="system-ui, sans-serif" font-size="12">0.25</text>
-<line x1="80" y1="213.24" x2="730" y2="213.24" stroke="#e5e5e5" stroke-width="1"/>
-<text x="70" y="217.24" text-anchor="end" font-family="system-ui, sans-serif" font-size="12">0.5</text>
-<line x1="80" y1="132.35" x2="730" y2="132.35" stroke="#e5e5e5" stroke-width="1"/>
-<text x="70" y="136.35" text-anchor="end" font-family="system-ui, sans-serif" font-size="12">0.75</text>
-<line x1="80" y1="51.47" x2="730" y2="51.47" stroke="#e5e5e5" stroke-width="1"/>
-<text x="70" y="55.47" text-anchor="end" font-family="system-ui, sans-serif" font-size="12">1</text>
-<text x="405.0" y="423" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14">distance r</text>
-<text x="20" y="210.0" text-anchor="middle" transform="rotate(-90 20 210.0)" font-family="system-ui, sans-serif" font-size="14">C(r)</text>
-<polyline fill="none" stroke="#111" stroke-width="2.2" points="80.00,51.47 101.67,252.50 123.33,328.89 145.00,357.91 166.67,368.94 188.33,373.12 210.00,374.71 231.67,375.00"/>
-<polyline fill="none" stroke="#444" stroke-width="2.2" stroke-dasharray="8 5" points="80.00,51.47 101.67,160.08 123.33,232.20 145.00,280.09 166.67,311.89 188.33,333.00 210.00,347.01 231.67,356.30 253.33,362.47 275.00,366.57 296.67,369.29 318.33,371.09 340.00,372.28 361.67,373.08 383.33,373.60 405.00,373.95 426.67,374.18 448.33,374.34 470.00,374.44 491.67,374.51 513.33,374.55 535.00,374.58 556.67,374.60 578.33,374.61 600.00,374.62 621.67,374.62 643.33,374.62 665.00,374.62 686.67,374.62 708.33,374.62 730.00,374.62"/>
-<polyline fill="none" stroke="#666" stroke-width="2.2" stroke-dasharray="3 4" points="80.00,51.47 101.67,105.10 123.33,149.81 145.00,187.08 166.67,218.15 188.33,244.06 210.00,265.67 231.67,283.68 253.33,298.70 275.00,311.22 296.67,321.66 318.33,330.36 340.00,337.61 361.67,343.65 383.33,348.68 405.00,352.88 426.67,356.37 448.33,359.28 470.00,361.70 491.67,363.72 513.33,365.40 535.00,366.80 556.67,367.97 578.33,368.94 600.00,369.75 621.67,370.42 643.33,370.98 665.00,371.45 686.67,371.84 708.33,372.16 730.00,372.43"/>
-<polyline fill="none" stroke="#888" stroke-width="2.2" stroke-dasharray="10 4 2 4" points="80.00,51.47 101.67,68.75 123.33,85.11 145.00,100.60 166.67,115.28 188.33,129.19 210.00,142.37 231.67,154.85 253.33,166.67 275.00,177.88 296.67,188.50 318.33,198.57 340.00,208.12 361.67,217.18 383.33,225.78 405.00,233.95 426.67,241.71 448.33,249.08 470.00,256.09 491.67,262.75 513.33,269.08 535.00,275.10 556.67,280.82 578.33,286.27 600.00,291.45 621.67,296.39 643.33,301.09 665.00,305.57 686.67,309.84 708.33,313.90 730.00,317.78"/>
-<rect x="540" y="44" width="185" height="108" fill="white" fill-opacity="0.9" stroke="#ccc"/>
-<line x1="550" y1="60" x2="585" y2="60" stroke="#111" stroke-width="2.2"/><text x="595" y="64" font-family="system-ui, sans-serif" font-size="12">βJ = 0.4</text>
-<line x1="550" y1="84" x2="585" y2="84" stroke="#444" stroke-width="2.2" stroke-dasharray="8 5"/><text x="595" y="88" font-family="system-ui, sans-serif" font-size="12">βJ = 0.8</text>
-<line x1="550" y1="108" x2="585" y2="108" stroke="#666" stroke-width="2.2" stroke-dasharray="3 4"/><text x="595" y="112" font-family="system-ui, sans-serif" font-size="12">βJ = 1.2</text>
-<line x1="550" y1="132" x2="585" y2="132" stroke="#888" stroke-width="2.2" stroke-dasharray="10 4 2 4"/><text x="595" y="136" font-family="system-ui, sans-serif" font-size="12">βJ = 1.8</text>
+<style>
+.axis{stroke:#171714;stroke-width:1}.grid{stroke:#cbc3b5;stroke-width:.7;opacity:.55}
+.tick{fill:#716d64;font:12px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.label{fill:#171714;font:14px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.legend{fill:#716d64;font:12px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.panel{fill:#171714;font:600 12px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.primary{fill:none;stroke:#5866e9;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.secondary{fill:none;stroke:#39705a;stroke-width:1.8;stroke-dasharray:8 5;stroke-linecap:round;stroke-linejoin:round}
+.inkdash{fill:none;stroke:#171714;stroke-width:1.8;stroke-dasharray:7 5;opacity:.78}
+.muteddot{fill:none;stroke:#716d64;stroke-width:1.8;stroke-dasharray:2.5 4;opacity:.9}
+@media(prefers-color-scheme:dark){.axis{stroke:#f0eadf}.grid{stroke:#4a4740}.tick,.legend{fill:#a8a196}.label,.panel{fill:#f0eadf}.primary{stroke:#99a2ff}.secondary{stroke:#8bc4a9}.inkdash{stroke:#f0eadf}.muteddot{stroke:#a8a196}}
+</style>
+<line class="grid" x1="80.0" y1="24" x2="80.0" y2="360"/><text class="tick" x="80.0" y="383" text-anchor="middle">0</text>
+<line class="grid" x1="188.3" y1="24" x2="188.3" y2="360"/><text class="tick" x="188.3" y="383" text-anchor="middle">5</text>
+<line class="grid" x1="296.7" y1="24" x2="296.7" y2="360"/><text class="tick" x="296.7" y="383" text-anchor="middle">10</text>
+<line class="grid" x1="405.0" y1="24" x2="405.0" y2="360"/><text class="tick" x="405.0" y="383" text-anchor="middle">15</text>
+<line class="grid" x1="513.3" y1="24" x2="513.3" y2="360"/><text class="tick" x="513.3" y="383" text-anchor="middle">20</text>
+<line class="grid" x1="621.7" y1="24" x2="621.7" y2="360"/><text class="tick" x="621.7" y="383" text-anchor="middle">25</text>
+<line class="grid" x1="730.0" y1="24" x2="730.0" y2="360"/><text class="tick" x="730.0" y="383" text-anchor="middle">30</text>
+<line class="grid" x1="80" y1="360.0" x2="730" y2="360.0"/><text class="tick" x="70" y="364.0" text-anchor="end">0</text>
+<line class="grid" x1="80" y1="277.6" x2="730" y2="277.6"/><text class="tick" x="70" y="281.6" text-anchor="end">0.25</text>
+<line class="grid" x1="80" y1="195.3" x2="730" y2="195.3"/><text class="tick" x="70" y="199.3" text-anchor="end">0.5</text>
+<line class="grid" x1="80" y1="112.9" x2="730" y2="112.9"/><text class="tick" x="70" y="116.9" text-anchor="end">0.75</text>
+<line class="grid" x1="80" y1="30.6" x2="730" y2="30.6"/><text class="tick" x="70" y="34.6" text-anchor="end">1</text>
+<line class="axis" x1="80" y1="24" x2="80" y2="360"/><line class="axis" x1="80" y1="360" x2="730" y2="360"/>
+<text class="label" x="405" y="414" text-anchor="middle">r</text><text class="label" x="22" y="192" text-anchor="middle" transform="rotate(-90 22 192)">C(r)</text>
+<polyline class="muteddot" points="80.0,30.6 101.7,234.8 123.3,312.4 145.0,341.9 166.7,353.1 188.3,357.4 210.0,359.0 231.7,359.6 253.3,359.9 275.0,359.9 296.7,360.0 318.3,360.0 340.0,360.0 361.7,360.0 383.3,360.0 405.0,360.0 426.7,360.0 448.3,360.0 470.0,360.0 491.7,360.0 513.3,360.0 535.0,360.0 556.7,360.0 578.3,360.0 600.0,360.0 621.7,360.0 643.3,360.0 665.0,360.0 686.7,360.0 708.3,360.0 730.0,360.0"/>
+<polyline class="inkdash" points="80.0,30.6 101.7,141.3 123.3,214.7 145.0,263.5 166.7,296.0 188.3,317.5 210.0,331.8 231.7,341.2 253.3,347.5 275.0,351.7 296.7,354.5 318.3,356.4 340.0,357.6 361.7,358.4 383.3,358.9 405.0,359.3 426.7,359.5 448.3,359.7 470.0,359.8 491.7,359.9 513.3,359.9 535.0,359.9 556.7,360.0 578.3,360.0 600.0,360.0 621.7,360.0 643.3,360.0 665.0,360.0 686.7,360.0 708.3,360.0 730.0,360.0"/>
+<polyline class="primary" points="80.0,30.6 101.7,85.4 123.3,131.1 145.0,169.1 166.7,200.9 188.3,227.4 210.0,249.4 231.7,267.8 253.3,283.2 275.0,295.9 296.7,306.6 318.3,315.5 340.0,322.9 361.7,329.1 383.3,334.2 405.0,338.5 426.7,342.1 448.3,345.1 470.0,347.5 491.7,349.6 513.3,351.3 535.0,352.8 556.7,354.0 578.3,355.0 600.0,355.8 621.7,356.5 643.3,357.1 665.0,357.6 686.7,358.0 708.3,358.3 730.0,358.6"/>
+<polyline class="secondary" points="80.0,30.6 101.7,48.1 123.3,64.7 145.0,80.4 166.7,95.3 188.3,109.4 210.0,122.7 231.7,135.3 253.3,147.3 275.0,158.6 296.7,169.3 318.3,179.4 340.0,189.0 361.7,198.1 383.3,206.8 405.0,214.9 426.7,222.6 448.3,229.9 470.0,236.8 491.7,243.4 513.3,249.6 535.0,255.5 556.7,261.0 578.3,266.3 600.0,271.3 621.7,276.0 643.3,280.5 665.0,284.7 686.7,288.7 708.3,292.5 730.0,296.1"/>
+<line class="muteddot" x1="560" y1="42" x2="594" y2="42"/><text class="legend" x="603" y="46">βJ = 0.4</text>
+<line class="inkdash" x1="560" y1="64" x2="594" y2="64"/><text class="legend" x="603" y="68">βJ = 0.8</text>
+<line class="primary" x1="560" y1="86" x2="594" y2="86"/><text class="legend" x="603" y="90">βJ = 1.2</text>
+<line class="secondary" x1="560" y1="108" x2="594" y2="108"/><text class="legend" x="603" y="112">βJ = 1.8</text>
 </svg>
