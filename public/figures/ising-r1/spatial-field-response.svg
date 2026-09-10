@@ -1,23 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="470" viewBox="0 0 800 470">
-<rect width="100%" height="100%" fill="white"/>
-<text x="400" y="26" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="600">Response to a spatially oscillating field</text>
-<rect x="50" y="55" width="330" height="330" fill="none" stroke="#bbb"/>
-<line x1="50" y1="220.0" x2="380" y2="220.0" stroke="#ddd"/>
-<text x="215.0" y="73" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14">q = π/10</text>
-<polyline fill="none" stroke="#777" stroke-width="2" stroke-dasharray="6 4" points="50.0,184.0 58.2,185.8 66.5,190.9 74.8,198.9 83.0,208.9 91.2,220.0 99.5,231.1 107.8,241.1 116.0,249.1 124.2,254.2 132.5,256.0 140.8,254.2 149.0,249.1 157.2,241.1 165.5,231.1 173.8,220.0 182.0,208.9 190.2,198.9 198.5,190.9 206.8,185.8 215.0,184.0 223.2,185.8 231.5,190.9 239.7,198.9 248.0,208.9 256.2,220.0 264.5,231.1 272.8,241.1 281.0,249.1 289.2,254.2 297.5,256.0 305.8,254.2 314.0,249.1 322.2,241.1 330.5,231.1 338.8,220.0 347.0,208.9 355.2,198.9 363.5,190.9 371.8,185.8 380.0,184.0"/>
-<polyline fill="none" stroke="#111" stroke-width="2.4" points="50.0,99.5 58.2,105.4 66.5,122.5 74.8,149.2 83.0,182.8 91.2,220.0 99.5,257.2 107.8,290.8 116.0,317.5 124.2,334.6 132.5,340.5 140.8,334.6 149.0,317.5 157.2,290.8 165.5,257.2 173.8,220.0 182.0,182.8 190.2,149.2 198.5,122.5 206.8,105.4 215.0,99.5 223.2,105.4 231.5,122.5 239.7,149.2 248.0,182.8 256.2,220.0 264.5,257.2 272.8,290.8 281.0,317.5 289.2,334.6 297.5,340.5 305.8,334.6 314.0,317.5 322.2,290.8 330.5,257.2 338.8,220.0 347.0,182.8 355.2,149.2 363.5,122.5 371.8,105.4 380.0,99.5"/>
-<text x="55" y="408" font-family="system-ui, sans-serif" font-size="12">site i</text>
-<text x="285" y="408" font-family="system-ui, sans-serif" font-size="12">χ(q) = 3.350</text>
-<rect x="420" y="55" width="330" height="330" fill="none" stroke="#bbb"/>
-<line x1="420" y1="220.0" x2="750" y2="220.0" stroke="#ddd"/>
-<text x="585.0" y="73" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14">q = π/2</text>
-<polyline fill="none" stroke="#777" stroke-width="2" stroke-dasharray="6 4" points="420.0,99.5 428.2,220.0 436.5,340.5 444.8,220.0 453.0,99.5 461.2,220.0 469.5,340.5 477.8,220.0 486.0,99.5 494.2,220.0 502.5,340.5 510.8,220.0 519.0,99.5 527.2,220.0 535.5,340.5 543.8,220.0 552.0,99.5 560.2,220.0 568.5,340.5 576.8,220.0 585.0,99.5 593.2,220.0 601.5,340.5 609.8,220.0 618.0,99.5 626.2,220.0 634.5,340.5 642.8,220.0 651.0,99.5 659.2,220.0 667.5,340.5 675.8,220.0 684.0,99.5 692.2,220.0 700.5,340.5 708.8,220.0 717.0,99.5 725.2,220.0 733.5,340.5 741.8,220.0 750.0,99.5"/>
-<polyline fill="none" stroke="#111" stroke-width="2.4" points="420.0,194.0 428.2,220.0 436.5,246.0 444.8,220.0 453.0,194.0 461.2,220.0 469.5,246.0 477.8,220.0 486.0,194.0 494.2,220.0 502.5,246.0 510.8,220.0 519.0,194.0 527.2,220.0 535.5,246.0 543.8,220.0 552.0,194.0 560.2,220.0 568.5,246.0 576.8,220.0 585.0,194.0 593.2,220.0 601.5,246.0 609.8,220.0 618.0,194.0 626.2,220.0 634.5,246.0 642.8,220.0 651.0,194.0 659.2,220.0 667.5,246.0 675.8,220.0 684.0,194.0 692.2,220.0 700.5,246.0 708.8,220.0 717.0,194.0 725.2,220.0 733.5,246.0 741.8,220.0 750.0,194.0"/>
-<text x="425" y="408" font-family="system-ui, sans-serif" font-size="12">site i</text>
-<text x="655" y="408" font-family="system-ui, sans-serif" font-size="12">χ(q) = 0.216</text>
-<text x="52" y="42" font-family="system-ui, sans-serif" font-size="12">βJ = 1.2,  h₀/J = 0.05</text>
-<line x1="240" y1="435" x2="275" y2="435" stroke="#111" stroke-width="2.4"/>
-<text x="282" y="439" font-family="system-ui, sans-serif" font-size="12">linear response 〈sᵢ〉</text>
-<line x1="455" y1="435" x2="490" y2="435" stroke="#777" stroke-width="2" stroke-dasharray="6 4"/>
-<text x="497" y="439" font-family="system-ui, sans-serif" font-size="12">field hᵢ</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="440" viewBox="0 0 760 440">
+<style>
+.axis{stroke:#171714;stroke-width:1}.grid{stroke:#cbc3b5;stroke-width:.7;opacity:.55}
+.tick{fill:#716d64;font:12px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.label{fill:#171714;font:14px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.legend{fill:#716d64;font:12px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.panel{fill:#171714;font:600 12px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.primary{fill:none;stroke:#5866e9;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.secondary{fill:none;stroke:#39705a;stroke-width:1.8;stroke-dasharray:8 5;stroke-linecap:round;stroke-linejoin:round}
+.inkdash{fill:none;stroke:#171714;stroke-width:1.8;stroke-dasharray:7 5;opacity:.78}
+.muteddot{fill:none;stroke:#716d64;stroke-width:1.8;stroke-dasharray:2.5 4;opacity:.9}
+@media(prefers-color-scheme:dark){.axis{stroke:#f0eadf}.grid{stroke:#4a4740}.tick,.legend{fill:#a8a196}.label,.panel{fill:#f0eadf}.primary{stroke:#99a2ff}.secondary{stroke:#8bc4a9}.inkdash{stroke:#f0eadf}.muteddot{stroke:#a8a196}}
+</style>
+<line class="grid" x1="60" y1="276.9" x2="355" y2="276.9"/><text class="tick" x="51" y="280.9" text-anchor="end">-0.1</text>
+<line class="grid" x1="60" y1="198.0" x2="355" y2="198.0"/><text class="tick" x="51" y="202.0" text-anchor="end">0</text>
+<line class="grid" x1="60" y1="119.1" x2="355" y2="119.1"/><text class="tick" x="51" y="123.1" text-anchor="end">0.1</text>
+<line class="grid" x1="60.0" y1="48" x2="60.0" y2="348"/><text class="tick" x="60.0" y="370" text-anchor="middle">0</text>
+<line class="grid" x1="133.8" y1="48" x2="133.8" y2="348"/><text class="tick" x="133.8" y="370" text-anchor="middle">10</text>
+<line class="grid" x1="207.5" y1="48" x2="207.5" y2="348"/><text class="tick" x="207.5" y="370" text-anchor="middle">20</text>
+<line class="grid" x1="281.2" y1="48" x2="281.2" y2="348"/><text class="tick" x="281.2" y="370" text-anchor="middle">30</text>
+<line class="grid" x1="355.0" y1="48" x2="355.0" y2="348"/><text class="tick" x="355.0" y="370" text-anchor="middle">40</text>
+<line class="axis" x1="60" y1="48" x2="60" y2="348"/><line class="axis" x1="60" y1="348" x2="355" y2="348"/>
+<text class="panel" x="68" y="64">(a) q = π/10</text><text class="label" x="207.5" y="405" text-anchor="middle">site i</text>
+<text class="label" x="18" y="198" text-anchor="middle" transform="rotate(-90 18 198)">hᵢ , ⟨sᵢ⟩</text>
+<polyline class="primary" points="60.0,65.8 67.4,72.3 74.8,91.0 82.1,120.3 89.5,157.1 96.9,198.0 104.2,238.9 111.6,275.7 119.0,305.0 126.4,323.7 133.8,330.2 141.1,323.7 148.5,305.0 155.9,275.7 163.2,238.9 170.6,198.0 178.0,157.1 185.4,120.3 192.8,91.0 200.1,72.3 207.5,65.8 214.9,72.3 222.2,91.0 229.6,120.3 237.0,157.1 244.4,198.0 251.8,238.9 259.1,275.7 266.5,305.0 273.9,323.7 281.2,330.2 288.6,323.7 296.0,305.0 303.4,275.7 310.8,238.9 318.1,198.0 325.5,157.1 332.9,120.3 340.2,91.0 347.6,72.3 355.0,65.8"/>
+<polyline class="secondary" points="60.0,158.5 67.4,160.5 74.8,166.1 82.1,174.8 89.5,185.8 96.9,198.0 104.2,210.2 111.6,221.2 119.0,229.9 126.4,235.5 133.8,237.5 141.1,235.5 148.5,229.9 155.9,221.2 163.2,210.2 170.6,198.0 178.0,185.8 185.4,174.8 192.8,166.1 200.1,160.5 207.5,158.5 214.9,160.5 222.2,166.1 229.6,174.8 237.0,185.8 244.4,198.0 251.8,210.2 259.1,221.2 266.5,229.9 273.9,235.5 281.2,237.5 288.6,235.5 296.0,229.9 303.4,221.2 310.8,210.2 318.1,198.0 325.5,185.8 332.9,174.8 340.2,166.1 347.6,160.5 355.0,158.5"/>
+<line class="grid" x1="410" y1="276.9" x2="705" y2="276.9"/><line class="grid" x1="410" y1="198.0" x2="705" y2="198.0"/><line class="grid" x1="410" y1="119.1" x2="705" y2="119.1"/>
+<line class="grid" x1="410.0" y1="48" x2="410.0" y2="348"/><text class="tick" x="410.0" y="370" text-anchor="middle">0</text>
+<line class="grid" x1="483.8" y1="48" x2="483.8" y2="348"/><text class="tick" x="483.8" y="370" text-anchor="middle">10</text>
+<line class="grid" x1="557.5" y1="48" x2="557.5" y2="348"/><text class="tick" x="557.5" y="370" text-anchor="middle">20</text>
+<line class="grid" x1="631.2" y1="48" x2="631.2" y2="348"/><text class="tick" x="631.2" y="370" text-anchor="middle">30</text>
+<line class="grid" x1="705.0" y1="48" x2="705.0" y2="348"/><text class="tick" x="705.0" y="370" text-anchor="middle">40</text>
+<line class="axis" x1="410" y1="48" x2="410" y2="348"/><line class="axis" x1="410" y1="348" x2="705" y2="348"/>
+<text class="panel" x="418" y="64">(b) q = π/2</text><text class="label" x="557.5" y="405" text-anchor="middle">site i</text>
+<polyline class="primary" points="410.0,189.5 417.4,198.0 424.8,206.5 432.1,198.0 439.5,189.5 446.9,198.0 454.2,206.5 461.6,198.0 469.0,189.5 476.4,198.0 483.8,206.5 491.1,198.0 498.5,189.5 505.9,198.0 513.2,206.5 520.6,198.0 528.0,189.5 535.4,198.0 542.8,206.5 550.1,198.0 557.5,189.5 564.9,198.0 572.2,206.5 579.6,198.0 587.0,189.5 594.4,198.0 601.8,206.5 609.1,198.0 616.5,189.5 623.9,198.0 631.2,206.5 638.6,198.0 646.0,189.5 653.4,198.0 660.8,206.5 668.1,198.0 675.5,189.5 682.9,198.0 690.2,206.5 697.6,198.0 705.0,189.5"/>
+<polyline class="secondary" points="410.0,158.5 417.4,198.0 424.8,237.5 432.1,198.0 439.5,158.5 446.9,198.0 454.2,237.5 461.6,198.0 469.0,158.5 476.4,198.0 483.8,237.5 491.1,198.0 498.5,158.5 505.9,198.0 513.2,237.5 520.6,198.0 528.0,158.5 535.4,198.0 542.8,237.5 550.1,198.0 557.5,158.5 564.9,198.0 572.2,237.5 579.6,198.0 587.0,158.5 594.4,198.0 601.8,237.5 609.1,198.0 616.5,158.5 623.9,198.0 631.2,237.5 638.6,198.0 646.0,158.5 653.4,198.0 660.8,237.5 668.1,198.0 675.5,158.5 682.9,198.0 690.2,237.5 697.6,198.0 705.0,158.5"/>
+<line class="primary" x1="244" y1="22" x2="278" y2="22"/><text class="legend" x="286" y="26">linear response ⟨sᵢ⟩</text>
+<line class="secondary" x1="468" y1="22" x2="502" y2="22"/><text class="legend" x="510" y="26">field hᵢ</text>
 </svg>
