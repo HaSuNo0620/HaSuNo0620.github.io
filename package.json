@@ -11,6 +11,8 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^7.3.2"
+    "astro": "^7.3.2",
+    "rehype-mathjax": "^7.1.0",
+    "remark-math": "^6.0.0"
   }
 }
