@@ -13,9 +13,8 @@ status: growing
 一般に有限範囲 $R$ の1次元 Ising 模型を
 
 $$
-H_R
-= -\sum_i\sum_{r=1}^{R}J_r s_i s_{i+r}
-  -\sum_i h_i s_i,
+H_R = -\sum_i\sum_{r=1}^{R}J_r s_i s_{i+r}
+      -\sum_i h_i s_i,
 \qquad s_i=\pm1
 $$
 
@@ -23,9 +22,7 @@ $$
 
 $$
 \boxed{
-H_{R=1}
-= -J\sum_i s_i s_{i+1}
-  -\sum_i h_i s_i
+H_{R=1} = -J\sum_i s_i s_{i+1}-\sum_i h_i s_i
 }
 $$
 
@@ -116,8 +113,7 @@ $$
 となる。開鎖では各 $\tau_i$ は互いに独立であり、分配関数も
 
 $$
-Z_N
-=2(2\cosh K)^{N-1}
+Z_N=2(2\cosh K)^{N-1}
 $$
 
 と因数分解する。
@@ -126,10 +122,8 @@ $$
 
 $$
 p_{\rm dw}
-=
-\frac{e^{-K}}{e^K+e^{-K}}
-=
-\frac{1}{1+e^{2K}},
+=\frac{e^{-K}}{e^K+e^{-K}}
+=\frac{1}{1+e^{2K}},
 $$
 
 したがって
@@ -145,12 +139,9 @@ $$
 $$
 \boxed{
 \frac{\lambda_-}{\lambda_+}
-=
-\langle\tau\rangle
-=
-1-2p_{\rm dw}
-=
-\tanh K
+=\langle\tau\rangle
+=1-2p_{\rm dw}
+=\tanh K
 }
 $$
 
@@ -167,19 +158,15 @@ $$
 という一様外場を加える。
 
 $$
-H
-=-J\sum_i s_i s_{i+1}
--h\sum_i s_i.
+H=-J\sum_i s_i s_{i+1}-h\sum_i s_i.
 $$
 
 転送行列を
 
 $$
 T_{s,s'}
-=
-\exp\left[
-\beta Jss'
-+\frac{\beta h}{2}(s+s')
+=\exp\left[
+\beta Jss'+\frac{\beta h}{2}(s+s')
 \right]
 $$
 
@@ -199,16 +186,14 @@ $$
 \lambda_\pm
 =e^K\left[
 \cosh(\beta h)
-\pm
-\sqrt{\sinh^2(\beta h)+e^{-4K}}
+\pm\sqrt{\sinh^2(\beta h)+e^{-4K}}
 \right].
 $$
 
 熱力学極限では
 
 $$
-f
-=-\frac{1}{\beta}\ln\lambda_+,
+f=-\frac{1}{\beta}\ln\lambda_+,
 $$
 
 したがって磁化は
@@ -217,8 +202,7 @@ $$
 \boxed{
 m(h)
 =-\frac{\partial f}{\partial h}
-=
-\frac{\sinh(\beta h)}
+=\frac{\sinh(\beta h)}
 {\sqrt{\sinh^2(\beta h)+e^{-4K}}}
 }
 $$
@@ -234,10 +218,8 @@ $h=0$ における一様感受率は
 $$
 \boxed{
 \chi(0)
-=
-\left.\frac{\partial m}{\partial h}\right|_{h=0}
-=
-\beta e^{2K}
+=\left.\frac{\partial m}{\partial h}\right|_{h=0}
+=\beta e^{2K}
 }
 $$
 
@@ -248,19 +230,15 @@ $$
 外場ゼロでは
 
 $$
-s_i s_{i+r}
-=
-\tau_i\tau_{i+1}\cdots\tau_{i+r-1}.
+s_i s_{i+r}=\tau_i\tau_{i+1}\cdots\tau_{i+r-1}.
 $$
 
 $R=1$ ではドメイン壁変数 $\tau_i$ が独立なので、
 
 $$
 \begin{aligned}
-C(r)
-&\equiv\langle s_i s_{i+r}\rangle\\
-&=
-\prod_{j=i}^{i+r-1}\langle\tau_j\rangle\\
+C(r)&\equiv\langle s_i s_{i+r}\rangle\\
+&=\prod_{j=i}^{i+r-1}\langle\tau_j\rangle\\
 &=(\tanh K)^r.
 \end{aligned}
 $$
@@ -269,9 +247,7 @@ $$
 
 $$
 \boxed{
-C(r)
-=\left(\frac{\lambda_-}{\lambda_+}\right)^r
-=(\tanh K)^r
+C(r)=\left(\frac{\lambda_-}{\lambda_+}\right)^r=(\tanh K)^r
 }
 $$
 
@@ -345,16 +321,14 @@ $$
 
 $$
 \delta\langle s_i\rangle
-=
-\sum_j\chi_{ij}\,\delta h_j,
+=\sum_j\chi_{ij}\,\delta h_j,
 $$
 
 ここで
 
 $$
 \chi_{ij}
-=
-\beta\left(
+=\beta\left(
 \langle s_i s_j\rangle
 -\langle s_i\rangle\langle s_j\rangle
 \right).
@@ -363,17 +337,14 @@ $$
 外場ゼロでは $\langle s_i\rangle=0$ なので、
 
 $$
-\chi_{ij}
-=
-\beta C(i-j).
+\chi_{ij}=\beta C(i-j).
 $$
 
 したがって $R=1$ では
 
 $$
 \boxed{
-\chi(r)
-=\beta(\tanh K)^{|r|}
+\chi(r)=\beta(\tanh K)^{|r|}
 }
 $$
 
@@ -382,9 +353,7 @@ $$
 ここで実空間の相関を Fourier 変換して
 
 $$
-\chi(q)
-=
-\sum_{r=-\infty}^{\infty}\chi(r)e^{-iqr}
+\chi(q)=\sum_{r=-\infty}^{\infty}\chi(r)e^{-iqr}
 $$
 
 を考える。$t\equiv\tanh K$ とおけば、
@@ -392,24 +361,15 @@ $$
 $$
 \begin{aligned}
 \chi(q)
-&=
-\beta\left[
-1+2\sum_{r=1}^{\infty}t^r\cos(qr)
-\right]\\
-&=\boxed{
-\beta\frac{1-t^2}{1-2t\cos q+t^2}
-}.
+&=\beta\left[1+2\sum_{r=1}^{\infty}t^r\cos(qr)\right]\\
+&=\boxed{\beta\frac{1-t^2}{1-2t\cos q+t^2}}.
 \end{aligned}
 $$
 
 $q=0$ を代入すれば
 
 $$
-\chi(0)
-=
-\beta\frac{1+t}{1-t}
-=
-\beta e^{2K},
+\chi(0)=\beta\frac{1+t}{1-t}=\beta e^{2K},
 $$
 
 となり、一様外場から得た感受率と一致する。
@@ -444,18 +404,14 @@ $$
 
 $$
 \chi(q)
-=
-\beta
-\frac{1-t^2}{(1-t)^2+2t(1-\cos q)}
+=\beta\frac{1-t^2}{(1-t)^2+2t(1-\cos q)}
 $$
 
 は
 
 $$
 \boxed{
-\chi(q)
-\simeq
-\frac{2\beta\xi}{1+(q\xi)^2}
+\chi(q)\simeq\frac{2\beta\xi}{1+(q\xi)^2}
 }
 $$
 
@@ -502,9 +458,7 @@ $$
 $$
 \boxed{
 \langle s_i\rangle
-=
-\chi(q)h_q\cos(qi+\phi)
-+O(h_q^3)
+=\chi(q)h_q\cos(qi+\phi)+O(h_q^3)
 }
 $$
 
@@ -522,13 +476,10 @@ $$
 
 $$
 T_i(s_i,s_{i+1})
-=
-\exp\left[
+=\exp\left[
 \beta J s_i s_{i+1}
 +\frac{\beta}{2}
-\left(
-h_i s_i+h_{i+1}s_{i+1}
-\right)
+\left(h_i s_i+h_{i+1}s_{i+1}\right)
 \right].
 $$
 
@@ -541,23 +492,20 @@ $$
 1周期分の積
 
 $$
-M_L
-=T_1T_2\cdots T_L
+M_L=T_1T_2\cdots T_L
 $$
 
 を導入できる。$N$ が $L$ の整数倍なら
 
 $$
-Z
-=\operatorname{Tr}M_L^{N/L}.
+Z=\operatorname{Tr}M_L^{N/L}.
 $$
 
 $M_L$ の最大固有値を $\Lambda_+$ とすれば、熱力学極限の1サイトあたり自由エネルギーは
 
 $$
 \boxed{
-f
-=-\frac{1}{\beta L}\ln\Lambda_+
+f=-\frac{1}{\beta L}\ln\Lambda_+
 }
 $$
 
@@ -568,11 +516,7 @@ $$
 有限振幅では応答は一般に純粋な $q$ 成分だけではなく、高調波を含みうる。したがって今後は
 
 $$
-m_i
-=
-m_q\cos(qi)
-+m_{3q}\cos(3qi)
-+\cdots
+m_i=m_q\cos(qi)+m_{3q}\cos(3qi)+\cdots
 $$
 
 のような非線形波数混合も調べられる。
@@ -649,8 +593,7 @@ $$
 $$
 \boxed{
 \chi(q)
-=
-\beta\frac{1-\tanh^2(\beta J)}
+=\beta\frac{1-\tanh^2(\beta J)}
 {1-2\tanh(\beta J)\cos q+\tanh^2(\beta J)}
 }
 $$
