@@ -65,3 +65,67 @@ const areaId = area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g
     text-underline-offset: 4px;
   }
 </style>
+
+<style is:global>
+  /* Markdown の「画像だけの段落」を figure 相当として整える。 */
+  .prose p:has(> img:only-child) {
+    margin: 2.8rem 0 .65rem;
+    padding: 14px 14px 10px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--paper-2) 68%, transparent);
+    overflow: hidden;
+  }
+
+  .prose p > img:only-child {
+    display: block;
+    width: 100%;
+    max-width: 780px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  /* 現在の SVG は白背景を持つため、紙面へ自然に合成する。 */
+  .prose p > img[src$='.svg']:only-child {
+    mix-blend-mode: multiply;
+  }
+
+  /* 画像直後の斜体段落をキャプションとして扱う。 */
+  .prose p:has(> img:only-child) + p:has(> em:only-child) {
+    max-width: 720px;
+    margin: 0 auto 2.9rem;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.75;
+    text-align: center;
+    letter-spacing: .01em;
+  }
+
+  .prose p:has(> img:only-child) + p:has(> em:only-child) em {
+    font-style: normal;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    /* white -> black, black -> white としてから screen 合成し、
+       SVG の白いキャンバスだけを暗い紙面へ馴染ませる。 */
+    .prose p > img[src$='.svg']:only-child {
+      filter: invert(1) hue-rotate(180deg);
+      mix-blend-mode: screen;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .prose p:has(> img:only-child) {
+      margin-top: 2.2rem;
+      padding: 8px 6px 6px;
+      border-radius: 10px;
+    }
+
+    .prose p:has(> img:only-child) + p:has(> em:only-child) {
+      margin-bottom: 2.3rem;
+      padding-inline: 8px;
+      font-size: 12px;
+      text-align: left;
+    }
+  }
+</style>
