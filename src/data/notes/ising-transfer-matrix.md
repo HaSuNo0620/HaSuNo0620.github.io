@@ -60,8 +60,7 @@ $$
 \begin{pmatrix}
 Z_N^{(+)}\\
 Z_N^{(-)}
-\end{pmatrix}
-=
+\end{pmatrix} =
 \begin{pmatrix}
 e^K & e^{-K}\\
 e^{-K} & e^K
