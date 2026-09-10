@@ -67,14 +67,13 @@ const areaId = area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g
 </style>
 
 <style is:global>
-  /* Markdown の「画像だけの段落」を figure 相当として整える。 */
+  /* Figure Style v1: figures are part of the paper, not white panels. */
   .prose p:has(> img:only-child) {
     margin: 2.8rem 0 .65rem;
-    padding: 14px 14px 10px;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: color-mix(in srgb, var(--paper-2) 68%, transparent);
-    overflow: hidden;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    overflow: visible;
   }
 
   .prose p > img:only-child {
@@ -85,12 +84,7 @@ const areaId = area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g
     margin: 0 auto;
   }
 
-  /* 現在の SVG は白背景を持つため、紙面へ自然に合成する。 */
-  .prose p > img[src$='.svg']:only-child {
-    mix-blend-mode: multiply;
-  }
-
-  /* 画像直後の斜体段落をキャプションとして扱う。 */
+  /* Image-following emphasis is used as a figure caption in Markdown notes. */
   .prose p:has(> img:only-child) + p:has(> em:only-child) {
     max-width: 720px;
     margin: 0 auto 2.9rem;
@@ -105,20 +99,9 @@ const areaId = area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g
     font-style: normal;
   }
 
-  @media (prefers-color-scheme: dark) {
-    /* white -> black, black -> white としてから screen 合成し、
-       SVG の白いキャンバスだけを暗い紙面へ馴染ませる。 */
-    .prose p > img[src$='.svg']:only-child {
-      filter: invert(1) hue-rotate(180deg);
-      mix-blend-mode: screen;
-    }
-  }
-
   @media (max-width: 720px) {
     .prose p:has(> img:only-child) {
       margin-top: 2.2rem;
-      padding: 8px 6px 6px;
-      border-radius: 10px;
     }
 
     .prose p:has(> img:only-child) + p:has(> em:only-child) {
