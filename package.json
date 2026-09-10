@@ -5,6 +5,7 @@
   "version": "2.0.0",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "python3 scripts/ising_r1_figures.py",
     "build": "astro build",
     "preview": "astro preview"
   },
