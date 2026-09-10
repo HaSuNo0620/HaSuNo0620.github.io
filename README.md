@@ -27,9 +27,9 @@ Each note has a status:
 
 ## Writing and figure style
 
-Figures follow the site-wide **Figure Style v1.2** in [`docs/figure-style.md`](docs/figure-style.md).
+Figures follow the site-wide **Figure Style v1.3** in [`docs/figure-style.md`](docs/figure-style.md).
 Matplotlib helpers and semantic defaults live in [`scripts/figure_style.py`](scripts/figure_style.py).
 
-Inline/display math usage follows **Math Style v1** in [`docs/math-style.md`](docs/math-style.md).
+Inline/display math usage follows **Math Style v1.1** in [`docs/math-style.md`](docs/math-style.md). Markdown math is parsed with `remark-math` before being handed to MathJax so multiline TeX environments such as matrices are preserved.
 
 GitHub Pages deployment is handled by `.github/workflows/deploy.yml`.
