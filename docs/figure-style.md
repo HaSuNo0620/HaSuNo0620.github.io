@@ -1,15 +1,16 @@
-# Figure Style v1
+# Figure Style v1.1
 
-HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い論文図ではなく、**ページの紙面の一部**として扱う。目的は、研究ノート全体で意味・視線誘導・再現性を揃えることにある。
+HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い論文図ではなく、**ページの紙面の一部**として扱う。v1.1 では実際のブラウザ表示を基準に、文字と線を一段大きく・太くし、縮小表示でも読みやすいことを優先する。
 
 ## 1. 基本原則
 
 1. 図を作る前に「この図を見た人に何を発見してほしいか」を一文で決める。
 2. 図内タイトルは原則置かない。節見出しとキャプションに説明を任せる。
 3. 背景は透明。白背景の `<rect>` や白い legend box は置かない。
-4. 色だけで系列を区別しない。線種・marker・太さを必ず併用する。
+4. 色だけで系列を区別しない。線種・marker・太さを併用する。
 5. 本文の数式と図の表記を一致させる。軸名は文章より `symbol / normalization` を優先する。
 6. SVG を標準形式とし、図は再生成可能なスクリプトから作る。
+7. 細く繊細な論文図より、Web ページ上で一目で読める強さを優先する。
 
 ## 2. Canvas
 
@@ -20,13 +21,13 @@ HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い�
 - tall schematic: 760 × 520 まで
 - multi-panel: 全体幅 760 を基準にする
 
-余白は `tight_layout` / `constrained_layout` で詰めすぎず、軸ラベルとキャプションの間に呼吸を残す。
+余白は詰めすぎず、軸ラベルとデータの間に十分な呼吸を残す。
 
 ## 3. Site palette
 
 サイト本体の CSS と意味を合わせる。
 
-| semantic role | light | dark site token |
+| semantic role | light | dark |
 | --- | --- | --- |
 | ink / axis | `#171714` | `#f0eadf` |
 | muted | `#716d64` | `#a8a196` |
@@ -47,12 +48,12 @@ HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い�
 
 | content | representation |
 | --- | --- |
-| exact / primary theory | accent blue, solid, 2.4 px |
-| approximation / asymptote / fit | green, dashed, 1.8 px |
-| simulation / measured data | marker, ink or accent, 5–6 px |
-| guide / reference / zero line | muted, dotted, 1.0 px |
-| secondary series | 1.6–1.8 px, distinguish by dash pattern |
-| error bar | 1.0 px, visually weaker than marker |
+| exact / primary theory | accent blue, solid, **3.2 px** |
+| approximation / asymptote / fit | green, dashed, **2.6 px** |
+| secondary series | **2.6 px** 前後、dash pattern で区別 |
+| simulation / measured data | marker, ink or accent, **7 px** 前後 |
+| guide / reference / zero line | muted, dotted, **1.5 px** |
+| error bar | **1.5 px**, marker より弱く |
 | uncertainty band | same semantic color, alpha ≈ 0.15 |
 
 「data = marker, theory = line」を基本とする。fit と theory を同じ実線で表さない。
@@ -60,47 +61,38 @@ HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い�
 ## 5. Axes and grid
 
 - 上・右 spine は表示しない。
-- 左・下 spine は 1.0 px。
-- major grid のみ。0.7 px 程度、低コントラスト。
+- 左・下 spine は **1.4 px**。
+- major grid のみを標準とし、**0.9 px**、低コントラスト。
 - minor grid は必要な場合のみ。
 - zero line や臨界点など、物理的意味を持つ基準線だけを追加する。
 - tick を過密にしない。
 
-軸ラベルは短くする。
-
-- `h / J`
-- `q / π`
-- `z / σ`
-- `χ(q) / χ(0)`
-- `γ / (ε σ⁻²)`
-- `T*`
-
-図内で説明文を軸ラベル代わりにしない。
+軸ラベルは短くする：`h / J`, `q / π`, `z / σ`, `χ(q) / χ(0)`, `T*` など。
 
 ## 6. Typography
 
-図内の既定値：
+図内の標準値を次に固定する。
 
-- axis label: 14 pt
-- tick label: 12 pt
-- legend / direct label: 12 pt
-- annotation: 12–13 pt
-- panel label `(a)`: 13 pt, semibold
+- axis label: **17 px / pt 相当**
+- tick label: **14 px / pt 相当**
+- legend / direct label: **14 px / pt 相当**
+- annotation: **15 px / pt 相当**
+- panel label `(a)`: **16 px / pt 相当**, semibold
 
-font family は `Noto Sans JP`, `system-ui`, sans-serif 相当。数学記号は可能なら Unicode (`β`, `χ`, `ξ`, `Δ`, `π`) を使い、図内で別の TeX レンダラに依存しすぎない。
+図が本文幅に縮小されても読めることを基準にする。小さな文字で情報量を詰め込まず、必要なら図を分ける。
+
+font family は `Noto Sans JP`, `system-ui`, sans-serif 相当。数学記号は可能なら Unicode (`β`, `χ`, `ξ`, `Δ`, `π`) を使う。
 
 ## 7. Legend
 
 - 枠なし、背景なし。
 - データを覆わない位置に置く。
-- 系列数が少なければ、凡例より curve への直接ラベルを優先する。
-- 凡例の順序は物理的な比較順にする（温度昇順、距離昇順など）。
+- 系列数が少なければ curve への直接ラベルを優先する。
+- 凡例の文字も tick と同程度以上にする。
 
 ## 8. Captions
 
 説明は図内タイトルではなく本文側の caption に置く。caption は「何を描いたか」だけでなく「何を読むべきか」まで一文で書く。
-
-例：
 
 > **Fig. 4 —** 最近接 Ising 鎖の波数依存感受率。低温になるほど応答は `q=0` 周辺へ集中する。
 
@@ -108,42 +100,35 @@ Markdown では当面、画像直後の斜体段落を caption とする。
 
 ## 9. Multiple panels
 
-関連する量を同時に読む必要があるときだけ multi-panel を使う。
-
-特にこのサイトでは
+関連する量を同時に読む必要があるときだけ multi-panel を使う。特に
 
 - real space ↔ reciprocal space
 - data ↔ model residual
 - microscopic ↔ coarse-grained
 - exact ↔ asymptotic
 
-の対を積極的に可視化する。
-
-panel label は左上に `(a)`, `(b)` と置く。各 panel に長いタイトルは付けない。
+の対を積極的に可視化する。panel label は `(a)`, `(b)` を大きめに置き、長い panel title は避ける。
 
 ## 10. Heatmaps and field plots
 
-曲線図の2色規則を無理にヒートマップへ適用しない。連続スカラー場では知覚的に単調な colormap を使う。
+連続スカラー場では知覚的に単調な colormap を使う。
 
 - nonnegative / sequential scalar: `cividis` を第一候補
 - signed quantity with meaningful zero: zero-centered diverging map
-- categorical map: 少数カテゴリのみ、色だけでなく境界や label を併用
+- categorical map: 少数カテゴリのみ、境界や label を併用
 
-colorbar には量と規格化を明記する。虹色 `jet` は使用しない。
-
-vector field は矢印を ink / muted に抑え、背景スカラー場より視覚的に強くしすぎない。
+colorbar の文字サイズも通常の tick より小さくしない。虹色 `jet` は使わない。
 
 ## 11. Schematics
 
-模式図はグラフと同じ palette を使うが、PowerPoint 的な色付き箱を多用しない。
+模式図はグラフと同じ palette を使う。
 
 - system / geometry: ink
 - focus / selected object: accent blue
 - interaction / response / comparison: green
 - construction line / auxiliary geometry: muted
-- arrow: thin, minimal
 
-「教科書の余白に描いた図を整えた」程度の密度を目標にする。
+線は細くしすぎず、矢印・境界・ラベルが本文縮小後も明瞭に残る太さを選ぶ。
 
 ## 12. File formats and naming
 
@@ -152,26 +137,18 @@ vector field は矢印を ink / muted に抑え、背景スカラー場より視
 - photo: WebP
 - animation: WebM; GIF は必要時のみ
 
-ファイル名は内容を説明する kebab-case とする。
-
-```text
-public/figures/<note-slug>/correlation-distance.svg
-public/figures/<note-slug>/susceptibility-q.svg
-public/figures/<note-slug>/density-map.png
-```
-
-SVG は必ず transparent background で保存する。
+SVG は transparent background とする。ファイル名は内容を説明する kebab-case とする。
 
 ## 13. Reproducibility
 
-図は可能な限り生成スクリプトを残す。Matplotlib では `scripts/figure_style.py` を import し、色・線幅・軸・保存規則を共有する。
+図は可能な限り生成スクリプトを残す。Matplotlib では `scripts/figure_style.py` を import し、色・線幅・文字・軸・保存規則を共有する。Ising R=1 の図は production build 前に `scripts/ising_r1_figures.py` で再生成される。
 
 ```python
-from figure_style import new_figure, style_axes, save_figure, COLORS
+from figure_style import new_figure, style_axes, plot_exact, plot_approx, save_figure
 
 fig, ax = new_figure()
-ax.plot(x, y_exact, color=COLORS["accent"], lw=2.4)
-ax.plot(x, y_asymptotic, color=COLORS["green"], lw=1.8, ls="--")
+plot_exact(ax, x, y_exact)
+plot_approx(ax, x, y_asymptotic)
 style_axes(ax, xlabel="q / π", ylabel="χ(q) / χ(0)")
 save_figure(fig, "public/figures/example.svg")
 ```
@@ -182,6 +159,8 @@ save_figure(fig, "public/figures/example.svg")
 - [ ] transparent background
 - [ ] 図内タイトルなし
 - [ ] 軸ラベルと本文の記号が一致
+- [ ] **文字が本文埋め込み時にも十分大きい**
+- [ ] **主線が一目で追える太さになっている**
 - [ ] 色だけで情報を符号化していない
 - [ ] legend は frameless
 - [ ] grid が data より目立たない
@@ -190,4 +169,4 @@ save_figure(fig, "public/figures/example.svg")
 - [ ] SVG または適切な raster format
 - [ ] 再生成スクリプトが残っている
 
-この文書を **HaSuNo0620.github.io Figure Style v1** の基準とし、例外を使う場合は「その図で物理的意味をより正確に伝えるため」という理由を優先する。
+この文書を **HaSuNo0620.github.io Figure Style v1.1** の基準とする。
