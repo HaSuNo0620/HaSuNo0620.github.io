@@ -1,6 +1,6 @@
-# Figure Style v1.2
+# Figure Style v1.3
 
-HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い論文図ではなく、**ページの紙面の一部**として扱う。v1.2 ではブラウザ上での可読性をさらに優先し、数式ラベルを本文の数式と同じ視覚言語へ寄せ、凡例と主線をより強くする。
+HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い論文図ではなく、**ページの紙面の一部**として扱う。v1.3 では、v1.2 の大きな文字・太い線を維持しつつ、図中の数式 typography を「数式だから全部 italic」ではなく、**数式中の役割に応じて italic / upright を分ける**形へ修正する。
 
 ## 1. 基本原則
 
@@ -70,7 +70,7 @@ HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い�
 
 標準値：
 
-- axis label: **19 px / pt 相当**
+- axis label: **19–20 px / pt 相当**
 - tick label: **16 px / pt 相当**
 - legend: **18 px / pt 相当**
 - annotation: **17 px / pt 相当**
@@ -80,14 +80,49 @@ HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い�
 
 ## 7. Mathematical labels
 
-図中の物理量・変数・式は通常の UI フォントではなく、数式として見える書式にする。
+### 7.1 すべてを italic にしない
 
-Matplotlib では mathtext を用い、軸ラベルは `$h/J$`, `$C(r)$`, `$\chi(q)/\chi(0)$` のように書く。SVG を直接生成する場合は MathJax が SVG 内を組版しないため、`STIX Two Math`, `Cambria Math`, `Times New Roman` などの serif / italic fallback を用いる。
+図中で数式らしい字体を使う場合も、数式全体へ一括して `font-style: italic` を掛けない。
 
-説明語は upright sans-serif のままにする。
+**italic にするもの**：
 
-- math style: $h/J$, $\beta J$, $q/\pi$, $\xi$, $\langle s_i\rangle$
-- text style: `exact`, `response`, `low-T asymptote`
+- 変数・物理量・可変パラメータ：$h$, $J$, $T$, $q$, $r$, $m$, $\beta$, $\chi$, $\xi$
+- 添字が変数なら、その添字も variable として扱う
+
+**upright にするもの**：
+
+- 数字：`0`, `1.2`, `10`
+- 演算子・関係記号：`=`, `+`, `−`, `/`
+- 括弧・角括弧・カンマなどの区切り記号
+- 説明語：`exact`, `response`, `field`, `low-T asymptote`
+- 規格化に使う固定定数など、その文脈で変数ではない記号（例：$q/\pi$ の $\pi$）
+- 単位・説明的な添字
+
+したがって `βJ = 1.2` なら `β` と `J` だけが italic で、`= 1.2` は upright にする。`χ(q) / χ(0)` では `χ` と `q` は italic、括弧・slash・`0` は upright とする。
+
+### 7.2 Matplotlib
+
+Matplotlib では mathtext を使い、通常の TeX 数式規則に任せる。説明語は math mode に入れない。upright にしたい単位・語・定数は `\mathrm{}` 等を使う。
+
+例：
+
+```python
+ax.set_xlabel(r"$q / \mathrm{\pi}$")
+ax.set_ylabel(r"$\chi(q) / \chi(0)$")
+```
+
+### 7.3 SVG を直接生成する場合
+
+SVG を `<img>` として読み込む場合、MathJax は SVG 内部を再組版しない。そのため `STIX Two Math`, `Cambria Math`, `Times New Roman` などを fallback にしつつ、`<tspan>` 単位で役割を分ける。
+
+```svg
+<text class="mathlabel">
+  <tspan class="mi">β</tspan><tspan class="mi">J</tspan>
+  <tspan class="mo"> = </tspan><tspan class="mn">1.2</tspan>
+</text>
+```
+
+ここで `mi` は variable identifier、`mo` は operator / punctuation、`mn` は numeral として扱う。数式フォントを使うことと、全体を italic にすることは別である。
 
 本文の数式表記ルールは [`docs/math-style.md`](math-style.md) に従う。
 
@@ -98,11 +133,11 @@ Matplotlib では mathtext を用い、軸ラベルは `$h/J$`, `$C(r)$`, `$\chi
 - line sample は短すぎない。太い線の線種が判別できる長さを確保する。
 - データを覆わない位置に置く。
 - 系列数が少なければ curve への直接ラベルも使える。
-- パラメータ凡例（例：$\beta J=1.2$）は math style で表示する。
+- パラメータ凡例では、変数と数値・演算子の字体を分ける。
 
 ## 9. Captions
 
-説明は図内タイトルではなく本文側の caption に置く。caption は「何を描いたか」だけでなく「何を読むべきか」まで一文で書く。物理量は [`Math Style v1`](math-style.md) に従って inline math にする。
+説明は図内タイトルではなく本文側の caption に置く。caption は「何を描いたか」だけでなく「何を読むべきか」まで一文で書く。物理量は [`Math Style`](math-style.md) に従って inline math にする。
 
 ## 10. Multiple panels
 
@@ -147,7 +182,7 @@ SVG は transparent background とする。ファイル名は内容を説明す�
 
 ## 14. Reproducibility
 
-図は可能な限り生成スクリプトを残す。Matplotlib では `scripts/figure_style.py` を import し、色・線幅・文字・軸・保存規則を共有する。Ising $R=1$ の図は production build 前に `scripts/ising_r1_figures.py` で再生成される。
+図は可能な限り生成スクリプトを残す。Matplotlib では `scripts/figure_style.py` を import し、色・線幅・文字・軸・保存規則を共有する。Ising $R=1$ の図は development / production build 前に `scripts/ising_r1_figures.py` で再生成される。
 
 ## 15. Pre-publish checklist
 
@@ -155,7 +190,7 @@ SVG は transparent background とする。ファイル名は内容を説明す�
 - [ ] transparent background
 - [ ] 図内タイトルなし
 - [ ] 軸ラベルと本文の記号が一致
-- [ ] **変数・式が math style になっている**
+- [ ] **変数だけが italic で、数字・演算子・括弧・説明語まで italic になっていない**
 - [ ] **凡例が十分大きい**
 - [ ] **主線が一目で追える太さになっている**
 - [ ] 色だけで情報を符号化していない
@@ -166,4 +201,4 @@ SVG は transparent background とする。ファイル名は内容を説明す�
 - [ ] SVG または適切な raster format
 - [ ] 再生成スクリプトが残っている
 
-この文書を **HaSuNo0620.github.io Figure Style v1.2** の基準とする。
+この文書を **HaSuNo0620.github.io Figure Style v1.3** の基準とする。
