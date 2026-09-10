@@ -25,9 +25,11 @@ Each note has a status:
 - `growing`: still developing
 - `evergreen`: reasonably stable
 
-## Figure style
+## Writing and figure style
 
-Figures follow the site-wide **Figure Style v1.1** in [`docs/figure-style.md`](docs/figure-style.md).
+Figures follow the site-wide **Figure Style v1.2** in [`docs/figure-style.md`](docs/figure-style.md).
 Matplotlib helpers and semantic defaults live in [`scripts/figure_style.py`](scripts/figure_style.py).
+
+Inline/display math usage follows **Math Style v1** in [`docs/math-style.md`](docs/math-style.md).
 
 GitHub Pages deployment is handled by `.github/workflows/deploy.yml`.
