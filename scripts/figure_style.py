@@ -2,7 +2,7 @@
 
 Figure Style v1.4 prioritizes browser readability: large labels and legends,
 heavy data/theory strokes, transparent canvases, conventional mathematical
-typography, and readable local paper backdrops for legends/direct labels.
+typography, readable local paper backdrops, and light/dark-aware SVG output.
 """
 from __future__ import annotations
 
@@ -66,6 +66,61 @@ def _mpl():
     import matplotlib as mpl
     import matplotlib.pyplot as plt
     return mpl, plt
+
+
+def _make_svg_theme_aware(path: Path) -> None:
+    """Replace site-palette literals with CSS variables and add dark-mode values.
+
+    Matplotlib emits literal colors into the SVG. Because figures are loaded via
+    <img>, page CSS cannot recolor them. Embedding variables and a media query in
+    the SVG keeps labels, axes, grids, curves, and legend boxes readable in both
+    site themes. Fixed black produced by third-party Matplotlib defaults is also
+    normalized to the site ink token.
+    """
+    if path.suffix.lower() != ".svg":
+        return
+
+    svg = path.read_text(encoding="utf-8")
+    replacements = {
+        COLORS["paper"]: "var(--figure-paper)",
+        COLORS["paper2"]: "var(--figure-paper2)",
+        COLORS["ink"]: "var(--figure-ink)",
+        COLORS["muted"]: "var(--figure-muted)",
+        COLORS["line"]: "var(--figure-line)",
+        COLORS["accent"]: "var(--figure-accent)",
+        COLORS["green"]: "var(--figure-green)",
+        "#000000": "var(--figure-ink)",
+        "#000": "var(--figure-ink)",
+    }
+    for source, target in replacements.items():
+        svg = svg.replace(source, target).replace(source.upper(), target)
+
+    theme_css = f"""<style>
+:root {{
+  --figure-paper: {COLORS['paper']};
+  --figure-paper2: {COLORS['paper2']};
+  --figure-ink: {COLORS['ink']};
+  --figure-muted: {COLORS['muted']};
+  --figure-line: {COLORS['line']};
+  --figure-accent: {COLORS['accent']};
+  --figure-green: {COLORS['green']};
+}}
+@media (prefers-color-scheme: dark) {{
+  :root {{
+    --figure-paper: {DARK_COLORS['paper']};
+    --figure-paper2: {DARK_COLORS['paper2']};
+    --figure-ink: {DARK_COLORS['ink']};
+    --figure-muted: {DARK_COLORS['muted']};
+    --figure-line: {DARK_COLORS['line']};
+    --figure-accent: {DARK_COLORS['accent']};
+    --figure-green: {DARK_COLORS['green']};
+  }}
+}}
+</style>"""
+    svg_end = svg.find(">")
+    if svg_end >= 0:
+        svg = svg[: svg_end + 1] + "\n" + theme_css + svg[svg_end + 1 :]
+    path.write_text(svg, encoding="utf-8")
 
 
 def apply_site_style() -> None:
@@ -263,6 +318,7 @@ def save_figure(fig, path: str | Path, *, dpi: int = 180, close: bool = True) ->
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(path, dpi=dpi, transparent=True, bbox_inches="tight", pad_inches=0.08)
+    _make_svg_theme_aware(path)
     if close:
         plt.close(fig)
     return path
