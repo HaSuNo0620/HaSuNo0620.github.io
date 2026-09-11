@@ -32,7 +32,6 @@ ARROW_THEME_STYLE = f"""
 
 
 def theme_marker_heads(svg: str) -> str:
-    """Make stdlib-SVG arrowheads follow the same theme as their arrow stroke."""
     changed = False
     if f'fill="{LIGHT_INK}"' in svg and '<marker' in svg:
         svg = svg.replace(f'fill="{LIGHT_INK}"/></marker>', 'class="arrowhead-ink"/></marker>')
@@ -45,62 +44,58 @@ def theme_marker_heads(svg: str) -> str:
     return svg
 
 
-def _move_r1_four_series_legend(svg: str) -> str:
-    """Move the magnetization legend below the positive-m plateau."""
-    svg = svg.replace(
-        '<rect class="legendbox" x="500" y="24" width="196" height="132" rx="10"/>',
-        '<rect class="legendbox" x="500" y="190" width="196" height="132" rx="10"/>',
-    )
-    for old, new in zip((48, 78, 108, 138), (214, 244, 274, 304)):
-        svg = svg.replace(f'y1="{old}" x2="578" y2="{old}"', f'y1="{new}" x2="578" y2="{new}"')
-        svg = svg.replace(f'y="{old + 6}"', f'y="{new + 6}"', 1)
-    return svg
-
-
-def _move_r2_legend(svg: str, *, x_old: int, x_new: int) -> str:
-    """Move a four-series R=2 legend horizontally without changing its size."""
-    dx = x_new - x_old
-    svg = svg.replace(
-        f'<rect class="legendbox" x="{x_old}" y="25" width="190" height="136" rx="10"/>',
-        f'<rect class="legendbox" x="{x_new}" y="25" width="190" height="136" rx="10"/>',
-    )
-    for old_x in (518, 574, 590):
-        svg = svg.replace(f'x1="{old_x}"', f'x1="{old_x + dx}"')
-        svg = svg.replace(f'x2="{old_x}"', f'x2="{old_x + dx}"')
-        svg = svg.replace(f'x="{old_x}"', f'x="{old_x + dx}"')
+def move_legend_group(svg: str, *, old_box: str, new_box: str, dx: int = 0, dy: int = 0) -> str:
+    """Move generated legend elements by exact coordinate substitutions."""
+    svg = svg.replace(old_box, new_box)
+    if dx:
+        for old_x in (518, 574, 590):
+            svg = svg.replace(f'x1="{old_x}"', f'x1="{old_x + dx}"')
+            svg = svg.replace(f'x2="{old_x}"', f'x2="{old_x + dx}"')
+            svg = svg.replace(f'x="{old_x}"', f'x="{old_x + dx}"')
+    if dy:
+        for old_y in (48, 78, 108, 138):
+            new_y = old_y + dy
+            svg = svg.replace(f'y1="{old_y}" x2="578" y2="{old_y}"', f'y1="{new_y}" x2="578" y2="{new_y}"')
+            svg = svg.replace(f'x="592" y="{old_y + 6}"', f'x="592" y="{new_y + 6}"')
     return svg
 
 
 def fix_known_layouts(path: Path, svg: str) -> str:
-    """Apply deterministic layout/markup fixes that depend on generated assets."""
     if path.name == "correlation-structure-map.svg":
-        # The vertical kappa label was previously emitted as horizontal text at x=28.
         pattern = r'(<text class="math" x="28" y="205" text-anchor="middle")([^>]*>)'
         if re.search(pattern, svg) and 'rotate(-90 28 205)' not in svg:
             svg = re.sub(pattern, r'\1 transform="rotate(-90 28 205)"\2', svg, count=1)
 
     if path.name == "frustration-competition.svg":
-        # A literal '<' inside an SVG text node is invalid XML and can make the
-        # whole image disappear in strict browser/XML renderers.
         svg = svg.replace("J₂ < 0：", "J₂ &lt; 0：")
 
     if path.name == "magnetization-field.svg":
-        svg = _move_r1_four_series_legend(svg)
+        svg = move_legend_group(
+            svg,
+            old_box='<rect class="legendbox" x="500" y="24" width="196" height="132" rx="10"/>',
+            new_box='<rect class="legendbox" x="500" y="190" width="196" height="132" rx="10"/>',
+            dy=166,
+        )
 
     if path.name == "qstar-kappa.svg":
-        # Curves occupy the upper-right; the upper-left is empty because q*=0
-        # below each spectral threshold.
-        svg = _move_r2_legend(svg, x_old=500, x_new=116)
+        svg = move_legend_group(
+            svg,
+            old_box='<rect class="legendbox" x="500" y="25" width="190" height="136" rx="10"/>',
+            new_box='<rect class="legendbox" x="116" y="25" width="190" height="136" rx="10"/>',
+            dx=-384,
+        )
 
     if path.name == "correlation-length-kappa.svg":
-        # Keep the legend in the high-xi quiet band above the central minimum,
-        # away from the rising blue branch at large kappa.
-        svg = _move_r2_legend(svg, x_old=500, x_new=310)
+        svg = move_legend_group(
+            svg,
+            old_box='<rect class="legendbox" x="500" y="25" width="190" height="136" rx="10"/>',
+            new_box='<rect class="legendbox" x="310" y="25" width="190" height="136" rx="10"/>',
+            dx=-190,
+        )
     return svg
 
 
 def normalize_fixed_black(svg: str) -> str:
-    """Remove accidental pure-black SVG defaults without touching site ink tokens."""
     return re.sub(
         r'(?i)(fill|stroke)="(?:#000000|#000|black)"',
         rf'\1="{LIGHT_INK}"',
