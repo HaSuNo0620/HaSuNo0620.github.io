@@ -1,11 +1,12 @@
 """Shared Matplotlib figure style for HaSuNo0620.github.io.
 
-Figure Style v1.4 prioritizes browser readability: large labels and legends,
-heavy data/theory strokes, transparent canvases, conventional mathematical
-typography, readable local paper backdrops, and light/dark-aware SVG output.
+Figure Style v1.5 makes theme intent explicit at figure creation time and leaves
+postprocess_figures.py as the final CI safety net.  Text remains SVG text
+(svg.fonttype='none') so labels can be recolored reliably.
 """
 from __future__ import annotations
 
+import re
 from pathlib import Path
 from typing import Iterable
 
@@ -69,14 +70,7 @@ def _mpl():
 
 
 def _make_svg_theme_aware(path: Path) -> None:
-    """Replace site-palette literals with CSS variables and add dark-mode values.
-
-    Matplotlib emits literal colors into the SVG. Because figures are loaded via
-    <img>, page CSS cannot recolor them. Embedding variables and a media query in
-    the SVG keeps labels, axes, grids, curves, and legend boxes readable in both
-    site themes. Fixed black produced by third-party Matplotlib defaults is also
-    normalized to the site ink token.
-    """
+    """Replace palette literals with CSS variables and embed dark-mode values."""
     if path.suffix.lower() != ".svg":
         return
 
@@ -89,13 +83,23 @@ def _make_svg_theme_aware(path: Path) -> None:
         COLORS["line"]: "var(--figure-line)",
         COLORS["accent"]: "var(--figure-accent)",
         COLORS["green"]: "var(--figure-green)",
-        "#000000": "var(--figure-ink)",
-        "#000": "var(--figure-ink)",
     }
     for source, target in replacements.items():
-        svg = svg.replace(source, target).replace(source.upper(), target)
+        svg = re.sub(re.escape(source), target, svg, flags=re.I)
 
-    theme_css = f"""<style>
+    # Third-party Matplotlib defaults sometimes sneak pure black into text/path style.
+    svg = re.sub(
+        r"(?i)(fill|stroke)\s*:\s*(?:#000000|#000(?![0-9a-f])|black)",
+        r"\1:var(--figure-ink)",
+        svg,
+    )
+    svg = re.sub(
+        r"(?i)(fill|stroke)=(['\"])(?:#000000|#000(?![0-9a-f])|black)\2",
+        r"\1=\2var(--figure-ink)\2",
+        svg,
+    )
+
+    theme_css = f"""<style id="matplotlib-figure-theme">
 :root {{
   --figure-paper: {COLORS['paper']};
   --figure-paper2: {COLORS['paper2']};
@@ -118,7 +122,7 @@ def _make_svg_theme_aware(path: Path) -> None:
 }}
 </style>"""
     svg_end = svg.find(">")
-    if svg_end >= 0:
+    if svg_end >= 0 and 'id="matplotlib-figure-theme"' not in svg:
         svg = svg[: svg_end + 1] + "\n" + theme_css + svg[svg_end + 1 :]
     path.write_text(svg, encoding="utf-8")
 
@@ -136,6 +140,7 @@ def apply_site_style() -> None:
             "axes.facecolor": "none",
             "axes.edgecolor": COLORS["ink"],
             "axes.labelcolor": COLORS["ink"],
+            "axes.titlecolor": COLORS["ink"],
             "axes.linewidth": LINEWIDTH["axis"],
             "axes.spines.top": False,
             "axes.spines.right": False,
@@ -146,6 +151,8 @@ def apply_site_style() -> None:
             "grid.alpha": 0.48,
             "xtick.color": COLORS["muted"],
             "ytick.color": COLORS["muted"],
+            "xtick.labelcolor": COLORS["muted"],
+            "ytick.labelcolor": COLORS["muted"],
             "xtick.labelsize": FONT_SIZE["tick"],
             "ytick.labelsize": FONT_SIZE["tick"],
             "axes.labelsize": FONT_SIZE["axis"],
@@ -154,6 +161,7 @@ def apply_site_style() -> None:
             "legend.framealpha": 0.90,
             "legend.facecolor": COLORS["paper"],
             "legend.edgecolor": COLORS["line"],
+            "legend.labelcolor": COLORS["ink"],
             "font.family": "sans-serif",
             "font.sans-serif": [
                 "Noto Sans JP",
@@ -183,15 +191,23 @@ def new_figure(*, size: str = "standard", constrained_layout: bool = True):
 
 
 def style_axes(ax, *, xlabel=None, ylabel=None, grid=True, zero_x=False, zero_y=False) -> None:
+    """Apply explicit label/tick colors instead of relying on Matplotlib defaults."""
     if xlabel is not None:
-        ax.set_xlabel(xlabel)
+        ax.set_xlabel(xlabel, color=COLORS["ink"])
     if ylabel is not None:
-        ax.set_ylabel(ylabel)
+        ax.set_ylabel(ylabel, color=COLORS["ink"])
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.spines["left"].set_color(COLORS["ink"])
     ax.spines["bottom"].set_color(COLORS["ink"])
-    ax.tick_params(axis="both", which="major", length=5.5, width=1.4)
+    ax.tick_params(
+        axis="both",
+        which="major",
+        length=5.5,
+        width=1.4,
+        colors=COLORS["muted"],
+        labelcolor=COLORS["muted"],
+    )
     ax.grid(grid, which="major")
     ax.grid(False, which="minor")
     if zero_x:
@@ -241,7 +257,6 @@ def style_legend(
     dark: bool = False,
     **kwargs,
 ):
-    """Create a readable legend with a local theme-aware paper backdrop."""
     palette = DARK_COLORS if dark else COLORS
     defaults = {
         "frameon": True,
@@ -268,6 +283,18 @@ def style_legend(
     return leg
 
 
+def annotation_box(*, dark: bool = False, alpha: float | None = None) -> dict:
+    """Reusable paper-backed annotation style for labels placed over data."""
+    palette = DARK_COLORS if dark else COLORS
+    return {
+        "boxstyle": "round,pad=0.20",
+        "facecolor": palette["paper"],
+        "edgecolor": palette["line"],
+        "linewidth": 0.8,
+        "alpha": alpha if alpha is not None else (0.82 if not dark else 0.78),
+    }
+
+
 def direct_label(
     ax,
     x: float,
@@ -287,13 +314,7 @@ def direct_label(
         "va": "center",
     }
     if backdrop:
-        defaults["bbox"] = {
-            "boxstyle": "round,pad=0.20",
-            "facecolor": palette["paper"],
-            "edgecolor": palette["line"],
-            "linewidth": 0.8,
-            "alpha": 0.86,
-        }
+        defaults["bbox"] = annotation_box(dark=dark, alpha=0.86 if not dark else 0.82)
     defaults.update(kwargs)
     return ax.text(x, y, text, **defaults)
 
