@@ -2,8 +2,9 @@
 
 This stdlib-only step runs after every figure generator and before Astro builds.
 It is deliberately strict: fixed black is normalized, arrow markers are assigned
-explicit theme-aware classes, a final CSS safety layer makes labels/axes/arrows
-readable in both light and dark mode, and malformed SVG fails CI.
+explicit theme-aware classes, axis labels are tagged separately from ordinary math
+text, state-transition arrows are promoted to the accent style, and malformed SVG
+fails CI.
 """
 from __future__ import annotations
 
@@ -40,7 +41,8 @@ BLACK_CSS_RE = re.compile(rf"(?i)(fill|stroke|color)\s*:\s*{BLACK_TOKEN}\s*(?=[;
 THEME_SAFETY_STYLE = f"""
 <style id="figure-theme-safety">
 /* Final override layer.  It intentionally appears last in the SVG. */
-.text,.label,.panel,.math,.textlabel,.mathlabel,.legend,.mathlegend,.panelmath,.axis-label{{fill:{LIGHT['ink']} !important}}
+.text,.label,.panel,.math,.textlabel,.mathlabel,.legend,.mathlegend,.panelmath{{fill:{LIGHT['ink']} !important}}
+.axislabel,.axis-label{{fill:{LIGHT['accent']} !important}}
 .small,.tick,.tick-label{{fill:{LIGHT['muted']} !important}}
 .axis{{stroke:{LIGHT['ink']} !important}}
 .arrow{{stroke:{LIGHT['ink']} !important}}
@@ -48,7 +50,8 @@ THEME_SAFETY_STYLE = f"""
 .arrowhead-ink{{fill:{LIGHT['ink']} !important;stroke:{LIGHT['ink']} !important}}
 .arrowhead-accent{{fill:{LIGHT['accent']} !important;stroke:{LIGHT['accent']} !important}}
 @media (prefers-color-scheme: dark){{
-  .text,.label,.panel,.math,.textlabel,.mathlabel,.legend,.mathlegend,.panelmath,.axis-label{{fill:{DARK['ink']} !important}}
+  .text,.label,.panel,.math,.textlabel,.mathlabel,.legend,.mathlegend,.panelmath{{fill:{DARK['ink']} !important}}
+  .axislabel,.axis-label{{fill:{DARK['accent']} !important}}
   .small,.tick,.tick-label{{fill:{DARK['muted']} !important}}
   .axis{{stroke:{DARK['ink']} !important}}
   .arrow{{stroke:{DARK['ink']} !important}}
@@ -80,11 +83,7 @@ def _set_marker_path_class(block: str, cls: str) -> str:
 
 
 def theme_marker_heads(svg: str) -> str:
-    """Bind known marker ids to explicit ink/accent classes.
-
-    Marker geometry lives inside <defs>, so recoloring the arrow stroke alone does
-    not recolor its head.  This function removes that independent fixed color.
-    """
+    """Bind known marker ids to explicit ink/accent classes."""
     marker_re = re.compile(r'<marker\b[^>]*\bid=("|\')(?P<id>[^"\']+)\1[^>]*>.*?</marker>', re.S | re.I)
 
     def repl(match: re.Match[str]) -> str:
@@ -94,6 +93,27 @@ def theme_marker_heads(svg: str) -> str:
         return _set_marker_path_class(block, cls)
 
     return marker_re.sub(repl, svg)
+
+
+def tag_axis_labels(svg: str) -> str:
+    """Give true x/y labels a dedicated accent class.
+
+    The custom SVG generators use class=math/mathlabel for both axis labels and
+    ordinary mathematical annotations.  Previously the final safety layer therefore
+    recolored both to ink.  Axis labels are identified by the common bottom-label
+    position (y=420) or a -90 degree rotation and get their own axislabel class.
+    """
+    def add_axis_class(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        if 'axislabel' in tag:
+            return tag
+        return re.sub(r'class="([^"]+)"', lambda m: f'class="{m.group(1)} axislabel"', tag, count=1)
+
+    bottom_re = re.compile(r'<text\b[^>]*class="(?:math|mathlabel)"[^>]*\by="420(?:\.0)?"[^>]*>', re.I)
+    rotated_re = re.compile(r'<text\b[^>]*class="(?:math|mathlabel)"[^>]*\btransform="rotate\(-90(?:\.0)?\s+[^\"]+\)"[^>]*>', re.I)
+    svg = bottom_re.sub(add_axis_class, svg)
+    svg = rotated_re.sub(add_axis_class, svg)
+    return svg
 
 
 def inject_theme_safety(svg: str) -> str:
@@ -125,6 +145,13 @@ def fix_known_layouts(path: Path, svg: str) -> str:
 
     if path.name == "frustration-competition.svg":
         svg = svg.replace("J₂ < 0：", "J₂ &lt; 0：")
+
+    # This is the actual R=2 state-transition diagram.  Its edges used the generic
+    # .arrow class (ink/black in light mode), while earlier fixes targeted the
+    # correlation-structure map's .arrow-primary arrow.  Promote the state edges
+    # themselves to the accent arrow style.
+    if path.name == "transfer-state-network.svg":
+        svg = svg.replace('<path class="arrow"', '<path class="arrow-primary"')
 
     if path.name == "magnetization-field.svg":
         svg = move_legend_group(
@@ -171,6 +198,11 @@ def audit(path: Path, svg: str) -> list[str]:
     problems.extend(_marker_problems(svg))
     if '<text' in svg and 'id="figure-theme-safety"' not in svg:
         problems.append("theme safety layer missing")
+    if path.name == 'transfer-state-network.svg' and '<path class="arrow"' in svg:
+        problems.append('state-transition arrow still uses ink class')
+    # Any standard bottom or rotated mathematical axis label must be explicitly tagged.
+    if re.search(r'<text\b[^>]*class="(?:math|mathlabel)"[^>]*(?:\by="420(?:\.0)?"|transform="rotate\(-90)', svg, re.I):
+        problems.append('axis label is not tagged axislabel')
     try:
         ET.fromstring(svg)
     except ET.ParseError as exc:
@@ -183,6 +215,7 @@ def process(path: Path) -> list[str]:
     svg = normalize_fixed_black(svg)
     svg = theme_marker_heads(svg)
     svg = fix_known_layouts(path, svg)
+    svg = tag_axis_labels(svg)
     svg = inject_theme_safety(svg)
     path.write_text(svg, encoding="utf-8")
     return audit(path, svg)
@@ -200,7 +233,7 @@ def main() -> None:
         for path, problem in problems:
             print(f"ERROR {path}: {problem}")
         raise SystemExit(1)
-    print("SVG audit passed: no fixed black, markers theme-bound, XML valid")
+    print("SVG audit passed: state arrows accent, axis labels tagged, no fixed black, XML valid")
 
 
 if __name__ == "__main__":
