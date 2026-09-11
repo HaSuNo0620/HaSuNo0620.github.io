@@ -45,7 +45,6 @@ def theme_marker_heads(svg: str) -> str:
 
 
 def move_legend_group(svg: str, *, old_box: str, new_box: str, dx: int = 0, dy: int = 0) -> str:
-    """Move generated legend elements by exact coordinate substitutions."""
     svg = svg.replace(old_box, new_box)
     if dx:
         for old_x in (518, 574, 590):
