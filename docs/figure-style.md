@@ -1,17 +1,18 @@
-# Figure Style v1.3
+# Figure Style v1.4
 
-HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い論文図ではなく、**ページの紙面の一部**として扱う。v1.3 では、v1.2 の大きな文字・太い線を維持しつつ、図中の数式 typography を「数式だから全部 italic」ではなく、**数式中の役割に応じて italic / upright を分ける**形へ修正する。
+HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い論文図ではなく、**ページの紙面の一部**として扱う。v1.4 では v1.3 の大きな文字・太い線・数式 typography を維持しつつ、**凡例・直接ラベルの可読性と light / dark 両テーマでのコントラスト**を明文化する。
 
 ## 1. 基本原則
 
 1. 図を作る前に「この図を見た人に何を発見してほしいか」を一文で決める。
 2. 図内タイトルは原則置かない。節見出しとキャプションに説明を任せる。
-3. 背景は透明。白背景の `<rect>` や白い legend box は置かない。
+3. Figure canvas 自体は透明とする。ただし **legend / direct label の可読性を確保する局所的な paper 背景は使用する**。
 4. 色だけで系列を区別しない。線種・marker・太さを併用する。
 5. 本文の数式と図の表記を一致させる。
 6. SVG を標準形式とし、図は再生成可能なスクリプトから作る。
 7. 細く繊細な論文図より、Web ページ上で一目で読める強さを優先する。
 8. 情報量が増えたら文字や線を細くせず、図を分ける。
+9. **文字色に固定 black / white を使わず、theme-aware ink を使う。**
 
 ## 2. Canvas
 
@@ -28,6 +29,8 @@ HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い�
 
 | semantic role | light | dark |
 | --- | --- | --- |
+| paper | `#f3efe6` | `#1c1c19` |
+| paper-2 | `#ebe5d9` | `#272720` |
 | ink / axis | `#171714` | `#f0eadf` |
 | muted | `#716d64` | `#a8a196` |
 | grid / border | `#cbc3b5` | `#4a4740` |
@@ -38,8 +41,9 @@ HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い�
 
 - **accent blue**: 主対象、厳密解、現在注目している量
 - **green**: 比較、近似、参照理論
-- **ink**: データ点、基準線、構造そのもの
-- **muted**: 補助系列、注釈、二次的情報
+- **ink**: データ点、基準線、構造そのもの、通常文字
+- **muted**: 補助系列、二次的情報
+- **paper / paper-2**: 局所的な legend / annotation の下地
 
 3系列以上では無制限に色を増やさず、線種・marker・濃淡を使う。虹色 palette は使わない。
 
@@ -77,6 +81,8 @@ HaSuNo0620.github.io で用いる図の共通書式。図は独立した白い�
 - panel label `(a)`: **18 px / pt 相当**, semibold
 
 凡例は「補助情報だから小さくする」のではなく、系列を読むための主要情報として tick より大きくする。
+
+通常文字、凡例、注釈、直接ラベルは theme-aware `ink` を使う。固定 `black` は light mode では使えても dark mode で背景へ同化するため禁止する。
 
 ## 7. Mathematical labels
 
@@ -126,14 +132,35 @@ SVG を `<img>` として読み込む場合、MathJax は SVG 内部を再組版
 
 本文の数式表記ルールは [`docs/math-style.md`](math-style.md) に従う。
 
-## 8. Legend
+## 8. Legend and direct labels
 
-- 枠なし、背景なし。
-- **18 px 相当を標準**とし、tick より小さくしない。
-- line sample は短すぎない。太い線の線種が判別できる長さを確保する。
-- データを覆わない位置に置く。
-- 系列数が少なければ curve への直接ラベルも使える。
-- パラメータ凡例では、変数と数値・演算子の字体を分ける。
+凡例は完全透明を標準にしない。データ曲線と重なったとき、凡例文字と sample line の両方が読みにくくなるためである。
+
+優先順位：
+
+1. **少数系列なら direct label を優先**する。
+2. 図内凡例が必要なら、**半透明 paper box** を使う。
+3. 曲線が密なら **outside legend** を使う。
+
+### 8.1 In-plot legend
+
+light mode:
+
+- face: paper `#f3efe6`, alpha ≈ **0.90**
+- edge: ink, alpha ≈ **0.14**
+- text: ink `#171714`
+
+ dark mode:
+
+- face: dark paper `#1c1c19` または paper-2 `#272720`, alpha ≈ **0.84–0.90**
+- edge: light ink, alpha ≈ **0.14**
+- text: ink `#f0eadf`
+
+枠線は細く、shadow は原則使わない。legend sample は実線より細くせず、必要なら **5 px 相当**まで太くする。
+
+### 8.2 Direct label
+
+curve 上または curve の近傍へ置く。線との重なりで読みにくい場合は、paper 色の小さな下地を alpha **0.80–0.90** 程度で置く。文字は theme-aware ink とする。
 
 ## 9. Captions
 
@@ -162,7 +189,7 @@ colorbar の文字サイズも通常の tick より小さくしない。虹色 `
 
 ## 12. Schematics
 
-模式図はグラフと同じ palette を使う。
+模式図はグラフと同じ palette を使う。詳細な模式図の幾何学・言語・配置ルールは [`docs/diagram-style.md`](diagram-style.md) に従う。
 
 - system / geometry: ink
 - focus / selected object: accent blue
@@ -178,7 +205,7 @@ colorbar の文字サイズも通常の tick より小さくしない。虹色 `
 - photo: WebP
 - animation: WebM; GIF は必要時のみ
 
-SVG は transparent background とする。ファイル名は内容を説明する kebab-case とする。
+Figure canvas は transparent background とする。ファイル名は内容を説明する kebab-case とする。
 
 ## 14. Reproducibility
 
@@ -187,18 +214,19 @@ SVG は transparent background とする。ファイル名は内容を説明す�
 ## 15. Pre-publish checklist
 
 - [ ] 図から読み取らせたい主張が一つに絞られている
-- [ ] transparent background
+- [ ] Figure canvas は transparent background
 - [ ] 図内タイトルなし
 - [ ] 軸ラベルと本文の記号が一致
 - [ ] **変数だけが italic で、数字・演算子・括弧・説明語まで italic になっていない**
-- [ ] **凡例が十分大きい**
+- [ ] **凡例・直接ラベルの文字が背景や曲線に埋もれていない**
+- [ ] **凡例が必要な場合、半透明 paper box または図外配置になっている**
+- [ ] **文字色に固定 black / white を使っていない**
 - [ ] **主線が一目で追える太さになっている**
 - [ ] 色だけで情報を符号化していない
-- [ ] legend は frameless
 - [ ] grid が data より目立たない
 - [ ] exact / data / fit の線種規則が守られている
 - [ ] caption が図の意味まで説明している
 - [ ] SVG または適切な raster format
 - [ ] 再生成スクリプトが残っている
 
-この文書を **HaSuNo0620.github.io Figure Style v1.3** の基準とする。
+この文書を **HaSuNo0620.github.io Figure Style v1.4** の基準とする。
