@@ -25,10 +25,10 @@ STYLE = f"""<style>
 .axis{{stroke:{LIGHT['ink']};stroke-width:1.8}}
 .grid{{stroke:{LIGHT['line']};stroke-width:1.1;opacity:.48}}
 .tick{{fill:{LIGHT['muted']};font:16px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
-.text{{fill:{LIGHT['ink']};font:18px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
+.text{{fill:{LIGHT['ink']};font:18px 'Noto Sans JP',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
 .math{{fill:{LIGHT['ink']};font:20px 'STIX Two Math','Cambria Math','Times New Roman',serif}}
 .var{{font-style:italic}} .roman{{font-style:normal}}
-.legend{{fill:{LIGHT['ink']};font:18px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
+.legend{{fill:{LIGHT['ink']};font:18px 'Noto Sans JP',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
 .legendbox{{fill:{LIGHT['paper']};fill-opacity:.92;stroke:{LIGHT['ink']};stroke-opacity:.14;stroke-width:1}}
 .primary{{fill:none;stroke:{LIGHT['accent']};stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}}
 .secondary{{fill:none;stroke:{LIGHT['green']};stroke-width:3.6;stroke-dasharray:11 7;stroke-linecap:round;stroke-linejoin:round}}
@@ -128,11 +128,11 @@ def boundary_figure():
     a.append(f'<line class="muteddot" x1="{l}" y1="{Y:.1f}" x2="{r}" y2="{Y:.1f}"/>')
     a.append('<rect class="legendbox" x="470" y="34" width="224" height="78" rx="10"/>')
     a += [f'<line class="primary" x1="490" y1="55" x2="544" y2="55"/>',
-          '<text class="legend" x="558" y="61">spectral boundary</text>',
+          '<text class="legend" x="558" y="61">スペクトル境界</text>',
           f'<line class="muteddot" x1="490" y1="89" x2="544" y2="89"/>',
           math_text(558,95,[("κ",'var'),(" = 1/2",'roman')],anchor='start',size=18)]
-    a.append('<text class="text" x="142" y="292">monotone correlations</text>')
-    a.append('<text class="text" x="382" y="160">damped oscillatory correlations</text>')
+    a.append('<text class="text" x="142" y="292">単調減衰する相関</text>')
+    a.append('<text class="text" x="382" y="160">減衰振動する相関</text>')
     save('oscillatory-boundary.svg',a)
 
 
