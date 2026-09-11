@@ -6,6 +6,7 @@ and wall-particle markers come from the same spin sequence.
 """
 from __future__ import annotations
 
+import html
 import math
 from pathlib import Path
 
@@ -76,13 +77,13 @@ def mt(x, y, chunks, anchor="middle", size=None):
     attrs = f'class="math" x="{x}" y="{y}" text-anchor="{anchor}"'
     if size:
         attrs += f' style="font-size:{size}px"'
-    spans = "".join(f'<tspan class="{kind}">{txt}</tspan>' for txt, kind in chunks)
+    spans = "".join(f'<tspan class="{kind}">{html.escape(txt)}</tspan>' for txt, kind in chunks)
     return f'<text {attrs}>{spans}</text>'
 
 
 def text_box(parts, x, y, width, text, *, cls="small", height=30):
     parts.append(f'<rect class="caption-box" x="{x-width/2:.1f}" y="{y-height+7:.1f}" width="{width}" height="{height}" rx="8"/>')
-    parts.append(f'<text class="{cls}" x="{x}" y="{y}" text-anchor="middle">{text}</text>')
+    parts.append(f'<text class="{cls}" x="{x}" y="{y}" text-anchor="middle">{html.escape(text)}</text>')
 
 
 def spin_positions(x0, spins, spacing):
@@ -174,7 +175,7 @@ def domain_wall_map():
     spin_row(p,x0,y,spins,sp,True,15)
     for left,right,sign in domain_segments(x0,spins,sp):
         label='+ ドメイン' if sign>0 else '− ドメイン'
-        p.append(f'<text class="small" x="{(left+right)/2:.1f}" y="64" text-anchor="middle">{label}</text>')
+        p.append(f'<text class="small" x="{(left+right)/2:.1f}" y="64" text-anchor="middle">{html.escape(label)}</text>')
     xs=spin_positions(x0,spins,sp)
     for i in range(len(spins)-1):
         x=(xs[i]+xs[i+1])/2
@@ -194,7 +195,7 @@ def transfer_network():
     coords={'++':(190,110), '+−':(570,110), '−+':(190,310), '−−':(570,310)}
     for name,(x,y) in coords.items():
         p.append(f'<rect class="node2" x="{x-46}" y="{y-28}" width="92" height="56" rx="18"/>')
-        p.append(f'<text class="label" x="{x}" y="{y+7}" text-anchor="middle">{name}</text>')
+        p.append(f'<text class="label" x="{x}" y="{y+7}" text-anchor="middle">{html.escape(name)}</text>')
     edges=[('++','++'),('++','+−'),('+−','−+'),('+−','−−'),('−+','++'),('−+','+−'),('−−','−+'),('−−','−−')]
     for a,b in edges:
         x1,y1=coords[a]; x2,y2=coords[b]
@@ -364,8 +365,8 @@ def ising_liquid_map():
     right=[('leading pole','k_pole'),('減衰率','Im k_pole'),('振動波数','Re k_pole'),('クロスオーバー','純虚数 → 複素 pole')]
     for i,((a,b),(c,d)) in enumerate(zip(left,right)):
         y=142+i*62
-        p.append(f'<text class="small" x="65" y="{y}">{a}</text>'); p.append(f'<text class="text" x="65" y="{y+25}">{b}</text>')
-        p.append(f'<text class="small" x="457" y="{y}">{c}</text>'); p.append(f'<text class="text" x="457" y="{y+25}">{d}</text>')
+        p.append(f'<text class="small" x="65" y="{y}">{html.escape(a)}</text>'); p.append(f'<text class="text" x="65" y="{y+25}">{html.escape(b)}</text>')
+        p.append(f'<text class="small" x="457" y="{y}">{html.escape(c)}</text>'); p.append(f'<text class="text" x="457" y="{y+25}">{html.escape(d)}</text>')
         p.append(f'<path class="arrow-primary" d="M 344 {y+10} L 408 {y+10}"/>')
     text_box(p,380,410,500,'最長距離相関を支配するスペクトルモードの型が変わる')
     save('ising-liquid-correspondence.svg',p)
