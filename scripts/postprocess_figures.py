@@ -1,9 +1,9 @@
 """Post-process and audit generated SVG figures.
 
-This script is intentionally stdlib-only so it can run in GitHub Pages CI after
-all figure generators. It provides a final safety net for browser rendering:
-marker heads must follow light/dark theme colors, generated SVG must be valid
-XML, and known layout corrections are applied before Astro builds the site.
+This stdlib-only step runs after every figure generator and before Astro builds.
+It is deliberately strict: fixed black is normalized, arrow markers are assigned
+explicit theme-aware classes, a final CSS safety layer makes labels/axes/arrows
+readable in both light and dark mode, and malformed SVG fails CI.
 """
 from __future__ import annotations
 
@@ -14,34 +14,92 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 FIGURES = ROOT / "public" / "figures"
 
-LIGHT_INK = "#171714"
-DARK_INK = "#f0eadf"
-LIGHT_ACCENT = "#5866e9"
-DARK_ACCENT = "#99a2ff"
+LIGHT = {
+    "paper": "#f3efe6",
+    "paper2": "#ebe5d9",
+    "ink": "#171714",
+    "muted": "#716d64",
+    "line": "#cbc3b5",
+    "accent": "#5866e9",
+    "green": "#39705a",
+}
+DARK = {
+    "paper": "#1c1c19",
+    "paper2": "#272720",
+    "ink": "#f0eadf",
+    "muted": "#a8a196",
+    "line": "#4a4740",
+    "accent": "#99a2ff",
+    "green": "#8bc4a9",
+}
 
-ARROW_THEME_STYLE = f"""
-<style>
-.arrowhead-ink{{fill:{LIGHT_INK}}}
-.arrowhead-accent{{fill:{LIGHT_ACCENT}}}
-@media(prefers-color-scheme:dark){{
-  .arrowhead-ink{{fill:{DARK_INK}}}
-  .arrowhead-accent{{fill:{DARK_ACCENT}}}
+BLACK_TOKEN = r"(?:#000000|#000(?![0-9a-f])|black|rgb\(\s*0\s*[, ]\s*0\s*[, ]\s*0\s*\)|rgba\(\s*0\s*,\s*0\s*,\s*0\s*,\s*1(?:\.0+)?\s*\))"
+BLACK_ATTR_RE = re.compile(rf"(?i)(fill|stroke)\s*=\s*([\"'])\s*{BLACK_TOKEN}\s*\2")
+BLACK_CSS_RE = re.compile(rf"(?i)(fill|stroke|color)\s*:\s*{BLACK_TOKEN}\s*(?=[;}}\"'])")
+
+THEME_SAFETY_STYLE = f"""
+<style id="figure-theme-safety">
+/* Final override layer.  It intentionally appears last in the SVG. */
+.text,.label,.panel,.math,.textlabel,.mathlabel,.legend,.mathlegend,.panelmath,.axis-label{{fill:{LIGHT['ink']} !important}}
+.small,.tick,.tick-label{{fill:{LIGHT['muted']} !important}}
+.axis{{stroke:{LIGHT['ink']} !important}}
+.arrow{{stroke:{LIGHT['ink']} !important}}
+.arrow-primary{{stroke:{LIGHT['accent']} !important}}
+.arrowhead-ink{{fill:{LIGHT['ink']} !important;stroke:{LIGHT['ink']} !important}}
+.arrowhead-accent{{fill:{LIGHT['accent']} !important;stroke:{LIGHT['accent']} !important}}
+@media (prefers-color-scheme: dark){{
+  .text,.label,.panel,.math,.textlabel,.mathlabel,.legend,.mathlegend,.panelmath,.axis-label{{fill:{DARK['ink']} !important}}
+  .small,.tick,.tick-label{{fill:{DARK['muted']} !important}}
+  .axis{{stroke:{DARK['ink']} !important}}
+  .arrow{{stroke:{DARK['ink']} !important}}
+  .arrow-primary{{stroke:{DARK['accent']} !important}}
+  .arrowhead-ink{{fill:{DARK['ink']} !important;stroke:{DARK['ink']} !important}}
+  .arrowhead-accent{{fill:{DARK['accent']} !important;stroke:{DARK['accent']} !important}}
 }}
 </style>
 """
 
 
-def theme_marker_heads(svg: str) -> str:
-    changed = False
-    if f'fill="{LIGHT_INK}"' in svg and '<marker' in svg:
-        svg = svg.replace(f'fill="{LIGHT_INK}"/></marker>', 'class="arrowhead-ink"/></marker>')
-        changed = True
-    if f'fill="{LIGHT_ACCENT}"' in svg and '<marker' in svg:
-        svg = svg.replace(f'fill="{LIGHT_ACCENT}"/></marker>', 'class="arrowhead-accent"/></marker>')
-        changed = True
-    if changed and ARROW_THEME_STYLE.strip() not in svg:
-        svg = svg.replace("</svg>", ARROW_THEME_STYLE + "</svg>")
+def normalize_fixed_black(svg: str) -> str:
+    """Normalize literal black in attributes and inline/CSS declarations."""
+    svg = BLACK_ATTR_RE.sub(lambda m: f'{m.group(1)}={m.group(2)}{LIGHT["ink"]}{m.group(2)}', svg)
+    svg = BLACK_CSS_RE.sub(lambda m: f'{m.group(1)}:{LIGHT["ink"]}', svg)
     return svg
+
+
+def _set_marker_path_class(block: str, cls: str) -> str:
+    """Force every path in one marker block to use a theme-aware marker class."""
+    def repl(match: re.Match[str]) -> str:
+        attrs = match.group(1)
+        attrs = re.sub(r'\sclass=("[^"]*"|\'[^\']*\')', '', attrs)
+        attrs = re.sub(r'\s(?:fill|stroke)=("[^"]*"|\'[^\']*\')', '', attrs, flags=re.I)
+        attrs = re.sub(r'\sstyle=("[^"]*"|\'[^\']*\')', '', attrs, flags=re.I)
+        return f'<path class="{cls}"{attrs}>'
+
+    return re.sub(r'<path\b([^>]*)>', repl, block)
+
+
+def theme_marker_heads(svg: str) -> str:
+    """Bind known marker ids to explicit ink/accent classes.
+
+    Marker geometry lives inside <defs>, so recoloring the arrow stroke alone does
+    not recolor its head.  This function removes that independent fixed color.
+    """
+    marker_re = re.compile(r'<marker\b[^>]*\bid=("|\')(?P<id>[^"\']+)\1[^>]*>.*?</marker>', re.S | re.I)
+
+    def repl(match: re.Match[str]) -> str:
+        block = match.group(0)
+        marker_id = match.group('id').lower()
+        cls = 'arrowhead-accent' if 'accent' in marker_id or 'primary' in marker_id else 'arrowhead-ink'
+        return _set_marker_path_class(block, cls)
+
+    return marker_re.sub(repl, svg)
+
+
+def inject_theme_safety(svg: str) -> str:
+    """Append one authoritative theme layer after all generator styles."""
+    svg = re.sub(r'\s*<style id="figure-theme-safety">.*?</style>\s*', '\n', svg, flags=re.S)
+    return svg.replace('</svg>', THEME_SAFETY_STYLE + '</svg>')
 
 
 def move_legend_group(svg: str, *, old_box: str, new_box: str, dx: int = 0, dy: int = 0) -> str:
@@ -94,20 +152,25 @@ def fix_known_layouts(path: Path, svg: str) -> str:
     return svg
 
 
-def normalize_fixed_black(svg: str) -> str:
-    return re.sub(
-        r'(?i)(fill|stroke)="(?:#000000|#000|black)"',
-        rf'\1="{LIGHT_INK}"',
-        svg,
-    )
+def _marker_problems(svg: str) -> list[str]:
+    problems: list[str] = []
+    marker_re = re.compile(r'<marker\b[^>]*\bid=("|\')(?P<id>[^"\']+)\1[^>]*>(?P<body>.*?)</marker>', re.S | re.I)
+    for match in marker_re.finditer(svg):
+        marker_id = match.group('id')
+        body = match.group('body')
+        expected = 'arrowhead-accent' if 'accent' in marker_id.lower() or 'primary' in marker_id.lower() else 'arrowhead-ink'
+        if f'class="{expected}"' not in body and f"class='{expected}'" not in body:
+            problems.append(f'marker #{marker_id} is not theme-bound ({expected})')
+    return problems
 
 
 def audit(path: Path, svg: str) -> list[str]:
     problems: list[str] = []
-    if re.search(r'(?i)(fill|stroke)="(?:#000000|#000|black)"', svg):
+    if BLACK_ATTR_RE.search(svg) or BLACK_CSS_RE.search(svg):
         problems.append("fixed black remains")
-    if '<marker' in svg and (f'fill="{LIGHT_INK}"' in svg or f'fill="{LIGHT_ACCENT}"' in svg):
-        problems.append("fixed-color marker head remains")
+    problems.extend(_marker_problems(svg))
+    if '<text' in svg and 'id="figure-theme-safety"' not in svg:
+        problems.append("theme safety layer missing")
     try:
         ET.fromstring(svg)
     except ET.ParseError as exc:
@@ -120,6 +183,7 @@ def process(path: Path) -> list[str]:
     svg = normalize_fixed_black(svg)
     svg = theme_marker_heads(svg)
     svg = fix_known_layouts(path, svg)
+    svg = inject_theme_safety(svg)
     path.write_text(svg, encoding="utf-8")
     return audit(path, svg)
 
@@ -131,11 +195,12 @@ def main() -> None:
         count += 1
         for problem in process(path):
             problems.append((path.relative_to(ROOT), problem))
-    print(f"postprocessed {count} SVG figures")
+    print(f"postprocessed and audited {count} SVG figures")
     if problems:
         for path, problem in problems:
             print(f"ERROR {path}: {problem}")
         raise SystemExit(1)
+    print("SVG audit passed: no fixed black, markers theme-bound, XML valid")
 
 
 if __name__ == "__main__":
