@@ -105,7 +105,6 @@ def chi(t,kappa,nq=301,rmax=600):
 
 
 def legend(parts):
-    # Semi-opaque site-paper background prevents data curves from crossing legend text.
     parts.append('<rect class="legendbox" x="494" y="26" width="202" height="106" rx="10"/>')
     entries=[('primary','κ = 0.15'),('secondary','κ = 0.27'),('inkdash','κ = 0.45')]
     for j,(cl,lab) in enumerate(entries):
@@ -115,12 +114,15 @@ def legend(parts):
 
 
 def correlation_figure():
-    parts,box=axes(0,16,-.18,1.03,[0,4,8,12,16],[0,.25,.5,.75,1],
+    # Keep the visually meaningful decay / first sign changes large; do not spend
+    # half the panel on a tail that is already essentially zero.
+    rmax=10
+    parts,box=axes(0,rmax,-.18,1.03,[0,2,4,6,8,10],[0,.25,.5,.75,1],
                    [('r','var')],[('C','var'),('(','roman'),('r','var'),(')','roman')])
     l,r,t,bo=box
     for kappa,cl in [(.15,'primary'),(.27,'secondary'),(.45,'inkdash')]:
-        vals=corr(1.0,kappa,16)
-        parts.append(poly([(mp(i,0,16,l,r),mp(v,-.18,1.03,bo,t)) for i,v in enumerate(vals)],cl))
+        vals=corr(1.0,kappa,rmax)
+        parts.append(poly([(mp(i,0,rmax,l,r),mp(v,-.18,1.03,bo,t)) for i,v in enumerate(vals)],cl))
     y0=mp(0,-.18,1.03,bo,t)
     parts.append(f'<line class="zero" x1="{l}" y1="{y0:.1f}" x2="{r}" y2="{y0:.1f}"/>')
     legend(parts)
