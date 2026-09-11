@@ -1,8 +1,8 @@
 ---
 title: "1次元イジング模型 R=N — 相互作用範囲・高次壁相互作用・有限記憶"
-summary: "有限範囲 R=N の1次元Ising鎖を一般化し、ドメイン壁表示では N 体までの局所相互作用、転送表示では N-1 ステップの有限記憶が現れることを整理する。R=3 を最初の具体例として読む。"
+summary: "有限範囲 R=N の1次元Ising鎖を一般化し、ドメイン壁表示では N 体までの局所相互作用、壁列では N-1 ステップの有限記憶が現れることを整理する。R=3 を最初の具体例として読む。"
 publishedAt: 2026-09-11T19:30:00+09:00
-updatedAt: 2026-09-11T19:30:00+09:00
+updatedAt: 2026-09-11T19:45:00+09:00
 area: "Physics"
 topics: ["statistical mechanics", "Ising model", "transfer matrix", "domain wall", "finite memory", "correlation"]
 status: growing
@@ -19,11 +19,11 @@ H=-\sum_{n=1}^{N}J_n\sum_i s_i s_{i+n},
 }
 $$
 
-とする。このノートの中心は、単に transfer matrix が大きくなることではない。相互作用範囲 $N$ は、ドメイン壁表示では**高次の局所相互作用**へ、確率過程としては**有限長の記憶**へ変換される。
+とする。このノートの中心は、単に transfer matrix が大きくなることではない。相互作用範囲 $N$ は、ドメイン壁表示では**高次の局所相互作用**へ、壁列の条件付き統計では**有限長の記憶**へ変換される。
 
 ![相互作用範囲と壁相互作用・記憶長の対応](/figures/ising-rn/range-memory-map.svg)
 
-*スピン相互作用の到達距離を1格子ずつ伸ばすたびに、壁表示では1段高い多体項が現れ、局所統計を決めるために必要な履歴も1ステップずつ伸びる。*
+*スピン相互作用の到達距離を1格子ずつ伸ばすたびに、壁表示では1段高い多体項が現れ、次の壁の局所確率を決めるために必要な履歴も1ステップずつ伸びる。*
 
 ## 1. 一般の $R=N$ を壁変数で書く
 
@@ -89,33 +89,33 @@ $$
 
 R=3 で初めて、壁2個の関係だけでは表せない3体項が現れる。
 
-## 2. transfer state は何個のスピンを覚えるか
+## 2. transfer state と壁列の記憶は別の数え方をする
 
-新しいスピン $c=s_{i+1}$ を付け加えるとき、$J_N$ の項まで局所 Boltzmann 重みを決めるには、直前の $N-1$ 個のスピンが必要になる。したがって transfer state は
+新しいスピン $c=s_{i+1}$ を付け加えるとき、距離 $N$ の結合 $s_{i-N+1}c$ まで局所 Boltzmann 重みを決めるには、**直前の $N$ 個のスピン**を覚えておく必要がある。したがって transfer state は
 
 $$
-\sigma_i=(s_{i-N+2},\ldots,s_i)
+\sigma_i=(s_{i-N+1},\ldots,s_i)
 $$
 
-という長さ $N-1$ のビット列として取れる。
+という長さ $N$ のビット列として取れる。
 
 状態数は
 
 $$
-\boxed{2^{N-1}}
+\boxed{2^N}
 $$
 
-である。遷移は窓を1サイトずらす
+である。実際、$R=1$ なら2状態、$R=2$ なら4状態、$R=3$ なら8状態になる。遷移は窓を1サイトずらす
 
 $$
-(a_1,a_2,\ldots,a_{N-1})
+(a_1,a_2,\ldots,a_N)
 \longrightarrow
-(a_2,\ldots,a_{N-1},c)
+(a_2,\ldots,a_N,c)
 $$
 
-という de Bruijn 型の局所遷移になる。
+という de Bruijn 型の局所遷移である。
 
-この意味で
+一方、壁変数では Hamiltonian が最大 $N$ 個連続した $\tau$ の積まで含むので、次の壁の条件付き確率には最大で直前 $N-1$ 個の壁が必要になる。この意味で
 
 $$
 R=1:\ 0\text{ step memory},
@@ -128,10 +128,22 @@ $$
 そして一般に
 
 $$
-\boxed{R=N\ \Rightarrow\ \text{最大 }(N-1)\text{ step の局所記憶}}
+\boxed{R=N\ \Rightarrow\ \text{壁列は最大 }(N-1)\text{ step memory}}
 $$
 
 と読める。
+
+したがって
+
+$$
+\boxed{
+\text{spin transfer state}:2^N\text{ 状態}
+\qquad\text{と}\qquad
+\text{wall process}:N-1\text{ step memory}
+}
+$$
+
+は同じ有限範囲相互作用を別の変数で表したものであり、数え方を混同しないことが重要である。
 
 ここでいう「記憶」は、時間発展の非平衡 memory ではなく、鎖に沿って次の局所確率を決めるために必要な条件付き履歴である。
 
@@ -182,7 +194,7 @@ $$
 
 R=2 では、スピン相関を担う odd sector は実質 $2\times2$ であり、支配モードは2本の実固有値か1組の複素共役対だった。そのため漸近相関の本質的な振動波数は1つである。
 
-R=3 では transfer matrix の次元が増え、odd sector に複数の subleading mode が存在できる。したがって長距離相関は一般に
+R=3 では transfer matrix は $8\times8$ となり、スピン反転対称性を使っても各 sector はより大きい。したがって odd sector に複数の subleading mode が存在でき、長距離相関は一般に
 
 $$
 C(r)
@@ -274,8 +286,8 @@ R=N
 \quad\Longrightarrow\quad
 \begin{cases}
 \text{wall picture: 最大 }N\text{体相互作用}\\
-\text{transfer picture: }2^{N-1}\text{ 状態}\\
-\text{information picture: 最大 }N-1\text{ step memory}\\
+\text{spin transfer picture: }2^N\text{ 状態}\\
+\text{wall information picture: 最大 }N-1\text{ step memory}\\
 \text{correlation picture: 複数 subleading mode の競合が可能}
 \end{cases}
 }
