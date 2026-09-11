@@ -100,8 +100,8 @@ def tag_axis_labels(svg: str) -> str:
 
     The custom SVG generators use class=math/mathlabel for both axis labels and
     ordinary mathematical annotations.  Previously the final safety layer therefore
-    recolored both to ink.  Axis labels are identified by the common bottom-label
-    position (y=420) or a -90 degree rotation and get their own axislabel class.
+    recolored both to ink.  Axis labels are identified by their standard bottom
+    positions (y=420 or y=422) or a -90 degree rotation and get axislabel.
     """
     def add_axis_class(match: re.Match[str]) -> str:
         tag = match.group(0)
@@ -109,7 +109,7 @@ def tag_axis_labels(svg: str) -> str:
             return tag
         return re.sub(r'class="([^"]+)"', lambda m: f'class="{m.group(1)} axislabel"', tag, count=1)
 
-    bottom_re = re.compile(r'<text\b[^>]*class="(?:math|mathlabel)"[^>]*\by="420(?:\.0)?"[^>]*>', re.I)
+    bottom_re = re.compile(r'<text\b[^>]*class="(?:math|mathlabel)"[^>]*\by="(?:420|422)(?:\.0)?"[^>]*>', re.I)
     rotated_re = re.compile(r'<text\b[^>]*class="(?:math|mathlabel)"[^>]*\btransform="rotate\(-90(?:\.0)?\s+[^\"]+\)"[^>]*>', re.I)
     svg = bottom_re.sub(add_axis_class, svg)
     svg = rotated_re.sub(add_axis_class, svg)
@@ -148,8 +148,7 @@ def fix_known_layouts(path: Path, svg: str) -> str:
 
     # This is the actual R=2 state-transition diagram.  Its edges used the generic
     # .arrow class (ink/black in light mode), while earlier fixes targeted the
-    # correlation-structure map's .arrow-primary arrow.  Promote the state edges
-    # themselves to the accent arrow style.
+    # correlation-structure map's .arrow-primary arrow.  Promote the state edges.
     if path.name == "transfer-state-network.svg":
         svg = svg.replace('<path class="arrow"', '<path class="arrow-primary"')
 
@@ -200,8 +199,7 @@ def audit(path: Path, svg: str) -> list[str]:
         problems.append("theme safety layer missing")
     if path.name == 'transfer-state-network.svg' and '<path class="arrow"' in svg:
         problems.append('state-transition arrow still uses ink class')
-    # Any standard bottom or rotated mathematical axis label must be explicitly tagged.
-    if re.search(r'<text\b[^>]*class="(?:math|mathlabel)"[^>]*(?:\by="420(?:\.0)?"|transform="rotate\(-90)', svg, re.I):
+    if re.search(r'<text\b[^>]*class="(?:math|mathlabel)"[^>]*(?:\by="(?:420|422)(?:\.0)?"|transform="rotate\(-90)', svg, re.I):
         problems.append('axis label is not tagged axislabel')
     try:
         ET.fromstring(svg)
