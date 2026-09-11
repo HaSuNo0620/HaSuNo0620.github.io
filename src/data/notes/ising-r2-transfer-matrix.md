@@ -1,8 +1,8 @@
 ---
 title: "1次元イジング模型 R=2 — 壁間相互作用・振動相関・有限波数応答"
-summary: "第二近接相互作用を加えた1次元Ising鎖を、相互作用するドメイン壁、4状態転送行列、Stephenson disorder line、Lifshitz line、Fisher–Widom型クロスオーバー、情報熱力学という流れで読む。"
+summary: "第二近接相互作用を加えた1次元Ising鎖を、相互作用するドメイン壁、4状態転送行列、Stephenson disorder line、解析的に求まる q_spec と q_chi、Lifshitz-like line、Fisher–Widom型クロスオーバーという流れで読む。"
 publishedAt: 2026-09-11T02:10:00+09:00
-updatedAt: 2026-09-11T19:10:00+09:00
+updatedAt: 2026-09-11T22:20:00+09:00
 area: "Physics"
 topics: ["statistical mechanics", "Ising model", "transfer matrix", "correlation", "frustration", "information thermodynamics"]
 status: growing
@@ -96,7 +96,7 @@ $$
 \boxed{\kappa=\frac12}
 $$
 
-で競合する。これは $T=0$ の基底状態境界であり、有限温度で後に現れる disorder line や Lifshitz line とは別物である。
+で競合する。これは $T=0$ の基底状態境界であり、有限温度で後に現れる disorder line や Lifshitz-like line とは別物である。
 
 ## 2. 転送状態には2スピンの記憶が必要になる
 
@@ -137,7 +137,7 @@ $$
 
 であり、自由エネルギーは $f=-\beta^{-1}\ln\lambda_0$ である。
 
-一方、二点スピン相関の長距離構造を担う奇 sector の固有値は
+一方、二点スピン相関を担う奇 sector の固有値は
 
 $$
 \boxed{
@@ -149,7 +149,7 @@ $$
 
 である。
 
-## 3. 相関スペクトルが複素化する
+## 3. $q_{\rm spec}$ は転送固有値から解析的に求まる
 
 奇 sector の判別式
 
@@ -161,16 +161,41 @@ $$
 
 ![相関を担う転送固有値の複素化](/figures/ising-r2/spectrum-complexification.svg)
 
-*競合を強めると、相関を担う2本の実モードが合流し、その先で複素共役対になる。実空間では最初の節が遠方から入り、やがて明瞭な減衰振動になる。*
+*競合を強めると、相関を担う2本の実固有値が合流し、その先で複素共役対になる。*
 
-$\Delta_-<0$ なら
+$\Delta_-<0$ では
 
 $$
-\frac{\lambda_\pm^{(-)}}{\lambda_0}
-=\rho e^{\pm iq_{\rm spec}}
+\lambda_\pm^{(-)}=u\pm iv
 $$
 
-と書け、長距離相関は
+と書け、
+
+$$
+u=e^{K_2}\sinh K_1,
+$$
+
+$$
+v=\sqrt{e^{-2K_2}-e^{2K_2}\cosh^2K_1}.
+$$
+
+したがって、正規化固有値 $\mu_\pm=\lambda_\pm^{(-)}/\lambda_0$ の偏角から
+
+$$
+\boxed{
+q_{\rm spec}
+=\arg\lambda_+^{(-)}
+=\tan^{-1}\!\left[
+\frac{
+\sqrt{e^{-2K_2}-e^{2K_2}\cosh^2K_1}
+}{e^{K_2}\sinh K_1}
+\right]
+}
+$$
+
+を直接得る。数値フィットで相関関数の周期を読む必要はない。
+
+長距離相関は
 
 $$
 \boxed{
@@ -178,7 +203,15 @@ C(r)\sim \rho^r\cos(q_{\rm spec}r+\phi)
 }
 $$
 
-となる。減衰長は $\xi^{-1}=-\ln\rho$ である。R=2 では、長距離記憶が「どれだけ残るか」だけでなく「どの空間位相で残るか」まで持つ。
+で、減衰長は
+
+$$
+\boxed{
+\xi^{-1}=-\ln\rho,
+\qquad
+\rho=\left|\frac{\lambda_+^{(-)}}{\lambda_0}\right|.
+}
+$$
 
 複素化の境界は
 
@@ -199,11 +232,11 @@ $$
 
 ## 4. 相図ではなく「相関構造マップ」として見る
 
-有限温度では通常の熱力学的相転移はない。しかし、相関の構造には二つの明確な crossover がある。
+有限温度では通常の熱力学的相転移はない。しかし、相関の構造には二つの明確な crossover があり、R=2 ではその両方を解析的に記述できる。
 
 ![R=2 Ising鎖の相関構造マップ](/figures/ising-r2/correlation-structure-map.svg)
 
-*青実線を越えると遠方相関が振動し始め、緑破線を越えると静的感受率の最大が有限波数へ移る。両者の間が「振動 tail はあるが最大応答はまだ $q=0$」の中間領域である。*
+*disorder line を越えると $q_{\rm spec}>0$ となり、Lifshitz-like line を越えると静的感受率の最大が有限波数へ移る。両者の間が「振動 tail はあるが最大応答はまだ $q=0$」の中間領域である。*
 
 図の3領域は
 
@@ -211,17 +244,23 @@ $$
 (q_{\rm spec},q_\chi)
 =
 \begin{cases}
-(0,0), & \text{単調減衰},\\
-(>0,0), & \text{遠方のみ振動},\\
-(>0,>0), & \text{有限波数応答が支配}
+(0,0), & \kappa<\kappa_{\rm d}(t),\\
+(>0,0), & \kappa_{\rm d}(t)<\kappa<\kappa_{\rm L}(t),\\
+(>0,>0), & \kappa>\kappa_{\rm L}(t)
 \end{cases}
 $$
 
-と整理できる。これは3つの熱力学的相を意味しない。分類しているのは、**相関スペクトルと応答の構造**である。
+と整理できる。これは3つの熱力学的相ではなく、**同じ相の内部にある相関・応答構造の分類**である。
 
 ## 5. 実空間では「節が遠方から入る」
 
-正規化固有値を $\mu_\pm=\lambda_\pm^{(-)}/\lambda_0$ とし、$a=\mu_++\mu_-$、$b=\mu_+\mu_-$ とおけば、有限距離の相関は
+正規化固有値を $\mu_\pm=\lambda_\pm^{(-)}/\lambda_0$ とし、
+
+$$
+a=\mu_++\mu_-,\qquad b=\mu_+\mu_-
+$$
+
+とおけば、有限距離の相関は
 
 $$
 \boxed{
@@ -229,7 +268,13 @@ C(r+2)=aC(r+1)-bC(r)
 }
 $$
 
-で閉じる。$C(0)=1$ と $C(1)=\partial\ln\lambda_0/\partial K_1$ から全ての $C(r)$ が決まる。
+で閉じる。$C(0)=1$ と
+
+$$
+C(1)=\frac{\partial\ln\lambda_0}{\partial K_1}
+$$
+
+から全ての $C(r)$ が決まる。
 
 ![3領域の実空間相関](/figures/ising-r2/three-regimes-correlation.svg)
 
@@ -243,7 +288,7 @@ $$
 
 は非常に遠い。disorder line を越えた直後は、近距離構造が突然変わるのではなく、**最初の節が無限遠から近づいてくる**と見るのがよい。
 
-## 6. Fourier 空間では $q_{\rm spec}$ と $q_\chi$ を分ける
+## 6. $q_\chi$ も解析的に求まる
 
 静的感受率は
 
@@ -254,37 +299,294 @@ $$
 
 ![実空間の相関と波数空間の応答](/figures/ising-r2/real-fourier-map.svg)
 
-*$q_{\rm spec}$ は遠方 tail の周期を、$q_\chi$ は全距離の相関を足し合わせた最大応答位置を表す。したがって一般には一致しない。*
+*$q_{\rm spec}$ は長距離 tail を支配する複素極の位相、$q_\chi$ は全距離相関を Fourier 変換した応答の最大位置である。両者は同じ $C(r)$ から得られるが、同じ量ではない。*
 
-$t=1$ では
-
-$$
-\kappa_{\rm d}\simeq0.217,
-\qquad
-\kappa_{\rm L}\simeq0.322.
-$$
-
-![3領域の波数依存感受率](/figures/ising-r2/three-regimes-susceptibility.svg)
-
-*$\kappa=0.15$ と $0.27$ では最大は $q=0$ に残り、$0.45$ で有限波数へ移る。実空間 tail の振動開始と有限波数応答の支配化は二段階で起こる。*
-
-$q=0$ 周りでは
+R=2 では recurrence が2次なので、$\chi(q)$ は閉形式にできる。生成関数
 
 $$
-\chi''(0)=-2\beta\sum_{r\ge1}r^2C(r),
+G(z)=\sum_{r=0}^{\infty}C(r)z^r
 $$
 
-したがって Lifshitz line は
+は
 
 $$
 \boxed{
-\sum_{r\ge1}r^2C(r)=0
+G(z)=\frac{1+[C(1)-a]z}{1-az+bz^2}
 }
 $$
 
-で特徴づけられる。disorder line が**長距離を支配する固有モードの型**を変えるのに対し、Lifshitz line は**全距離を足し合わせた応答の曲率**を変える。この違いが二つの線を分離する。
+となる。したがって
 
-## 7. Stephenson disorder line と Fisher–Widom 型クロスオーバー
+$$
+S(q)\equiv\beta^{-1}\chi(q)
+=G(e^{iq})+G(e^{-iq})-1.
+$$
+
+ここで
+
+$$
+x\equiv\cos q,
+\qquad c\equiv C(1)
+$$
+
+と置くと
+
+$$
+\boxed{
+S(x)=\frac{N(x)}{D(x)}
+}
+$$
+
+で、
+
+$$
+N(x)=a^2-2ac-b^2+1+2(-a+bc+c)x,
+$$
+
+$$
+D(x)=a^2+b^2-2b+1-2a(b+1)x+4bx^2.
+$$
+
+つまり $S(q)$ の最大値探索は連続波数を数値走査する問題ではなく、$x=\cos q$ の有理関数の極値問題に帰着する。
+
+内部極値 $0<q<\pi$ では
+
+$$
+\frac{dS}{dq}=0
+\quad\Longleftrightarrow\quad
+\frac{dS}{dx}=0,
+$$
+
+したがって
+
+$$
+N'(x)D(x)-N(x)D'(x)=0.
+$$
+
+$N$ は1次、$D$ は2次なので、これは **$x=\cos q$ に関する二次方程式**である。物理的な根 $x_\ast\in[-1,1]$ を選び、境界 $x=\pm1$ と比較すれば
+
+$$
+\boxed{
+q_\chi=\arccos x_\ast
+}
+$$
+
+が解析的に決まる。
+
+したがって、R=2 で $q_{\rm spec}$ と $q_\chi$ を数値的に「推定」する必要はない。数値計算は解析式を可視化・検算するために使えるが、波数選択そのものは転送行列から閉じて求められる。
+
+## 7. Lifshitz-like line も閉形式で得られる
+
+$q_\chi$ が $0$ から有限値へ移る境界は
+
+$$
+\left.\frac{\partial^2\chi}{\partial q^2}\right|_{q=0}=0
+$$
+
+である。これは
+
+$$
+\sum_{r\ge1}r^2C(r)=0
+$$
+
+と同値で、上の有理関数を用いると
+
+$$
+\boxed{
+\left(\sinh^4K_1-1\right)e^{8K_2}
++\left(\sinh^2K_1+2\right)e^{4K_2}
+-1=0
+}
+$$
+
+まで整理できる。
+
+$s=\sinh K_1$、$z=e^{4K_2}$ と置けば
+
+$$
+(s^4-1)z^2+(s^2+2)z-1=0,
+$$
+
+物理的な根は
+
+$$
+\boxed{
+z=\frac{2}{s^2+2+s\sqrt{5s^2+4}}
+}
+$$
+
+である。
+
+$K_1=1/t$、$K_2=-\kappa/t$ を戻すと、Lifshitz-like line は
+
+$$
+\boxed{
+\kappa_{\rm L}(t)
+=\frac{t}{4}
+\ln\!\left[
+\frac{
+\sinh^2(1/t)+2
++\sinh(1/t)\sqrt{5\sinh^2(1/t)+4}
+}{2}
+\right]
+}
+$$
+
+となる。
+
+$t=1$ では、この解析式から
+
+$$
+\kappa_{\rm d}\simeq0.2169,
+\qquad
+\kappa_{\rm L}\simeq0.3224
+$$
+
+を得る。これらは数値走査で見つける値ではなく、解析式を評価した値である。
+
+![3領域の波数依存感受率](/figures/ising-r2/three-regimes-susceptibility.svg)
+
+*$\kappa=0.15$ と $0.27$ では最大は $q=0$ に残り、$0.45$ で有限波数へ移る。図は解析的に決まる crossover の両側で $\chi(q)$ の形がどう変わるかを可視化したもの。*
+
+## 8. 二つの解析曲線の間隔が有限温度効果を測る
+
+R=2 の内部構造は、二本の解析曲線
+
+$$
+\boxed{
+\kappa_{\rm d}(t)
+=\frac{t}{2}\ln\cosh\frac1t
+}
+$$
+
+と
+
+$$
+\boxed{
+\kappa_{\rm L}(t)
+=\frac{t}{4}
+\ln\!\left[
+\frac{
+\sinh^2(1/t)+2
++\sinh(1/t)\sqrt{5\sinh^2(1/t)+4}
+}{2}
+\right]
+}
+$$
+
+の間隔
+
+$$
+\Delta\kappa(t)=\kappa_{\rm L}(t)-\kappa_{\rm d}(t)
+$$
+
+で特徴づけられる。
+
+低温では
+
+$$
+\kappa_{\rm d}(t)
+=\frac12-\frac{t}{2}\ln2+\cdots,
+$$
+
+$$
+\kappa_{\rm L}(t)
+=\frac12-\frac{t}{2}\ln2
++\frac{t}{4}\ln\varphi+\cdots,
+\qquad
+\varphi=\frac{1+\sqrt5}{2},
+$$
+
+したがって
+
+$$
+\boxed{
+\Delta\kappa(t)
+\sim\frac{\ln\varphi}{4}\,t
+\qquad(t\to0)
+}
+$$
+
+である。$T=0$ では両線とも $\kappa=1/2$ に収束し、有限温度で線形に分離する。
+
+一方、高温では
+
+$$
+\boxed{
+\kappa_{\rm d}(t)
+=\frac{1}{4t}-\frac{1}{24t^3}+\cdots
+}
+$$
+
+に対し、
+
+$$
+\boxed{
+\kappa_{\rm L}(t)
+=\frac14+\frac{5}{32t^2}+\cdots
+}
+$$
+
+だから
+
+$$
+\boxed{
+\Delta\kappa(t)\to\frac14
+\qquad(t\to\infty)
+}
+$$
+
+となる。
+
+この分離は、複素極が現れる条件と、有限波数応答が実際に最大になる条件が同じではないことを定量化している。
+
+## 9. $q_{\rm spec}$ と $q_\chi$ が違う理由
+
+oscillatory region では、実相関は一つの damped oscillatory channel として
+
+$$
+C(r)\sim A\rho^r\cos(q_{\rm spec}r+\phi)
+$$
+
+と書ける。それでも $q_\chi$ は一般に $q_{\rm spec}$ と一致しない。
+
+理由は Fourier 空間で、この有限相関長の振動が有限幅を持つからである。位相を簡単のため無視すると、
+
+$$
+C(r)\sim \rho^r\cos(q_{\rm spec}r)
+$$
+
+は $q=\pm q_{\rm spec}$ を中心とする二つの broadened contribution を $S(q)$ に与える。$q_{\rm spec}$ が小さい、あるいは $\xi$ が短いと二つは強く重なり、極はすでに有限波数化していても $S(q)$ の最大は $q=0$ に残る。
+
+したがって中間領域
+
+$$
+\boxed{
+\kappa_{\rm d}(t)<\kappa<\kappa_{\rm L}(t)
+}
+$$
+
+は、
+
+$$
+\boxed{
+q_{\rm spec}>0,
+\qquad
+q_\chi=0
+}
+$$
+
+という「極は分裂したが応答ピークはまだ分裂していない」領域である。
+
+温度方向から見れば、$\chi(q,T)$ はすべての波数で定義され、
+
+$$
+\frac{\partial\chi(q,T)}{\partial T}
+$$
+
+は一般に $q$ に依存する。したがって finite-$q$ 側と $q=0$ 側の応答 weight は温度に対して同じようには変化しない。$q_{\rm spec}$ と $q_\chi$ の分離は、固定温度では極と Fourier peak の違いとして、温度発展では波数ごとの異なる thermal evolution の累積として読むことができる。
+
+## 10. Stephenson disorder line と Fisher–Widom 型クロスオーバー
 
 Stephenson disorder line は、disordered phase 内で相関が単調指数減衰から減衰振動へ変わる境界である。
 
@@ -308,31 +610,31 @@ $$
 
 ここで区別すべき量は明確である。
 
-- **Stephenson disorder line**：遠方相関を支配するモードが実から複素へ変わる。
-- **Lifshitz line**：$\chi(q)$ の最大が $q=0$ から有限 $q$ へ移る。
+- **Stephenson disorder line**：遠方相関を支配する固有値が実から複素へ変わる。
+- **Lifshitz-like line**：$\chi(q)$ の最大が $q=0$ から有限 $q$ へ移る。
 - **critical line**：自由エネルギーが非解析になる線。この有限温度1次元有限範囲系には存在しない。
 - **$T=0,\kappa=1/2$**：強磁性と周期4基底状態の競合点。
 
-したがって $T=0$ の競合点から有限温度側へ出ると、一つの相転移線が伸びるのではなく、異なる観測量に対応する crossover line に分かれる。
+したがって $T=0$ の競合点から有限温度側へ出ると、一つの相転移線が伸びるのではなく、異なる解析条件で定義される crossover line に分かれる。
 
 ### 参考
 
 - J. Stephenson, *Ising Model with Antiferromagnetic Next-Nearest-Neighbor Coupling: Spin Correlations and Disorder Points*, Phys. Rev. B **1**, 4405 (1970), DOI: 10.1103/PhysRevB.1.4405.
 - M. E. Fisher and B. Widom, *Decay of Correlations in Linear Systems*, J. Chem. Phys. **50** (1969), and related literature on the monotonic/oscillatory crossover.
 
-## 8. 相関長と支配波数
+## 11. 相関長と支配波数
 
-同じ転送スペクトルから $q_{\rm spec}$ と $\xi$ を追うと、競合は単純に相関を弱めるのではなく、**どの空間モードが長距離記憶を運ぶか**を変えることが分かる。
+同じ転送スペクトルから $q_{\rm spec}$ と $\xi$ を追うと、競合は単純に相関を弱めるのではなく、**どの空間位相が長距離記憶を運ぶか**を変えることが分かる。
 
 ![支配波数の競合強度依存](/figures/ising-r2/qstar-kappa.svg)
 
-*disorder line を越えると $q_{\rm spec}$ は0から連続的に立ち上がり、強い競合では周期4構造に対応する $\pi/2$ へ近づく。*
+*disorder line を越えると $q_{\rm spec}$ は0から連続的に立ち上がり、強い競合では周期4構造に対応する $\pi/2$ へ近づく。これは固有値の偏角から直接計算できる。*
 
 ![相関長の競合強度依存](/figures/ising-r2/correlation-length-kappa.svg)
 
 *強磁性的相関長はいったん短くなるが、その後は有限波数モードの相関長が伸びる。第二近接反強磁性は単なる「相関破壊」ではない。*
 
-## 9. 情報論的には「熱的反転の並びに記憶が入る」
+## 12. 情報論的には「熱的反転の並びに記憶が入る」
 
 R=1 では $\tau_i$ は独立であり、ドメイン壁を thermal bit-flip と読めば空間方向の誤りは memoryless である。R=2 では
 
@@ -350,9 +652,9 @@ $$
 
 この見方では、$q_{\rm spec}$ は**最も遠くまで残る記憶の空間位相**、$q_\chi$ は**弱い外場で最も励起しやすい空間パターン**に対応する。
 
-## 10. まとめ
+## 13. まとめ
 
-R=2 への最小拡張は、同じ物理を複数の表示で読む問題である。
+R=2 では、相互作用範囲を1格子伸ばしただけで、長距離相関と有限波数応答の二つを区別する必要が生じる。しかし、そのどちらも数値的な特徴量ではない。転送行列から解析的に閉じる。
 
 $$
 \boxed{
@@ -360,9 +662,10 @@ $$
 \text{spin}:&\quad \text{第二近接競合}\\
 \text{wall}:&\quad \text{ドメイン壁間相互作用}\\
 \text{transfer}:&\quad \text{2スピン記憶と複素 subleading mode}\\
-\text{real space}:&\quad \text{単調減衰}\to\text{減衰振動}\\
-\text{Fourier}:&\quad q_\chi=0\to q_\chi>0\\
-\text{information}:&\quad \text{独立誤り}\to\text{相関した誤り}
+q_{\rm spec}:&\quad \arg\lambda_+^{(-)}\ \text{から解析的に決定}\\
+q_\chi:&\quad S(\cos q)\ \text{の二次極値方程式から解析的に決定}\\
+\kappa_{\rm d}:&\quad \text{固有値複素化条件}\\
+\kappa_{\rm L}:&\quad \chi''(0)=0\ \text{から閉形式で決定}
 \end{aligned}
 }
 $$
@@ -373,6 +676,16 @@ $$
 \boxed{q_{\rm spec}>0\ \not\Rightarrow\ q_\chi>0}
 $$
 
-である。最も遠くまで残るモードが有限波数化しても、系全体の最大応答はしばらく $q=0$ に留まる。
+である。最も遠くまで残る複素極が有限波数化しても、有限相関長による Fourier peak の重なりのため、系全体の最大応答はしばらく $q=0$ に留まる。
 
-したがって R=2 は、相互作用範囲を1格子伸ばしただけで、長距離記憶の「量」と「それを運ぶ空間モード」を分けて考える必要が生じる最小模型である。
+R=2 の重要性は、これらを単なる数値現象としてではなく、
+
+$$
+\boxed{
+\text{pole complexification}
+\quad\text{と}\quad
+\text{response-peak bifurcation}
+}
+$$
+
+という二つの解析的に区別された機構として、最小模型の中で完全に追えることにある。
