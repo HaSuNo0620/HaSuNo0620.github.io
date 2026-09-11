@@ -2,7 +2,7 @@
 
 Focus: J1 > 0, J2 = -kappa J1 <= 0, with J1 as the energy unit.
 Figures follow the site figure conventions: transparent SVG, large labels,
-heavy curves, and mixed roman/italic mathematical typography.
+heavy curves, readable paper-backed legends, and mixed roman/italic math.
 """
 from __future__ import annotations
 
@@ -13,11 +13,11 @@ OUT = Path(__file__).resolve().parents[1] / "public" / "figures" / "ising-r2"
 W, H = 760, 440
 
 LIGHT = {
-    "ink": "#171714", "muted": "#716d64", "line": "#cbc3b5",
+    "paper": "#f3efe6", "ink": "#171714", "muted": "#716d64", "line": "#cbc3b5",
     "accent": "#5866e9", "green": "#39705a",
 }
 DARK = {
-    "ink": "#f0eadf", "muted": "#a8a196", "line": "#4a4740",
+    "paper": "#1c1c19", "ink": "#f0eadf", "muted": "#a8a196", "line": "#4a4740",
     "accent": "#99a2ff", "green": "#8bc4a9",
 }
 
@@ -29,14 +29,15 @@ STYLE = f"""<style>
 .math{{fill:{LIGHT['ink']};font:20px 'STIX Two Math','Cambria Math','Times New Roman',serif}}
 .var{{font-style:italic}} .roman{{font-style:normal}}
 .legend{{fill:{LIGHT['ink']};font:18px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
+.legendbox{{fill:{LIGHT['paper']};fill-opacity:.92;stroke:{LIGHT['ink']};stroke-opacity:.14;stroke-width:1}}
 .primary{{fill:none;stroke:{LIGHT['accent']};stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}}
 .secondary{{fill:none;stroke:{LIGHT['green']};stroke-width:3.6;stroke-dasharray:11 7;stroke-linecap:round;stroke-linejoin:round}}
 .inkdash{{fill:none;stroke:{LIGHT['ink']};stroke-width:3.6;stroke-dasharray:9 7;stroke-linecap:round;opacity:.84}}
 .muteddot{{fill:none;stroke:{LIGHT['muted']};stroke-width:3.0;stroke-dasharray:3.5 6;stroke-linecap:round}}
 @media(prefers-color-scheme:dark){{
 .axis{{stroke:{DARK['ink']}}}.grid{{stroke:{DARK['line']}}}.tick{{fill:{DARK['muted']}}}
-.text,.math,.legend{{fill:{DARK['ink']}}}.primary{{stroke:{DARK['accent']}}}
-.secondary{{stroke:{DARK['green']}}}.inkdash{{stroke:{DARK['ink']}}}.muteddot{{stroke:{DARK['muted']}}}
+.text,.math,.legend{{fill:{DARK['ink']}}}.legendbox{{fill:{DARK['paper']};stroke:{DARK['ink']}}}
+.primary{{stroke:{DARK['accent']}}}.secondary{{stroke:{DARK['green']}}}.inkdash{{stroke:{DARK['ink']}}}.muteddot{{stroke:{DARK['muted']}}}
 }}
 </style>"""
 
@@ -87,6 +88,10 @@ def axes(xmin,xmax,ymin,ymax,xticks,yticks,xlabel_chunks,ylabel_chunks,left=96,r
     return a,(left,right,top,bottom)
 
 
+def add_legend_box(parts, x, y, width, height):
+    parts.insert(0, f'<rect class="legendbox" x="{x}" y="{y}" width="{width}" height="{height}" rx="10"/>')
+
+
 def kappa_disorder(T):
     return 0.5*T*math.log(math.cosh(1.0/T))
 
@@ -121,6 +126,7 @@ def boundary_figure():
     a.append(poly(pts,'primary'))
     Y=mp(.5,0,.55,bo,t)
     a.append(f'<line class="muteddot" x1="{l}" y1="{Y:.1f}" x2="{r}" y2="{Y:.1f}"/>')
+    a.append('<rect class="legendbox" x="470" y="34" width="224" height="78" rx="10"/>')
     a += [f'<line class="primary" x1="490" y1="55" x2="544" y2="55"/>',
           '<text class="legend" x="558" y="61">spectral boundary</text>',
           f'<line class="muteddot" x1="490" y1="89" x2="544" y2="89"/>',
@@ -142,6 +148,7 @@ def qstar_figure():
             _,q,_,_=spectrum(temp,k)
             pts.append((mp(k,0,1,l,r),mp(q/math.pi,0,.52,bo,t)))
         a.append(poly(pts,cl))
+    a.append('<rect class="legendbox" x="500" y="25" width="190" height="136" rx="10"/>')
     for j,(temp,cl) in enumerate(zip(temps,classes)):
         y=48+30*j
         a += [f'<line class="{cl}" x1="518" y1="{y}" x2="574" y2="{y}"/>',
@@ -167,6 +174,7 @@ def xi_figure():
             _,_,xi,_=spectrum(temp,k)
             pts.append((mp(k,0,1,l,r),mp(math.log10(xi),ylo,yhi,bo,t)))
         a.append(poly(pts,cl))
+    a.append('<rect class="legendbox" x="500" y="25" width="190" height="136" rx="10"/>')
     for j,(temp,cl) in enumerate(zip(temps,classes)):
         y=48+30*j
         a += [f'<line class="{cl}" x1="518" y1="{y}" x2="574" y2="{y}"/>',math_text(590,y+6,[("t",'var'),(" = ",'roman'),(f"{temp:g}",'roman')],anchor='start',size=18)]
