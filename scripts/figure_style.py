@@ -1,9 +1,8 @@
 """Shared Matplotlib figure style for HaSuNo0620.github.io.
 
-Figure Style v1.3 prioritizes browser readability: large labels and legends,
-heavy data/theory strokes, transparent figures, and conventional mathematical
-typography. Variables are italic inside mathtext; prose is never put in math
-mode, and operators/units should use their standard upright forms.
+Figure Style v1.4 prioritizes browser readability: large labels and legends,
+heavy data/theory strokes, transparent canvases, conventional mathematical
+typography, and readable local paper backdrops for legends/direct labels.
 """
 from __future__ import annotations
 
@@ -49,6 +48,7 @@ LINEWIDTH = {
     "axis": 1.8,
     "grid": 1.1,
     "errorbar": 1.8,
+    "legend_sample": 5.0,
 }
 
 MARKERSIZE = 8.5
@@ -95,7 +95,10 @@ def apply_site_style() -> None:
             "ytick.labelsize": FONT_SIZE["tick"],
             "axes.labelsize": FONT_SIZE["axis"],
             "legend.fontsize": FONT_SIZE["legend"],
-            "legend.frameon": False,
+            "legend.frameon": True,
+            "legend.framealpha": 0.90,
+            "legend.facecolor": COLORS["paper"],
+            "legend.edgecolor": COLORS["line"],
             "font.family": "sans-serif",
             "font.sans-serif": [
                 "Noto Sans JP",
@@ -174,18 +177,74 @@ def shade_uncertainty(ax, x, lower, upper, *, color=None, alpha=0.15, **kwargs):
     return ax.fill_between(x, lower, upper, color=color or COLORS["accent"], alpha=alpha, linewidth=0, **kwargs)
 
 
-def direct_label(ax, x: float, y: float, text: str, *, color=None, **kwargs):
+def style_legend(
+    ax,
+    *,
+    loc="best",
+    outside: bool = False,
+    ncol: int = 1,
+    dark: bool = False,
+    **kwargs,
+):
+    """Create a readable legend with a local theme-aware paper backdrop."""
+    palette = DARK_COLORS if dark else COLORS
+    defaults = {
+        "frameon": True,
+        "framealpha": 0.90 if not dark else 0.86,
+        "facecolor": palette["paper"],
+        "edgecolor": palette["line"],
+        "labelcolor": palette["ink"],
+        "fontsize": FONT_SIZE["legend"],
+        "handlelength": 2.6,
+        "ncol": ncol,
+    }
+    if outside:
+        defaults.update({"loc": "upper left", "bbox_to_anchor": (1.02, 1.0), "borderaxespad": 0.0})
+    else:
+        defaults["loc"] = loc
+    defaults.update(kwargs)
+    leg = ax.legend(**defaults)
+    frame = leg.get_frame()
+    frame.set_linewidth(1.0)
+    for text in leg.get_texts():
+        text.set_color(palette["ink"])
+    for line in leg.get_lines():
+        line.set_linewidth(max(line.get_linewidth(), LINEWIDTH["legend_sample"]))
+    return leg
+
+
+def direct_label(
+    ax,
+    x: float,
+    y: float,
+    text: str,
+    *,
+    color=None,
+    dark: bool = False,
+    backdrop: bool = True,
+    **kwargs,
+):
+    palette = DARK_COLORS if dark else COLORS
     defaults = {
         "fontsize": FONT_SIZE["annotation"],
-        "color": color or COLORS["ink"],
+        "color": color or palette["ink"],
         "ha": "left",
         "va": "center",
     }
+    if backdrop:
+        defaults["bbox"] = {
+            "boxstyle": "round,pad=0.20",
+            "facecolor": palette["paper"],
+            "edgecolor": palette["line"],
+            "linewidth": 0.8,
+            "alpha": 0.86,
+        }
     defaults.update(kwargs)
     return ax.text(x, y, text, **defaults)
 
 
-def panel_label(ax, label: str, *, x: float = 0.01, y: float = 0.99) -> None:
+def panel_label(ax, label: str, *, x: float = 0.01, y: float = 0.99, dark: bool = False) -> None:
+    palette = DARK_COLORS if dark else COLORS
     ax.text(
         x,
         y,
@@ -195,7 +254,7 @@ def panel_label(ax, label: str, *, x: float = 0.01, y: float = 0.99) -> None:
         va="top",
         fontsize=FONT_SIZE["panel"],
         fontweight="semibold",
-        color=COLORS["ink"],
+        color=palette["ink"],
     )
 
 
