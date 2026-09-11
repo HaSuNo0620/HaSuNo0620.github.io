@@ -95,25 +95,37 @@ def theme_marker_heads(svg: str) -> str:
     return marker_re.sub(repl, svg)
 
 
+def _is_axis_label_tag(tag: str) -> bool:
+    """Identify custom-SVG axis labels without assuming attribute order."""
+    class_match = re.search(r'class="([^"]+)"', tag, re.I)
+    if not class_match:
+        return False
+    classes = class_match.group(1).split()
+    if 'math' not in classes and 'mathlabel' not in classes:
+        return False
+    if re.search(r'\by="(?:420|422)(?:\.0)?"', tag, re.I):
+        return True
+    if re.search(r'transform="rotate\(-90(?:\.0)?\s+[^\"]+\)"', tag, re.I):
+        return True
+    return False
+
+
 def tag_axis_labels(svg: str) -> str:
     """Give true x/y labels a dedicated accent class.
 
     The custom SVG generators use class=math/mathlabel for both axis labels and
-    ordinary mathematical annotations.  Previously the final safety layer therefore
-    recolored both to ink.  Axis labels are identified by their standard bottom
-    positions (y=420 or y=422) or a -90 degree rotation and get axislabel.
+    ordinary mathematical annotations.  Attribute ordering is not stable across
+    generators, so each <text ...> tag is inspected as a whole.
     """
-    def add_axis_class(match: re.Match[str]) -> str:
+    text_tag_re = re.compile(r'<text\b[^>]*>', re.I)
+
+    def repl(match: re.Match[str]) -> str:
         tag = match.group(0)
-        if 'axislabel' in tag:
+        if not _is_axis_label_tag(tag) or 'axislabel' in tag:
             return tag
         return re.sub(r'class="([^"]+)"', lambda m: f'class="{m.group(1)} axislabel"', tag, count=1)
 
-    bottom_re = re.compile(r'<text\b[^>]*class="(?:math|mathlabel)"[^>]*\by="(?:420|422)(?:\.0)?"[^>]*>', re.I)
-    rotated_re = re.compile(r'<text\b[^>]*class="(?:math|mathlabel)"[^>]*\btransform="rotate\(-90(?:\.0)?\s+[^\"]+\)"[^>]*>', re.I)
-    svg = bottom_re.sub(add_axis_class, svg)
-    svg = rotated_re.sub(add_axis_class, svg)
-    return svg
+    return text_tag_re.sub(repl, svg)
 
 
 def inject_theme_safety(svg: str) -> str:
@@ -190,6 +202,15 @@ def _marker_problems(svg: str) -> list[str]:
     return problems
 
 
+def _untagged_axis_labels(svg: str) -> list[str]:
+    problems: list[str] = []
+    for match in re.finditer(r'<text\b[^>]*>', svg, re.I):
+        tag = match.group(0)
+        if _is_axis_label_tag(tag) and 'axislabel' not in tag:
+            problems.append(tag)
+    return problems
+
+
 def audit(path: Path, svg: str) -> list[str]:
     problems: list[str] = []
     if BLACK_ATTR_RE.search(svg) or BLACK_CSS_RE.search(svg):
@@ -199,7 +220,7 @@ def audit(path: Path, svg: str) -> list[str]:
         problems.append("theme safety layer missing")
     if path.name == 'transfer-state-network.svg' and '<path class="arrow"' in svg:
         problems.append('state-transition arrow still uses ink class')
-    if re.search(r'<text\b[^>]*class="(?:math|mathlabel)"[^>]*(?:\by="(?:420|422)(?:\.0)?"|transform="rotate\(-90)', svg, re.I):
+    if _untagged_axis_labels(svg):
         problems.append('axis label is not tagged axislabel')
     try:
         ET.fromstring(svg)
