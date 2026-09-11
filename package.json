@@ -4,9 +4,9 @@
   "type": "module",
   "version": "2.0.0",
   "scripts": {
-    "predev": "python3 scripts/ising_r1_figures.py && python3 scripts/ising_r1_periodic_visuals.py && python3 scripts/ising_r2_figures.py && python3 scripts/ising_r2_three_regimes.py && python3 scripts/ising_r2_visuals.py && python3 scripts/refine_r2_maps.py && python3 scripts/ising_rn_visuals.py && python3 scripts/postprocess_figures.py",
+    "predev": "python3 scripts/ising_r1_figures.py && python3 scripts/ising_r1_periodic_visuals.py && python3 scripts/ising_r1_periodic_field_visuals.py && python3 scripts/ising_r2_figures.py && python3 scripts/ising_r2_three_regimes.py && python3 scripts/ising_r2_visuals.py && python3 scripts/refine_r2_maps.py && python3 scripts/ising_rn_visuals.py && python3 scripts/postprocess_figures.py",
     "dev": "astro dev",
-    "prebuild": "python3 scripts/ising_r1_figures.py && python3 scripts/ising_r1_periodic_visuals.py && python3 scripts/ising_r2_figures.py && python3 scripts/ising_r2_three_regimes.py && python3 scripts/ising_r2_visuals.py && python3 scripts/refine_r2_maps.py && python3 scripts/ising_rn_visuals.py && python3 scripts/postprocess_figures.py",
+    "prebuild": "python3 scripts/ising_r1_figures.py && python3 scripts/ising_r1_periodic_visuals.py && python3 scripts/ising_r1_periodic_field_visuals.py && python3 scripts/ising_r2_figures.py && python3 scripts/ising_r2_three_regimes.py && python3 scripts/ising_r2_visuals.py && python3 scripts/refine_r2_maps.py && python3 scripts/ising_rn_visuals.py && python3 scripts/postprocess_figures.py",
     "build": "astro build",
     "preview": "astro preview"
   },
