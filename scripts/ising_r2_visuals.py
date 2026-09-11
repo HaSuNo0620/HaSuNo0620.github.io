@@ -1,8 +1,8 @@
 """Generate physical illustrations and phase-map SVGs for the R=2 Ising note.
 
 Pure stdlib: safe for GitHub Actions without extra Python packages.
-The SVGs deliberately inherit the visual language of the site:
-transparent canvas, paper/paper-2 neutrals, ink, accent, and green only.
+All spin-chain geometry is data-driven: spin positions, wall positions, domain bands,
+and wall-particle markers come from the same spin sequence.
 """
 from __future__ import annotations
 
@@ -24,13 +24,13 @@ DARK = {
 }
 
 STYLE = f"""<style>
-.paper2{{fill:{LIGHT['paper2']}}}.soft{{fill:{LIGHT['accent_soft']}}}
+.paper{{fill:{LIGHT['paper']}}}.paper2{{fill:{LIGHT['paper2']}}}.soft{{fill:{LIGHT['accent_soft']}}}
 .inkfill{{fill:{LIGHT['ink']}}}.greenfill{{fill:{LIGHT['green']}}}.accentfill{{fill:{LIGHT['accent']}}}
 .axis{{stroke:{LIGHT['ink']};stroke-width:1.8}}.grid{{stroke:{LIGHT['line']};stroke-width:1;opacity:.42}}
-.text{{fill:{LIGHT['ink']};font:18px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
-.small{{fill:{LIGHT['muted']};font:15px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
-.label{{fill:{LIGHT['ink']};font:19px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
-.panel{{fill:{LIGHT['ink']};font:600 17px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
+.text{{fill:{LIGHT['ink']};font:18px 'Noto Sans JP',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
+.small{{fill:{LIGHT['muted']};font:15px 'Noto Sans JP',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
+.label{{fill:{LIGHT['ink']};font:19px 'Noto Sans JP',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
+.panel{{fill:{LIGHT['ink']};font:600 17px 'Noto Sans JP',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
 .math{{fill:{LIGHT['ink']};font:20px 'STIX Two Math','Cambria Math','Times New Roman',serif}}.var{{font-style:italic}}.roman{{font-style:normal}}
 .primary{{fill:none;stroke:{LIGHT['accent']};stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}}
 .secondary{{fill:none;stroke:{LIGHT['green']};stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round}}
@@ -42,15 +42,17 @@ STYLE = f"""<style>
 .nearest{{stroke:{LIGHT['accent']};stroke-width:3.3;stroke-linecap:round}}
 .next{{fill:none;stroke:{LIGHT['green']};stroke-width:3;stroke-dasharray:8 6;stroke-linecap:round}}
 .arrow{{fill:none;stroke:{LIGHT['ink']};stroke-width:2.2;marker-end:url(#arrow)}}
-.region{{fill:{LIGHT['paper2']};opacity:.58}}.region-accent{{fill:{LIGHT['accent_soft']};opacity:.38}}
+.region{{fill:{LIGHT['paper2']};opacity:.72}}.region-accent{{fill:{LIGHT['accent_soft']};opacity:.58}}
+.caption-box{{fill:{LIGHT['paper']};fill-opacity:.94;stroke:{LIGHT['line']};stroke-width:1}}
 @media(prefers-color-scheme:dark){{
-.paper2{{fill:{DARK['paper2']}}}.soft{{fill:{DARK['accent_soft']}}}
+.paper{{fill:{DARK['paper']}}}.paper2{{fill:{DARK['paper2']}}}.soft{{fill:{DARK['accent_soft']}}}
 .inkfill{{fill:{DARK['ink']}}}.greenfill{{fill:{DARK['green']}}}.accentfill{{fill:{DARK['accent']}}}
 .axis,.inkline,.arrow{{stroke:{DARK['ink']}}}.grid,.mutedline{{stroke:{DARK['line']}}}
 .text,.label,.panel,.math{{fill:{DARK['ink']}}}.small{{fill:{DARK['muted']}}}
 .primary,.wall,.nearest{{stroke:{DARK['accent']}}}.secondary,.next{{stroke:{DARK['green']}}}
 .node{{fill:{DARK['paper']};stroke:{DARK['ink']}}}.node2{{fill:{DARK['paper2']};stroke:{DARK['ink']}}}
 .region{{fill:{DARK['paper2']}}}.region-accent{{fill:{DARK['accent_soft']}}}
+.caption-box{{fill:{DARK['paper']};stroke:{DARK['line']}}}
 }}
 </style>"""
 
@@ -76,70 +78,124 @@ def mt(x, y, chunks, anchor="middle", size=None):
     return f'<text {attrs}>{spans}</text>'
 
 
+def text_box(parts, x, y, width, text, *, cls="small", height=30):
+    """Readable label with an opaque-ish paper background."""
+    parts.append(f'<rect class="caption-box" x="{x-width/2:.1f}" y="{y-height+7:.1f}" width="{width}" height="{height}" rx="8"/>')
+    parts.append(f'<text class="{cls}" x="{x}" y="{y}" text-anchor="middle">{text}</text>')
+
+
+def spin_positions(x0, spins, spacing):
+    return [x0 + i * spacing for i in range(len(spins))]
+
+
+def wall_positions(x0, spins, spacing):
+    xs = spin_positions(x0, spins, spacing)
+    return [(xs[i] + xs[i + 1]) / 2 for i in range(len(spins) - 1) if spins[i] != spins[i + 1]]
+
+
+def domain_segments(x0, spins, spacing):
+    """Return (left, right, sign) domains from the spin sequence itself."""
+    xs = spin_positions(x0, spins, spacing)
+    left_edge = xs[0] - spacing / 2
+    right_edge = xs[-1] + spacing / 2
+    walls = wall_positions(x0, spins, spacing)
+    edges = [left_edge, *walls, right_edge]
+    segments = []
+    start_i = 0
+    for left, right in zip(edges[:-1], edges[1:]):
+        segments.append((left, right, spins[start_i]))
+        while start_i + 1 < len(spins) and xs[start_i + 1] < right - 1e-9:
+            start_i += 1
+        if start_i + 1 < len(spins):
+            start_i += 1
+    return segments
+
+
+def draw_domain_bands(parts, x0, y, spins, spacing, height=88, rx=16):
+    """Draw domains with boundaries exactly at sign-change midpoints."""
+    for left, right, sign in domain_segments(x0, spins, spacing):
+        cls = "region-accent" if sign > 0 else "region"
+        parts.append(
+            f'<rect class="{cls}" x="{left:.1f}" y="{y-height/2:.1f}" '
+            f'width="{right-left:.1f}" height="{height}" rx="{rx}"/>'
+        )
+
+
 def spin_row(parts, x0, y, spins, spacing=48, walls=True, r=15):
+    xs = spin_positions(x0, spins, spacing)
+    wall_xs = set(wall_positions(x0, spins, spacing))
     for i in range(len(spins)-1):
-        x1=x0+i*spacing; x2=x0+(i+1)*spacing
+        x1, x2 = xs[i], xs[i+1]
         parts.append(f'<line class="inkline" x1="{x1+r}" y1="{y}" x2="{x2-r}" y2="{y}"/>')
-        if walls and spins[i] != spins[i+1]:
-            xm=(x1+x2)/2
+        xm = (x1 + x2) / 2
+        if walls and xm in wall_xs:
             parts.append(f'<line class="wall" x1="{xm}" y1="{y-26}" x2="{xm}" y2="{y+26}"/>')
-    for i,s in enumerate(spins):
-        x=x0+i*spacing
+    for x, s in zip(xs, spins):
         parts.append(f'<circle class="node" cx="{x}" cy="{y}" r="{r}"/>')
         parts.append(f'<text class="text" x="{x}" y="{y+6}" text-anchor="middle">{"+" if s>0 else "−"}</text>')
 
 
 def overview():
-    """Physical picture: walls as particles, free for R=1 and coupled for R=2."""
+    """R=1 and R=2 use exactly the same spin configuration and wall geometry."""
     p=[]
-    p += ['<text class="panel" x="42" y="38">(a) R = 1 — free walls</text>', '<text class="panel" x="404" y="38">(b) R = 2 — interacting walls</text>']
-    # only subtle paper-2 islands; transparent canvas remains dominant
+    p += ['<text class="panel" x="42" y="38">(a) R = 1 — 自由なドメイン壁</text>', '<text class="panel" x="404" y="38">(b) R = 2 — 相互作用するドメイン壁</text>']
     p += ['<rect class="region" x="24" y="58" width="334" height="312" rx="20"/>', '<rect class="region" x="392" y="58" width="344" height="312" rx="20"/>']
     spins=[1,1,1,-1,-1,1,1]
-    spin_row(p,50,142,spins,44)
-    spin_row(p,418,142,spins,44)
-    # wall-particle view below each chain
-    for x in [160,248]:
+    left_x0, right_x0, sp = 50, 418, 44
+    spin_row(p,left_x0,142,spins,sp)
+    spin_row(p,right_x0,142,spins,sp)
+    left_walls = wall_positions(left_x0, spins, sp)
+    right_walls = wall_positions(right_x0, spins, sp)
+    # wall-particle view is derived from exactly the same wall coordinates
+    for x in left_walls:
         p.append(f'<circle class="accentfill" cx="{x}" cy="240" r="10"/>')
-    p.append('<text class="small" x="190" y="280" text-anchor="middle">walls appear as independent thermal defects</text>')
-    p.append('<path class="mutedline dashed" d="M 160 240 L 248 240"/>')
-    for x in [528,616]:
+    if len(left_walls) >= 2:
+        p.append(f'<path class="mutedline dashed" d="M {left_walls[0]} 240 L {left_walls[1]} 240"/>')
+    text_box(p,190,284,270,'壁は独立な熱欠陥として現れる')
+    for x in right_walls:
         p.append(f'<circle class="accentfill" cx="{x}" cy="240" r="10"/>')
-    # spring-like interaction
-    p.append('<path class="secondary" d="M 538 240 l 12 -10 l 12 20 l 12 -20 l 12 20 l 12 -20 l 8 10"/>')
-    p.append('<text class="small" x="572" y="280" text-anchor="middle">neighboring walls are statistically coupled</text>')
-    p.append(mt(190,326,[("H",'var'),(" = −",'roman'),("J",'var'),("₁ Σ ",'roman'),("τ",'var'),("ᵢ",'roman')],size=21))
-    p.append(mt(570,326,[("H",'var'),(" = −",'roman'),("J",'var'),("₁Σ",'roman'),("τ",'var'),("ᵢ − ",'roman'),("J",'var'),("₂Σ",'roman'),("τ",'var'),("ᵢ",'roman'),("τ",'var'),("ᵢ₊₁",'roman')],size=20))
+    if len(right_walls) >= 2:
+        x1, x2 = right_walls[:2]
+        dx=(x2-x1-20)/6
+        path=f'M {x1+10:.1f} 240 '
+        yy=-10
+        xx=x1+10
+        for _ in range(5):
+            xx += dx
+            path += f'l {dx:.1f} {yy} '
+            yy *= -1
+        path += f'L {x2-10:.1f} 240'
+        p.append(f'<path class="secondary" d="{path}"/>')
+    text_box(p,570,284,270,'隣接する壁の統計が結合する')
+    p.append(mt(190,330,[("H",'var'),(" = −",'roman'),("J",'var'),("₁ Σ ",'roman'),("τ",'var'),("ᵢ",'roman')],size=21))
+    p.append(mt(570,330,[("H",'var'),(" = −",'roman'),("J",'var'),("₁Σ",'roman'),("τ",'var'),("ᵢ − ",'roman'),("J",'var'),("₂Σ",'roman'),("τ",'var'),("ᵢ",'roman'),("τ",'var'),("ᵢ₊₁",'roman')],size=20))
     p.append('<path class="arrow" d="M 350 214 C 365 204, 380 204, 395 214"/>')
-    p.append('<text class="small" x="372" y="191" text-anchor="middle">extend range</text>')
+    text_box(p,372,190,145,'相互作用範囲を延ばす')
     save('overview-r1-r2.svg',p)
 
 
 def domain_wall_map():
-    """Domain-wall picture with domains rendered as extended regions, not just symbols."""
+    """Domains, walls and bond variables are all generated from the same spin data."""
     p=[]
-    # domain bands
-    p += [
-        '<rect class="region-accent" x="62" y="76" width="210" height="90" rx="18"/>',
-        '<rect class="region" x="272" y="76" width="144" height="90" rx="18"/>',
-        '<rect class="region-accent" x="416" y="76" width="142" height="90" rx="18"/>',
-        '<rect class="region" x="558" y="76" width="140" height="90" rx="18"/>',
-    ]
     spins=[1,1,1,-1,-1,1,1,-1]
-    spin_row(p,78,121,spins,82,True,15)
-    p.append('<text class="small" x="167" y="64" text-anchor="middle">+ domain</text>')
-    p.append('<text class="small" x="344" y="64" text-anchor="middle">− domain</text>')
-    # bond variables as a second layer
+    x0, y, sp = 78, 121, 82
+    draw_domain_bands(p,x0,y,spins,sp,height=90,rx=18)
+    spin_row(p,x0,y,spins,sp,True,15)
+    # Domain labels are centered on the actual generated segments.
+    for left,right,sign in domain_segments(x0,spins,spins and sp):
+        label='+ ドメイン' if sign>0 else '− ドメイン'
+        p.append(f'<text class="small" x="{(left+right)/2:.1f}" y="64" text-anchor="middle">{label}</text>')
+    xs=spin_positions(x0,spins,sp)
     for i in range(len(spins)-1):
-        x=119+i*82
+        x=(xs[i]+xs[i+1])/2
         tau=spins[i]*spins[i+1]
         cls='accentfill' if tau<0 else 'inkfill'
         rr=9 if tau<0 else 5
         p.append(f'<circle class="{cls}" cx="{x}" cy="242" r="{rr}"/>')
-        p.append(f'<text class="small" x="{x}" y="276" text-anchor="middle">{"wall" if tau<0 else "no wall"}</text>')
+        p.append(f'<text class="small" x="{x}" y="276" text-anchor="middle">{"壁" if tau<0 else "壁なし"}</text>')
     p.append('<path class="arrow" d="M 380 168 L 380 216"/>')
     p.append(mt(380,332,[("τ",'var'),("ᵢ = ",'roman'),("s",'var'),("ᵢ ",'roman'),("s",'var'),("ᵢ₊₁",'roman')],size=24))
-    p.append('<text class="small" x="380" y="370" text-anchor="middle">the wall variable records a domain boundary, not an absolute spin direction</text>')
+    text_box(p,380,376,500,'ドメイン壁変数は絶対的なスピン向きではなく境界を記録する')
     save('domain-wall-map.svg',p)
 
 
@@ -159,68 +215,57 @@ def transfer_network():
             sx=x1+dx/n*55; sy=y1+dy/n*35; ex=x2-dx/n*55; ey=y2-dy/n*35
             p.append(f'<path class="arrow thin" d="M {sx:.1f} {sy:.1f} L {ex:.1f} {ey:.1f}"/>')
     p.append(mt(380,46,[("(a,b) → (b,c)", 'roman')],size=25))
-    p.append('<text class="small" x="380" y="398" text-anchor="middle">the shared spin b is the one-step memory carried along the chain</text>')
+    text_box(p,380,406,500,'共有スピン b が鎖に沿って1ステップの記憶を運ぶ')
     save('transfer-state-network.svg',p)
 
 
 def frustration_picture():
-    """Show what J1 and antiferromagnetic J2 each want on the same chain."""
     p=[]
-    p.append('<text class="panel" x="38" y="38">competition on one spin chain</text>')
+    p.append('<text class="panel" x="38" y="38">同じスピン鎖上で競合する二つの局所選好</text>')
     spins=[1,1,-1,-1,1,1,-1,-1]
     x0=72; y=180; sp=82
     spin_row(p,x0,y,spins,sp,False,16)
-    # nearest J1 bonds below
     for i in range(len(spins)-1):
         x1=x0+i*sp; x2=x0+(i+1)*sp
         p.append(f'<line class="nearest" x1="{x1+18}" y1="{y+38}" x2="{x2-18}" y2="{y+38}"/>')
-    # next-nearest J2 arcs above
     for i in range(len(spins)-2):
-        x1=x0+i*sp; x2=x0+(i+2)*sp
-        xm=(x1+x2)/2
+        x1=x0+i*sp; x2=x0+(i+2)*sp; xm=(x1+x2)/2
         p.append(f'<path class="next" d="M {x1} {y-25} Q {xm} {y-92} {x2} {y-25}"/>')
-    p.append('<text class="small" x="110" y="258">J₁ &gt; 0: adjacent spins prefer to align</text>')
-    p.append('<text class="small" x="110" y="291">J₂ &lt; 0: spins two sites apart prefer to oppose</text>')
-    p.append('<text class="label" x="380" y="344" text-anchor="middle">the two local preferences cannot be satisfied everywhere</text>')
-    p.append('<text class="small" x="380" y="377" text-anchor="middle">stronger competition favors the repeating ++−− motif</text>')
+    text_box(p,260,270,330,'J₁ > 0：隣接スピンは揃いたい')
+    text_box(p,260,310,390,'J₂ < 0：2サイト離れたスピンは反対を向きたい')
+    p.append('<text class="label" x="380" y="356" text-anchor="middle">二つの局所選好は全結合で同時には満たせない</text>')
+    p.append('<text class="small" x="380" y="388" text-anchor="middle">競合が強まると ++−− の周期構造が有利になる</text>')
     save('frustration-competition.svg',p)
 
 
 def spectrum_cartoon():
-    """Physical disorder-line picture: oscillation first enters from the far tail."""
     p=[]
-    labels=['below disorder line','just above disorder line','deeper in oscillatory regime']
+    labels=['disorder line より下','境界を少し越えた直後','振動領域の内部']
     qvals=[0.0,0.36,0.86]
     phivals=[0.0,-1.32,-0.45]
     for row,(lab,q,phi) in enumerate(zip(labels,qvals,phivals)):
         y0=95+row*125
-        p.append(f'<text class="small" x="36" y="{y0-34}">{lab}</text>')
+        text_box(p,135,y0-32,210,lab)
         p.append(f'<line class="mutedline" x1="55" y1="{y0}" x2="705" y2="{y0}"/>')
         pts=[]
         for i in range(260):
             r=14*i/259
-            if q==0:
-                c=math.exp(-r/3.0)
-            else:
-                c=math.exp(-r/3.1)*math.cos(q*r+phi)
+            c=math.exp(-r/3.0) if q==0 else math.exp(-r/3.1)*math.cos(q*r+phi)
             pts.append((55+650*i/259, y0-44*c))
         p.append('<polyline class="primary" points="'+' '.join(f'{x:.2f},{y:.2f}' for x,y in pts)+'"/>')
-        # envelope
         up=[]; dn=[]
         for i in range(100):
             r=14*i/99; amp=44*math.exp(-r/3.1); x=55+650*i/99
             up.append((x,y0-amp)); dn.append((x,y0+amp))
         p.append('<polyline class="mutedline dashed" points="'+' '.join(f'{x:.1f},{y:.1f}' for x,y in up)+'"/>')
         p.append('<polyline class="mutedline dashed" points="'+' '.join(f'{x:.1f},{y:.1f}' for x,y in dn)+'"/>')
-    p.append('<text class="label" x="380" y="420" text-anchor="middle">the first node moves in from infinity as the complex mode develops</text>')
+    text_box(p,380,424,510,'複素モードが生まれると最初の節が無限遠側から近づいてくる',cls='label',height=34)
     save('spectrum-complexification.svg',p)
 
 
 def real_fourier_map():
-    """Make the disorder/Lifshitz distinction visual rather than algebraic."""
     p=[]
-    p += ['<text class="panel" x="32" y="36">middle regime: oscillatory tail, but qχ = 0</text>']
-    # left: correlation with a late zero crossing
+    text_box(p,250,38,430,'中間領域：遠方は振動するが qχ = 0',cls='panel',height=32)
     lx0,lx1=62,352; ly=205
     p += [f'<line class="axis" x1="{lx0}" y1="{ly}" x2="{lx1}" y2="{ly}"/>', f'<line class="axis" x1="{lx0}" y1="90" x2="{lx0}" y2="320"/>']
     pts=[]
@@ -229,8 +274,7 @@ def real_fourier_map():
         c=math.exp(-r/2.9)*math.cos(.42*r-1.12)
         pts.append((lx0+(lx1-lx0)*i/219, ly-96*c))
     p.append('<polyline class="primary" points="'+' '.join(f'{x:.2f},{y:.2f}' for x,y in pts)+'"/>')
-    p.append('<text class="small" x="205" y="348" text-anchor="middle">C(r): the far tail has already changed sign</text>')
-    # right: chi(q), broad maximum still at q=0; mark q_spec separately
+    text_box(p,205,350,300,'C(r)：遠方の tail はすでに符号反転する')
     rx0,rx1=444,710; rb=312; rt=92
     p += [f'<line class="axis" x1="{rx0}" y1="{rb}" x2="{rx1}" y2="{rb}"/>', f'<line class="axis" x1="{rx0}" y1="{rt}" x2="{rx0}" y2="{rb}"/>']
     pts=[]
@@ -242,10 +286,10 @@ def real_fourier_map():
     p.append('<polyline class="secondary" points="'+' '.join(f'{x:.2f},{y:.2f}' for x,y in pts)+'"/>')
     qspecx=rx0+(rx1-rx0)*.28
     p.append(f'<line class="primary dashed thin" x1="{qspecx:.1f}" y1="{rt+24}" x2="{qspecx:.1f}" y2="{rb}"/>')
-    p.append('<text class="small" x="453" y="78">χ(q) still peaks at q = 0</text>')
-    p.append('<text class="small" x="615" y="348" text-anchor="middle">dashed: q_spec of the long-distance tail</text>')
+    text_box(p,575,78,245,'χ(q) の最大はまだ q = 0')
+    text_box(p,615,350,260,'破線：長距離 tail の q_spec')
     p.append('<path class="arrow" d="M 365 204 L 425 204"/>')
-    p.append('<text class="small" x="395" y="180" text-anchor="middle">Fourier sum</text>')
+    text_box(p,395,180,115,'Fourier 和')
     save('real-fourier-map.svg',p)
 
 
@@ -303,7 +347,6 @@ def phase_map():
         yy=Y(y); p.append(f'<line class="grid" x1="{left}" y1="{yy:.1f}" x2="{right}" y2="{yy:.1f}"/>'); p.append(f'<text class="small" x="{left-12}" y="{yy+5:.1f}" text-anchor="end">{y:g}</text>')
     ts=[xmin+(xmax-xmin)*i/240 for i in range(241)]
     kd=[kappa_disorder(t) for t in ts]; kl=[kappa_lifshitz(t) for t in ts]
-    # neutral regions: paper-2 only; lines carry semantics
     poly_mid=[(X(t),Y(k)) for t,k in zip(ts,kd)]+[(X(t),Y(k)) for t,k in reversed(list(zip(ts,kl)))]
     p.append('<polygon class="region" points="'+' '.join(f'{x:.1f},{y:.1f}' for x,y in poly_mid)+'"/>')
     p.append('<polyline class="primary" points="'+' '.join(f'{X(t):.1f},{Y(k):.1f}' for t,k in zip(ts,kd))+'"/>')
@@ -311,34 +354,34 @@ def phase_map():
     p += [f'<line class="axis" x1="{left}" y1="{top}" x2="{left}" y2="{bottom}"/>',f'<line class="axis" x1="{left}" y1="{bottom}" x2="{right}" y2="{bottom}"/>']
     p.append(mt((left+right)/2,422,[("t = k",'var'),("B",'roman'),("T/J",'var'),("₁",'roman')],size=21))
     p.append(mt(28,205,[("κ = −J",'var'),("₂",'roman'),("/J",'var'),("₁",'roman')],size=21))
-    p.append('<text class="label" x="235" y="306" text-anchor="middle">monotone correlations</text>')
-    p.append('<text class="label" x="495" y="230" text-anchor="middle">oscillatory tail</text>')
-    p.append('<text class="label" x="505" y="92" text-anchor="middle">finite-q dominant response</text>')
-    p.append('<text class="small" x="546" y="319">Stephenson disorder line</text>')
-    p.append('<text class="small" x="568" y="151">Lifshitz line</text>')
+    text_box(p,235,306,220,'単調減衰する相関',cls='label')
+    text_box(p,495,230,225,'遠方で振動する相関',cls='label')
+    text_box(p,505,92,240,'有限波数応答が支配',cls='label')
+    text_box(p,570,319,245,'Stephenson disorder line')
+    text_box(p,620,151,150,'Lifshitz line')
     p.append(f'<circle class="inkfill" cx="{X(.08):.1f}" cy="{Y(.5):.1f}" r="6"/>')
-    p.append('<text class="small" x="132" y="62">T = 0: κ = 1/2 ground-state boundary</text>')
+    text_box(p,240,62,300,'T = 0：κ = 1/2 基底状態境界')
     save('correlation-structure-map.svg',p)
 
 
 def ising_liquid_map():
     p=[]
     p += ['<rect class="region" x="24" y="56" width="320" height="318" rx="18"/>','<rect class="region" x="416" y="56" width="320" height="318" rx="18"/>']
-    p += ['<text class="panel" x="184" y="92" text-anchor="middle">Ising transfer spectrum</text>','<text class="panel" x="576" y="92" text-anchor="middle">liquid / OZ pole picture</text>']
-    left=[('subleading eigenvalue','λ_sub / λ₀'),('decay rate','−ln|λ_sub/λ₀|'),('oscillation wave number','arg λ_sub'),('crossover','real → complex pair')]
-    right=[('leading pole','k_pole'),('decay rate','Im k_pole'),('oscillation wave number','Re k_pole'),('crossover','imaginary → complex poles')]
+    p += ['<text class="panel" x="184" y="92" text-anchor="middle">Ising 転送スペクトル</text>','<text class="panel" x="576" y="92" text-anchor="middle">液体論 / OZ pole</text>']
+    left=[('subleading 固有値','λ_sub / λ₀'),('減衰率','−ln|λ_sub/λ₀|'),('振動波数','arg λ_sub'),('クロスオーバー','実数 → 複素共役対')]
+    right=[('leading pole','k_pole'),('減衰率','Im k_pole'),('振動波数','Re k_pole'),('クロスオーバー','純虚数 → 複素 pole')]
     for i,((a,b),(c,d)) in enumerate(zip(left,right)):
         y=142+i*62
         p.append(f'<text class="small" x="65" y="{y}">{a}</text>'); p.append(f'<text class="text" x="65" y="{y+25}">{b}</text>')
         p.append(f'<text class="small" x="457" y="{y}">{c}</text>'); p.append(f'<text class="text" x="457" y="{y+25}">{d}</text>')
         p.append(f'<path class="arrow" d="M 344 {y+10} L 408 {y+10}"/>')
-    p.append('<text class="small" x="380" y="410" text-anchor="middle">same spectral idea: the longest-range correlation mode changes character</text>')
+    text_box(p,380,410,500,'最長距離相関を支配するスペクトルモードの型が変わる')
     save('ising-liquid-correspondence.svg',p)
 
 
 def info_channel():
     p=[]
-    p += ['<text class="panel" x="34" y="38">(a) R = 1: independent thermal flips</text>', '<text class="panel" x="398" y="38">(b) R = 2: correlated thermal flips</text>']
+    p += ['<text class="panel" x="34" y="38">(a) R = 1：独立な熱的反転</text>', '<text class="panel" x="398" y="38">(b) R = 2：相関した熱的反転</text>']
     for side,x0 in enumerate([58,422]):
         xs=[x0+i*54 for i in range(6)]; y=175
         for i,x in enumerate(xs):
@@ -347,13 +390,13 @@ def info_channel():
         if side==0:
             for i in [0,2,4]:
                 xm=(xs[i]+xs[i+1])/2; p.append(f'<line class="wall" x1="{xm}" y1="{y-28}" x2="{xm}" y2="{y+28}"/>')
-            p.append('<text class="small" x="190" y="250" text-anchor="middle">each bond has its own thermal flip event</text>')
+            text_box(p,190,250,280,'各 bond の熱的反転は独立')
         else:
             for i in [1,2,4]:
                 xm=(xs[i]+xs[i+1])/2; p.append(f'<line class="wall" x1="{xm}" y1="{y-28}" x2="{xm}" y2="{y+28}"/>')
             p.append('<path class="secondary" d="M 500 260 C 530 235, 560 235, 590 260"/>')
             p.append('<path class="secondary" d="M 590 260 C 620 235, 650 235, 680 260"/>')
-            p.append('<text class="small" x="555" y="305" text-anchor="middle">wall events influence neighboring wall statistics</text>')
+            text_box(p,555,305,310,'壁の出現確率が隣接する壁に依存')
     p.append(mt(380,370,[("P(τ",'roman'),("ᵢ₊₁",'roman'),(" | τ",'roman'),("ᵢ",'roman'),(") ≠ P(τ",'roman'),("ᵢ₊₁",'roman'),(")",'roman')],size=21))
     save('information-channel.svg',p)
 
