@@ -45,6 +45,32 @@ def theme_marker_heads(svg: str) -> str:
     return svg
 
 
+def _move_r1_four_series_legend(svg: str) -> str:
+    """Move the magnetization legend below the positive-m plateau."""
+    svg = svg.replace(
+        '<rect class="legendbox" x="500" y="24" width="196" height="132" rx="10"/>',
+        '<rect class="legendbox" x="500" y="190" width="196" height="132" rx="10"/>',
+    )
+    for old, new in zip((48, 78, 108, 138), (214, 244, 274, 304)):
+        svg = svg.replace(f'y1="{old}" x2="578" y2="{old}"', f'y1="{new}" x2="578" y2="{new}"')
+        svg = svg.replace(f'y="{old + 6}"', f'y="{new + 6}"', 1)
+    return svg
+
+
+def _move_r2_legend(svg: str, *, x_old: int, x_new: int) -> str:
+    """Move a four-series R=2 legend horizontally without changing its size."""
+    dx = x_new - x_old
+    svg = svg.replace(
+        f'<rect class="legendbox" x="{x_old}" y="25" width="190" height="136" rx="10"/>',
+        f'<rect class="legendbox" x="{x_new}" y="25" width="190" height="136" rx="10"/>',
+    )
+    for old_x in (518, 574, 590):
+        svg = svg.replace(f'x1="{old_x}"', f'x1="{old_x + dx}"')
+        svg = svg.replace(f'x2="{old_x}"', f'x2="{old_x + dx}"')
+        svg = svg.replace(f'x="{old_x}"', f'x="{old_x + dx}"')
+    return svg
+
+
 def fix_known_layouts(path: Path, svg: str) -> str:
     """Apply deterministic layout/markup fixes that depend on generated assets."""
     if path.name == "correlation-structure-map.svg":
@@ -57,6 +83,19 @@ def fix_known_layouts(path: Path, svg: str) -> str:
         # A literal '<' inside an SVG text node is invalid XML and can make the
         # whole image disappear in strict browser/XML renderers.
         svg = svg.replace("J₂ < 0：", "J₂ &lt; 0：")
+
+    if path.name == "magnetization-field.svg":
+        svg = _move_r1_four_series_legend(svg)
+
+    if path.name == "qstar-kappa.svg":
+        # Curves occupy the upper-right; the upper-left is empty because q*=0
+        # below each spectral threshold.
+        svg = _move_r2_legend(svg, x_old=500, x_new=116)
+
+    if path.name == "correlation-length-kappa.svg":
+        # Keep the legend in the high-xi quiet band above the central minimum,
+        # away from the rising blue branch at large kappa.
+        svg = _move_r2_legend(svg, x_old=500, x_new=310)
     return svg
 
 
