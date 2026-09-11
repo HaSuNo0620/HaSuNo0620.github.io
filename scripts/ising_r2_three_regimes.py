@@ -13,8 +13,8 @@ from pathlib import Path
 OUT = Path(__file__).resolve().parents[1] / "public" / "figures" / "ising-r2"
 W, H = 760, 440
 
-LIGHT = {"ink":"#171714","muted":"#716d64","line":"#cbc3b5","accent":"#5866e9","green":"#39705a"}
-DARK = {"ink":"#f0eadf","muted":"#a8a196","line":"#4a4740","accent":"#99a2ff","green":"#8bc4a9"}
+LIGHT = {"paper":"#f3efe6","ink":"#171714","muted":"#716d64","line":"#cbc3b5","accent":"#5866e9","green":"#39705a"}
+DARK = {"paper":"#1c1c19","ink":"#f0eadf","muted":"#a8a196","line":"#4a4740","accent":"#99a2ff","green":"#8bc4a9"}
 STYLE = f"""<style>
 .axis{{stroke:{LIGHT['ink']};stroke-width:1.8}}
 .grid{{stroke:{LIGHT['line']};stroke-width:1.1;opacity:.48}}
@@ -22,13 +22,15 @@ STYLE = f"""<style>
 .math{{fill:{LIGHT['ink']};font:20px 'STIX Two Math','Cambria Math','Times New Roman',serif}}
 .var{{font-style:italic}} .roman{{font-style:normal}}
 .legend{{fill:{LIGHT['ink']};font:18px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}}
+.legendbox{{fill:{LIGHT['paper']};fill-opacity:.92;stroke:{LIGHT['ink']};stroke-opacity:.14;stroke-width:1}}
 .primary{{fill:none;stroke:{LIGHT['accent']};stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}}
 .secondary{{fill:none;stroke:{LIGHT['green']};stroke-width:3.6;stroke-dasharray:11 7;stroke-linecap:round;stroke-linejoin:round}}
 .inkdash{{fill:none;stroke:{LIGHT['ink']};stroke-width:3.6;stroke-dasharray:9 7;stroke-linecap:round;opacity:.84}}
 .zero{{fill:none;stroke:{LIGHT['muted']};stroke-width:2.0;stroke-dasharray:3.5 6}}
 @media(prefers-color-scheme:dark){{
 .axis{{stroke:{DARK['ink']}}}.grid{{stroke:{DARK['line']}}}.tick{{fill:{DARK['muted']}}}
-.math,.legend{{fill:{DARK['ink']}}}.primary{{stroke:{DARK['accent']}}}.secondary{{stroke:{DARK['green']}}}
+.math,.legend{{fill:{DARK['ink']}}}.legendbox{{fill:{DARK['paper']};stroke:{DARK['ink']}}}
+.primary{{stroke:{DARK['accent']}}}.secondary{{stroke:{DARK['green']}}}
 .inkdash{{stroke:{DARK['ink']}}}.zero{{stroke:{DARK['muted']}}}
 }}
 </style>"""
@@ -103,6 +105,8 @@ def chi(t,kappa,nq=301,rmax=600):
 
 
 def legend(parts):
+    # Semi-opaque site-paper background prevents data curves from crossing legend text.
+    parts.append('<rect class="legendbox" x="494" y="26" width="202" height="106" rx="10"/>')
     entries=[('primary','κ = 0.15'),('secondary','κ = 0.27'),('inkdash','κ = 0.45')]
     for j,(cl,lab) in enumerate(entries):
         y=48+30*j
