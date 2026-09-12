@@ -14,13 +14,11 @@ status: growing
 
 **実空間に周期格子がないのに、なぜ準結晶は鋭い Bragg peak を持てるのか。**
 
-周期結晶では Bragg peak と reciprocal lattice がほとんど同じ話に見えるので、ここが準結晶を理解するときの大きな引っかかりになる。
+ここではまず、周期結晶の回折で何が起きているかを確認する。そのあとで、準結晶では何を一般化すればよいのかを見る。
 
-まず周期結晶と準周期構造の Fourier peak を並べて見る。
+![周期格子と準周期構造のBragg peak](/figures/quasicrystals/diffraction-fourier-module.svg)
 
-![周期格子と高rank Fourier moduleのBragg peak](/figures/quasicrystals/diffraction-fourier-module.svg)
-
-*周期格子では1個の基本波数から等間隔の peak が生成される。準周期構造では複数の独立基本波数から peak が生成されるため位置集合は複雑になるが、各 peak 自体は鋭い。弱い peak まで含めると位置集合は高密度になりうる。*
+*左では一つの基本間隔を持つ周期格子から、等間隔の Bragg peak が生じる。右では複数の独立な波数から peak が生成されるため、位置の並び方は複雑になる。それでも各 peak 自体は鋭い。*
 
 ## 1. Bragg peak は何を意味しているのか
 
@@ -40,9 +38,9 @@ $$
 
 である。
 
-ここでは各原子からの寄与が位相 $kx_j$ を持って足し合わされる。
+各原子からの寄与は位相 $kx_j$ を持つ。
 
-もしある $k$ で遠く離れた原子からの位相まで整合すれば、和は打ち消し合わず大きくなる。理想的な無限系では、それが鋭い Bragg peak になる。
+もしある $k$ で遠く離れた原子からの寄与まで同位相で足し合わされれば、打ち消し合わず大きな強度になる。理想的な無限系では、それが鋭い Bragg peak になる。
 
 したがって Bragg peak が示しているのは
 
@@ -54,9 +52,9 @@ $$
 
 であって、「有限単位胞があること」そのものではない。
 
-ここが最初の答えである。
+これが、準結晶でも Bragg peak が存在できる理由の出発点である。
 
-## 2. 周期結晶では位相整合が1個の基本波数で表せる
+## 2. 周期結晶では peak の位置が等間隔に並ぶ
 
 周期 $a$ の1次元格子なら
 
@@ -87,25 +85,34 @@ $$
 
 に peak が並ぶ。
 
-1個の基本波数
+つまり実空間の周期 $a$ に対して、波数空間には基本間隔 $2\pi/a$ の格子ができる。
+
+この**波数空間側の周期格子**を reciprocal lattice、逆格子と呼ぶ。
+
+1次元なら
 
 $$
+k_m=mk_0,
+\qquad
 k_0=\frac{2\pi}{a}
 $$
 
-の整数倍だけで全ての peak を index できる。
+で十分である。
 
-$d$ 次元周期結晶なら
+$d$ 次元周期結晶では
 
 $$
-\mathbf G=\sum_{i=1}^{d}m_i\mathbf b_i
+\mathbf G=\sum_{i=1}^{d}m_i\mathbf b_i,
+\qquad m_i\in\mathbb Z
 $$
 
-となり、$d$ 個の reciprocal basis vector があれば十分である。
+と書ける。$\mathbf b_i$ は reciprocal lattice を作る基底ベクトルである。
 
-## 3. 準周期構造では基本波数が空間次元より多い
+ここで必要な独立基底の個数は空間次元 $d$ と同じである。
 
-[準周期関数のノート](/notes/quasiperiodic-functions-torus/)で見たように、1次元でも独立な周波数を二つ持てる。
+## 3. 準周期構造では一つの基本波数では足りない
+
+[準周期関数のノート](/notes/quasiperiodic-functions-torus/)では、1次元でも二つの独立な基本周波数を持てることを見た。
 
 例えば
 
@@ -114,35 +121,45 @@ k_{mn}=mb_1+nb_2,
 \qquad m,n\in\mathbb Z
 $$
 
-で $b_1/b_2$ が無理数なら、1個の基本波数の整数倍には還元できない。
+で $b_1/b_2$ が無理数なら、全ての peak を一つの基本波数の整数倍へまとめることはできない。
 
-それでも各 peak の位置は任意ではない。二つの整数 $(m,n)$ で完全に index されている。
+それでも peak の位置は任意ではない。二つの整数 $(m,n)$ で全て index できる。
 
-一般に $d$ 次元の準結晶では
+ここで、「この peak 集合を生成するために、独立な基本波数が何個必要か」を **rank** と呼ぶ。
+
+1次元周期格子なら rank は1である。一方、1次元 Fibonacci 型の準周期構造では rank 2 の波数集合が現れる。
+
+このように、有限個の基本波数を整数係数で組み合わせて得られる集合を **Fourier module** と呼ぶ。
+
+一般には
 
 $$
 \boxed{
 \mathbf k=\sum_{j=1}^{D}n_j\mathbf b_j,
 \qquad
-n_j\in\mathbb Z,
-\qquad
-D>d
+n_j\in\mathbb Z
 }
 $$
 
-のような整数線形結合が現れる。
+で表され、$D$ がその rank である。
 
-この集合が Fourier module である。
+周期結晶なら通常 $D=d$ だが、準結晶では
 
-周期結晶との違いは「逆空間に規則がない」ことではない。むしろ逆で、**規則はあるが、その rank が物理空間の次元より高い**。
+$$
+D>d
+$$
+
+となりうる。
+
+つまり準結晶は「逆空間に規則がない」のではない。**規則はあるが、その整数構造が物理空間の次元より高い**。
 
 ## 4. なぜ高次元格子から Fourier module が出るのか
 
-cut-and-project では、$D$ 次元の整数格子から $d$ 次元の physical space へ点を射影した。
+前の cut-and-project では、高次元格子点を physical space と internal space の二方向へ分解した。
 
-reciprocal space でも同じことをする。
+波数空間でも同じ発想を使える。
 
-高次元 reciprocal lattice のベクトルを $\mathbf K$ とし、physical space 成分と internal space 成分へ
+高次元側の reciprocal lattice にある一つの波数ベクトルを $\mathbf K$ とする。それを physical space 方向と internal space 方向へ
 
 $$
 K_{\parallel}=P_{\parallel}\mathbf K,
@@ -152,7 +169,7 @@ $$
 
 と分解する。
 
-すると Bragg peak の位置は physical-space projection
+すると低次元で観測される Bragg peak の位置は、physical-space 成分
 
 $$
 \boxed{k=K_{\parallel}}
@@ -160,13 +177,11 @@ $$
 
 として現れる。
 
-つまり Fourier module は、低次元で突然生えた奇妙な規則ではない。
-
-**高次元では普通の reciprocal lattice だったものを、低次元へ射影した結果**である。
+高次元では普通の reciprocal lattice だったものが、低次元へ射影されると rank の高い Fourier module になる。
 
 ここで、実空間の cut-and-project と逆空間の Fourier module が一つにつながる。
 
-## 5. peak の位置が稠密でも、なぜ回折像はぐちゃぐちゃにならないのか
+## 5. peak の位置が密でも、回折像はなぜ連続にならないのか
 
 1次元で $b_1/b_2$ が無理数なら
 
@@ -174,13 +189,15 @@ $$
 \{mb_1+nb_2\mid m,n\in\mathbb Z\}
 $$
 
-は実軸上で稠密になりうる。
+という peak 候補の位置は実軸上で稠密になりうる。つまり、どんな小さな波数区間にも候補位置が存在しうる。
 
 すると「鋭く分離した Bragg peak」という像と矛盾するように見える。
 
-しかし、**位置が存在することと、強度が大きいことは別である。**
+しかし、**peak の位置が許されることと、その peak が強いことは別である。**
 
-cut-and-project では、実空間で使った acceptance window $W$ の Fourier 変換が peak 強度へ入る。概念的には
+cut-and-project では、どの格子点を採用するかを acceptance window $W$ で決めた。波数空間では、その window の Fourier 変換が各 peak の振幅を重み付けする。
+
+概念的には
 
 $$
 A(\mathbf K)\propto \widehat{1_W}(K_{\perp})
@@ -188,7 +205,7 @@ $$
 
 となる。
 
-したがって高次元 reciprocal lattice 点の多くは、physical space へ peak の位置を与えても非常に弱い。
+そのため、候補位置が多数あっても、その多くは非常に弱い。
 
 $$
 \boxed{
@@ -200,17 +217,15 @@ $$
 
 である。
 
-実験では強い peak が目立つため、「鋭い spots が並ぶ」回折像として見える。
+だから理想準結晶の回折は、連続的な背景に溶けるのではなく、鋭い peak の集合として現れる。
 
-## 6. ここまでで何が分かったか
+## 6. 最初の疑問へ戻る
 
 最初の疑問は
 
 > 周期格子がないのに、なぜ Bragg peak があるのか
 
 だった。
-
-答えは、Bragg peak の条件を周期性と同一視していたところにある。
 
 周期結晶では
 
@@ -222,7 +237,7 @@ $$
 \text{Bragg peaks}
 $$
 
-なので区別する必要がない。
+なので、「Bragg peak があるなら周期格子がある」と思いやすい。
 
 準結晶では
 
@@ -236,7 +251,7 @@ $$
 
 が起こる。
 
-そしてその秩序は、通常の reciprocal lattice の代わりに
+そして peak の位置は、普通の reciprocal lattice ではなく
 
 $$
 \boxed{
@@ -244,9 +259,9 @@ $$
 }
 $$
 
-として表現される。
+として整理される。
 
-4本を通して見ると、準結晶の見方は次の一本にまとまる。
+4本を通して見ると、準結晶の見方は
 
 $$
 \boxed{
@@ -256,10 +271,12 @@ $$
 \longrightarrow
 \text{高次元格子からの射影}
 \longrightarrow
-\text{高rank Fourier module}
+\text{Fourier module}
 }
 $$
 
-実空間では周期を失っているが、構造を生成する整数的な秩序そのものが失われたわけではない。
+という流れにまとまる。
+
+実空間では周期を失っている。しかし、構造を生成する整数的な秩序そのものが失われたわけではない。
 
 ここから先は「準結晶とは何か」という構造論から、**準周期秩序の上に相互作用を載せたら物理がどう変わるか**へ進める。Fibonacci Ising model や quasiperiodic coupling はその自然な次の問題になる。
