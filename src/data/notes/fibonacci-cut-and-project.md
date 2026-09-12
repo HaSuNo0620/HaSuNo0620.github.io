@@ -1,21 +1,30 @@
 ---
-title: "Fibonacci列から cut-and-project へ — なぜ高次元格子から準周期構造が生まれるのか"
-summary: "Fibonacci chainを置換則と高次元射影の両方から見る。全格子点を射影すると密になる理由、acceptance windowが必要な理由、黄金比とphasonの幾何学的意味を整理する。"
+title: "Cut-and-project 法 — Fibonacci列はなぜ高次元格子から生まれるのか"
+summary: "2次元整数格子を無理数方向へ射影する発想から、Fibonacci chainを構成する。単なる射影では点が稠密になる理由と、acceptance windowが離散準周期構造を作る役割を図で理解する。"
 publishedAt: 2026-09-12T02:47:00+09:00
+updatedAt: 2026-09-13
 area: "Mathematics"
 topics: ["Fibonacci chain", "cut and project", "quasicrystals", "aperiodic order", "golden ratio"]
 status: growing
 ---
 
-[前のノート](/notes/quasiperiodic-functions-torus/)では、準周期関数を高次元トーラス上の周期関数の無理数方向の観測として見た。連続関数ではこの見方が自然だったが、準結晶では原子位置のような**離散的な点集合**を作らなければならない。
+[前のノート](/notes/quasiperiodic-functions-torus/)では、1次元の準周期関数が高次元では単純な周期構造として見えることを確認した。
 
-そこで現れるのが cut-and-project である。
+では、原子位置のような**離散的な点列**でも同じことができるのだろうか。
 
-この構成を初めて見ると、「高次元格子を斜めに射影するだけなら点が密になってしまうのではないか」「なぜ window が必要なのか」という疑問が生じる。この二つを区別すると、cut-and-project の仕組みがかなり明瞭になる。
+ここで出てくるのが cut-and-project 法である。
 
-## 1. Fibonacci chainをまず置換則として作る
+名前だけを見ると「高次元格子を斜めに射影すればよい」ように思える。しかし、実はそれでは失敗する。**全格子点を射影すると点が稠密になってしまう**からである。
 
-二種類の間隔 $L$ と $S$ を考え、置換則
+この失敗をどう直すかが、cut-and-project の中身そのものである。
+
+![2次元格子からの cut-and-project](/figures/quasicrystals/cut-and-project.svg)
+
+*無理数方向 $E_{\parallel}$ に平行な有限幅の strip を置き、その中に入った格子点だけを選ぶ。選ばれた点を $E_{\parallel}$ へ落とすと、離散的な準周期点列が得られる。*
+
+## 1. まず Fibonacci chain を知っている形で書く
+
+長い間隔 $L$ と短い間隔 $S$ に対して
 
 $$
 L\mapsto LS,
@@ -23,9 +32,9 @@ L\mapsto LS,
 S\mapsto L
 $$
 
-を繰り返す。
+という置換を繰り返す。
 
-$L$ から始めると
+すると
 
 $$
 L
@@ -36,9 +45,9 @@ L
 \to\cdots
 $$
 
-となる。
+という列が得られる。
 
-各段階で $L$ と $S$ の個数は Fibonacci 数で増え、その比は
+この列には有限周期がない。一方、$L$ と $S$ の個数比は
 
 $$
 \frac{N_L}{N_S}\to\tau,
@@ -48,13 +57,13 @@ $$
 
 へ近づく。
 
-この列には有限周期がない。しかし局所配列は任意ではなく、置換則が全体を拘束している。
+置換則で作ると「なぜこの列になるか」は分かるが、なぜ高次元格子や回折とつながるのかは見えにくい。
 
-ここではすでに「非周期だが秩序だった」構造ができている。cut-and-project は、この同じ構造を**高次元格子の幾何学として再表現する**。
+そこで同じ列を幾何学的に作り直す。
 
-## 2. 2次元格子を二つの方向へ分解する
+## 2. 2次元整数格子を斜めから見る
 
-整数格子
+2次元整数格子
 
 $$
 \mathbf n=(n_1,n_2)\in\mathbb Z^2
@@ -62,21 +71,25 @@ $$
 
 を考える。
 
-2次元空間を、1次元の physical space $E_{\parallel}$ と、それに直交する internal space $E_{\perp}$ に分ける。
-
-Fibonacci chain では黄金比を含む方向を選ぶと都合がよい。例えば単位ベクトルを
+この平面内に、格子軸とは無理数の傾きを持つ1次元方向 $E_{\parallel}$ を取る。Fibonacci chain では黄金比 $\tau$ を使って、例えば
 
 $$
 \mathbf e_{\parallel}
-=\frac{(1,\tau)}{\sqrt{1+\tau^2}},
-\qquad
+=\frac{(1,\tau)}{\sqrt{1+\tau^2}}
+$$
+
+と選べる。
+
+これに直交する方向を $E_{\perp}$ とし、
+
+$$
 \mathbf e_{\perp}
 =\frac{(-\tau,1)}{\sqrt{1+\tau^2}}
 $$
 
-と取る。
+とする。
 
-格子点 $\mathbf n$ の平行成分と垂直成分は
+格子点 $\mathbf n$ は
 
 $$
 x_{\parallel}=\mathbf n\cdot\mathbf e_{\parallel},
@@ -84,15 +97,13 @@ x_{\parallel}=\mathbf n\cdot\mathbf e_{\parallel},
 x_{\perp}=\mathbf n\cdot\mathbf e_{\perp}
 $$
 
-である。
+という二つの座標で見られる。
 
-ここで $E_{\parallel}$ の傾きは格子軸に対して無理数なので、格子の周期方向と整合しない。
+ここで $E_{\parallel}$ が物理空間、$E_{\perp}$ が internal space である。
 
-## 3. 全格子点を射影してはいけない
+## 3. 全部を射影すると失敗する
 
-最初に思いつくのは、全ての $\mathbf n\in\mathbb Z^2$ を $E_{\parallel}$ へ射影することである。
-
-すると
+全ての整数格子点をそのまま $E_{\parallel}$ へ落とすと
 
 $$
 x_{\parallel}
@@ -101,21 +112,33 @@ $$
 
 となる。
 
-$1$ と $\tau$ は有理数上で独立なので、集合
+$1$ と $\tau$ は有理数上で独立なので、
 
 $$
 \{n_1+\tau n_2\mid n_1,n_2\in\mathbb Z\}
 $$
 
-は実軸上で稠密になる。つまり、任意に近い二点を持つことができる。
+は実軸上で稠密になる。
 
-これは原子位置としては使えない。準結晶は非周期であっても、原子間距離が任意に小さくなるわけではないからである。
+つまり、いくらでも近い二点を作れてしまう。
 
-したがって cut-and-project は単なる projection ではない。
+これは「非周期な結晶」を作ったのではなく、1次元直線をほとんど埋め尽くす射影集合を作っただけである。
 
-## 4. acceptance window が離散性を回復する
+したがって重要なのは
 
-そこで internal space 側に有限区間 $W$ を用意し、
+$$
+\boxed{
+\text{cut-and-project}\neq\text{project all points}
+}
+$$
+
+である。
+
+## 4. window が必要になる
+
+そこで internal space 側に有限区間 $W$ を置く。
+
+そして
 
 $$
 x_{\perp}\in W
@@ -123,71 +146,53 @@ $$
 
 を満たす格子点だけを採用する。
 
-得られる点集合は
+最後に、その採用点だけを $E_{\parallel}$ へ射影する。
+
+これを式でまとめると
 
 $$
 \boxed{
-\Lambda
-=
+\Lambda=
 \left\{
 P_{\parallel}\mathbf n
 \mid
 \mathbf n\in\mathbb Z^2,
-\quad
-P_{\perp}\mathbf n\in W
+\ P_{\perp}\mathbf n\in W
 \right\}
 }
 $$
 
-である。
+となる。
 
-幾何学的には、$E_{\parallel}$ に平行な有限幅の帯を2次元格子へ重ね、その帯の内部に入った格子点だけを $E_{\parallel}$ へ落としている。
+図では $W$ は $E_{\parallel}$ に平行な strip の幅として見える。
 
-これが cut-and-project の本体である。
+ここで初めて、射影後の点列は離散的になる。
 
-window $W$ は余計な技術ではなく、
+window は細かな補正ではない。**高次元格子から、どの点を物理空間へ採用するかを決める本体**である。
 
-$$
-\boxed{
-\text{higher-dimensional lattice}
-+\text{ irrational orientation}
-+\text{ finite window}
-}
-$$
+## 5. なぜ長短二種類の間隔が出るのか
 
-の三つを揃えて、初めて低次元の離散準周期集合を作る。
+strip 内の格子点を $E_{\parallel}$ に沿って順番に追う。
 
-## 5. なぜ二種類の間隔だけが現れるのか
+隣の採用点へ移るとき、高次元格子では基本的に異なる格子ステップが使われる。それぞれを $E_{\parallel}$ へ射影した長さが、1次元側の長い間隔 $L$ と短い間隔 $S$ になる。
 
-帯の中に入った格子点を $E_{\parallel}$ に沿って順番にたどると、次の採用格子点へ移る方法は主に二種類になる。
-
-2次元格子上では、例えば
-
-$$
-(n_1,n_2)\to(n_1+1,n_2)
-$$
-
-または
-
-$$
-(n_1,n_2)\to(n_1,n_2+1)
-$$
-
-というステップが対応し、それぞれの $E_{\parallel}$ への射影長が二種類の bond length になる。
-
-その長さを $S$ と $L$ と書けば、比は規格化の取り方を除いて黄金比
+適切な規格化をすると
 
 $$
 \frac{L}{S}=\tau
 $$
 
-になるように取れる。
+となる。
 
-つまり Fibonacci chain の長短二種類の間隔は、置換則から突然導入された記号ではない。2次元格子の基本ステップを無理数方向へ射影した長さとして理解できる。
+ここで Fibonacci chain の $L,S$ は、置換則のために人工的に導入した二文字ではなくなる。
 
-## 6. 置換則と射影構成は同じ秩序を別の言葉で見ている
+**高次元格子の異なる基本ステップが、低次元へ射影された長さ**として現れている。
 
-置換則では
+これが cut-and-project の一番腑に落ちるところだと思う。
+
+## 6. 置換則と射影法は何が違うのか
+
+置換則
 
 $$
 L\mapsto LS,
@@ -195,115 +200,33 @@ L\mapsto LS,
 S\mapsto L
 $$
 
-という combinatorial rule を使った。
+は、列をどう生成するかを見るのに強い。
 
-cut-and-project では同じ配列が格子点と window の幾何学から現れる。
+cut-and-project は、同じ秩序を高次元格子との関係として見るのに強い。
 
-前者は「列をどう生成するか」をよく見せ、後者は「なぜ Fourier 構造が高次元格子と結びつくか」をよく見せる。
-
-これは二つの独立な模型というより、同じ準周期秩序の
-
-- symbolic description、
-- geometric description、
-
-である。
-
-## 7. 黄金比は装飾ではなく irrational orientation を固定する
-
-Fibonacci chain で黄金比が何度も出てくるのは偶然ではない。
-
-$\tau$ は
-
-$$
-\tau^2=\tau+1
-$$
-
-を満たし、連分数展開が
-
-$$
-\tau=[1;1,1,1,\ldots]
-$$
-
-となる。
-
-その最良有理近似は Fibonacci 数の比
-
-$$
-\frac{F_{n+1}}{F_n}
-$$
-
-で与えられる。
-
-したがって、
-
-- substitution の成長率、
-- 長短タイルの個数比、
-- irrational slope の有理近似、
-- periodic approximant の周期、
-
-が同じ Fibonacci 構造へ集約される。
-
-黄金比は単に「5回対称性だから現れる数字」ではなく、**準周期方向を最も基本的な二次無理数で固定した結果**として現れる。
-
-## 8. periodic approximant は何をしているのか
-
-無理数 $\tau$ を有理数
-
-$$
-\tau\simeq\frac{F_{n+1}}{F_n}
-$$
-
-で置き換えると、physical space の傾きが格子に対して rational になる。
-
-すると射影方向は高次元格子と有限距離で整合し、低次元構造にも大きな単位胞が現れる。
-
-これが periodic approximant である。
-
-したがって approximant は準結晶を「雑に周期化したもの」ではなく、irrational slope を rational slope へ近似した構造と理解できる。近似次数を上げると単位胞は大きくなり、局所構造は準結晶へ近づく。
-
-## 9. window を動かすと何が変わるのか
-
-physical space の向きを固定したまま window $W$ を internal space 内で少し平行移動することを考える。
-
-多くの格子点では採用・不採用は変わらない。しかし window の境界を横切る格子点では、低次元側の点の選択が切り替わる。
-
-この変化は通常の一様並進とは異なる。physical space に直交する internal degree of freedom に沿った変位だからである。
-
-準結晶ではこの自由度が phason と結びつく。
-
-通常の phonon が physical-space displacement に対応するのに対し、phason は higher-dimensional description では perpendicular-space displacement として自然に現れる。
-
-この見方をすると phason は「準結晶特有の謎の欠陥」ではなく、$D>d$ の記述を持つことから生じる追加自由度として理解できる。
-
-## 10. 高次元格子は実在する空間なのか
-
-cut-and-project を学ぶと、高次元空間を物理的に実在する追加次元として受け取ってよいのかが気になる。
-
-通常、そのように解釈する必要はない。
-
-高次元格子は、低次元で複雑に見える準周期構造を周期構造として整理するための embedding space である。physical space の原子が実際に perpendicular direction へ移動しているという意味ではない。
-
-ただし単なる記号操作でもない。回折 peak の index、phason 自由度、window による振幅選択などがこの幾何学で統一されるため、非常に強い構造的意味を持つ。
-
-## 11. 自分のための見取り図
-
-Fibonacci chain を理解するときには、次の三つを分けておくと混乱しにくい。
+したがって両者は競合する説明ではない。
 
 $$
 \boxed{
 \begin{aligned}
-\text{substitution}
-&:\ \text{配列を生成する規則},\\
-\text{cut-and-project}
-&:\ \text{同じ配列の高次元幾何学},\\
-\text{window}
-&:\ \text{射影集合を離散化する選択規則}.
+\text{substitution}&:\ \text{symbolic generation},\\
+\text{cut-and-project}&:\ \text{geometric organization}.
 \end{aligned}
 }
 $$
 
-特に重要なのは、**projection だけでは準結晶にならない**ことである。全格子点の射影は稠密になり、有限 window による選別があって初めて Delone-like な離散点集合が得られる。
+同じ Fibonacci 秩序を別の座標系で見ている。
 
-そしてこの構成の最も強いところは、実空間構造だけで終わらないことにある。高次元格子の reciprocal lattice を同じように射影すると、準結晶の Bragg peak の位置が自然に生成される。
+## 7. 高次元空間は本当に存在するのか
 
-それを[次の回折のノート](/notes/quasicrystal-diffraction-fourier-module/)で見る。
+この段階で「原子が本当に2次元目へ動いているのか」という疑問が出る。
+
+ここでの $E_{\perp}$ は、通常は物理的な追加空間として解釈する必要はない。低次元で非周期に見える配置を、周期的な整数格子として整理するための embedding space である。
+
+ただし単なる記号上の遊びでもない。
+
+同じ高次元格子から、次は reciprocal lattice を射影できる。すると準結晶の Bragg peak の位置まで同じ整数 index で整理できる。
+
+つまり cut-and-project の価値は、Fibonacci列を一度作れることではなく、**実空間と逆空間を同じ高次元幾何学で結べること**にある。
+
+それを[次のノート](/notes/quasicrystal-diffraction-fourier-module/)で見る。
