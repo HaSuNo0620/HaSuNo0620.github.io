@@ -1,20 +1,24 @@
 ---
-title: "1次元XY模型 — 最近接相互作用と角度相関"
-summary: "古典1次元XY鎖を、角度差変数、積分転送作用素、Bessel関数で表される固有値、相関長、波数依存感受率という流れで整理する。Ising鎖との対応と、離散スピンから連続角度自由度へ移ることで何が変わるかを見る。"
+title: "1次元XY模型 — 位相拡散と角度記憶"
+summary: "最近接古典XY鎖を、局所的には整列しているのに遠距離では向きを失う系として読む。独立な角度差、空間方向の位相拡散、Bessel関数による厳密相関、harmonicごとの記憶長、compactnessとwindingを通して、連続対称性を持つ1次元系の相関喪失機構を整理する。"
 publishedAt: 2026-09-12T03:10:00+09:00
-updatedAt: 2026-09-12
+updatedAt: 2026-09-13
 area: "Physics"
-topics: ["statistical mechanics", "XY model", "transfer operator", "correlation", "linear response", "Bessel function"]
+topics: ["statistical mechanics", "XY model", "phase diffusion", "transfer operator", "correlation", "Bessel function", "compact field"]
 status: growing
 ---
 
-1次元 Ising 模型では、各サイトの自由度は $s_i=\pm1$ という離散的な二状態だった。次に自由度そのものを連続化し、各サイトに平面内の単位ベクトル
+隣り合うスピンがほとんど同じ向きを向いているなら、遠く離れたスピンも同じ向きを覚えていそうに見える。ところが1次元の最近接XY鎖では、有限温度ならどれだけ低温でも遠距離の向きは失われる。
+
+このノートで知りたいのは、XY模型を形式的に解く方法ではなく、**局所整列と長距離秩序がなぜ同じものではないのか**である。
+
+各サイトに平面内の単位ベクトル
 
 $$
 \mathbf S_i=(\cos\theta_i,\sin\theta_i)
 $$
 
-を置く。最近接古典 XY 模型は
+を置き、最近接相互作用
 
 $$
 \boxed{
@@ -22,11 +26,9 @@ H=-J\sum_i\cos(\theta_{i+1}-\theta_i)
 }
 $$
 
-で定義される。
+を考える。$J>0$ なら隣接角度差を小さくしたい。しかしXYでは、隣接スピンに**少しだけ**逆らうことができる。この連続性が、1次元での相関喪失の仕方を決める。
 
-Ising では局所変数が $Z_2$、XY では $U(1)$ 対称性を持つ。相互作用距離は最近接のままだが、局所状態空間が二点から円 $S^1$ へ変わる。このノートでは、離散自由度から連続角度自由度へ移ったとき、転送行列・相関・外場応答がどう変わるかを見る。
-
-## 1. スピンそのものより角度差が自然な変数になる
+## 1. 見るべき変数はスピン角そのものではなく角度差である
 
 開鎖で
 
@@ -48,9 +50,9 @@ $$
 \theta_n=\theta_1+\sum_{j=1}^{n-1}\phi_j
 $$
 
-なので、これは情報を失う近似ではなく変数変換である。
+なので、$\{\theta_i\}$ と $(\theta_1,\{\phi_i\})$ は同じ情報を持つ。
 
-外場ゼロの開鎖では異なる $\phi_i$ は独立であり、1 bond の確率分布は
+外場ゼロの開鎖では、各 bond の $\phi_i$ は互いに独立である。1 bond の分布は
 
 $$
 \boxed{
@@ -60,47 +62,229 @@ p(\phi)
 }
 $$
 
-となる。$I_n$ は修正 Bessel 関数である。
+である。ここで $I_m$ は修正Bessel関数である。
 
-Ising の bond 変数 $\tau_i=s_i s_{i+1}=\pm1$ と対応させると、
-
-$$
-\text{Ising}:\quad \tau_i\in\{\pm1\},
-$$
+つまり最近接XY鎖では、複雑に見えるスピン列を
 
 $$
-\text{XY}:\quad \phi_i\in(-\pi,\pi]
+\boxed{
+\text{独立な角度増分 }\phi_1,\phi_2,\ldots
+}
 $$
 
-であり、最近接・外場ゼロではどちらも **bond 自由度が独立**になる。違いは、Ising の欠陥が離散的な domain wall なのに対し、XY では各 bond が連続的な角度ずれを持つ点にある。
+として読むことができる。
 
-## 2. 転送行列は有限行列ではなく積分作用素になる
+## 2. 低温では各bondはよく揃うが、角度は空間方向にrandom walkする
 
-局所 Boltzmann 重みは
+低温 $K\gg1$ では $\phi=0$ 近傍だけが重要なので
+
+$$
+1-\cos\phi\simeq\frac{\phi^2}{2}
+$$
+
+と近似できる。1 bond の分布はほぼGaussianになり、
+
+$$
+\boxed{
+\langle\phi^2\rangle\simeq\frac{T}{J}
+}
+$$
+
+となる。
+
+重要なのは、各 $\phi_i$ が小さいことと、遠距離の角度差が小さいことは同じではない点である。
+
+距離 $r$ 離れた二点では
+
+$$
+\theta_r-\theta_0
+=\sum_{j=0}^{r-1}\phi_j.
+$$
+
+独立な小さな角度差を足し合わせるので、
+
+$$
+\boxed{
+\left\langle(\theta_r-\theta_0)^2\right\rangle
+\simeq r\frac{T}{J}
+}
+$$
+
+と分散が距離に比例して成長する。
+
+局所的にはどのbondもほぼ整列している。それでも方向の誤差は空間方向に少しずつ蓄積し、最終的には最初の向きを忘れる。
+
+この意味で1次元XY鎖の長距離物理は
+
+$$
+\boxed{
+\text{phase diffusion in space}
+}
+$$
+
+として読める。
+
+## 3. 位相拡散だけで指数相関と $\xi\sim J/T$ が見える
+
+二点相関は
+
+$$
+C(r)
+\equiv
+\langle\mathbf S_0\cdot\mathbf S_r\rangle
+=
+\left\langle\cos(\theta_r-\theta_0)\right\rangle
+$$
+
+である。
+
+低温Gaussian近似では
+
+$$
+\left\langle e^{i(\theta_r-\theta_0)}\right\rangle
+=
+\exp\left[-\frac12
+\left\langle(\theta_r-\theta_0)^2\right\rangle\right]
+$$
+
+だから、
+
+$$
+C(r)
+\simeq
+\exp\left(-\frac{rT}{2J}\right).
+$$
+
+したがって
+
+$$
+\boxed{
+\xi\simeq\frac{2J}{T}=2\beta J
+}
+$$
+
+となる。
+
+ここで相関を壊しているのは、一か所の大きな欠陥ではない。**至る所にある小さな角度ずれの累積**である。
+
+有限温度で長距離秩序が失われる理由を、相転移の一般論より先に、この空間random walkとして理解しておく方が物理像は明確である。
+
+## 4. 厳密解はrandom walkのcharacteristic functionになっている
+
+Gaussian近似を外しても、角度差の独立性はそのまま使える。
+
+一般の整数 $m$ に対して
+
+$$
+\left\langle e^{im\phi}\right\rangle
+=
+\frac{I_m(K)}{I_0(K)}.
+$$
+
+距離 $r$ の角度差は独立な増分の和なので、characteristic function は積になり、
+
+$$
+\boxed{
+C_m(r)
+\equiv
+\left\langle e^{im(\theta_r-\theta_0)}\right\rangle
+=
+\left[
+\frac{I_m(K)}{I_0(K)}
+\right]^r
+}
+$$
+
+となる。
+
+通常のスピン相関は $m=1$ の実部なので
+
+$$
+\boxed{
+C(r)=
+\left[
+\frac{I_1(K)}{I_0(K)}
+\right]^r
+}
+$$
+
+である。したがって厳密な相関長は
+
+$$
+\boxed{
+\xi_1^{-1}
+=-\ln\left[
+\frac{I_1(K)}{I_0(K)}
+\right]
+}
+$$
+
+となる。
+
+Bessel関数は単に転送作用素を対角化した結果として現れるのではない。ここでは、**1 bond の角度増分のFourier変換そのもの**として現れている。
+
+## 5. XYには「角度情報の解像度」ごとの記憶長がある
+
+$m=1$ だけを見る必要はない。$e^{im\theta}$ は角度を $m$ 倍細かく識別するharmonicであり、各 $m$ に対して
+
+$$
+\boxed{
+\xi_m^{-1}
+=-\ln\left|
+\frac{I_m(K)}{I_0(K)}
+\right|
+}
+$$
+
+という記憶長を定義できる。
+
+低温では
+
+$$
+\frac{I_m(K)}{I_0(K)}
+\simeq
+\exp\left(-\frac{m^2}{2K}\right)
+$$
+
+なので、
+
+$$
+\boxed{
+\xi_m\simeq\frac{2K}{m^2}
+=
+\frac{2J}{m^2T}
+}
+$$
+
+となる。
+
+つまり高いharmonicほど遠距離まで保持されにくい。
+
+$$
+\boxed{
+\xi_m\propto m^{-2}
+}
+$$
+
+は、位相拡散が角度情報をどの順序で失わせるかを示している。粗い方向情報 $m=1$ は比較的長く残るが、細かい角度構造を表す大きな $m$ は短距離で消える。
+
+## 6. 転送作用素の固有modeは、この記憶階層そのものである
+
+局所Boltzmann重み
 
 $$
 T(\theta,\theta')
-=\exp[K\cos(\theta'-\theta)]
+=
+\exp[K\cos(\theta'-\theta)]
 $$
 
-である。したがって転送問題は
+を積分作用素として見ると、kernel は角度差だけに依存するため、固有関数は
 
 $$
-(T\psi)(\theta)
-=\int_0^{2\pi}d\theta'\,
-T(\theta,\theta')\psi(\theta')
+\psi_m(\theta)=e^{im\theta}
 $$
 
-という積分作用素になる。
-
-kernel は角度差だけに依存するため、固有関数は Fourier mode
-
-$$
-\psi_m(\theta)=e^{im\theta},
-\qquad m\in\mathbb Z
-$$
-
-であり、固有値は
+である。固有値は
 
 $$
 \boxed{
@@ -108,164 +292,76 @@ $$
 }
 $$
 
-となる。最大固有値は $m=0$ の
+となる。
+
+最大固有値は $m=0$ の $\lambda_0=2\pi I_0(K)$ で、
 
 $$
-\lambda_0=2\pi I_0(K)
-$$
-
-なので、1サイトあたり自由エネルギーは
-
-$$
-\boxed{
 f=-\frac1\beta\ln[2\pi I_0(K)]
-}
 $$
 
-である。
+を与える。
 
-Ising では $2\times2$ 行列の二つの固有値だけを見ればよかった。XY では無限個の Fourier sector $m\in\mathbb Z$ を持つが、回転対称性のおかげで各 sector は完全に分離している。
-
-## 3. 二点相関は $m=1$ sector の固有値比で決まる
-
-回転不変な零外場では $\langle\mathbf S_i\rangle=0$ である。二点相関を
+一方、$m$ 次の角度情報は
 
 $$
-C(r)
-\equiv
-\langle\mathbf S_0\cdot\mathbf S_r\rangle
+C_m(r)=
+\left(\frac{\lambda_m}{\lambda_0}\right)^r
+$$
+
+で伝わる。
+
+したがって転送作用素の無限個のFourier sectorは、抽象的な固有modeの列ではなく、**異なる角度分解能を持つ情報がどれだけ遠くまで残るか**を表している。
+
+## 7. 外場は独立だった角度modeを混ぜる
+
+$x$ 方向の外場を加えると
+
+$$
+H=
+-J\sum_i\cos(\theta_{i+1}-\theta_i)
+-\sum_i h_i\cos\theta_i.
+$$
+
+外場ゼロでは相対角だけでHamiltonianが書けたが、$\cos\theta_i$ は絶対角を見る。そのため角度差変数だけでは問題が閉じなくなる。
+
+一様外場なら転送kernelは
+
+$$
+T_h(\theta,\theta')
 =
-\langle\cos(\theta_r-\theta_0)\rangle
+\exp\left[
+K\cos(\theta'-\theta)
++\frac{\beta h}{2}
+(\cos\theta+\cos\theta')
+\right]
 $$
 
-とする。
+と書ける。
 
-角度差表示を使えば
-
-$$
-\theta_r-\theta_0
-=\sum_{j=0}^{r-1}\phi_j
-$$
-
-であり、独立性から characteristic function が積になる。1 bond について
-
-$$
-\left\langle e^{i\phi}\right\rangle
-=\frac{I_1(K)}{I_0(K)}
-$$
-
-だから、
+$\cos\theta=(e^{i\theta}+e^{-i\theta})/2$ なので、Fourier空間では
 
 $$
 \boxed{
-C(r)
-=\left[\frac{I_1(K)}{I_0(K)}\right]^r
-=\left(\frac{\lambda_1}{\lambda_0}\right)^r
-}
+m\longleftrightarrow m\pm1}
 $$
 
-となる。
+が結合する。
 
-したがって相関長は
+零外場では独立だったharmonic sectorを、外場が混ぜるわけである。
 
-$$
-\boxed{
-\xi^{-1}
-=-\ln\left[\frac{I_1(K)}{I_0(K)}\right]
-}
-$$
-
-である。
-
-Ising では $\lambda_-/\lambda_+=\tanh K$ が相関を支配したのに対し、XY では
-
-$$
-\boxed{
-\rho(K)\equiv\frac{I_1(K)}{I_0(K)}
-}
-$$
-
-が同じ役割を担う。
-
-## 4. 低温相関長は Ising と本質的に違う
-
-$K\gg1$ では
-
-$$
-\frac{I_1(K)}{I_0(K)}
-=1-\frac{1}{2K}+O(K^{-2})
-$$
-
-なので、
-
-$$
-\boxed{
-\xi\simeq 2K=2\beta J
-}
-$$
-
-となる。
-
-これは Ising 鎖の
-
-$$
-\xi_{\rm Ising}\simeq\frac12e^{2\beta J}
-$$
-
-とは質的に異なる。
-
-Ising では秩序を壊すには有限エネルギー $2J$ を持つ domain wall を作る必要があり、その密度が Arrhenius 的に小さくなる。一方 XY では、小さな角度ずれを各 bond に少しずつ蓄積するだけで遠距離の向きを失える。低温で
-
-$$
-1-\cos\phi\simeq\frac12\phi^2
-$$
-
-と近似すれば、bond ごとの角度揺らぎは
-
-$$
-\langle\phi^2\rangle\sim\frac{T}{J}
-$$
-
-であり、それが random walk 的に積み重なる。
-
-したがって
-
-$$
-\boxed{
-\text{Ising}:\ \text{rare walls}
-\qquad\leftrightarrow\qquad
-\text{XY}:\ \text{accumulated angular diffusion}
-}
-$$
-
-という違いが、低温相関長の指数増大と線形増大の違いとして現れる。
-
-## 5. 波数依存感受率も同じ幾何級数で閉じる
-
-$x$ 方向の微小外場
-
-$$
-H_h=-\sum_i h_i\cos\theta_i
-$$
-
-を考える。零外場では回転対称性から
-
-$$
-\langle\cos\theta_i\cos\theta_j\rangle
-=\frac12C(|i-j|)
-$$
-
-である。したがって
+線形応答だけを見るなら、$m=1$ 相関から
 
 $$
 \chi_x(r)
-=\beta\langle\cos\theta_0\cos\theta_r\rangle
-=\frac\beta2\rho^{|r|}
+=
+\frac\beta2
+\left[
+\frac{I_1(K)}{I_0(K)}
+\right]^{|r|}
 $$
 
-となる。
-
-Fourier 変換すると
+となり、Fourier変換すると
 
 $$
 \boxed{
@@ -278,69 +374,51 @@ $$
 }
 $$
 
+を得る。
+
+これはphase diffusionによって作られた空間記憶を、外場が波数ごとにprobeしていると読める。
+
+## 8. 角度は実数ではなくcompactな変数である
+
+低温近似だけを見ると、$\theta$ は単なるGaussian変数のように見える。しかしXYの角度は
+
+$$
+\boxed{
+\theta\equiv\theta+2\pi
+}
+$$
+
 である。
 
-一様感受率は
+つまりXYは単なる調和鎖ではなく、**compactな角度場**を持つ。
+
+周期境界条件では
+
+$$
+\theta_N=\theta_0+2\pi w,
+\qquad w\in\mathbb Z
+$$
+
+が許され、したがって
 
 $$
 \boxed{
-\chi_x(0)
-=\frac\beta2\frac{1+\rho}{1-\rho}
+\sum_{i=0}^{N-1}\phi_i=2\pi w
 }
 $$
 
-となる。形式は Ising の $\chi(q)$ とほぼ同じで、違いは局所自由度の対称性が $\rho(K)$ と prefactor に反映されている。
+というglobal constraintが現れる。$w$ は鎖を一周したときのwinding numberである。
 
-## 6. 低温では再び $q\xi$ が自然な変数になる
+開鎖では各 $\phi_i$ を独立に扱えたが、環にすると「独立な局所揺らぎ」に「全体として何回巻いたか」という整数sectorが重なる。
 
-$\xi\gg1$、$q\ll1$ では $\rho=e^{-1/\xi}$ として
+この局所的phase diffusionとglobal windingの共存が、XY自由度の重要な特徴である。
 
-$$
-\boxed{
-\chi_x(q)
-\simeq
-\frac{\beta\xi}{1+(q\xi)^2}
-}
-$$
+## 9. 有限温度で長距離秩序がないことをどう読むか
 
-となる。
-
-したがって XY 鎖も、空間振動外場に対して wave-vector filter として働く。外場の波長が相関長より十分長ければ一つの相関領域がほぼ同じ方向へ応答し、短ければ領域内部で応答が相殺される。
-
-Ising と XY で同じ Lorentzian 型が現れるのは、長距離で相関が単一指数に支配されるという共通構造による。
-
-## 7. 外場を有限にすると Fourier sector が混ざる
-
-一様外場 $h$ を加えると
+任意の有限温度では
 
 $$
-H=-J\sum_i\cos(\theta_{i+1}-\theta_i)
--h\sum_i\cos\theta_i
-$$
-
-となる。転送 kernel を対称化して
-
-$$
-T_h(\theta,\theta')
-=
-\exp\left[
-K\cos(\theta'-\theta)
-+\frac{\beta h}{2}(\cos\theta+\cos\theta')
-\right]
-$$
-
-と書ける。
-
-$h=0$ では $m$ が保存されていたが、$\cos\theta=(e^{i\theta}+e^{-i\theta})/2$ は $m\to m\pm1$ を結ぶため、有限外場では Fourier sector が混ざる。
-
-これは periodic Ising 鎖で位置依存外場を入れると転送行列が非可換になったことに対応する。ただし XY では、混ざる内部自由度が有限個の sublattice ではなく無限個の角運動量 sector である。
-
-## 8. 1次元では有限温度の長距離秩序は生じない
-
-任意の有限温度で
-
-$$
-\frac{I_1(K)}{I_0(K)}<1
+\left|\frac{I_1(K)}{I_0(K)}\right|<1
 $$
 
 なので、
@@ -349,64 +427,79 @@ $$
 \lim_{r\to\infty}C(r)=0.
 $$
 
-したがって有限温度では自発的な XY 長距離秩序は存在しない。2次元 XY 模型で現れる BKT 転移も、純粋な1次元最近接古典 XY 鎖には存在しない。
+したがって純粋な1次元最近接古典XY鎖には有限温度の自発的長距離秩序はない。
 
-1次元で見えているのは相転移ではなく、温度低下に伴う相関長の連続的増大である。
+ただし重要なのは「1次元だから秩序しない」と暗記することではない。この模型では、その理由を
 
-## 9. Ising との対応を整理する
+$$
+\boxed{
+\text{finite local angular noise}
+\rightarrow
+\text{variance growing as }r
+\rightarrow
+\text{loss of directional memory}
+}
+$$
 
-|  | 1次元 Ising | 1次元 XY |
-| --- | --- | --- |
-| 局所自由度 | $s_i=\pm1$ | $\theta_i\in S^1$ |
-| 対称性 | $Z_2$ | $U(1)$ |
-| bond 変数 | $\tau_i=s_is_{i+1}$ | $\phi_i=\theta_{i+1}-\theta_i$ |
-| 零外場の bond | 独立・離散 | 独立・連続 |
-| 転送問題 | $2\times2$ 行列 | 積分作用素 |
-| 固有基底 | even/odd | Fourier $m\in\mathbb Z$ |
-| 相関を支配 | $\tanh K$ | $I_1(K)/I_0(K)$ |
-| 低温相関長 | $\sim e^{2\beta J}$ | $\sim2\beta J$ |
-| 有限温度秩序 | なし | なし |
+として直接見ることができる。
 
-両者の最も重要な共通点は、最近接・零外場では bond 自由度が独立になることにある。最も重要な違いは、Ising の秩序破壊が離散的 defect によるのに対し、XY では連続角度の累積揺らぎによる点である。
+低温になるほど各bondは強く整列するが、有限温度なら角度拡散係数はゼロにはならない。そのため十分遠くへ行けば必ず初期方向を失う。
 
-## 10. 実在系では easy-plane 磁性の最小模型になる
+## 10. 実在系では何を表しているか
 
-XY 模型は単なる数学的連続化ではない。結晶場や交換異方性によってスピンがほぼ一つの平面内に拘束される easy-plane 磁性体では、低エネルギー自由度を平面内角度 $\theta_i$ として記述できる。
+古典XY模型は、スピンがほぼ一つの平面内に拘束されたeasy-plane磁性体の有効模型として現れる。
 
-実際の準1次元磁性体では鎖間結合や量子効果が残るため、純粋な古典1次元 XY 模型が全温度域で厳密に成立するわけではない。しかし
+実在の準1次元物質では鎖間相互作用が完全にはゼロでないため、十分低温では3次元秩序へ移ることがある。それでも
 
 $$
 J_{\parallel}\gg J_{\perp}
 $$
 
-で、かつ温度が量子効果を平均化できる領域では、鎖方向の短距離相関を理解する基準模型として有効である。
+なら、その前の広い温度領域で鎖方向の相関は1次元XY的に発達する。
+
+したがってこの模型で見るべきなのは、理想化された「完全な1次元磁石」だけではない。**強い局所整列が、弱い角度ノイズの累積によってどの距離まで保持されるか**という準1次元系の基準問題としても使える。
 
 ## まとめ
 
-1次元最近接 XY 模型では、角度差 $\phi_i$ を使うと零外場の bond 自由度が独立になり、転送問題は Fourier mode で厳密に対角化できる。
+最近接1次元XY鎖では、外場ゼロなら角度差 $\phi_i$ が独立になる。各bondでは低温ほど $\phi_i$ は小さいが、遠距離の角度差
 
-中心となる量は
+$$
+\theta_r-\theta_0=\sum_i\phi_i
+$$
+
+は空間方向にrandom walkする。
+
+その結果、
 
 $$
 \boxed{
-\rho(K)=\frac{I_1(K)}{I_0(K)}
+C_m(r)=
+\left[
+\frac{I_m(\beta J)}{I_0(\beta J)}
+\right]^r
 }
 $$
 
-であり、
+となり、低温では
 
 $$
-C(r)=\rho^r,
-\qquad
-\xi^{-1}=-\ln\rho,
+\boxed{
+\xi_m\simeq\frac{2J}{m^2T}
+}
 $$
 
+というharmonicごとの記憶階層が現れる。
+
+したがってこの模型の中心像は
+
 $$
-\chi_x(q)
-=\frac\beta2
-\frac{1-\rho^2}{1-2\rho\cos q+\rho^2}
+\boxed{
+\text{local alignment}
+\neq
+\text{long-range directional memory}
+}
 $$
 
-を同時に支配する。
+であり、その間をつなぐ機構が **phase diffusion** である。
 
-Ising から XY への変更は、相互作用範囲を伸ばす一般化ではなく、**局所自由度と対称性を $Z_2$ から $U(1)$ へ広げる一般化**である。その結果、domain wall による Arrhenius 型の相関長ではなく、連続角度揺らぎの蓄積による $\xi\sim J/T$ が現れる。
+Ising鎖との違いと、そこから逆に見えてくる1次元最近接スピン系の共通構造は、別ノートで比較する。
