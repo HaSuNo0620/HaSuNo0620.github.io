@@ -1,7 +1,7 @@
-"""Generate the Ising-XY temperature-dependent spatial-filter crossover figure.
+"""Generate the Ising–XY spatial-filter crossover comparison.
 
-Pure stdlib SVG following the site's figure style. Modified Bessel ratios are
-computed from their angular-integral definition with Simpson integration.
+Two panels separate the model comparison from the exact–asymptotic comparison,
+following docs/figure-style.md. Pure-stdlib SVG; no opaque canvas.
 """
 from pathlib import Path
 import math
@@ -9,73 +9,94 @@ import math
 OUT = Path(__file__).resolve().parents[1] / "public" / "figures" / "ising-xy-comparison"
 OUT.mkdir(parents=True, exist_ok=True)
 
-LIGHT = {"ink":"#171714","muted":"#716d64","line":"#cbc3b5","accent":"#5866e9","green":"#39705a"}
-DARK = {"ink":"#f0eadf","muted":"#a8a196","line":"#4a4740","accent":"#99a2ff","green":"#8bc4a9"}
-W,H=760,440
-x0,y0,pw,ph=92,52,580,290
-tmin,tmax=0.18,1.5
-qmin,qmax=1e-5,2.0
+LIGHT = {"paper":"#f3efe6","ink":"#171714","muted":"#716d64","line":"#cbc3b5","accent":"#5866e9","green":"#39705a"}
+DARK  = {"paper":"#1c1c19","ink":"#f0eadf","muted":"#a8a196","line":"#4a4740","accent":"#99a2ff","green":"#8bc4a9"}
+W,H = 760,440
+PANELS = [(92,54,276,286),(414,54,276,286)]
+tmin,tmax = 0.18,1.5
+qmin,qmax = 1e-5,2.0
 
-def simpson(f,a,b,n=1200):
-    if n%2: n+=1
+def simpson(f,a,b,n=1000):
+    if n % 2: n += 1
     h=(b-a)/n
     s=f(a)+f(b)
     for i in range(1,n):
-        s+=(4 if i%2 else 2)*f(a+i*h)
+        s += (4 if i%2 else 2)*f(a+i*h)
     return s*h/3
 
 def bessel_i(m,x):
     return simpson(lambda p: math.exp(x*math.cos(p))*math.cos(m*p),0.0,math.pi)/math.pi
 
-def q_ising(t):
-    return -math.log(math.tanh(1.0/t))
-
+def q_ising(t): return -math.log(math.tanh(1.0/t))
 def q_xy(t):
     x=1.0/t
     return -math.log(bessel_i(1,x)/bessel_i(0,x))
+def q_ising_asym(t): return 2.0*math.exp(-2.0/t)
+def q_xy_asym(t): return t/2.0
 
-def X(t):
+def X(t,p):
+    x0,_,pw,_=p
     return x0+(t-tmin)/(tmax-tmin)*pw
 
-def Y(q):
+def Y(q,p):
+    _,y0,_,ph=p
     a,b=math.log10(qmin),math.log10(qmax)
     return y0+ph-(math.log10(max(q,qmin))-a)/(b-a)*ph
 
-def make_path(samples, fn):
+def path(fn,p):
     pts=[]
-    for i,t in enumerate(samples):
-        pts.append(("M" if i==0 else "L")+f"{X(t):.1f},{Y(fn(t)):.1f}")
+    for i in range(180):
+        t=tmin+(tmax-tmin)*i/179
+        pts.append(("M" if i==0 else "L")+f"{X(t,p):.1f},{Y(fn(t),p):.1f}")
     return " ".join(pts)
 
-samples=[tmin+(tmax-tmin)*i/179 for i in range(180)]
-path_i=make_path(samples,q_ising)
-path_x=make_path(samples,q_xy)
-path_ia=make_path(samples,lambda t:2*math.exp(-2/t))
-path_xa=make_path(samples,lambda t:t/2)
-
-style=f"""<style>
-.axis{{stroke:{LIGHT['ink']};stroke-width:1.8}}.tick{{stroke:{LIGHT['ink']};stroke-width:1.4}}.grid{{stroke:{LIGHT['line']};stroke-width:1.2}}
-.ising{{fill:none;stroke:{LIGHT['accent']};stroke-width:4.5}}.xy{{fill:none;stroke:{LIGHT['green']};stroke-width:4.0}}
-.isingA{{fill:none;stroke:{LIGHT['accent']};stroke-width:2;stroke-dasharray:8 7;opacity:.55}}.xyA{{fill:none;stroke:{LIGHT['green']};stroke-width:2;stroke-dasharray:8 7;opacity:.55}}
-.small{{fill:{LIGHT['muted']};font:15px 'Noto Sans JP',system-ui,sans-serif}}.label{{font:17px 'Noto Sans JP',system-ui,sans-serif;font-weight:600}}
-.accent{{fill:{LIGHT['accent']}}}.green{{fill:{LIGHT['green']}}}.math{{fill:{LIGHT['ink']};font:19px 'STIX Two Math','Cambria Math','Times New Roman',serif}}
-@media(prefers-color-scheme:dark){{.axis,.tick{{stroke:{DARK['ink']}}}.grid{{stroke:{DARK['line']}}}.ising{{stroke:{DARK['accent']}}}.xy{{stroke:{DARK['green']}}}.isingA{{stroke:{DARK['accent']}}}.xyA{{stroke:{DARK['green']}}}.small{{fill:{DARK['muted']}}}.accent{{fill:{DARK['accent']}}}.green{{fill:{DARK['green']}}}.math{{fill:{DARK['ink']}}}}}
-</style>"""
+style=f'''<style>
+.axis{{stroke:{LIGHT['ink']};stroke-width:1.8}} .tick{{stroke:{LIGHT['ink']};stroke-width:1.4}}
+.grid{{stroke:{LIGHT['line']};stroke-width:1.1}} .exact{{fill:none;stroke:{LIGHT['accent']};stroke-width:4.5}}
+.asym{{fill:none;stroke:{LIGHT['green']};stroke-width:3.6;stroke-dasharray:10 7}}
+.text{{fill:{LIGHT['ink']};font:17px 'Noto Sans JP',system-ui,sans-serif}} .small{{fill:{LIGHT['muted']};font:16px 'Noto Sans JP',system-ui,sans-serif}}
+.math{{fill:{LIGHT['ink']};font:19px 'STIX Two Math','Cambria Math','Times New Roman',serif}} .panel{{fill:{LIGHT['ink']};font:18px 'Noto Sans JP',system-ui,sans-serif;font-weight:600}}
+.labelbox{{fill:{LIGHT['paper']};fill-opacity:.88;stroke:{LIGHT['ink']};stroke-opacity:.10}}
+@media(prefers-color-scheme:dark){{
+.axis,.tick{{stroke:{DARK['ink']}}}.grid{{stroke:{DARK['line']}}}.exact{{stroke:{DARK['accent']}}}.asym{{stroke:{DARK['green']}}}
+.text,.math,.panel{{fill:{DARK['ink']}}}.small{{fill:{DARK['muted']}}}.labelbox{{fill:{DARK['paper']};stroke:{DARK['ink']}}}
+}}
+</style>'''
 parts=[]
-for q,label in [(1e-4,'10⁻⁴'),(1e-3,'10⁻³'),(1e-2,'10⁻²'),(1e-1,'10⁻¹'),(1,'1')]:
-    yy=Y(q); parts += [f'<line class="grid" x1="{x0}" y1="{yy:.1f}" x2="{x0+pw}" y2="{yy:.1f}"/>',f'<text class="small" x="{x0-12}" y="{yy+5:.1f}" text-anchor="end">{label}</text>']
-for t in [0.2,0.5,1.0,1.5]:
-    xx=X(t); parts += [f'<line class="tick" x1="{xx:.1f}" y1="{y0+ph}" x2="{xx:.1f}" y2="{y0+ph+6}"/>',f'<text class="small" x="{xx:.1f}" y="{y0+ph+27}" text-anchor="middle">{t:g}</text>']
+for idx,(p,model,exact,asym) in enumerate([
+    (PANELS[0],"Ising",q_ising,q_ising_asym),
+    (PANELS[1],"XY",q_xy,q_xy_asym),
+]):
+    x0,y0,pw,ph=p
+    for q,label in [(1e-4,'10⁻⁴'),(1e-3,'10⁻³'),(1e-2,'10⁻²'),(1e-1,'10⁻¹'),(1,'1')]:
+        yy=Y(q,p)
+        parts.append(f'<line class="grid" x1="{x0}" y1="{yy:.1f}" x2="{x0+pw}" y2="{yy:.1f}"/>')
+        if idx==0:
+            parts.append(f'<text class="small" x="{x0-10}" y="{yy+5:.1f}" text-anchor="end">{label}</text>')
+    for t in [0.2,0.5,1.0,1.5]:
+        xx=X(t,p)
+        parts += [f'<line class="tick" x1="{xx:.1f}" y1="{y0+ph}" x2="{xx:.1f}" y2="{y0+ph+6}"/>',
+                  f'<text class="small" x="{xx:.1f}" y="{y0+ph+26}" text-anchor="middle">{t:g}</text>']
+    parts += [
+        f'<line class="axis" x1="{x0}" y1="{y0+ph}" x2="{x0+pw}" y2="{y0+ph}"/>',
+        f'<line class="axis" x1="{x0}" y1="{y0}" x2="{x0}" y2="{y0+ph}"/>',
+        f'<path class="exact" d="{path(exact,p)}"/>',
+        f'<path class="asym" d="{path(asym,p)}"/>',
+        f'<text class="panel" x="{x0+8}" y="{y0+22}">({chr(97+idx)}) {model}</text>',
+    ]
+    # Direct labels, with local paper-backed boxes for readability.
+    te=1.05 if idx==0 else .98
+    xa,ya=X(te,p),Y(exact(te),p)
+    parts += [f'<rect class="labelbox" x="{xa-5:.1f}" y="{ya-27:.1f}" width="78" height="23" rx="4"/>',
+              f'<text class="text" x="{xa+3:.1f}" y="{ya-10:.1f}">exact</text>']
+    ta=.72 if idx==0 else .62
+    xb,yb=X(ta,p),Y(asym(ta),p)
+    parts += [f'<rect class="labelbox" x="{xb-5:.1f}" y="{yb+6:.1f}" width="118" height="23" rx="4"/>',
+              f'<text class="small" x="{xb+3:.1f}" y="{yb+23:.1f}">low-T asymptote</text>']
+
 parts += [
-    f'<line class="axis" x1="{x0}" y1="{y0+ph}" x2="{x0+pw}" y2="{y0+ph}"/>',
-    f'<line class="axis" x1="{x0}" y1="{y0}" x2="{x0}" y2="{y0+ph}"/>',
-    f'<path class="ising" d="{path_i}"/>',f'<path class="xy" d="{path_x}"/>',f'<path class="isingA" d="{path_ia}"/>',f'<path class="xyA" d="{path_xa}"/>',
-    f'<text class="label accent" x="{X(.55):.1f}" y="{Y(q_ising(.55))-12:.1f}">Ising</text>',
-    f'<text class="label green" x="{X(.88):.1f}" y="{Y(q_xy(.88))-12:.1f}">XY</text>',
-    f'<text class="small" x="{x0+pw-8}" y="{y0+22}" text-anchor="end">上側: qξ &gt; 1（短波長抑制）</text>',
-    f'<text class="small" x="{x0+pw-8}" y="{y0+ph-16}" text-anchor="end">下側: qξ &lt; 1（協調応答）</text>',
-    f'<text class="math" x="{x0+pw/2}" y="{H-24}" text-anchor="middle">k_B T / J</text>',
-    f'<text class="math" x="28" y="{y0+ph/2}" text-anchor="middle" transform="rotate(-90 28 {y0+ph/2})">q_× = 1 / ξ(T)</text>',
+    f'<text class="math" x="381" y="418" text-anchor="middle">k_B T / J</text>',
+    f'<text class="math" x="28" y="197" text-anchor="middle" transform="rotate(-90 28 197)">q_× = 1 / ξ(T)</text>',
 ]
 svg=f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">\n{style}\n'+"\n".join(parts)+'\n</svg>\n'
 (OUT/'qxi-temperature-filter.svg').write_text(svg,encoding='utf-8')
