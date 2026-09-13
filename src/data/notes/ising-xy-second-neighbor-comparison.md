@@ -1,10 +1,10 @@
 ---
 title: "1次元スピン模型 — 第二近接相互作用で見るIsingとXYの共通構造"
-summary: "最近接では独立だった局所変数が、第二近接相互作用によって相互作用し始めるという共通構造をIsing鎖とXY鎖で比較する。domain wallとphase increment、有限波数相関、構造波数の選択、chiralityの違いを整理する。"
+summary: "最近接では独立だった局所変数が第二近接相互作用によって相互作用し始めるという共通構造をIsing鎖とXY鎖で比較する。domain wallとphase increment、有限波数相関、transfer spectrum、空間変調外場への応答、XY固有のchirality選択を整理する。"
 publishedAt: 2026-09-13T22:45:00+09:00
 updatedAt: 2026-09-13
 area: "Physics"
-topics: ["statistical mechanics", "Ising model", "XY model", "second-neighbor interaction", "frustration", "correlation", "wave number", "memory"]
+topics: ["statistical mechanics", "Ising model", "XY model", "second-neighbor interaction", "frustration", "correlation", "wave number", "memory", "linear response"]
 status: growing
 ---
 
@@ -13,20 +13,18 @@ status: growing
 Isingでは
 
 $$
-\tau_i=s_is_{i+1}
+\tau_i=s_is_{i+1},
 $$
 
-というbond変数、XYでは
+XYでは
 
 $$
 \phi_i=\theta_{i+1}-\theta_i
 $$
 
-という角度差である。
+である。
 
 第二近接相互作用を入れると、両模型でこの独立性が壊れる。
-
-このノートで見たいのは
 
 $$
 \boxed{
@@ -36,7 +34,7 @@ $$
 }
 $$
 
-という共通構造と、その先でIsingとXYがどこから分かれるかである。
+このノートでは、この共通構造が相関・構造波数・外場応答にどう現れ、その先でIsingとXYがどこから分かれるかを見る。
 
 ## 1. 最近接では局所相対変数が独立だった
 
@@ -52,7 +50,7 @@ $$
 H_{\rm I}^{(1)}=-J_1\sum_i\tau_i
 $$
 
-と書ける。したがって零外場の開鎖では各 $\tau_i$ は独立である。
+と書ける。
 
 最近接XY鎖
 
@@ -67,27 +65,23 @@ $$
 H_{\rm XY}^{(1)}=-J_1\sum_i\cos\phi_i
 $$
 
-となり、各 $\phi_i$ は独立である。
+となる。
 
-したがって最近接では
+したがって零外場の開鎖では
 
 $$
-\boxed{
-\text{Ising}:\ \text{independent wall variables}
-}
+\boxed{\text{Ising}:\ \text{independent wall variables}}
 $$
 
 $$
-\boxed{
-\text{XY}:\ \text{independent phase increments}
-}
+\boxed{\text{XY}:\ \text{independent phase increments}}
 $$
 
 という対応があった。
 
 ## 2. 第二近接は隣り合う局所変数を直接結びつける
 
-Isingに第二近接相互作用を加えると
+Isingでは
 
 $$
 H_{\rm I}
@@ -95,15 +89,7 @@ H_{\rm I}
 -J_2\sum_i s_is_{i+2}.
 $$
 
-ここで
-
-$$
-s_is_{i+2}
-=(s_is_{i+1})(s_{i+1}s_{i+2})
-=\tau_i\tau_{i+1}
-$$
-
-だから
+$s_is_{i+2}=\tau_i\tau_{i+1}$ なので
 
 $$
 \boxed{
@@ -115,24 +101,19 @@ $$
 
 となる。
 
-第二近接項はdomain wall変数どうしの最近接相互作用になる。
-
-一方XYでは
+XYでは
 
 $$
 H_{\rm XY}
 =-J_1\sum_i\cos(\theta_{i+1}-\theta_i)
--J_2\sum_i\cos(\theta_{i+2}-\theta_i)
+-J_2\sum_i\cos(\theta_{i+2}-\theta_i),
 $$
 
-であり
-
 $$
-\theta_{i+2}-\theta_i
-=\phi_i+\phi_{i+1}
+\theta_{i+2}-\theta_i=\phi_i+\phi_{i+1}
 $$
 
-だから
+より
 
 $$
 \boxed{
@@ -144,23 +125,7 @@ $$
 
 となる。
 
-したがって第二近接は両模型で
-
-$$
-\boxed{
-\text{隣り合う局所相対変数を相互作用させる}
-}
-$$
-
-という同じ役割を果たす。
-
-## 3. 共通する変化は「独立過程」から「有限記憶過程」への移行である
-
-最近接Isingでは、$\tau_i$ は独立な符号変数だった。第二近接では $\tau_i$ と $\tau_{i+1}$ が結びつくため、wall配置に有限の空間記憶が生じる。
-
-最近接XYでは、$\phi_i$ は独立な角度増分だった。第二近接では $\phi_i$ と $\phi_{i+1}$ が結びつくため、phase increment自身に相関が生じる。
-
-したがって共通するのは
+したがって共通する変化は
 
 $$
 \boxed{
@@ -170,65 +135,49 @@ $$
 }
 $$
 
-という変化である。
+である。
 
-Isingでは符号欠陥列が、XYでは角度増分列が、一段のMarkov的な記憶を持つようになる。
+## 3. ただし離散wallと連続twistでは意味が違う
 
-## 4. しかし局所変数の性質は離散と連続で根本的に違う
+Isingの $\tau_i=\pm1$ は離散変数である。第二近接相互作用が変えるのは、wallがどのような間隔・組み合わせで現れやすいかという欠陥配置の統計である。
 
-Isingの $\tau_i$ は
-
-$$
-\tau_i=\pm1
-$$
-
-という離散変数である。したがって第二近接相互作用が変えるのは、wallが隣接して存在しやすいか、離れて存在しやすいかという**欠陥配置の統計**である。
-
-一方XYの $\phi_i$ は連続角度である。第二近接相互作用は、単に「欠陥同士を引きつける・反発させる」のではなく
+一方XYの $\phi_i$ は連続角度である。第二近接相互作用は
 
 $$
 \phi_i\simeq q_\ast
 $$
 
-という**有限の局所回転率そのもの**を選べる。
+という有限の局所回転率そのものを選べる。
 
 したがって
 
 $$
-\boxed{
-\text{Ising}:\ \text{wall arrangement is reorganized}
-}
+\boxed{\text{Ising}:\ \text{wall arrangement is reorganized}}
 $$
 
 に対して
 
 $$
-\boxed{
-\text{XY}:\ \text{local twist itself is selected}
-}
+\boxed{\text{XY}:\ \text{local twist itself is selected}}
 $$
 
 という違いがある。
 
-## 5. 有限波数構造は両方に現れるが、その起源は同じではない
+## 4. 有限波数構造は共通するが、構造波数の意味は異なる
 
-第二近接相互作用によって、両模型とも単調な相関から振動相関へ進む領域を持ちうる。
-
-一般に
+第二近接相互作用によって、両模型とも
 
 $$
-C(r)
-\sim
-e^{-r/\xi}\cos(q_\ast r+\delta)
+C(r)\sim e^{-r/\xi}\cos(q_{\rm corr}r+\delta)
 $$
 
-という形が現れれば、$\xi$ は記憶距離、$q_\ast$ は空間構造の波数を表す。
+のような振動減衰相関を持ちうる。
 
-ただし $q_\ast$ の意味は模型ごとに異なる。
+ここで $\xi$ は記憶距離、$q_{\rm corr}$ は相関の構造波数である。
 
-Isingでは、有限波数はtransfer matrixの固有値構造や競合するwall配置から生じる。スピン自身は $\pm1$ しか取らないので、局所的な「少しずつ回転する角度」は存在しない。
+Isingでは $q_{\rm corr}$ は離散的なスピン・wall配置の相関波数としてtransfer spectrumから現れる。局所スピン自身が少しずつ回転しているわけではない。
 
-XYでは、基底状態レベルですでに
+XYでは競合領域で
 
 $$
 e(q)=-J_1\cos q-J_2\cos2q
@@ -245,36 +194,22 @@ $$
 したがって
 
 $$
-\boxed{
-\text{Ising}:\ q_\ast\text{ は離散配置の相関波数}
-}
+\boxed{\text{Ising}:\ q_{\rm corr}\text{ は離散配置の相関波数}}
 $$
 
 $$
-\boxed{
-\text{XY}:\ q_\ast\text{ は局所回転率そのもの}
-}
+\boxed{\text{XY}:\ q_\ast\text{ は局所回転率そのもの}}
 $$
 
-と読むのがよい。
+と区別する必要がある。
 
-## 6. Isingではwall、XYではdriftという違いが残る
+低温の単一chirality sectorではXYの $q_{\rm corr}$ は $q_\ast$ に近づくが、有限温度では両者を最初から同一視しない方がよい。
 
-最近接Isingでは
+## 5. 最近接から第二近接で、記憶の運び方も変わる
 
-$$
-\text{rare wall}
-$$
+最近接Isingでは rare wall が空間記憶を反転させた。第二近接ではwall同士が相互作用し、欠陥列そのものに有限記憶が生じる。
 
-が空間記憶を壊していた。第二近接ではwall同士が相互作用し、欠陥列の配置そのものに構造が生じる。
-
-最近接XYでは
-
-$$
-\text{phase diffusion}
-$$
-
-が空間記憶を壊していた。第二近接で有限twistが選ばれると
+最近接XYでは phase diffusion が記憶を失わせた。第二近接で有限twistが選ばれると
 
 $$
 \theta_r-\theta_0
@@ -283,50 +218,41 @@ $$
 
 となり、phase diffusionにdriftが加わる。
 
-したがって第二近接への拡張は
+したがって
 
 $$
-\boxed{
-\text{Ising}:\ \text{interacting walls}
-}
+\boxed{\text{Ising}:\ \text{interacting walls}}
 $$
 
 に対して
 
 $$
-\boxed{
-\text{XY}:\ \text{drifting, correlated phase increments}
-}
+\boxed{\text{XY}:\ \text{drifting, correlated phase increments}}
 $$
 
-という対比になる。
+となる。
 
-## 7. XYには第二近接で新たにchiralityが現れる
+## 6. XYにはchiralityという新しい離散自由度も現れる
 
 XYの有限twist状態では
 
 $$
-q_\ast
++q_\ast
 \quad\text{と}\quad
 -q_\ast
 $$
 
 が縮退する。
 
-つまり時計回りと反時計回りという二つのchiralityが生まれる。
-
-局所的には
+局所chiralityは
 
 $$
-\kappa_i^{\rm ch}
-\sim\sin(\theta_{i+1}-\theta_i)
+\kappa_i^{\rm ch}\sim\sin(\theta_{i+1}-\theta_i)
 $$
 
 で区別できる。
 
-この自由度は最近接XYには存在しなかった。また、通常のIsingスピン $s_i=\pm1$ のdomain wallとも同じではない。
-
-興味深いのは、第二近接XYが
+したがって第二近接XYは
 
 $$
 \boxed{
@@ -335,19 +261,17 @@ $$
 }
 $$
 
-を同時に持つことである。
+を同時に持つ。
 
-したがって有限温度では、位相揺らぎによる相関喪失とchirality wallによる相関喪失を分けて考える必要がある。
+Isingにも離散自由度はあるが、これはXYのchiralityと同じものではない。XYでは連続角度場の上に、回転方向という追加の二値自由度が生まれる。
 
-## 8. transferの構造も同じ方向に複雑化する
+## 7. transfer objectは「一つ前の局所状態」を覚えるようになる
 
-最近接では、Isingは $2\times2$ transfer matrix、XYはFourier対角なtransfer operatorであり、局所変数の独立性が直接見えていた。
+第二近接では、どちらも現在のサイトだけでは次の統計を決められない。
 
-第二近接では、どちらも「一つ前の局所状態を覚える」必要が生じる。
+Isingでは $(s_i,s_{i+1})$ を状態として持つ $4\times4$ transfer matrix、あるいは $\tau_i$ の二状態Markov過程が自然になる。
 
-Isingでは $(s_i,s_{i+1})$ を状態として持つ $4\times4$ transfer matrix、あるいは $\tau_i$ の二状態Markov過程として扱える。
-
-XYでは角度差 $\phi_i$ を状態として持つ積分作用素
+XYでは角度差を状態として
 
 $$
 \mathcal T(\phi,\phi')
@@ -358,9 +282,9 @@ $$
 \right]
 $$
 
-が自然になる。
+という積分作用素を使える。
 
-したがって共通するのは
+したがって
 
 $$
 \boxed{
@@ -372,88 +296,260 @@ $$
 }
 $$
 
-という構造である。
+という構造は共通する。
 
-## 9. スペクトルからは減衰長と構造波数を分けて読む
+## 8. スペクトルから減衰長と構造波数を分けて読む
 
-第二近接では、長距離相関を一つの正の固有値比だけで表せない場合がある。
+第二近接では「どれだけ速く忘れるか」だけでなく、「どんな空間周期を保ちながら忘れるか」が必要になる。
 
-概念的には支配モードを
+概念的に支配モードを
 
 $$
-\lambda_\ast
-=|\lambda_\ast|e^{iq_\ast}
+\lambda_\ast=|\lambda_\ast|e^{iq_{\rm corr}}
 $$
 
-と書けば
+と書けるなら
 
 $$
 C(r)
 \sim
 \left|\frac{\lambda_\ast}{\lambda_0}\right|^r
-\cos(q_\ast r+\delta)
+\cos(q_{\rm corr}r+\delta).
 $$
-
-となる。
 
 したがって
 
 $$
 \boxed{
-|\lambda_\ast/\lambda_0|
-\longrightarrow\xi
-}
-$$
-
-と
-
-$$
-\boxed{
-\arg\lambda_\ast
-\longrightarrow q_\ast
+|\lambda_\ast/\lambda_0|\to\xi,
+\qquad
+\arg\lambda_\ast\to q_{\rm corr}
 }
 $$
 
 という二つの情報を分けて読む必要がある。
 
-IsingでもXYでも、この「decay + oscillation」という読み方は共通する。ただし、XYでは元のtransfer operatorが実対称でも、スピン相関を測るためには位相因子を含むtilted operatorを考える必要がある点に注意がいる。
+XYでは元の平衡transfer operatorが実対称でも、スピン相関を測るには位相因子を含むtilted operatorを考える必要がある点に注意する。
 
-## 10. 第二近接を入れたときの対応表
+## 9. 外場応答では $q\xi$ ではなく $(Q-q_{\rm corr})\xi$ が自然になる
+
+最近接強磁性鎖では相関ピークが $q=0$ にあったので、空間変調外場に対する応答は $Q\xi$ で整理できた。
+
+第二近接で内部構造波数 $q_{\rm corr}$ が生まれると、基準点そのものが $Q=0$ から移る。
+
+外場波数を $Q$ とすると、本質的なのは
+
+$$
+\boxed{
+(Q-q_{\rm corr})\xi
+}
+$$
+
+である。
+
+つまり問題は「外場が短波長か長波長か」ではなく、
+
+$$
+\boxed{
+\text{外場波数が系自身の構造波数にどれだけphase-matchしているか}
+}
+$$
+
+へ変わる。
+
+もし
+
+$$
+C(r)\sim e^{-|r|/\xi}\cos(q_{\rm corr}r)
+$$
+
+なら、そのFourier変換は概念的に
+
+$$
+S(Q)
+\propto
+\frac{\xi}{1+\xi^2(Q-q_{\rm corr})^2}
++
+\frac{\xi}{1+\xi^2(Q+q_{\rm corr})^2}
+$$
+
+となる。
+
+したがって応答ピークは
+
+$$
+\boxed{Q\simeq\pm q_{\rm corr}}
+$$
+
+に現れ、ピーク幅はおおよそ $\xi^{-1}$ になる。
+
+## 10. Isingでは変調スカラー場が構造波数をprobeする
+
+Isingに空間変調磁場
+
+$$
+H_h^{\rm I}=-\sum_i h_i s_i,
+\qquad
+h_i=h_Q\cos(Qi)
+$$
+
+を加える。
+
+線形応答では
+
+$$
+\delta m(Q)=\chi_{\rm I}(Q)h_Q,
+$$
+
+零外場なら fluctuation-dissipation relation により
+
+$$
+\chi_{\rm I}(Q)
+=\beta\sum_r e^{-iQr}\langle s_0s_r\rangle.
+$$
+
+したがって第二近接によってスピン相関が有限 $q_{\rm corr}$ を持てば、$\chi_{\rm I}(Q)$ もその近くで大きくなる。
+
+つまり外場は、wall配置の内部構造を逆空間から読み出すprobeになる。
+
+ただしIsingでは $s_i=\pm1$ しかないため、$Q$ はあくまで**離散スピン配置の相関波数に合わせる量**であり、局所スピンが角度 $Q$ ずつ回転しているわけではない。
+
+## 11. XYでは固定方向の変調場に加えて「回転外場」が使える
+
+XYにも固定 $x$ 方向の変調外場
+
+$$
+H_h^{x}
+=-\sum_i h_Q\cos(Qi)\cos\theta_i
+$$
+
+を加えれば、$\chi_{xx}(Q)$ は $Q\simeq\pm q_{\rm corr}$ で大きくなる。
+
+しかしXYでは、さらに外場ベクトルそのものを回転させられる。
+
+$$
+\mathbf h_i
+=h(\cos Qi,\sin Qi)
+$$
+
+とすれば
+
+$$
+\boxed{
+H_h^{\rm rot}
+=-h\sum_i\cos(\theta_i-Qi)
+}
+$$
+
+である。
+
+内部構造が
+
+$$
+\theta_i\simeq q_\ast i+\theta_0
+$$
+
+なら、$Q=q_\ast$ の外場は全サイトでほぼ一定の位相差を保つ。
+
+したがってXYでは
+
+$$
+\boxed{Q=q_\ast}
+$$
+
+が文字どおり**回転外場と内部螺旋のphase-matching条件**になる。
+
+さらに $Q=+q_\ast$ と $Q=-q_\ast$ は回転方向が逆なので、回転外場はchiralityまで選別できる。
+
+$$
+\boxed{
+\text{XY rotating field}:
+\text{pitch}+\text{chiralityを同時にprobe}
+}
+$$
+
+ここがIsingとの大きな違いである。
+
+## 12. 有限波数応答の共通点と相違点
+
+両模型に共通するのは
+
+$$
+\boxed{
+\text{finite-}q\text{ correlation}
+\Longrightarrow
+\text{finite-}Q\text{ response peak}
+}
+$$
+
+である。
+
+また
+
+$$
+\boxed{
+\text{peak position}\to q_{\rm corr},
+\qquad
+\text{peak width}\to\xi^{-1}
+}
+$$
+
+という読み方も共通する。
+
+一方でprobeの意味は異なる。
 
 | 観点 | Ising | XY |
 | --- | --- | --- |
 | 最近接の局所変数 | $\tau_i=s_is_{i+1}$ | $\phi_i=\theta_{i+1}-\theta_i$ |
-| 最近接での性質 | 独立wall | 独立phase increment |
-| 第二近接で生じる結合 | $\tau_i\tau_{i+1}$ | $\cos(\phi_i+\phi_{i+1})$ |
-| 主な変化 | wall配置が相関 | twist増分が相関 |
-| finite-$q$ の意味 | 離散配置の相関波数 | 局所回転率 |
-| 新しい自由度 | wall interaction | chirality $\pm q_\ast$ |
-| 長距離相関 | decay + oscillation | drift + diffusion + possible chirality switching |
+| 第二近接での結合 | $\tau_i\tau_{i+1}$ | $\cos(\phi_i+\phi_{i+1})$ |
+| finite-$q$ の意味 | 離散配置の相関波数 | 局所回転率に対応可能 |
+| 標準的なprobe | scalar modulated field | vector field / amplitude modulation |
+| resonance条件 | $Q\simeq q_{\rm corr}$ | $Q\simeq q_{\rm corr}\simeq q_\ast$ |
+| $Q$ の符号 | 通常は独立なchirality情報を持たない | 回転方向を表しchiralityを選べる |
+| peak幅 | $\sim\xi^{-1}$ | $\sim\xi^{-1}$ |
 
-## 11. 比較して見えてくるもの
+## 13. 最近接との比較で最も重要な変化
 
-第二近接を入れたとき、IsingとXYは別々の方向へ複雑化するように見える。しかし根元には共通した構造がある。
+最近接では、強磁性的なIsingとXYの応答はどちらも $Q=0$ を中心にしていた。そのため
+
+$$
+Q\xi
+$$
+
+が自然な変数だった。
+
+第二近接によって有限構造波数が生まれると、それは
 
 $$
 \boxed{
-\text{interaction range}
-\uparrow
-\Longrightarrow
-\text{local relative variables interact}
-\Longrightarrow
-\text{spatial memory acquires internal structure}
+Q\xi
+\longrightarrow
+(Q-q_{\rm corr})\xi
 }
 $$
 
-最近接では「1 stepごとの記憶損失率」だけで十分だった。第二近接では、局所変数自身が前の状態を覚えるため、相関長に加えて構造波数や内部モードが必要になる。
+へ置き換わる。
 
-ただし、Isingではその内部構造は離散的なwall配置として現れ、XYでは連続的なtwistとchiralityとして現れる。
-
-したがって第二近接比較の中心は
+したがって第二近接の本質は、単に相関長を変えることではない。
 
 $$
 \boxed{
-\text{同じ“有限記憶化”が、離散系ではwall構造、連続系ではtwist構造として現れる}
+\text{the system acquires an internal spatial carrier wave}
+}
+$$
+
+と見ることができる。
+
+外場はそのcarrier waveに同調したとき最も強く応答する。
+
+Isingではcarrierは離散配置の相関構造として現れ、XYでは実際の局所twistとして現れる。さらにXYではその回転方向まで外場で選べる。
+
+この意味で第二近接比較の中心は
+
+$$
+\boxed{
+\text{同じ有限記憶化が、Isingではwall構造、XYではtwistとchiralityとして現れ、
+その違いが有限波数外場への応答に直接現れる}
 }
 $$
 
