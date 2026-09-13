@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="440" viewBox="0 0 760 440">
+<style>text{font-family:system-ui,sans-serif;fill:#171714}.tick{font-size:14px;fill:#716d64}.label{font-size:18px}.legend{font-size:13px}</style>
+<line x1="116.3" y1="24" x2="116.3" y2="378" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="116.3" y="402" text-anchor="middle">2</text>
+<line x1="204.8" y1="24" x2="204.8" y2="378" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="204.8" y="402" text-anchor="middle">3</text>
+<line x1="293.3" y1="24" x2="293.3" y2="378" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="293.3" y="402" text-anchor="middle">4</text>
+<line x1="381.9" y1="24" x2="381.9" y2="378" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="381.9" y="402" text-anchor="middle">5</text>
+<line x1="470.4" y1="24" x2="470.4" y2="378" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="470.4" y="402" text-anchor="middle">6</text>
+<line x1="558.9" y1="24" x2="558.9" y2="378" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="558.9" y="402" text-anchor="middle">7</text>
+<line x1="647.5" y1="24" x2="647.5" y2="378" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="647.5" y="402" text-anchor="middle">8</text>
+<line x1="736.0" y1="24" x2="736.0" y2="378" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="736.0" y="402" text-anchor="middle">9</text>
+<line x1="72" y1="336.4" x2="736" y2="336.4" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="58" y="341.4" text-anchor="end">2</text>
+<line x1="72" y1="294.7" x2="736" y2="294.7" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="58" y="299.7" text-anchor="end">3</text>
+<line x1="72" y1="253.1" x2="736" y2="253.1" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="58" y="258.1" text-anchor="end">4</text>
+<line x1="72" y1="211.4" x2="736" y2="211.4" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="58" y="216.4" text-anchor="end">5</text>
+<line x1="72" y1="169.8" x2="736" y2="169.8" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="58" y="174.8" text-anchor="end">6</text>
+<line x1="72" y1="128.1" x2="736" y2="128.1" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="58" y="133.1" text-anchor="end">7</text>
+<line x1="72" y1="86.5" x2="736" y2="86.5" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="58" y="91.5" text-anchor="end">8</text>
+<line x1="72" y1="44.8" x2="736" y2="44.8" stroke="#cbc3b5" stroke-width="1" opacity=".45"/><text class="tick" x="58" y="49.8" text-anchor="end">9</text>
+<line x1="72" y1="24" x2="72" y2="378" stroke="#171714" stroke-width="2"/><line x1="72" y1="378" x2="736" y2="378" stroke="#171714" stroke-width="2"/>
+<polyline fill="none" stroke="#5866e9" stroke-width="4" points="72.0,338.2 116.3,326.1 160.5,312.3 204.8,298.1 249.1,284.6 293.3,273.4 337.6,266.8 381.9,277.6 426.1,283.7 470.4,284.5 514.7,282.2 558.9,275.0 603.2,265.0 647.5,274.6 691.7,285.0 736.0,291.2"/>
+<polyline fill="none" stroke="#5866e9" stroke-width="2.8" stroke-dasharray="10 6" points="72.0,338.2 116.3,326.1 160.5,312.3 204.8,298.1 249.1,284.6 293.3,273.4 337.6,266.8 381.9,277.6 426.1,283.7 470.4,284.5 514.7,282.1 558.9,275.0 603.2,265.0 647.5,274.6 691.7,285.0 736.0,291.2"/>
+<polyline fill="none" stroke="#39705a" stroke-width="4" points="72.0,334.0 116.3,321.9 160.5,308.2 204.8,293.9 249.1,280.4 293.3,269.2 337.6,262.6 381.9,248.1 426.1,235.7 470.4,229.7 514.7,231.3 558.9,241.0 603.2,260.8 647.5,270.4 691.7,280.8 736.0,287.0"/>
+<polyline fill="none" stroke="#39705a" stroke-width="2.8" stroke-dasharray="10 6" points="72.0,334.0 116.3,321.9 160.5,308.2 204.8,293.9 249.1,280.4 293.3,269.2 337.6,262.6 381.9,248.1 426.1,235.7 470.4,229.7 514.7,231.3 558.9,241.0 603.2,260.8 647.5,270.4 691.7,280.8 736.0,287.0"/>
+<polyline fill="none" stroke="#171714" stroke-width="4" points="72.0,86.5 116.3,86.5 160.5,86.5 204.8,86.5 249.1,86.5 293.3,86.5 337.6,86.6 381.9,86.8 426.1,87.4 470.4,88.6 514.7,90.0 558.9,87.5 603.2,79.2 647.5,69.6 691.7,62.7 736.0,60.7"/>
+<polyline fill="none" stroke="#171714" stroke-width="2.8" stroke-dasharray="10 6" points="72.0,86.5 116.3,86.5 160.5,86.5 204.8,86.5 249.1,86.5 293.3,86.5 337.6,86.6 381.9,86.8 426.1,87.4 470.4,88.6 514.7,90.0 558.9,87.5 603.2,79.2 647.5,69.6 691.7,62.7 736.0,60.7"/>
+<polyline fill="none" stroke="#716d64" stroke-width="2.4" stroke-dasharray="3 5" points="72.0,357.2 116.3,336.4 160.5,315.5 204.8,294.7 249.1,273.9 293.3,253.1 337.6,232.2 381.9,211.4 426.1,190.6 470.4,169.8 514.7,148.9 558.9,128.1 603.2,107.3 647.5,86.5 691.7,65.6 736.0,44.8"/>
+<text class="label" x="404.0" y="426" text-anchor="middle">Competitor quality q_X</text><text class="label" x="20" y="201.0" text-anchor="middle" transform="rotate(-90 20 201.0)">Product quality</text>
+<rect x="78" y="34" width="304" height="108" rx="8" fill="#f3efe6" opacity=".9" stroke="#cbc3b5"/>
+<line x1="92" y1="56" x2="128" y2="56" stroke="#5866e9" stroke-width="4"/><text class="legend" x="138" y="61">Basic forward</text><line x1="246" y1="56" x2="282" y2="56" stroke="#5866e9" stroke-width="2.8" stroke-dasharray="10 6"/><text class="legend" x="292" y="61">backward</text>
+<line x1="92" y1="82" x2="128" y2="82" stroke="#39705a" stroke-width="4"/><text class="legend" x="138" y="87">Standard forward</text><line x1="246" y1="82" x2="282" y2="82" stroke="#39705a" stroke-width="2.8" stroke-dasharray="10 6"/><text class="legend" x="292" y="87">backward</text>
+<line x1="92" y1="108" x2="128" y2="108" stroke="#171714" stroke-width="4"/><text class="legend" x="138" y="113">Pro forward</text><line x1="246" y1="108" x2="282" y2="108" stroke="#171714" stroke-width="2.8" stroke-dasharray="10 6"/><text class="legend" x="292" y="113">backward</text>
+<line x1="92" y1="134" x2="128" y2="134" stroke="#716d64" stroke-width="2.4" stroke-dasharray="3 5"/><text class="legend" x="138" y="139">competitor X</text>
+</svg>
