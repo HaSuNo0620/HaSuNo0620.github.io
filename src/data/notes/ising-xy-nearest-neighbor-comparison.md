@@ -1,6 +1,6 @@
 ---
 title: "1次元最近接スピン模型 — IsingとXYから見る空間記憶"
-summary: "1次元最近接Ising鎖とXY鎖を比較し、離散的domain wallと連続的phase diffusion、transfer spectrum、外場応答、qξフィルタとその温度発達の違いを整理する。"
+summary: "1次元最近接Ising鎖とXY鎖を、空間記憶の失われ方・transfer spectrum・空間変調外場への応答という共通軸で比較する。domain wallとphase diffusionの違いが、相関長とqξフィルタの温度発達の違いへどうつながるかを整理する。"
 publishedAt: 2026-09-13T01:50:00+09:00
 updatedAt: 2026-09-13
 area: "Physics"
@@ -8,47 +8,83 @@ topics: ["statistical mechanics", "Ising model", "XY model", "correlation", "tra
 status: growing
 ---
 
-1次元の最近接Ising鎖とXY鎖は、どちらも有限温度では長距離秩序を持たない。ところが、秩序を失う機構は同じではない。
+1次元の最近接Ising鎖とXY鎖は、どちらも有限温度では長距離秩序を持たない。しかし、その「向きを忘れる方法」は同じではない。
 
-以下では $\beta\equiv1/(k_{\mathrm B}T)$ とする。
-
-## 1. Isingは稀な大きな反転、XYは至る所の小さな回転
-
-最近接強磁性Ising鎖
+以下では
 
 $$
-H_{\rm I}=-J\sum_i s_i s_{i+1}
+\beta\equiv\frac{1}{k_{\mathrm B}T},
+\qquad
+K\equiv\beta J=\frac{J}{k_{\mathrm B}T}
 $$
 
-では bond 変数 $\tau_i=s_is_{i+1}$ を使うと、$\tau_i=-1$ がdomain wallである。壁1個の生成エネルギーは $2J$ なので
+とする。$K$ が大きいほど低温である。
+
+このノートで見たいのは、単に両模型の公式を並べることではない。
 
 $$
-p_{\rm dw}\sim e^{-2\beta J}
-=e^{-2J/(k_{\mathrm B}T)}.
+\boxed{
+\text{局所的な相互作用が、どのように空間記憶を作り、外場に対する応答へつながるか}
+}
 $$
 
-一方XY鎖
+を、Ising と XY の比較から整理する。
+
+## 1. Isingは稀なwallで、XYは小さな回転の累積で向きを失う
+
+最近接強磁性Ising鎖は
 
 $$
-H_{\rm XY}=-J\sum_i\cos(\theta_{i+1}-\theta_i)
+H_{\mathrm I}=-J\sum_i s_i s_{i+1},
+\qquad s_i=\pm1
 $$
 
-では角度差 $\phi_i=\theta_{i+1}-\theta_i$ を任意に小さく取れる。低温では
+である。bond変数
 
 $$
-\langle\phi_i^2\rangle\simeq\frac{1}{\beta J}
-=\frac{k_{\mathrm B}T}{J},
+\tau_i=s_is_{i+1}
 $$
 
-だが
+を使うと、$\tau_i=-1$ がdomain wallに対応する。wall 1個の生成エネルギーは $2J$ なので、低温では
 
 $$
-\theta_r-\theta_0=\sum_{i=0}^{r-1}\phi_i
+p_{\mathrm{dw}}\sim e^{-2K}
+=e^{-2J/(k_{\mathrm B}T)}
 $$
 
-が空間方向にrandom walkする。
+となり、wall は稀になる。
 
-したがって
+一方、最近接XY鎖は
+
+$$
+H_{\mathrm{XY}}
+=-J\sum_i\cos(\theta_{i+1}-\theta_i)
+$$
+
+である。角度差
+
+$$
+\phi_i=\theta_{i+1}-\theta_i
+$$
+
+は連続変数なので、低温でも各bondには小さな回転が残る。
+
+$$
+\langle\phi_i^2\rangle
+\simeq\frac{1}{K}
+=\frac{k_{\mathrm B}T}{J}.
+$$
+
+そして
+
+$$
+\theta_r-\theta_0
+=\sum_{i=0}^{r-1}\phi_i
+$$
+
+だから、角度は空間方向にrandom walkする。
+
+したがって最初の対比は
 
 $$
 \boxed{\text{Ising}:\ \text{rare localized walls}}
@@ -62,151 +98,194 @@ $$
 
 である。
 
-## 2. 相関を壊す数学も違う
+Isingでは有限エネルギーの欠陥が局所的に記憶を反転させ、XYでは微小な誤差が距離とともに蓄積して記憶を失わせる。
+
+## 2. 相関を作る数学は違うが、1-step memoryという形は共通する
 
 Isingでは
 
 $$
-s_0s_r=\prod_{i=0}^{r-1}\tau_i,
+s_0s_r=\prod_{i=0}^{r-1}\tau_i
 $$
 
-なので、途中にあるwallの個数の偶奇が遠距離の符号を決める。
+なので、遠距離の符号は途中のwallの偶奇で決まる。これは multiplicative sign process である。
 
 XYでは
 
 $$
-\theta_r-\theta_0=\sum_{i=0}^{r-1}\phi_i,
+\theta_r-\theta_0
+=\sum_{i=0}^{r-1}\phi_i
 $$
 
-なので、角度差は局所増分の和で作られる。
+なので、遠距離の角度差は局所増分の和でできる。これは additive phase process である。
 
-つまり
+ところが零外場の開鎖では、どちらも局所相対変数が独立になるため、二点相関は「1 bond進むごとの記憶保持率」の積になる。
 
-$$
-\boxed{\text{Ising}:\ \text{multiplicative sign process}}
-$$
+Isingでは
 
 $$
-\boxed{\text{XY}:\ \text{additive phase process}}
+\boxed{
+C_{\mathrm I}(r)
+=\langle s_0s_r\rangle
+=\left[\tanh K\right]^r
+}
 $$
 
 である。
 
-## 3. それでも二点相関は1-step memoryの積になる
-
-Isingでは
-
-$$
-C_{\rm I}(r)=\left[\tanh(\beta J)\right]^r.
-$$
-
 XYでは
 
 $$
-C_{\rm XY}(r)
+\boxed{
+C_{\mathrm{XY}}(r)
 =\left[
-\frac{I_1(\beta J)}{I_0(\beta J)}
-\right]^r.
+\frac{I_1(K)}{I_0(K)}
+\right]^r
+}
 $$
 
-両者とも
+となる。
+
+したがって両者とも
 
 $$
 \boxed{C(r)=\lambda^r}
 $$
 
-であり、$\lambda$ は1 bond進んだときの記憶保持率と読める。
+と書ける。ここで $\lambda$ は、1 bond進んだときにどれだけ空間記憶が残るかを表す。
 
-## 4. 相関長の形は共通だが温度依存は違う
+## 3. 相関長は共通の形を持つが、低温での伸び方は異なる
 
-$C(r)=e^{-r/\xi}$ と比較すると
-
-$$
-\boxed{\xi^{-1}=-\ln|\lambda|}.
-$$
-
-Isingでは
-
-$$
-\xi_{\rm I}\simeq\frac12e^{2\beta J}
-=\frac12\exp\left(\frac{2J}{k_{\mathrm B}T}\right),
-$$
-
-XYでは
-
-$$
-\xi_{\rm XY}\simeq2\beta J
-=\frac{2J}{k_{\mathrm B}T}.
-$$
-
-したがって
+$C(r)=\lambda^r=e^{-r/\xi}$ と比較すれば
 
 $$
 \boxed{
-\text{指数相関は共通、相関長の温度依存は模型固有}
+\xi^{-1}=-\ln|\lambda|
 }
 $$
 
 である。
 
-## 5. transfer spectrumから見ると共通構造が明確になる
+Isingでは
 
-Isingでは $2\times2$ transfer matrix、XYでは積分作用素を使う。しかしどちらも
+$$
+\xi_{\mathrm I}^{-1}
+=-\ln(\tanh K),
+$$
+
+低温 $K\gg1$ では
 
 $$
 \boxed{
-C_a(r)\sim\left(\frac{\lambda_a}{\lambda_0}\right)^r,
-\qquad
-\xi_a^{-1}=-\ln\left|\frac{\lambda_a}{\lambda_0}\right|
+\xi_{\mathrm I}
+\simeq\frac12 e^{2K}
+=\frac12\exp\left(\frac{2J}{k_{\mathrm B}T}\right)
 }
 $$
 
-で長距離相関が決まる。
+となる。
 
-XYでは
+一方XYでは
 
 $$
-\lambda_m=2\pi I_m(\beta J),
+\xi_{\mathrm{XY}}^{-1}
+=-\ln\left[\frac{I_1(K)}{I_0(K)}\right],
+$$
+
+低温では
+
+$$
+\frac{I_1(K)}{I_0(K)}
+\simeq1-\frac{1}{2K}
+$$
+
+だから
+
+$$
+\boxed{
+\xi_{\mathrm{XY}}
+\simeq2K
+=\frac{2J}{k_{\mathrm B}T}
+}
+$$
+
+となる。
+
+したがって、指数相関そのものは共通でも、その温度依存は
+
+$$
+\boxed{
+\text{Ising}:\ \text{activated growth}
+\qquad
+\text{XY}:\ \text{algebraic growth}
+}
+$$
+
+と大きく異なる。
+
+この差は、Isingでは稀なwallの間隔が記憶長を決め、XYでは位相拡散の分散成長が記憶長を決めることの直接的な反映である。
+
+## 4. transfer spectrumから見ると、両者の共通骨格が見える
+
+Isingでは$2\times2$ transfer matrix、XYでは積分作用素を使う。しかし長距離相関を決める構造は同じである。
+
+最大固有値を $\lambda_0$、観測量が結合するsectorの固有値を $\lambda_a$ とすれば
+
+$$
+\boxed{
+C_a(r)
+\sim
+\left(\frac{\lambda_a}{\lambda_0}\right)^r
+}
+$$
+
+であり、
+
+$$
+\boxed{
+\xi_a^{-1}
+=-\ln\left|\frac{\lambda_a}{\lambda_0}\right|
+}
+$$
+
+となる。
+
+ここで重要なのは、行列か積分作用素かという形式の違いではない。
+
+$$
+\boxed{
+\text{local transfer rule}
+\Longrightarrow
+\text{spectral decay}
+\Longrightarrow
+\text{spatial memory length}
+}
+$$
+
+という構造が共通している。
+
+XYではさらに
+
+$$
+\lambda_m=2\pi I_m(K),
 \qquad m=0,\pm1,\pm2,\ldots
 $$
 
-で、低温では
+という無限個のangular sectorがあり、低温では
 
 $$
-\xi_m\simeq\frac{2J}{m^2k_{\mathrm B}T}.
+\xi_m\simeq\frac{2K}{m^2}
 $$
 
-局所自由度が連続になることで、記憶距離にもharmonic階層が現れる。
+となる。したがってXYでは、角度情報の解像度ごとに異なる空間記憶長が存在する。
 
-## 6. 最近接1次元系に共通するもの
+## 5. 外場は「相対方向だけで閉じる」零外場の単純さを壊す
 
-IsingとXYを比べると、少なくとも次の構造は共通している。
+ここまでは零外場を見てきた。そこではIsingもXYも、相互作用は隣接サイトの相対的な向きだけを見ていた。
 
-- 相互作用は隣接サイト間の局所Boltzmann重みで書ける。
-- 空間方向の統計はtransfer matrix / transfer operatorの反復になる。
-- 長距離相関はtransfer spectrumの固有値比で決まる。
-- relevantなspectral gapが有限なら相関は指数減衰する。
-- 相関長は1 stepごとの記憶損失の累積として読める。
+Isingでは $s_is_{i+1}$、XYでは $\theta_{i+1}-\theta_i$ が自然な局所変数である。
 
-したがって
-
-$$
-\boxed{
-\text{nearest-neighbor 1D}
-\Longrightarrow
-\text{local transfer rule}
-\Longrightarrow
-\text{spectral memory propagation}
-}
-$$
-
-という見方ができる。
-
-## 7. 外場は「絶対方向」を持ち込む
-
-零外場では、IsingもXYも相互作用が隣接サイトの相対的な向きだけに依存していた。
-
-Isingでは $s_is_{i+1}$、XYでは $\theta_{i+1}-\theta_i$ が自然な局所変数である。一方、外場は相対方向ではなく絶対方向を見る。
+一方、外場は絶対方向を指定する。
 
 $$
 \boxed{
@@ -218,63 +297,42 @@ $$
 
 この違いが、零外場で成立していた独立bond描像を壊す。
 
-### 7.1 Isingではdomain-wall表示が非局所化する
+### Isingではdomain-wall表示が非局所化する
 
-一様外場を持つIsing鎖は
+空間依存外場 $h_i$ を入れると
 
 $$
-H_{\rm I}(h)
+H_{\mathrm I}
 =-J\sum_i s_is_{i+1}
--h\sum_i s_i.
+-\sum_i h_i s_i.
 $$
 
-基準スピン $s_0$ を残すと
+基準スピン $s_0$ を残せば
 
 $$
-s_i=s_0\prod_{j=0}^{i-1}\tau_j,
+s_i=s_0\prod_{j=0}^{i-1}\tau_j
 $$
 
-だから外場項は
+だから、外場項は
 
 $$
--h\sum_i s_i
-=-h s_0\sum_i\prod_{j=0}^{i-1}\tau_j.
+-\sum_i h_i s_i
+=-s_0\sum_i h_i\prod_{j=0}^{i-1}\tau_j.
 $$
 
-つまり、スピン変数では局所的な外場が、wall変数ではそれまで通過した全wallの偶奇に依存する長い積になる。
+つまり、スピン表示では局所的な外場が、wall表示では長い積になって非局所化する。
+
+### XYでも角度差表示が非局所化する
+
+$x$方向の外場を入れると
 
 $$
-\boxed{
-\text{local field in spin variables}
-\Longrightarrow
-\text{nonlocal term in wall variables}
-}
-$$
-
-このとき自然なのはスピン表示に戻り、
-
-$$
-T_{\rm I}
-=
-\begin{pmatrix}
- e^{\beta J+\beta h} & e^{-\beta J}\\
- e^{-\beta J} & e^{\beta J-\beta h}
-\end{pmatrix}
-$$
-
-というtransfer matrixで解くことである。
-
-### 7.2 XYでも角度差表示が非局所化する
-
-XY鎖に $x$ 方向外場を入れると
-
-$$
-H_{\rm XY}(h)
+H_{\mathrm{XY}}
 =-J\sum_i\cos(\theta_{i+1}-\theta_i)
--h\sum_i\cos\theta_i.
+-\sum_i h_i\cos\theta_i.
 $$
 
-零外場では $\phi_i=\theta_{i+1}-\theta_i$ が独立だったが、
+角度差を使えば
 
 $$
 \theta_i
@@ -285,7 +343,7 @@ $$
 なので、外場項は
 
 $$
--h\sum_i
+-\sum_i h_i
 \cos\left(
 \theta_0+\sum_{j=0}^{i-1}\phi_j
 \right)
@@ -293,130 +351,136 @@ $$
 
 となる。
 
-Isingでは「符号の積」、XYでは「位相の和」と表現は違うが、
+XYでも、絶対角を測る外場を入れると角度差だけでは局所的に閉じない。
 
-$$
-\boxed{
-\text{relative-variable description becomes nonlocal under a field}
-}
-$$
-
-という構造は共通している。
-
-### 7.3 XYでは外場がFourier sectorを混ぜる
-
-零外場XYのtransfer kernelは
+さらに零外場のtransfer kernel
 
 $$
 T_0(\theta,\theta')
-=\exp[\beta J\cos(\theta'-\theta)]
+=\exp[K\cos(\theta'-\theta)]
 $$
 
-で、角度差だけに依存する。そのため $e^{im\theta}$ が独立な固有sectorだった。
-
-外場を入れると
+では $e^{im\theta}$ が独立な固有sectorだったが、外場項の
 
 $$
-T_h(\theta,\theta')
-=\exp\left[
-\beta J\cos(\theta'-\theta)
-+\frac{\beta h}{2}
-(\cos\theta+\cos\theta')
-\right].
+\cos\theta=\frac12(e^{i\theta}+e^{-i\theta})
 $$
 
-$\cos\theta=(e^{i\theta}+e^{-i\theta})/2$ なので、Fourier空間では
+によって
 
 $$
 \boxed{m\longleftrightarrow m\pm1}
 $$
 
-が結合する。外場は $U(1)$ symmetryを壊し、独立だったangular sectorを混ぜる。
+が結合する。つまり外場は $U(1)$ symmetryを壊し、独立だったangular sectorを混ぜる。
 
-### 7.4 線形応答では零外場相関がそのまま感受率になる
+## 6. 微小な空間変調外場は、零外場の空間記憶を読み出す
 
-微小外場なら、有限外場のtransfer spectrumを最初から解き直さなくても、零外場相関から応答を求められる。
+外場が微小なら、有限外場の問題を最初から解き直す必要はない。零外場相関から線形応答が得られる。
 
 Isingでは
 
 $$
-\chi_{\rm I}(r)
+\chi_{\mathrm I}(r)
 =\beta\langle s_0s_r\rangle
-=\beta[\tanh(\beta J)]^{|r|}.
+=\beta[\tanh K]^{|r|}.
 $$
 
-XYでは
+XYの$x$成分では
 
 $$
-\chi_{\rm XY}^{xx}(r)
+\chi_{\mathrm{XY}}^{xx}(r)
 =\beta\langle\cos\theta_0\cos\theta_r\rangle.
 $$
 
-回転対称性から
+零外場の回転対称性から
 
 $$
 \langle\cos\theta_0\cos\theta_r\rangle
-=\frac12\langle\mathbf S_0\cdot\mathbf S_r\rangle,
+=\frac12\langle\mathbf S_0\cdot\mathbf S_r\rangle
 $$
 
-したがって
+なので
 
 $$
 \boxed{
-\chi_{\rm XY}^{xx}(r)
+\chi_{\mathrm{XY}}^{xx}(r)
 =\frac{\beta}{2}
 \left[
-\frac{I_1(\beta J)}{I_0(\beta J)}
+\frac{I_1(K)}{I_0(K)}
 \right]^{|r|}
 }
 $$
 
 となる。
 
-どちらも $\chi(r)\propto e^{-|r|/\xi}$ なので、外場応答も零外場で作られた空間記憶長 $\xi$ をprobeしている。
-
-### 7.5 空間変調外場では $q\xi$ が自然な変数になる
-
 外場を
 
 $$
-h_i=h_q e^{iqi}
+h_i=h_qe^{iqi}
 $$
 
-のように変調すると、線形応答は
+とすれば
 
 $$
-\delta m(q)=\chi(q)h_q
+\delta m(q)=\chi(q)h_q.
 $$
 
-で与えられる。
-
-指数相関をFourier変換すると、長波長・長相関長の領域では
+Isingでは厳密に
 
 $$
 \boxed{
-\chi(q)\propto\frac{\xi}{1+(q\xi)^2}
+\chi_{\mathrm I}(q)
+=\beta
+\frac{1-\rho_{\mathrm I}^2}
+{1-2\rho_{\mathrm I}\cos q+\rho_{\mathrm I}^2},
+\qquad
+\rho_{\mathrm I}=\tanh K
 }
 $$
 
-というLorentzian型になる。したがって本質的なのは $q$ と $\xi$ を別々に見ることではなく、無次元量 $q\xi$ である。
+である。
 
-$q\xi\ll1$ では、ひとつの相関領域の内部で外場はほぼ一定なので、相関したスピン群が協調して追従できる。
-
-$q\xi\sim1$ では、外場の変調長と相関領域の大きさが競合し、応答のクロスオーバーが起こる。
-
-$q\xi\gg1$ では、ひとつの相関領域の内部で外場が何度も向きを変える。相関によって一緒に動こうとするスピン群に、場所ごとに異なる向きを要求するため、応答は空間的に相殺される。
-
-Lorentzian近似では
+XYでは
 
 $$
-\chi(q)\sim\frac{1}{q^2\xi}
-\qquad(q\xi\gg1)
+\boxed{
+\chi_{\mathrm{XY}}^{xx}(q)
+=\frac{\beta}{2}
+\frac{1-\rho_{\mathrm{XY}}^2}
+{1-2\rho_{\mathrm{XY}}\cos q+\rho_{\mathrm{XY}}^2},
+\qquad
+\rho_{\mathrm{XY}}=\frac{I_1(K)}{I_0(K)}
+}
 $$
 
 となる。
 
-したがって
+長波長かつ長相関長の極限では、どちらも
+
+$$
+\chi(q)
+\propto
+\frac{\xi}{1+(q\xi)^2}
+$$
+
+というLorentzian型へ近づく。
+
+したがって空間変調外場に対して自然な無次元量は
+
+$$
+\boxed{q\xi}
+$$
+
+である。
+
+$q\xi\ll1$ では、ひとつの相関領域の内部で外場はほぼ一定なので、相関したスピン群が協調して追従できる。
+
+$q\xi\sim1$ では、外場の空間変化と相関領域の大きさが競合する。
+
+$q\xi\gg1$ では、ひとつの相関領域の内部で外場が何度も向きを変えるため、協調して動こうとするスピン群の応答が空間的に相殺される。
+
+この意味で
 
 $$
 \boxed{
@@ -426,26 +490,28 @@ $$
 
 と読むことができる。
 
-### 7.6 同じ $q\xi$ 則でも、フィルタの温度発達はIsingとXYで異なる
+## 7. 同じ $q\xi$ 則でも、フィルタの温度発達はIsingとXYで違う
 
-ここで比較の本題が戻ってくる。空間フィルタの基本構造は共通でも、$\xi(T)$ が違うため、固定波数 $q$ の外場に対する温度依存は同じではない。
+空間フィルタの基本構造は共通している。しかし、その幅を決める $\xi(T)$ が違うため、低温化したときの波数応答は同じではない。
 
 クロスオーバー波数を
 
 $$
 \boxed{
-q_\times(T)\equiv\frac{1}{\xi(T)}
+q_\times(K)\equiv\frac{1}{\xi(K)}
 }
 $$
 
-と定義する。$q<q_\times$ なら $q\xi<1$ で協調応答、$q>q_\times$ なら $q\xi>1$ で短波長抑制が強くなる。
+と定義する。
 
-Isingでは厳密に
+$q\ll q_\times$ なら $q\xi\ll1$ で協調応答しやすく、$q\gg q_\times$ なら短波長抑制が強くなる。
+
+Isingでは
 
 $$
 \boxed{
-q_\times^{\rm I}(T)
-=-\ln\!\left[\tanh\left(\frac{J}{k_{\mathrm B}T}\right)\right]
+q_\times^{\mathrm I}(K)
+=-\ln(\tanh K)
 }
 $$
 
@@ -453,21 +519,19 @@ $$
 
 $$
 \boxed{
-q_\times^{\rm I}(T)
-\simeq2\exp\left(-\frac{2J}{k_{\mathrm B}T}\right)
+q_\times^{\mathrm I}(K)
+\simeq2e^{-2K}
 }
 $$
 
-となる。温度を下げると通過できる波数幅が指数関数的に狭くなる。
+となる。
 
-XYでは
+一方XYでは
 
 $$
 \boxed{
-q_\times^{\rm XY}(T)
-=-\ln\!\left[
-\frac{I_1(J/k_{\mathrm B}T)}{I_0(J/k_{\mathrm B}T)}
-\right]
+q_\times^{\mathrm{XY}}(K)
+=-\ln\left[\frac{I_1(K)}{I_0(K)}\right]
 }
 $$
 
@@ -475,103 +539,130 @@ $$
 
 $$
 \boxed{
-q_\times^{\rm XY}(T)
-\simeq\frac{k_{\mathrm B}T}{2J}
+q_\times^{\mathrm{XY}}(K)
+\simeq\frac{1}{2K}
 }
 $$
 
-となる。こちらは温度に対して線形にしか狭くならない。
+となる。
 
-したがって
+したがって、$K=\beta J$ を大きくして低温へ進むと
 
 $$
 \boxed{
-\text{Ising}:\ q_\times(T)\text{ は指数的にnarrowing}
+\text{Ising}:\ q_\times\text{ は指数的に縮む}
 }
 $$
 
-に対して
+のに対し
 
 $$
 \boxed{
-\text{XY}:\ q_\times(T)\text{ は線形にnarrowing}
+\text{XY}:\ q_\times\text{ は }K^{-1}\text{ で代数的に縮む}
 }
+$$
+
+という違いが現れる。
+
+![IsingとXYの空間フィルタ幅](/figures/ising-xy-comparison/qxi-temperature-filter.svg)
+
+*クロスオーバー波数 $q_\times=\xi^{-1}$ の $K=\beta J$ 依存性。左はIsing、右はXY。青実線は厳密式、緑破線は低温漸近形。Isingでは $q_\times\sim2e^{-2K}$ と指数的に狭まり、XYでは $q_\times\sim(2K)^{-1}$ と代数的に狭まる。*
+
+固定した波数 $q$ の外場から見れば、クロスオーバー条件は
+
+$$
+q\xi(K_\times)\sim1
 $$
 
 である。
 
-![IsingとXYの空間フィルタ境界](/figures/ising-xy-comparison/qxi-temperature-filter.svg)
-
-*実線は厳密な $q_\times(T)=1/\xi(T)$、破線は低温漸近形。曲線より下側は $q\xi<1$ の協調応答、上側は $q\xi>1$ の短波長抑制に対応する。Isingでは低温で境界が指数的に小さな $q$ へ移るのに対し、XYでは線形に移る。*
-
-### 7.7 固定した外場波数から見ると、クロスオーバー温度も違う
-
-今度は $q$ を固定し、温度を下げるとする。条件 $q\xi(T_\times)\sim1$ から、低温漸近ではIsingについて
+Isingでは低温近似から
 
 $$
-\frac{q}{2}
-\exp\left(\frac{2J}{k_{\mathrm B}T_\times^{\rm I}}\right)
-\sim1
+q\sim2e^{-2K_\times}
 $$
 
-となるので
+なので
 
 $$
 \boxed{
-k_{\mathrm B}T_\times^{\rm I}
-\sim\frac{2J}{\ln(2/q)}}.
+K_\times^{\mathrm I}
+\sim\frac12\ln\left(\frac{2}{q}\right)
+}
 $$
 
-一方XYでは
+となる。
+
+XYでは
 
 $$
-q\frac{2J}{k_{\mathrm B}T_\times^{\rm XY}}\sim1
+q\sim\frac{1}{2K_\times}
 $$
 
 だから
 
 $$
 \boxed{
-k_{\mathrm B}T_\times^{\rm XY}\sim2Jq}.
-$$
-
-つまり、同じ空間周期の外場を使っても、Isingではクロスオーバー温度が $1/\ln(1/q)$ 型、XYでは $q$ に比例する。
-
-これは相関長の温度依存の違いを、直接観測可能な応答の違いへ翻訳したものと読める。
-
-低温ほどすべての波数に強く応答するわけではない。低温化で $\xi$ が伸びると、一様あるいは長波長外場には強く応答する一方、固定された短波長外場は相関領域の内部で平均化されやすくなる。
-
-$$
-\boxed{
-\text{cooling}
-\Longrightarrow
-\xi\uparrow
-\Longrightarrow
-\begin{cases}
-\text{long wavelength: collective response grows},\\
-\text{short wavelength: spatial cancellation grows}.
-\end{cases}
+K_\times^{\mathrm{XY}}
+\sim\frac{1}{2q}
 }
 $$
 
-## 8. 外場を入れたときに見える共通構造と違い
+である。
 
-零外場ではIsingもXYも相対変数が自然だったが、外場は絶対方向を指定するため、その単純さを壊す。この点は共通している。
+つまり同じ空間波数の外場を使っても、低温化によって短波長抑制へ入る仕方はIsingとXYで大きく異なる。
 
-一方、壊れ方には違いがある。Isingではdomain wallの独立性が失われ、XYでは角度差の独立性に加えてFourier sectorの混合が起こる。
+## 8. 比較から見える共通構造は「1次元だから秩序しない」より具体的である
 
-それでも微小外場に限れば、応答は零外場相関から決まり、$\chi(q)$ の波数依存は相関長によって支配される。
+IsingとXYは、どちらも有限温度で長距離秩序を持たない。しかし、その事実だけを共通点としてしまうと物理をかなり失う。
+
+Isingでは
+
+$$
+\text{rare walls}
+\Longrightarrow
+\text{activated memory loss}
+\Longrightarrow
+\xi\sim e^{2K},
+$$
+
+XYでは
+
+$$
+\text{phase diffusion}
+\Longrightarrow
+\text{diffusive memory loss}
+\Longrightarrow
+\xi\sim K
+$$
+
+である。
+
+一方、長距離の記憶そのものは
 
 $$
 \boxed{
-\text{zero-field correlation}
+\text{local transfer rule}
 \Longrightarrow
-\text{finite-}q\text{ susceptibility}
+\text{spectral decay}
 \Longrightarrow
-\text{spatial filtering by }q\xi
+\xi
+\Longrightarrow
+\chi(q)
 }
 $$
 
-という共通構造がある。
+という共通の流れで整理できる。
 
-IsingとXYの違いは、このフィルタの基本構造ではなく、フィルタ幅を決める $\xi(T)$ がどの機構で生成されるかにある。Isingではrare wallが指数的narrowingを、XYではphase diffusionが線形narrowingを生む。
+したがって比較の要点は
+
+$$
+\boxed{
+\text{同じ最近接1次元のtransfer構造を持ちながら、}
+\text{記憶を失う局所機構が違うため、}\xi(T)\text{ と空間応答の温度発達が異なる}
+}
+$$
+
+ということである。
+
+外場はこの違いを壊すだけの操作ではない。空間変調を与えることで、系がどの波長まで記憶を保持できるかを読み出すprobeにもなる。
