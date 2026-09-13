@@ -199,6 +199,18 @@ $$
 
 となる。
 
+例えば internal space で window が幅 $w$ の区間なら、その Fourier 変換は概ね
+
+$$
+\widehat{1_W}(K_{\perp})
+\propto
+\frac{\sin(K_{\perp}w/2)}{K_{\perp}/2}
+$$
+
+のような sinc 型になる。
+
+つまり $|K_{\perp}|$ が大きい reciprocal lattice 点は、physical space に peak の位置を与えても強度が小さくなりやすい。
+
 そのため候補位置が多数あっても、その多くは非常に弱い。
 
 $$
@@ -211,9 +223,53 @@ $$
 
 となる。
 
-「位置集合は高密度でも、強い peak だけを見ると疎に見える」という整理でよさそうだ。
+ここで区別したいのは、**support が密であること**と**連続スペクトルであること**である。
 
-## 6. 最初の疑問へ戻る
+理想的な Fibonacci chain の回折は pure point、つまり個々の Bragg peak からなる。一方で、その Bragg peak が存在しうる位置集合そのものは稠密になりうる。
+
+したがって
+
+$$
+\boxed{
+\text{dense pure-point support}
+\neq
+\text{diffuse continuum}
+}
+$$
+
+である。
+
+「位置集合は高密度でも、強度は強く階層化され、各成分自体は鋭い」という像が近い。
+
+## 6. Fourier module は準結晶の何を保存しているのか
+
+周期結晶では、実空間の格子ベクトルと reciprocal lattice が一対一に近い関係を持つ。
+
+準結晶には通常の有限単位胞がないので、実空間だけを見ると「どこに秩序が保存されているのか」が見えにくい。
+
+Fourier module を見ると、その答えが少しはっきりする。
+
+peak の位置は任意ではなく、有限個の基本波数から整数係数で生成される。
+
+つまり秩序は
+
+$$
+\text{real-space unit cell}
+$$
+
+としてではなく、
+
+$$
+\boxed{
+\text{finite-rank Fourier module}
+}
+$$
+
+として残っている。
+
+この見方だと、準結晶を「周期結晶に乱れを入れたもの」と見る必要がなくなる。秩序の表現形式そのものが変わっている。
+
+## 7. 最初の疑問へ戻る
 
 最初の疑問は
 
@@ -273,4 +329,4 @@ $$
 
 実空間では周期を失っているが、構造を生成する整数的な秩序まで失われているわけではない。
 
-ここから先は「準結晶とは何か」という構造の話から、準周期秩序の上に相互作用を載せたとき物理がどう変わるか、という方向へ進めそうだ。Fibonacci Ising model や quasiperiodic coupling はその自然な候補になる。
+ここから先は、inflation、periodic approximant、phason、Penrose tiling のような「準結晶特有の構造」を個別に掘る段階へ進めそうだ。
