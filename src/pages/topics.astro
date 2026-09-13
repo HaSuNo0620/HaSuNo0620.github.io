@@ -6,7 +6,7 @@ import { topicSlug } from '../lib/topics';
 const notes = (await getCollection('notes', ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
-const areaOrder = ['Physics', 'Mathematics', 'Computing', 'Culture & Media'] as const;
+const areaOrder = ['Physics', 'Mathematics', 'Computing', 'Economics', 'Culture & Media'] as const;
 const statusMark = { seed: '○', growing: '◐', evergreen: '●' };
 const areaId = (area: string) => area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
