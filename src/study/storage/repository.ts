@@ -62,7 +62,7 @@ class IndexedDbStudyRepository implements StudyRepository {
   }
 
   async saveActiveSession(session: StorySession): Promise<void> {
-    await this.db.put('active-sessions', structuredClone(session), session.caseId);
+    await this.db.put('active-sessions', structuredClone(session));
   }
 
   async loadActiveSession(caseId: string): Promise<StorySession | null> {
