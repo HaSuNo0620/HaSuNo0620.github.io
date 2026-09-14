@@ -6,8 +6,8 @@
   "scripts": {
     "predev": "python3 scripts/ising_r1_figures.py && python3 scripts/ising_r1_periodic_visuals.py && python3 scripts/ising_r1_periodic_field_visuals.py && python3 scripts/ising_r1_periodic_field_asymmetry.py && python3 scripts/ising_xy_filter_visuals.py && python3 scripts/xy_second_neighbor_visuals.py && python3 scripts/ising_r2_figures.py && python3 scripts/ising_r2_three_regimes.py && python3 scripts/ising_r2_visuals.py && python3 scripts/refine_r2_maps.py && python3 scripts/ising_rn_visuals.py && python3 scripts/quasicrystal_visuals.py && python3 scripts/postprocess_figures.py",
     "dev": "astro dev",
-    "prebuild": "python3 scripts/ising_r1_figures.py && python3 scripts/ising_r1_periodic_visuals.py && python3 scripts/ising_r1_periodic_field_visuals.py && python3 scripts/ising_r1_periodic_field_asymmetry.py && python3 scripts/ising_xy_filter_visuals.py && python3 scripts/xy_second_neighbor_visuals.py && python3 scripts/ising_r2_figures.py && python3 scripts/ising_r2_three_regimes.py && python3 scripts/ising_r2_visuals.py && python3 scripts/refine_r2_maps.py && python3 scripts/ising_rn_visuals.py && python3 scripts/quasicrystal_visuals.py && python3 scripts/postprocess_figures.py",
-    "build": "npm run validate:study && astro build",
+    "prebuild": "npm run validate:study && python3 scripts/ising_r1_figures.py && python3 scripts/ising_r1_periodic_visuals.py && python3 scripts/ising_r1_periodic_field_visuals.py && python3 scripts/ising_r1_periodic_field_asymmetry.py && python3 scripts/ising_xy_filter_visuals.py && python3 scripts/xy_second_neighbor_visuals.py && python3 scripts/ising_r2_figures.py && python3 scripts/ising_r2_three_regimes.py && python3 scripts/ising_r2_visuals.py && python3 scripts/refine_r2_maps.py && python3 scripts/ising_rn_visuals.py && python3 scripts/quasicrystal_visuals.py && python3 scripts/postprocess_figures.py",
+    "build": "astro build",
     "preview": "astro preview",
     "test": "vitest run",
     "test:watch": "vitest",
