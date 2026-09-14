@@ -66,4 +66,20 @@
 - `class4.ether.vapor`
 - `class4.response.vapor-low-areas`
 
+## MVPで残しているStory coverage warning
+
+MVPでは3ケース×2バリアントで学習形式そのものを検証するため、知識グラフ全体を先に正本として持ちつつ、以下はまだStory側で十分に測定していない。validator の warning は意図的に残し、次のStory追加時に解消する。
+
+### Story未登場 (`NO_STORY_COVERAGE`)
+- `class4.classification.animal-vegetable`
+- `class4.classification.fourth`
+- `class4.classification.third`
+- `class4.definition.flammable-liquid`
+
+### 遭遇のみで、適用・識別をまだ測っていない (`ENCOUNTER_ONLY_COVERAGE`)
+- `class4.ethanol.alcohol`
+- `class4.ether.special`
+- `class4.extinguishing.avoid-solid-stream-alcohol`
+- `class4.toluene.first`
+
 > 注: MVPでは静電気を独立ノードとしてまだ分離せず、火花を含む着火源管理として扱う。Story の有効性確認後、法令・物化を含む完全版へ拡張する。
