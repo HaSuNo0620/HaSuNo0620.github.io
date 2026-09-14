@@ -5,6 +5,7 @@
 .study-eyebrow { margin: 0 0 8px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .08em; text-transform: lowercase; }
 .study-panel, .study-story { padding: 34px 0; border-top: 1px solid var(--ink); }
 .study-panel h2, .study-story h2 { margin: 4px 0 10px; font-size: clamp(28px, 4vw, 44px); letter-spacing: -.035em; }
+.study-panel > h3, .study-debrief > h3 { margin: 38px 0 14px; font-size: 20px; }
 .study-section-header { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
 .study-header-actions, .study-story-topbar { display: flex; flex-wrap: wrap; gap: 10px; }
 .study-story-topbar { justify-content: space-between; margin-bottom: 28px; }
@@ -38,6 +39,20 @@
 .study-handbook-entry { border-bottom: 1px solid var(--line); }
 .study-handbook-title { width: 100%; min-height: 48px; padding: 12px 0; border: 0; background: none; color: var(--ink); text-align: left; font: inherit; font-weight: 600; cursor: pointer; }
 .study-handbook-entry p { margin: 0 0 16px; color: var(--muted); font-size: 13px; }
+.study-ending-summary { max-width: 760px; padding: 18px 20px; border-left: 4px solid var(--green); background: var(--paper-2); font-size: 17px; }
+.study-debrief-list { padding-left: 24px; }
+.study-debrief-list li { margin: 8px 0; }
+.study-debrief-cards, .study-knowledge-notes, .study-knowledge-list { display: grid; gap: 12px; }
+.study-debrief-cards article, .study-knowledge-notes article, .study-knowledge-list article { padding: 16px 18px; border: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 94%, white); }
+.study-debrief-cards span { color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 10px; }
+.study-debrief-cards p, .study-knowledge-notes p, .study-knowledge-list p { margin: 6px 0 0; color: var(--muted); }
+.study-knowledge-notes small { display: block; margin-top: 8px; color: var(--accent); }
+.study-exam-links { padding-left: 20px; }
+.study-exam-links li { margin: 10px 0; }
+.study-table-wrap { overflow-x: auto; }
+.study-knowledge-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.study-knowledge-table th, .study-knowledge-table td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; white-space: nowrap; }
+.study-knowledge-table progress { width: 72px; }
 @media (max-width: 640px) {
   .study-section-header { align-items: stretch; flex-direction: column; }
   .study-header-actions { display: grid; grid-template-columns: 1fr 1fr; }
