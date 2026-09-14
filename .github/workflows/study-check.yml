@@ -3,6 +3,8 @@ name: Study app checks
 on:
   push:
     branches: [feat/qualification-study-platform]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
