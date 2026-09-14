@@ -8,12 +8,31 @@
     "dev": "astro dev",
     "prebuild": "python3 scripts/ising_r1_figures.py && python3 scripts/ising_r1_periodic_visuals.py && python3 scripts/ising_r1_periodic_field_visuals.py && python3 scripts/ising_r1_periodic_field_asymmetry.py && python3 scripts/ising_xy_filter_visuals.py && python3 scripts/xy_second_neighbor_visuals.py && python3 scripts/ising_r2_figures.py && python3 scripts/ising_r2_three_regimes.py && python3 scripts/ising_r2_visuals.py && python3 scripts/refine_r2_maps.py && python3 scripts/ising_rn_visuals.py && python3 scripts/quasicrystal_visuals.py && python3 scripts/postprocess_figures.py",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "validate:study": "tsx scripts/validate-study-content.ts"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.1",
+    "@astrojs/react": "^6.0.5",
     "astro": "^7.3.2",
+    "idb": "^8.0.3",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "rehype-mathjax": "^7.1.0",
-    "remark-math": "^6.0.0"
+    "remark-math": "^6.0.0",
+    "yaml": "^2.8.1",
+    "zod": "^4.6.3"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.3",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "fake-indexeddb": "^6.2.5",
+    "jsdom": "^30.0.1",
+    "tsx": "^4.23.13",
+    "vitest": "^5.0.0"
   }
 }
