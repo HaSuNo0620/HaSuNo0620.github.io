@@ -4,7 +4,7 @@
 
 **Goal:** Build a reusable, fully static qualification-study application under `/study/` that teaches through replayable branching cases, beginning with three validated 乙4「性質・火災予防・消火」cases.
 
-**Architecture:** Keep the existing Astro 7 static site and mount one React application under `/study/`. Qualification content is authored as YAML and compiled into the client bundle; a pure Story Engine and Learning Engine operate on validated content, while IndexedDB stores event history and resumable sessions. A Node-side validator reuses the same schemas and blocks builds on structural content errors.
+**Architecture:** Keep the existing Astro 7 static site and mount a React application under `/study/`. Qualification content is authored as YAML and validated at build time; pure Story and Learning engines operate on validated data; IndexedDB stores append-only learning events and resumable sessions. The UI first chooses a qualification, then presents an unordered case library, story player, handbook, debrief, and learning-state views.
 
 **Tech Stack:** Astro 7.3.x, React, TypeScript, Zod, YAML, idb/IndexedDB, Vitest, Testing Library, jsdom, fake-indexeddb, tsx, GitHub Pages.
 
@@ -13,53 +13,54 @@
 ## Global Constraints
 
 - Preserve the existing Astro static deployment model and GitHub Pages workflow.
-- Runtime must require no server, account system, API key, or cross-device synchronization.
-- `/study/` is the only new application surface; existing notes/topics/about pages remain unaffected.
-- Story content, qualification knowledge, engines, persistence, and UI remain separate modules.
-- The persisted source of truth for learning is the event log; derived mastery values are recomputable.
-- Wrong decisions do not immediately show `Correct` / `Incorrect` and do not terminate a case early.
-- Each initial case must contain at least two authored variants; runtime LLM generation is excluded.
-- Initial story cases are playable in any order; recommendation is advisory only.
-- Hazardous-material facts require explicit provenance metadata and a `checkedAt` date.
-- Structural content validation fails the build; incomplete curriculum story coverage is reported but does not fail the MVP build.
-- No XP, coins, leaderboards, login streak rewards, social features, or authoring GUI in the MVP.
+- Runtime requires no server, account, API key, or cross-device synchronization.
+- Existing `/notes/`, `/topics/`, `/now/`, and `/about/` behavior must remain unchanged.
+- Story content, qualification knowledge, Story Engine, Learning Engine, persistence, and UI remain separate modules.
+- Persisted learning events are canonical; mastery values are always derived and recomputable.
+- During a case, wrong decisions show consequences rather than `正解` / `不正解`, and no decision causes an early game over.
+- Initial cases are playable in any order. Recommendation is advisory only.
+- Each initial case has at least two authored variants. Runtime LLM-generated cases are excluded.
+- Hazardous-material facts and handbook statements require explicit source provenance and a verification date.
+- Structural content errors fail validation/build. Missing story coverage remains a visible warning during MVP.
+- No XP, coins, leaderboards, login rewards, social features, account system, sync service, or authoring GUI in MVP.
 
 ---
 
-## File Structure
-
-Create or modify the project around these boundaries:
+## Planned File Boundaries
 
 ```text
-astro.config.mjs                         # add React integration
-package.json / package-lock.json         # runtime, test, and validation dependencies/scripts
-vitest.config.ts                         # unit/integration test configuration
-src/test/setup.ts                        # jest-dom + fake IndexedDB test setup
-src/pages/study/index.astro              # Astro host for the React study app
-src/components/SiteHeader.astro          # add Study navigation entry
-src/styles/study.css                     # study-only responsive visual system
+astro.config.mjs
+package.json
+package-lock.json
+vitest.config.ts
+src/test/setup.ts
+src/pages/study/index.astro
+src/components/SiteHeader.astro
+src/styles/study.css
 
-src/study/domain/content-types.ts        # stable TypeScript domain interfaces
-src/study/domain/content-schema.ts       # Zod schemas and YAML parsing contracts
-src/study/domain/validate-pack.ts        # graph/content validation and coverage report
-src/study/domain/story-engine.ts         # pure case progression
-src/study/domain/learning-engine.ts      # event -> derived knowledge state
-src/study/domain/recommendation.ts       # next case/variant ranking
-src/study/domain/*.test.ts               # pure-engine tests
+src/study/domain/content-types.ts
+src/study/domain/content-schema.ts
+src/study/domain/validate-pack.ts
+src/study/domain/story-engine.ts
+src/study/domain/learning-engine.ts
+src/study/domain/recommendation.ts
+src/study/domain/*.test.ts
 
-src/study/content/load-content.ts        # Vite raw YAML loading + validated pack assembly
-src/study/storage/repository.ts           # storage interface + IndexedDB implementation
-src/study/storage/memory-repository.ts    # non-persistent fallback
-src/study/storage/repository.test.ts      # persistence/migration/resume tests
+src/study/content/load-content.ts
 
-src/study/ui/StudyApp.tsx                # top-level application state
-src/study/ui/CaseLibrary.tsx             # case selection/recommendation
-src/study/ui/StoryPlayer.tsx             # narrative + decisions
-src/study/ui/HandbookDrawer.tsx          # in-case references
-src/study/ui/Debrief.tsx                 # consequence-to-knowledge review
-src/study/ui/KnowledgeView.tsx            # simple + detailed learning state
-src/study/ui/StorageWarning.tsx          # memory fallback warning
-src/study/ui/study-app.test.tsx          # user-flow integration tests
+src/study/storage/repository.ts
+src/study/storage/memory-repository.ts
+src/study/storage/repository.test.ts
+
+src/study/ui/StudyApp.tsx
+src/study/ui/QualificationPicker.tsx
+src/study/ui/CaseLibrary.tsx
+src/study/ui/StoryPlayer.tsx
+src/study/ui/HandbookDrawer.tsx
+src/study/ui/Debrief.tsx
+src/study/ui/KnowledgeView.tsx
+src/study/ui/StorageWarning.tsx
+src/study/ui/study-app.test.tsx
 
 src/study-content/hazardous-materials/manifest.yaml
 src/study-content/hazardous-materials/knowledge/class4-common.yaml
@@ -72,13 +73,13 @@ src/study-content/hazardous-materials/stories/warehouse.yaml
 src/study-content/hazardous-materials/stories/solvent-workplace.yaml
 src/study-content/hazardous-materials/stories/unknown-liquid.yaml
 
-docs/study-content/otsu4-seisho-coverage.md   # human-reviewable curriculum/source checklist
-scripts/validate-study-content.ts             # CLI used by local checks and build
+docs/study-content/otsu4-seisho-coverage.md
+scripts/validate-study-content.ts
 ```
 
 ---
 
-### Task 1: Add the React study surface and test foundation
+### Task 1: React/Astro integration and test foundation
 
 **Files:**
 - Modify: `package.json`
@@ -92,20 +93,18 @@ scripts/validate-study-content.ts             # CLI used by local checks and bui
 - Create: `src/study/ui/study-app.test.tsx`
 
 **Interfaces:**
-- Produces: default React component `StudyApp(): JSX.Element`.
-- Produces: `npm test`, `npm run test:watch`, and a jsdom environment with jest-dom and fake IndexedDB.
-- Consumes: existing `BaseLayout.astro` and static Astro configuration.
+- Produces `StudyApp(): JSX.Element`.
+- Produces `npm test`, `npm run test:watch`, and `npm run validate:study` commands.
+- Preserves the current Astro static build.
 
-- [ ] **Step 1: Install runtime and test dependencies**
-
-Run:
+- [ ] **Step 1: Install dependencies**
 
 ```bash
 npm install @astrojs/react react react-dom zod yaml idb
 npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom fake-indexeddb tsx @types/react @types/react-dom
 ```
 
-Then add these scripts to `package.json` without removing the existing build/figure scripts:
+Add scripts without deleting existing scripts:
 
 ```json
 {
@@ -115,9 +114,7 @@ Then add these scripts to `package.json` without removing the existing build/fig
 }
 ```
 
-- [ ] **Step 2: Write the failing mount test**
-
-Create `src/study/ui/study-app.test.tsx`:
+- [ ] **Step 2: Write a failing mount test**
 
 ```tsx
 import { render, screen } from '@testing-library/react';
@@ -125,14 +122,12 @@ import { describe, expect, it } from 'vitest';
 import StudyApp from './StudyApp';
 
 describe('StudyApp', () => {
-  it('renders the study application heading', () => {
+  it('renders the study heading', () => {
     render(<StudyApp />);
     expect(screen.getByRole('heading', { name: '資格学習' })).toBeInTheDocument();
   });
 });
 ```
-
-- [ ] **Step 3: Run the test and verify the expected failure**
 
 Run:
 
@@ -140,11 +135,11 @@ Run:
 npm test -- src/study/ui/study-app.test.tsx
 ```
 
-Expected: FAIL because `StudyApp.tsx` and the test environment are not configured yet.
+Expected: FAIL because React test/app setup is not present.
 
-- [ ] **Step 4: Configure React, Vitest, and the minimum application shell**
+- [ ] **Step 3: Configure Astro React and Vitest**
 
-Update `astro.config.mjs` to include the React integration while preserving `site`, `output`, `trailingSlash`, and markdown plugins:
+Keep existing Astro options and add React integration:
 
 ```js
 import react from '@astrojs/react';
@@ -181,7 +176,9 @@ import '@testing-library/jest-dom/vitest';
 import 'fake-indexeddb/auto';
 ```
 
-Create `src/study/ui/StudyApp.tsx`:
+- [ ] **Step 4: Mount the initial island**
+
+`StudyApp.tsx`:
 
 ```tsx
 export default function StudyApp() {
@@ -194,7 +191,7 @@ export default function StudyApp() {
 }
 ```
 
-Create `src/pages/study/index.astro` using the existing base layout:
+`src/pages/study/index.astro`:
 
 ```astro
 ---
@@ -208,7 +205,7 @@ import '../../styles/study.css';
 </BaseLayout>
 ```
 
-Create `src/styles/study.css` with only the first layout primitives:
+`study.css` initial rule:
 
 ```css
 .study-shell {
@@ -218,16 +215,14 @@ Create `src/styles/study.css` with only the first layout primitives:
 }
 ```
 
-- [ ] **Step 5: Verify test and production build**
-
-Run:
+- [ ] **Step 5: Verify**
 
 ```bash
 npm test -- src/study/ui/study-app.test.tsx
 npm run build
 ```
 
-Expected: both PASS; `dist/study/index.html` exists.
+Expected: PASS; `dist/study/index.html` exists.
 
 - [ ] **Step 6: Commit**
 
@@ -238,7 +233,7 @@ git commit -m "feat: add study app React surface"
 
 ---
 
-### Task 2: Define the qualification-content contracts and YAML parser
+### Task 2: Domain contracts, YAML schemas, and content loader
 
 **Files:**
 - Create: `src/study/domain/content-types.ts`
@@ -247,29 +242,23 @@ git commit -m "feat: add study app React surface"
 - Create: `src/study/content/load-content.ts`
 
 **Interfaces:**
-- Produces: `parseManifest(raw: string): QualificationManifest`.
-- Produces: `parseKnowledgeFile(raw: string): KnowledgeNode[]`.
-- Produces: `parseHandbookFile(raw: string): HandbookEntry[]`.
-- Produces: `parseStoryFile(raw: string): StoryCase`.
-- Produces: `loadContentPacks(): QualificationPack[]` for the React app.
+- Produces `parseManifest`, `parseKnowledgeFile`, `parseHandbookFile`, `parseStoryFile`.
+- Produces `loadContentPacks(): QualificationPack[]`.
+- No UI/storage imports are allowed in this task.
 
-- [ ] **Step 1: Write schema tests for a minimal valid case and an invalid knowledge reference shape**
+- [ ] **Step 1: Write failing parser tests**
 
-Create `src/study/domain/content-schema.test.ts`:
+Test a valid decision story and rejection of a choice lacking `next`:
 
 ```ts
-import { describe, expect, it } from 'vitest';
-import { parseStoryFile } from './content-schema';
-
-describe('parseStoryFile', () => {
-  it('parses a decision and explicit ending rule', () => {
-    const story = parseStoryFile(`
+const story = parseStoryFile(`
 id: warehouse
 qualificationId: hazardous-materials
 section: otsu4-seisho
 title: ガソリン臭のする倉庫
+summary: 漏洩した危険物への初動を判断する。
 durationMinutes: 12
-dimensions: [identification, ignition]
+dimensions: [ignition]
 variants:
   - id: gasoline-leak
     startScene: arrival
@@ -301,49 +290,18 @@ variants:
         default: true
         text: 着火源への対応が不十分だった。
 `);
-    expect(story.variants[0].endings[0].id).toBe('controlled');
-  });
-
-  it('rejects a decision choice without a next scene', () => {
-    expect(() => parseStoryFile(`
-id: broken
-qualificationId: hazardous-materials
-section: otsu4-seisho
-title: 壊れたケース
-durationMinutes: 10
-dimensions: [ignition]
-variants:
-  - id: broken-v1
-    startScene: arrival
-    targetKnowledge: []
-    scenes:
-      arrival:
-        kind: decision
-        text: 状況
-        choices:
-          - id: bad
-            text: 選ぶ
-            learning: []
-    endings:
-      - id: end
-        default: true
-        text: 終了
-`)).toThrow();
-  });
-});
+expect(story.variants[0].id).toBe('gasoline-leak');
 ```
 
-- [ ] **Step 2: Run the test and verify it fails**
+Run and expect failure:
 
 ```bash
 npm test -- src/study/domain/content-schema.test.ts
 ```
 
-Expected: FAIL because parser/types do not exist.
+- [ ] **Step 2: Define stable types**
 
-- [ ] **Step 3: Define the stable TypeScript domain interfaces**
-
-Create `src/study/domain/content-types.ts` with these exported interfaces and unions:
+Create these exact core types:
 
 ```ts
 export type LearningMode = 'encounter' | 'apply' | 'discriminate' | 'recall';
@@ -368,9 +326,13 @@ export interface KnowledgeNode {
   id: string;
   title: string;
   statement: string;
+  examConnection: string | null;
   section: string;
   tags: string[];
-  relations: { type: 'prerequisite' | 'contrasts_with' | 'example_of' | 'derived_from' | 'used_with'; target: string }[];
+  relations: {
+    type: 'prerequisite' | 'contrasts_with' | 'example_of' | 'derived_from' | 'used_with';
+    target: string;
+  }[];
   sources: string[];
 }
 
@@ -427,6 +389,7 @@ export interface StoryCase {
   qualificationId: string;
   section: string;
   title: string;
+  summary: string;
   durationMinutes: number;
   dimensions: string[];
   recommendedFirst: boolean;
@@ -441,11 +404,19 @@ export interface QualificationPack {
 }
 ```
 
-- [ ] **Step 4: Implement Zod schemas and parsers**
+- [ ] **Step 3: Implement Zod parsers**
 
-Create `src/study/domain/content-schema.ts`. Each YAML parser must call `YAML.parse`, validate with Zod, and normalize omitted optional collections to empty arrays/objects. For story choices, `effects` defaults to `{}`; for story cases, `recommendedFirst` defaults to `false`; for non-default endings, `when` defaults to `[]`; exactly one default ending is checked later by pack validation.
+Each parser calls `YAML.parse`, validates with Zod, and normalizes optional collections. Rules:
 
-Expose exactly:
+```text
+StoryChoice.effects defaults to {}
+StoryCase.recommendedFirst defaults to false
+KnowledgeNode.examConnection defaults to null
+non-default StoryEnding.when defaults to []
+LearningSignalDefinition.result is constrained to 0..1
+```
+
+Expose:
 
 ```ts
 export function parseManifest(raw: string): QualificationManifest;
@@ -454,11 +425,9 @@ export function parseHandbookFile(raw: string): HandbookEntry[];
 export function parseStoryFile(raw: string): StoryCase;
 ```
 
-For every `LearningSignalDefinition.result`, enforce `0 <= result <= 1`.
+- [ ] **Step 4: Implement browser content loading**
 
-- [ ] **Step 5: Implement the browser bundle loader**
-
-Create `src/study/content/load-content.ts` using raw eager Vite globs:
+Use raw eager Vite globs:
 
 ```ts
 const files = import.meta.glob('/src/study-content/**/*.yaml', {
@@ -468,32 +437,25 @@ const files = import.meta.glob('/src/study-content/**/*.yaml', {
 }) as Record<string, string>;
 ```
 
-Group files by qualification directory, parse the one `manifest.yaml`, all `knowledge/*.yaml`, all `handbook/*.yaml`, and all `stories/*.yaml`, then return `QualificationPack[]` from:
+Group files by qualification directory and expose:
 
 ```ts
 export function loadContentPacks(): QualificationPack[];
 ```
 
-Do not perform graph validation here; Task 3 provides reusable pack validation.
+This function parses but does not perform graph validation.
 
-- [ ] **Step 6: Run tests**
+- [ ] **Step 5: Verify and commit**
 
 ```bash
 npm test -- src/study/domain/content-schema.test.ts
-```
-
-Expected: PASS.
-
-- [ ] **Step 7: Commit**
-
-```bash
 git add src/study/domain/content-types.ts src/study/domain/content-schema.ts src/study/domain/content-schema.test.ts src/study/content/load-content.ts
 git commit -m "feat: define study content contracts"
 ```
 
 ---
 
-### Task 3: Build reusable content validation and fail-fast build integration
+### Task 3: Content graph validator and build gate
 
 **Files:**
 - Create: `src/study/domain/validate-pack.ts`
@@ -502,42 +464,30 @@ git commit -m "feat: define study content contracts"
 - Modify: `package.json`
 
 **Interfaces:**
-- Consumes: `QualificationPack` from Task 2.
-- Produces: `validatePack(pack: QualificationPack): ValidationReport`.
-- Produces: CLI command `npm run validate:study` with exit code `1` on structural errors.
+- Produces `validatePack(pack): ValidationReport`.
+- CLI exits `1` for structural errors and `0` when only warnings remain.
 
 - [ ] **Step 1: Write failing validation tests**
 
-Create `src/study/domain/validate-pack.test.ts` with a helper that builds a minimal valid pack, then assert these exact failures independently:
+Create minimal packs and assert exact codes:
 
 ```ts
-expect(validatePack(packWithUnknownKnowledge).errors).toContainEqual(
-  expect.objectContaining({ code: 'UNKNOWN_KNOWLEDGE_ID' }),
-);
-expect(validatePack(packWithMissingScene).errors).toContainEqual(
-  expect.objectContaining({ code: 'UNKNOWN_SCENE_TARGET' }),
-);
-expect(validatePack(packWithUnreachableScene).errors).toContainEqual(
-  expect.objectContaining({ code: 'UNREACHABLE_SCENE' }),
-);
-expect(validatePack(packWithNoDefaultEnding).errors).toContainEqual(
-  expect.objectContaining({ code: 'INVALID_DEFAULT_ENDING_COUNT' }),
-);
+expect(report.errors).toContainEqual(expect.objectContaining({ code: 'UNKNOWN_KNOWLEDGE_ID' }));
+expect(report.errors).toContainEqual(expect.objectContaining({ code: 'UNKNOWN_SCENE_TARGET' }));
+expect(report.errors).toContainEqual(expect.objectContaining({ code: 'UNREACHABLE_SCENE' }));
+expect(report.errors).toContainEqual(expect.objectContaining({ code: 'INVALID_DEFAULT_ENDING_COUNT' }));
+expect(report.warnings).toContainEqual(expect.objectContaining({ code: 'NO_STORY_COVERAGE' }));
 ```
 
-Also assert a knowledge node with no story reference produces a warning with code `NO_STORY_COVERAGE`, not an error.
-
-- [ ] **Step 2: Run the test and verify failure**
+Run:
 
 ```bash
 npm test -- src/study/domain/validate-pack.test.ts
 ```
 
-Expected: FAIL because `validatePack` does not exist.
+Expected: FAIL.
 
-- [ ] **Step 3: Implement graph validation and coverage reporting**
-
-Define:
+- [ ] **Step 2: Implement validation contracts**
 
 ```ts
 export interface ValidationMessage {
@@ -560,95 +510,70 @@ export interface ValidationReport {
   warnings: ValidationMessage[];
   coverage: CoverageRow[];
 }
-
-export function validatePack(pack: QualificationPack): ValidationReport;
 ```
 
-Validation must check:
+Validator checks all of these:
 
 ```text
-manifest/source references exist
-knowledge relation targets exist
-handbook knowledge/source references exist
-story targetKnowledge references exist
-learning knowledge IDs exist
-choice next scene targets exist
-startScene exists
-all scenes are reachable from startScene
-resolution scenes can select an ending
+manifest section/source IDs
+knowledge source references
+knowledge relation targets
+handbook source and knowledge references
+story section/targetKnowledge/learning references
+story start scenes and choice targets
+scene reachability
 exactly one default ending per variant
-no graph cycle can avoid every resolution scene
-all content section IDs exist in manifest
-all story dimensions referenced by effects exist in story.dimensions
+all effect dimensions declared by story
+resolution reachability
+cycles that can avoid every resolution forever
 ```
 
-Coverage counts are computed from `learning` definitions; a `targetKnowledge` listing alone does not count as encounter/apply/discriminate/recall coverage.
+Coverage is counted from `learning` definitions, not `targetKnowledge` declarations.
 
-- [ ] **Step 4: Implement the CLI**
+- [ ] **Step 3: Implement CLI**
 
-`scripts/validate-study-content.ts` must read `src/study-content/*` from the filesystem, call the Task 2 parsers, run `validatePack`, print one compact report per qualification, and set `process.exitCode = 1` if any errors exist.
+`scripts/validate-study-content.ts` reads every pack from `src/study-content/`, uses Task 2 parsers, validates, prints errors/warnings/coverage, and sets `process.exitCode = 1` when structural errors exist. Zero content packs is an error.
 
-On success, print a line in this form:
+- [ ] **Step 4: Wire validation before current prebuild commands**
 
-```text
-hazardous-materials: 0 errors, 12 warnings, 42 knowledge nodes
-```
-
-The numbers come from the actual report; do not hard-code them.
-
-- [ ] **Step 5: Wire validator before existing prebuild work**
-
-Modify `package.json` so the existing `prebuild` command begins with:
+Prefix the existing `prebuild` command with:
 
 ```text
 npm run validate:study &&
 ```
 
-Keep every existing Python figure-generation command after it and preserve `build: astro build`.
+Do not remove any existing Python figure-generation commands.
 
-- [ ] **Step 6: Verify tests and CLI behavior against a temporary invalid fixture created inside the test only**
-
-Run:
+- [ ] **Step 5: Verify and commit**
 
 ```bash
 npm test -- src/study/domain/validate-pack.test.ts
-```
-
-Expected: PASS.
-
-At this point `npm run validate:study` may report that no production content packs exist; the CLI should treat zero packs as an error with code `NO_CONTENT_PACKS` so deployment cannot silently ship an empty study app.
-
-- [ ] **Step 7: Commit**
-
-```bash
 git add src/study/domain/validate-pack.ts src/study/domain/validate-pack.test.ts scripts/validate-study-content.ts package.json
 git commit -m "feat: validate study content at build time"
 ```
 
 ---
 
-### Task 4: Implement the pure Story Engine
+### Task 4: Pure Story Engine
 
 **Files:**
 - Create: `src/study/domain/story-engine.ts`
 - Create: `src/study/domain/story-engine.test.ts`
 
 **Interfaces:**
-- Consumes: `StoryCase`, `StoryVariant`, `Assistance`, `LearningSignalDefinition`.
-- Produces: `startStorySession`, `advanceNarrative`, `choose`, `markAssistance`, `resolveEnding`.
-- Later tasks persist the returned `StorySession` unchanged.
+- Produces immutable story sessions and emitted learning events.
 
 - [ ] **Step 1: Write failing progression tests**
 
-Define a two-decision test story. Assert:
+Test start, choice effects, handbook assistance, narrative advance, invalid choice rejection, and ending resolution:
 
 ```ts
 const session = startStorySession(story, 'gasoline-leak', now);
 expect(session.sceneId).toBe('arrival');
 
-const afterChoice = choose(story, session, 'stop-ignition', now);
-expect(afterChoice.session.dimensions.ignition).toBe(1);
-expect(afterChoice.learningEvents[0]).toMatchObject({
+const outcome = choose(story, session, 'stop-ignition', now);
+expect(outcome.session.dimensions.ignition).toBe(1);
+expect(outcome.learningEvents[0]).toMatchObject({
   knowledgeId: 'class4.gasoline.vapor',
   mode: 'apply',
   result: 1,
@@ -656,19 +581,7 @@ expect(afterChoice.learningEvents[0]).toMatchObject({
 });
 ```
 
-Also test that a handbook mark applied before the choice changes emitted assistance to `handbook`, and that a resolution scene selects the first matching non-default ending before the default ending.
-
-- [ ] **Step 2: Run and verify failure**
-
-```bash
-npm test -- src/study/domain/story-engine.test.ts
-```
-
-Expected: FAIL because the engine does not exist.
-
-- [ ] **Step 3: Define session/event contracts in `story-engine.ts`**
-
-Use these exact runtime shapes:
+- [ ] **Step 2: Define runtime shapes**
 
 ```ts
 export interface LearningEvent {
@@ -695,9 +608,7 @@ export interface StorySession {
 }
 ```
 
-- [ ] **Step 4: Implement deterministic pure functions**
-
-Expose:
+- [ ] **Step 3: Implement pure functions**
 
 ```ts
 export function startStorySession(story: StoryCase, variantId: string, now: Date): StorySession;
@@ -707,9 +618,7 @@ export function choose(story: StoryCase, session: StorySession, choiceId: string
 export function resolveEnding(story: StoryCase, session: StorySession): StoryEnding;
 ```
 
-`choose` must reject choice IDs not present in the current decision scene. `advanceNarrative` must only advance `narrative` scenes. On entering a `resolution` scene, set `endingId` from `resolveEnding`. No function mutates its input object.
-
-Comparison behavior for ending conditions is exact:
+Ending comparisons are exact:
 
 ```ts
 const comparisons = {
@@ -719,24 +628,19 @@ const comparisons = {
 };
 ```
 
-- [ ] **Step 5: Run tests**
+No function mutates inputs. Entering a `resolution` scene sets `endingId`.
+
+- [ ] **Step 4: Verify and commit**
 
 ```bash
 npm test -- src/study/domain/story-engine.test.ts
-```
-
-Expected: PASS.
-
-- [ ] **Step 6: Commit**
-
-```bash
 git add src/study/domain/story-engine.ts src/study/domain/story-engine.test.ts
 git commit -m "feat: add deterministic story engine"
 ```
 
 ---
 
-### Task 5: Implement learning-state derivation and variant recommendation
+### Task 5: Learning Engine and deterministic recommendation
 
 **Files:**
 - Create: `src/study/domain/learning-engine.ts`
@@ -745,12 +649,12 @@ git commit -m "feat: add deterministic story engine"
 - Create: `src/study/domain/recommendation.test.ts`
 
 **Interfaces:**
-- Consumes: `LearningEvent[]`, knowledge nodes, story variants, case history.
-- Produces: `deriveKnowledgeState(events, now)` and `rankVariants(pack, events, caseHistory, now)`.
+- Does not depend on storage types.
+- Produces `deriveKnowledgeState` and `rankVariants`.
 
-- [ ] **Step 1: Write failing learning-state tests with fixed dates**
+- [ ] **Step 1: Write failing mastery tests**
 
-Assert an unaided success scores higher than a handbook-assisted success and that old evidence has lower weight than recent evidence:
+Use fixed time:
 
 ```ts
 const now = new Date('2026-09-14T00:00:00Z');
@@ -762,11 +666,9 @@ expect(state.apply).toBeGreaterThan(0.75);
 expect(state.helpDependence).toBe(0.5);
 ```
 
-Also test empty history returns zeros and never produces `NaN`.
+Also assert empty histories return finite zeros.
 
-- [ ] **Step 2: Implement the transparent MVP learning model**
-
-Use these exact factors:
+- [ ] **Step 2: Implement the MVP learning model**
 
 ```ts
 const assistanceFactor: Record<Assistance, number> = {
@@ -779,13 +681,13 @@ const assistanceFactor: Record<Assistance, number> = {
 const recencyWeight = (ageDays: number) => Math.exp(-ageDays / 90);
 ```
 
-For a given mode, compute:
+For each mode:
 
 ```text
 weightedScore = sum(result * assistanceFactor * recencyWeight) / sum(recencyWeight)
 ```
 
-Derive:
+Return:
 
 ```ts
 export interface KnowledgeState {
@@ -802,66 +704,64 @@ export interface KnowledgeState {
 Rules:
 
 ```text
-encounter = min(1, total events / 3)
-apply = weightedScore(apply events), or 0
- discriminate = weightedScore(discriminate events), or 0
-recall = weightedScore(recall events) when recall events exist
-recall fallback = apply * exp(-days since latest successful unaided apply / 45)
-helpDependence = assisted event count / total event count
+encounter = min(1, eventCount / 3)
+apply/discriminate = weighted score or 0
+recall = recall weighted score when recall evidence exists
+recall fallback = apply * exp(-daysSinceLatestSuccessfulUnaidedApply / 45)
+helpDependence = assistedEventCount / eventCount
 ```
 
-Clamp every score to `[0, 1]`.
+Clamp scores to `[0,1]`.
 
-- [ ] **Step 3: Write failing recommendation tests**
-
-Construct two variants where one targets a weak knowledge node and one targets a strong node. Assert the weak-target variant ranks first. Assert ties are broken by `caseId` then `variantId` so recommendations are deterministic.
-
-- [ ] **Step 4: Implement recommendation**
-
-For each knowledge node:
-
-```text
-priority = 0.35*(1-apply) + 0.25*(1-discriminate) + 0.25*(1-recall) + 0.15*recencyGap
-recencyGap = min(1, daysSinceLastSeen / 30), or 1 when never seen
-```
-
-Variant score is the arithmetic mean priority of its `targetKnowledge` nodes. Subtract `0.05` if that exact `(caseId, variantId)` was the learner's most recent completed variant; do not make the penalty cumulative.
-
-Expose:
+- [ ] **Step 3: Define recommendation input independent of persistence**
 
 ```ts
+export interface VariantVisit {
+  caseId: string;
+  variantId: string;
+  completedAt: string;
+}
+
 export interface RankedVariant {
   caseId: string;
   variantId: string;
   score: number;
 }
+```
 
+`rankVariants` signature:
+
+```ts
 export function rankVariants(
   pack: QualificationPack,
   events: LearningEvent[],
-  caseHistory: CaseHistoryEntry[],
+  visits: VariantVisit[],
   now: Date,
 ): RankedVariant[];
 ```
 
-- [ ] **Step 5: Run tests**
+- [ ] **Step 4: Write failing recommendation tests and implement ranking**
+
+Priority per node:
+
+```text
+0.35*(1-apply) + 0.25*(1-discriminate) + 0.25*(1-recall) + 0.15*recencyGap
+recencyGap = min(1, daysSinceLastSeen/30), or 1 if unseen
+```
+
+Variant score is mean priority of its `targetKnowledge`. Subtract `0.05` only if the exact variant is the most recent completed visit. Break ties by `caseId`, then `variantId`.
+
+- [ ] **Step 5: Verify and commit**
 
 ```bash
 npm test -- src/study/domain/learning-engine.test.ts src/study/domain/recommendation.test.ts
-```
-
-Expected: PASS.
-
-- [ ] **Step 6: Commit**
-
-```bash
 git add src/study/domain/learning-engine.ts src/study/domain/learning-engine.test.ts src/study/domain/recommendation.ts src/study/domain/recommendation.test.ts
 git commit -m "feat: derive mastery and recommend variants"
 ```
 
 ---
 
-### Task 6: Add IndexedDB persistence with an in-memory fallback
+### Task 6: IndexedDB repository, resume support, and safe recovery
 
 **Files:**
 - Create: `src/study/storage/repository.ts`
@@ -869,29 +769,24 @@ git commit -m "feat: derive mastery and recommend variants"
 - Create: `src/study/storage/repository.test.ts`
 
 **Interfaces:**
-- Consumes: `LearningEvent`, `StorySession`.
-- Produces: a common `StudyRepository` used by UI code.
-- Produces: `createStudyRepository(): Promise<{ repository: StudyRepository; persistent: boolean }>`.
+- Produces `StudyRepository` and `createStudyRepository`.
+- Storage converts `CaseHistoryEntry[]` to Task 5 `VariantVisit[]` at the UI boundary; recommendation never imports repository types.
 
 - [ ] **Step 1: Write failing persistence tests**
 
-Test the following exact behavior:
+Test append/list events, save/load session, atomic completion, and history:
 
 ```ts
 await repo.appendLearningEvents([learningEvent]);
-expect(await repo.listLearningEvents()).toEqual([expect.objectContaining({ knowledgeId: learningEvent.knowledgeId })]);
-
+expect(await repo.listLearningEvents()).toHaveLength(1);
 await repo.saveActiveSession(session);
 expect(await repo.loadActiveSession(session.caseId)).toMatchObject({ variantId: session.variantId });
-
 await repo.completeSession(session, 'controlled', completedAt);
 expect(await repo.loadActiveSession(session.caseId)).toBeNull();
 expect(await repo.listCaseHistory()).toHaveLength(1);
 ```
 
 - [ ] **Step 2: Define storage contracts**
-
-Add:
 
 ```ts
 export interface CaseHistoryEntry {
@@ -904,6 +799,13 @@ export interface CaseHistoryEntry {
   choiceHistory: StorySession['choiceHistory'];
 }
 
+export interface StudySnapshot {
+  schemaVersion: number;
+  learningEvents: LearningEvent[];
+  caseHistory: CaseHistoryEntry[];
+  activeSessions: StorySession[];
+}
+
 export interface StudyRepository {
   appendLearningEvents(events: LearningEvent[]): Promise<void>;
   listLearningEvents(): Promise<LearningEvent[]>;
@@ -912,44 +814,64 @@ export interface StudyRepository {
   listActiveSessions(): Promise<StorySession[]>;
   completeSession(session: StorySession, endingId: string, completedAt: Date): Promise<void>;
   listCaseHistory(): Promise<CaseHistoryEntry[]>;
+  exportSnapshot(): Promise<StudySnapshot>;
+}
+
+export interface RepositoryBootstrap {
+  repository: StudyRepository;
+  persistent: boolean;
+  warning: 'none' | 'unavailable' | 'incompatible-schema';
+  recoverySnapshot: StudySnapshot | null;
 }
 ```
 
-- [ ] **Step 3: Implement IndexedDB schema version 1**
+- [ ] **Step 3: Implement IndexedDB v1**
 
-Use database name `qualification-study` and these stores:
+Database: `qualification-study`, version `1`.
+
+Stores:
 
 ```text
-learning-events  keyPath: id, autoIncrement
-case-history     keyPath: id
-active-sessions  keyPath: caseId
-settings         keyPath: key
+learning-events  keyPath id, autoIncrement
+case-history     keyPath id
+active-sessions  keyPath caseId
+settings         keyPath key
 ```
 
-`completeSession` must write case history and delete the matching active session in one readwrite transaction.
+Write `{ key: 'schema-version', value: 1 }` during upgrade. `completeSession` writes history and removes the active session in one transaction.
 
-- [ ] **Step 4: Implement memory fallback**
+- [ ] **Step 4: Implement memory fallback and incompatible-version recovery**
 
-`MemoryStudyRepository` implements the same interface using arrays/maps. `createStudyRepository()` tries opening IndexedDB; on open failure it returns `{ repository: new MemoryStudyRepository(), persistent: false }` without throwing.
+Normal IndexedDB open failure returns an empty `MemoryStudyRepository`, `persistent:false`, `warning:'unavailable'`.
 
-- [ ] **Step 5: Run persistence tests**
+For `VersionError`, open the existing DB without specifying a version, read recognized stores if present, create a `StudySnapshot`, close it without writes, then return:
+
+```ts
+{
+  repository: new MemoryStudyRepository(),
+  persistent: false,
+  warning: 'incompatible-schema',
+  recoverySnapshot,
+}
+```
+
+Never delete or downgrade the existing database.
+
+- [ ] **Step 5: Test incompatible DB preservation**
+
+In fake IndexedDB, create `qualification-study` version `2` containing recognized v1 stores, insert one event, then call `createStudyRepository()`. Assert `warning === 'incompatible-schema'`, `recoverySnapshot.learningEvents.length === 1`, and the original version-2 DB still exists.
+
+- [ ] **Step 6: Verify and commit**
 
 ```bash
 npm test -- src/study/storage/repository.test.ts
-```
-
-Expected: PASS using fake IndexedDB.
-
-- [ ] **Step 6: Commit**
-
-```bash
 git add src/study/storage/repository.ts src/study/storage/memory-repository.ts src/study/storage/repository.test.ts
-git commit -m "feat: persist study progress locally"
+git commit -m "feat: persist and recover study progress"
 ```
 
 ---
 
-### Task 7: Author the 乙4 性消 knowledge catalog, provenance, and handbook
+### Task 7: Sourced 乙4 性消 knowledge catalog and handbook
 
 **Files:**
 - Create: `src/study-content/hazardous-materials/manifest.yaml`
@@ -960,40 +882,39 @@ git commit -m "feat: persist study progress locally"
 - Create: `src/study-content/hazardous-materials/handbook/classification.yaml`
 - Create: `src/study-content/hazardous-materials/handbook/fire-response.yaml`
 - Create: `docs/study-content/otsu4-seisho-coverage.md`
+- Modify: `src/study/domain/validate-pack.ts`
 - Modify: `src/study/domain/validate-pack.test.ts`
 
 **Interfaces:**
-- Produces: the canonical curriculum graph for the initial qualification section.
-- Produces: source IDs consumed by every factual knowledge and handbook entry.
-- Consumes: Task 2 schemas and Task 3 validator.
+- Produces the canonical curriculum/source graph for initial 乙4 content.
 
-- [ ] **Step 1: Establish authoritative source policy in the manifest**
+- [ ] **Step 1: Add failing provenance tests**
 
-`manifest.yaml` must define qualification ID `hazardous-materials`, section ID `otsu4-seisho`, and source entries. Use primary or official public sources for claims: the Fire and Disaster Management Agency, the Institute of Scientific Approaches for Fire & Disaster, e-Gov statutes/regulations, the Fire Safety & Disaster Preparedness Institute where applicable, and official manufacturer/government SDS documents for substance properties. Every source entry has `id`, `label`, exact `https` URL, and `checkedAt: 2026-09-14` or the actual later verification date used during implementation.
+Assert knowledge/handbook entries with empty `sources` fail `MISSING_PROVENANCE`, unknown source IDs fail `UNKNOWN_SOURCE_ID`, non-HTTPS source URLs fail `INVALID_SOURCE_URL`, and malformed dates fail `INVALID_SOURCE_DATE`.
 
-Do not cite third-party exam-prep blogs as factual provenance.
+- [ ] **Step 2: Implement provenance validation**
 
-- [ ] **Step 2: Add a failing provenance validation test**
+Every knowledge node and handbook entry needs at least one manifest source. Source URL must be HTTPS; `checkedAt` must match `YYYY-MM-DD`.
 
-Extend validator tests so a knowledge node with `sources: []` or an unknown source ID produces structural error code `MISSING_PROVENANCE` or `UNKNOWN_SOURCE_ID` respectively. Handbook entries follow the same rule.
+- [ ] **Step 3: Author source registry from authoritative material**
 
-Run:
+Use current primary/official sources available at implementation time: Fire and Disaster Management Agency resources, e-Gov statutes/regulations, official fire-science/government publications, and official SDS documents for substance-specific physical properties. Do not use exam-prep blogs as factual provenance.
 
-```bash
-npm test -- src/study/domain/validate-pack.test.ts
+The manifest must include:
+
+```yaml
+id: hazardous-materials
+title: 危険物取扱者
+sections:
+  - id: otsu4-seisho
+    title: 乙種第4類・性質／火災予防／消火
 ```
 
-Expected: FAIL until Task 3 validation is extended.
+Every source stores its exact URL and actual verification date.
 
-- [ ] **Step 3: Extend validation for provenance and pass the test**
+- [ ] **Step 4: Build the human-auditable curriculum checklist**
 
-Every production knowledge node and handbook entry must have at least one valid source reference. A source URL must parse as HTTPS and `checkedAt` must match `YYYY-MM-DD`.
-
-Run the same validator test and expect PASS.
-
-- [ ] **Step 4: Author the curriculum graph by explicit section checklist**
-
-`docs/study-content/otsu4-seisho-coverage.md` must contain these headings and list the knowledge IDs implemented under each:
+`docs/study-content/otsu4-seisho-coverage.md` headings:
 
 ```text
 第4類共通の性質
@@ -1011,305 +932,208 @@ Run the same validator test and expect PASS.
 蒸気・静電気・着火源に関する判断
 ```
 
-For every knowledge node, write one atomic `statement`, tags, relevant relations, and source IDs. Avoid embedding exam-question wording in the knowledge node; the node represents the underlying fact or rule.
+Under each heading list the implemented knowledge IDs and their source IDs. Each knowledge node is atomic enough to be applied or discriminated in a decision.
 
-- [ ] **Step 5: Author the initial handbook as a reference tool, not a second textbook**
+- [ ] **Step 5: Author the handbook**
 
-`classification.yaml` summarizes classification and identification cues linked to knowledge IDs. `fire-response.yaml` summarizes fire-prevention and extinguishing decision cues linked to knowledge IDs. Keep each entry short enough to consult during a case.
+`classification.yaml` contains concise classification/identification references; `fire-response.yaml` contains concise fire-prevention/extinguishing decision references. Each entry links existing knowledge IDs and source IDs.
 
-- [ ] **Step 6: Validate the pack**
+- [ ] **Step 6: Validate**
 
 ```bash
 npm run validate:study
 ```
 
-Expected: `0 errors`; `NO_STORY_COVERAGE` warnings are expected because story files are added in Tasks 8–10.
+Expected: `0 errors`; `NO_STORY_COVERAGE` warnings are expected before Tasks 8–10.
 
 - [ ] **Step 7: Commit**
 
 ```bash
-git add src/study-content/hazardous-materials docs/study-content/otsu4-seisho-coverage.md src/study/domain/validate-pack.test.ts src/study/domain/validate-pack.ts
+git add src/study-content/hazardous-materials docs/study-content/otsu4-seisho-coverage.md src/study/domain/validate-pack.ts src/study/domain/validate-pack.test.ts
 git commit -m "feat: add sourced otsu4 knowledge catalog"
 ```
 
 ---
 
-### Task 8: Author and engine-test 「ガソリン臭のする倉庫」
+### Task 8: Author three replayable story cases with two variants each
 
 **Files:**
 - Create: `src/study-content/hazardous-materials/stories/warehouse.yaml`
-- Create: `src/study/domain/warehouse-story.test.ts`
-
-**Interfaces:**
-- Produces case ID: `warehouse`.
-- Produces variant IDs: `gasoline-leak` and `ether-container`.
-- Targets: common Class 4 behavior, vapor behavior, ignition-source control, spill/fire response.
-
-- [ ] **Step 1: Write the engine-level acceptance test before the YAML exists**
-
-The test loads the content pack and asserts:
-
-```ts
-const warehouse = pack.stories.find((story) => story.id === 'warehouse');
-expect(warehouse?.variants.map((variant) => variant.id)).toEqual([
-  'gasoline-leak',
-  'ether-container',
-]);
-expect(warehouse?.durationMinutes).toBeGreaterThanOrEqual(10);
-expect(warehouse?.durationMinutes).toBeLessThanOrEqual(15);
-```
-
-Then follow one safe path through each variant and assert it reaches a non-null ending in no fewer than 5 decision choices and no more than 8 decision choices.
-
-- [ ] **Step 2: Run and verify failure**
-
-```bash
-npm test -- src/study/domain/warehouse-story.test.ts
-```
-
-Expected: FAIL because `warehouse.yaml` does not exist.
-
-- [ ] **Step 3: Author the case with consequence-first feedback**
-
-Both variants use the same broad narrative setting but change substance/evidence. Required decision themes:
-
-```text
-1. first action on noticing odor/leak evidence
-2. avoid or create an ignition-source risk
-3. reason about where vapor may accumulate
-4. choose containment/ventilation action from provided context
-5. choose an appropriate fire-response action
-```
-
-At least one branch must demonstrate a plausible adverse consequence without displaying a `wrong answer` label. Branches may rejoin after the consequence scene. Every factual learning signal references existing knowledge IDs.
-
-- [ ] **Step 4: Add ending rules that reflect multiple dimensions**
-
-Use at least `identification`, `ignition`, and `containment` dimensions. Include at least three endings per variant: controlled response, partial containment with a remaining hazard, and incident escalation. Exactly one ending is default.
-
-- [ ] **Step 5: Run case and validation tests**
-
-```bash
-npm test -- src/study/domain/warehouse-story.test.ts
-npm run validate:study
-```
-
-Expected: PASS and `0 errors`.
-
-- [ ] **Step 6: Commit**
-
-```bash
-git add src/study-content/hazardous-materials/stories/warehouse.yaml src/study/domain/warehouse-story.test.ts
-git commit -m "feat: add warehouse hazardous materials case"
-```
-
----
-
-### Task 9: Author and engine-test 「溶剤を扱う作業場」
-
-**Files:**
 - Create: `src/study-content/hazardous-materials/stories/solvent-workplace.yaml`
-- Create: `src/study/domain/solvent-story.test.ts`
+- Create: `src/study-content/hazardous-materials/stories/unknown-liquid.yaml`
+- Create: `src/study/domain/story-content.test.ts`
 
 **Interfaces:**
-- Produces case ID: `solvent-workplace`.
-- Produces variant IDs: `ethanol-spill` and `toluene-spill`.
-- Targets: water-solubility distinction, alcohol/non-alcohol identification cues, vapor/fire prevention, extinguishing choice.
+- Produces case IDs `warehouse`, `solvent-workplace`, `unknown-liquid`.
+- Produces exactly these initial variant IDs:
+  - `warehouse`: `gasoline-leak`, `ether-container`
+  - `solvent-workplace`: `ethanol-spill`, `toluene-spill`
+  - `unknown-liquid`: `unknown-gasoline`, `unknown-kerosene`
 
-- [ ] **Step 1: Write the failing content acceptance test**
+- [ ] **Step 1: Write failing content acceptance tests**
 
-Assert both variant IDs exist, each has 5–8 decision points along the authored safe path, and the union of learning signals contains at least one `discriminate` event for a water-solubility-related knowledge node.
+Assert all three cases exist, duration is 10–15 minutes, each has at least two variants, and each authored safe path has 5–8 decisions before resolution.
 
-- [ ] **Step 2: Run and verify failure**
+Assert `unknown-liquid` first decision text/choices do not reveal the hidden substance name.
 
-```bash
-npm test -- src/study/domain/solvent-story.test.ts
-```
+Assert the union of learning signals includes `apply`, `discriminate`, and `recall` modes.
 
-Expected: FAIL because the story does not exist.
-
-- [ ] **Step 3: Author both variants around the same workplace incident**
-
-The learner receives observations rather than a lecture, uses the handbook if desired, and must distinguish the response implications of the two authored substances. No choice text should include the words `正解` or `不正解`.
+- [ ] **Step 2: Author `warehouse.yaml`**
 
 Required decision themes:
 
 ```text
-1. identify which information is relevant
-2. distinguish water-solubility behavior
-3. avoid ignition-source creation
-4. select spill/fire response based on properties
-5. reassess after a consequence adds new information
+initial response to odor/leak
+action that may create/avoid ignition source
+vapor accumulation reasoning
+containment/ventilation choice
+fire-response choice
 ```
 
-- [ ] **Step 4: Validate endings and learning mappings**
+Use at least dimensions `identification`, `ignition`, `containment`. At least three endings per variant: controlled, partial containment/remaining hazard, escalation. Exactly one default ending.
 
-Use dimensions `identification`, `ignition`, `extinguishing`. At least one outcome must show that preventing ignition can succeed even when substance identification was imperfect, so the ending is not a disguised total score.
+- [ ] **Step 3: Author `solvent-workplace.yaml`**
 
-- [ ] **Step 5: Run tests and validator**
-
-```bash
-npm test -- src/study/domain/solvent-story.test.ts
-npm run validate:study
-```
-
-Expected: PASS and `0 errors`.
-
-- [ ] **Step 6: Commit**
-
-```bash
-git add src/study-content/hazardous-materials/stories/solvent-workplace.yaml src/study/domain/solvent-story.test.ts
-git commit -m "feat: add solvent workplace case"
-```
-
----
-
-### Task 10: Author and engine-test 「正体不明の液体」
-
-**Files:**
-- Create: `src/study-content/hazardous-materials/stories/unknown-liquid.yaml`
-- Create: `src/study/domain/unknown-liquid-story.test.ts`
-
-**Interfaces:**
-- Produces case ID: `unknown-liquid`.
-- Produces variant IDs: `unknown-gasoline` and `unknown-kerosene`.
-- Targets: transfer from observed properties to classification and safe handling without relying on name recognition.
-
-- [ ] **Step 1: Write the failing transfer test**
-
-Assert neither variant reveals the substance name in the first decision scene text or choice labels, and both variants emit at least one `discriminate` and one `recall` learning signal before resolution.
-
-- [ ] **Step 2: Run and verify failure**
-
-```bash
-npm test -- src/study/domain/unknown-liquid-story.test.ts
-```
-
-Expected: FAIL because the story does not exist.
-
-- [ ] **Step 3: Author evidence-driven variants**
-
-The learner should receive property clues gradually. Required decision themes:
+Required themes:
 
 ```text
-1. decide which observation or document to inspect first
-2. infer risk from flash-point/classification information supplied in-world
-3. reason about vapor/fire behavior
-4. choose a handling response
-5. choose a fire-response action
-6. state the most plausible classification at the end
+select relevant evidence
+distinguish water-solubility implications
+avoid ignition source
+choose spill/fire response
+reassess after new consequence information
 ```
 
-The substance identity may be revealed only in the final narrative/debrief phase.
+Use dimensions `identification`, `ignition`, `extinguishing`. Include an ending where ignition prevention succeeds despite imperfect identification.
 
-- [ ] **Step 4: Use multiple dimensions and distinct outcomes**
+- [ ] **Step 4: Author `unknown-liquid.yaml`**
 
-Use `identification`, `ignition`, `extinguishing`, and `evidence` dimensions. At least one ending must represent a safe operational response despite incomplete identification, reinforcing that safe reasoning is not equivalent to memorizing a label.
+Required themes:
 
-- [ ] **Step 5: Run tests, validator, and coverage report**
+```text
+choose useful evidence first
+infer risk from provided property information
+reason about vapor/fire behavior
+choose handling response
+choose fire response
+make final classification inference
+```
+
+Use dimensions `identification`, `ignition`, `extinguishing`, `evidence`. At least one ending must be operationally safe despite incomplete identification.
+
+- [ ] **Step 5: Enforce consequence-first wording**
+
+No choice/consequence text may contain `正解` or `不正解`. Factual claims must map to sourced knowledge IDs; do not duplicate unsupported facts only in prose.
+
+- [ ] **Step 6: Verify**
 
 ```bash
-npm test -- src/study/domain/unknown-liquid-story.test.ts
+npm test -- src/study/domain/story-content.test.ts
 npm run validate:study
 ```
 
-Expected: PASS and `0 errors`. Review remaining `NO_STORY_COVERAGE` warnings against `docs/study-content/otsu4-seisho-coverage.md`; they are allowed in MVP because three cases do not claim complete story coverage.
+Expected: PASS, `0 structural errors`. Remaining coverage warnings are compared with `docs/study-content/otsu4-seisho-coverage.md` and are allowed in MVP.
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 7: Commit**
 
 ```bash
-git add src/study-content/hazardous-materials/stories/unknown-liquid.yaml src/study/domain/unknown-liquid-story.test.ts
-git commit -m "feat: add unknown liquid transfer case"
+git add src/study-content/hazardous-materials/stories src/study/domain/story-content.test.ts
+git commit -m "feat: add initial otsu4 story cases"
 ```
 
 ---
 
-### Task 11: Build Case Library, variant recommendation, and resume entry points
+### Task 9: Qualification picker, case library, recommendation, and storage warnings
 
 **Files:**
 - Modify: `src/study/ui/StudyApp.tsx`
+- Create: `src/study/ui/QualificationPicker.tsx`
 - Create: `src/study/ui/CaseLibrary.tsx`
 - Create: `src/study/ui/StorageWarning.tsx`
 - Modify: `src/study/ui/study-app.test.tsx`
 - Modify: `src/styles/study.css`
 
 **Interfaces:**
-- Consumes: `loadContentPacks`, `createStudyRepository`, `rankVariants`.
-- Produces: selectable case cards, one advisory recommendation, and `resume` action for active sessions.
+- Consumes content packs, repository bootstrap, learning events/history, Task 5 recommendation.
+- Produces qualification selection before case selection.
 
-- [ ] **Step 1: Replace the shell test with a failing case-library flow test**
+- [ ] **Step 1: Write failing navigation test**
 
-Render `StudyApp`, await content load, and assert these three case titles are visible:
+Test flow:
 
 ```text
-ガソリン臭のする倉庫
-溶剤を扱う作業場
-正体不明の液体
+render StudyApp
+see 危険物取扱者 qualification card
+select it
+see the three case titles
+all three start buttons are enabled
+one case has a recommendation indicator
 ```
 
-Assert all three have enabled start buttons, proving recommendation does not lock other cases.
-
-- [ ] **Step 2: Implement repository/content bootstrap in `StudyApp`**
+- [ ] **Step 2: Implement application bootstrap**
 
 On mount:
 
 ```text
-load validated content packs
+load content packs
 create repository
-load learning events
+load events
 load case history
 load active sessions
-compute ranked variants
 ```
 
-Store a small discriminated UI state:
+Use UI state:
 
 ```ts
 type ScreenState =
-  | { screen: 'library' }
-  | { screen: 'story'; caseId: string; session: StorySession }
-  | { screen: 'debrief'; caseId: string; historyId: string }
-  | { screen: 'knowledge' };
+  | { screen: 'qualifications' }
+  | { screen: 'library'; qualificationId: string }
+  | { screen: 'story'; qualificationId: string; caseId: string; session: StorySession }
+  | { screen: 'debrief'; qualificationId: string; caseId: string; historyId: string }
+  | { screen: 'knowledge'; qualificationId: string };
 ```
 
-- [ ] **Step 3: Implement `CaseLibrary`**
+- [ ] **Step 3: Implement QualificationPicker and CaseLibrary**
 
-Each card shows title, approximate duration, a short premise taken from story metadata added to the schema as `summary: string`, completion count, and recommendation badge when its highest-ranked variant is first overall. Add `summary` to Task 2 story schema/type and all three YAML stories in this same commit.
+QualificationPicker shows `manifest.title`. CaseLibrary shows title, summary, 10–15 minute estimate, completion count, optional recommendation badge, and `続きから` for active sessions.
 
-For an active session, show `続きから` rather than creating a new session.
+Convert history to recommendation input without importing storage types into recommendation:
 
-- [ ] **Step 4: Implement storage fallback warning**
+```ts
+const visits = history.map(({ caseId, variantId, completedAt }) => ({
+  caseId,
+  variantId,
+  completedAt,
+}));
+```
 
-When repository bootstrap returns `persistent: false`, show:
+All cases remain selectable regardless of recommendation.
+
+- [ ] **Step 4: Implement storage warning/recovery UI**
+
+For `unavailable` show:
 
 ```text
-このブラウザでは学習履歴を保存できません。現在のセッションはこのページを閉じると失われます。
+このブラウザでは学習履歴を保存できません。現在のセッションはページを閉じると失われます。
 ```
 
-Do not prevent play.
+For `incompatible-schema`, show that existing data was left untouched and expose a `既存データを書き出す` button that serializes `recoverySnapshot` as JSON using `Blob` + object URL. This is emergency recovery only; import/sync remain excluded.
 
-- [ ] **Step 5: Add responsive layout rules**
+- [ ] **Step 5: Responsive CSS**
 
-Use the site's existing typography/colors via inherited CSS. Add only study-specific card/grid/button states in `study.css`. Mobile layout must remain usable at 360px viewport width with one-column cards and buttons at least 44px high.
+Use inherited site typography/colors. Cards become one column at 360px; interactive controls have minimum height 44px.
 
-- [ ] **Step 6: Run UI tests**
+- [ ] **Step 6: Verify and commit**
 
 ```bash
 npm test -- src/study/ui/study-app.test.tsx
-```
-
-Expected: PASS.
-
-- [ ] **Step 7: Commit**
-
-```bash
-git add src/study/ui/StudyApp.tsx src/study/ui/CaseLibrary.tsx src/study/ui/StorageWarning.tsx src/study/ui/study-app.test.tsx src/styles/study.css src/study/domain/content-types.ts src/study/domain/content-schema.ts src/study-content/hazardous-materials/stories
-git commit -m "feat: add study case library"
+git add src/study/ui/StudyApp.tsx src/study/ui/QualificationPicker.tsx src/study/ui/CaseLibrary.tsx src/study/ui/StorageWarning.tsx src/study/ui/study-app.test.tsx src/styles/study.css
+git commit -m "feat: add qualification and case selection"
 ```
 
 ---
 
-### Task 12: Build Story Player, handbook assistance, and autosave
+### Task 10: Story Player, handbook assistance, autosave, and resume
 
 **Files:**
 - Create: `src/study/ui/StoryPlayer.tsx`
@@ -1319,58 +1143,59 @@ git commit -m "feat: add study case library"
 - Modify: `src/styles/study.css`
 
 **Interfaces:**
-- Consumes: Story Engine, handbook entries, `StudyRepository`.
-- Produces: consequence-first interactive play and resumable progress.
+- Consumes Story Engine, handbook entries, StudyRepository.
+- Produces consequence-first play with persisted progress.
 
-- [ ] **Step 1: Write the failing interactive-flow test**
+- [ ] **Step 1: Write failing interaction test**
 
-Open `warehouse`, choose a decision, and assert the next narrative/consequence text appears while neither `正解` nor `不正解` appears anywhere. Open the handbook, click one entry, then choose a decision mapped to that entry's knowledge node and verify the persisted learning event has `assistance: 'handbook'`.
+Open `warehouse`, choose a decision, assert consequence text appears, and assert the document does not contain `正解` or `不正解`. Open a handbook entry linked to the next decision's knowledge node, choose that decision, and verify the stored learning event has `assistance:'handbook'`.
 
-- [ ] **Step 2: Implement scene rendering by discriminated scene type**
-
-`StoryPlayer` behavior:
+- [ ] **Step 2: Implement scene rendering**
 
 ```text
-narrative -> text + one 続ける button
- decision -> text + choice buttons
-resolution -> ending text + ケースを振り返る button
+narrative -> text + 続ける
+decision -> text + choice buttons
+resolution -> ending text + ケースを振り返る
 ```
 
-Do not show internal dimensions, learning event scores, or correct/incorrect labels during play.
+Do not display internal dimensions/mastery during the case.
 
-- [ ] **Step 3: Implement handbook drawer**
+- [ ] **Step 3: Implement handbook tracking**
 
-`HandbookDrawer` lists handbook entries for the active qualification. Opening an entry calls `markAssistance` for its `knowledgeIds` and persists the updated active session immediately. Merely opening the drawer without an entry does not count as assistance.
+Opening a specific handbook entry calls:
 
-- [ ] **Step 4: Persist every meaningful transition**
+```ts
+markAssistance(session, entry.knowledgeIds, 'handbook', now)
+```
 
-After `advanceNarrative`, `choose`, or `markAssistance`:
+Opening/closing the drawer alone does not count as assistance.
+
+- [ ] **Step 4: Autosave every state transition**
+
+After narrative advance, choice, or assistance mark:
 
 ```text
-save updated active session
-append emitted learning events, if any
+save active session
+append any emitted learning events
 ```
 
-When a resolution ending is reached, do not call `completeSession` until the learner selects `ケースを振り返る`; this guarantees the ending remains resumable after a tab close.
+When resolution is reached, leave the ended session active until `ケースを振り返る` is selected so a refresh on the ending screen can resume safely.
 
-- [ ] **Step 5: Run UI and engine tests**
+- [ ] **Step 5: Resume test**
+
+Start a case, make two choices, unmount the app, remount with the same fake IndexedDB, enter the same qualification/case, click `続きから`, and assert the previously persisted scene is restored.
+
+- [ ] **Step 6: Verify and commit**
 
 ```bash
 npm test -- src/study/ui/study-app.test.tsx src/study/domain/story-engine.test.ts
-```
-
-Expected: PASS.
-
-- [ ] **Step 6: Commit**
-
-```bash
 git add src/study/ui/StoryPlayer.tsx src/study/ui/HandbookDrawer.tsx src/study/ui/StudyApp.tsx src/study/ui/study-app.test.tsx src/styles/study.css
 git commit -m "feat: add branching story player"
 ```
 
 ---
 
-### Task 13: Build Debrief and simple/detailed Knowledge View
+### Task 11: Debrief and simple/detailed learning-state views
 
 **Files:**
 - Create: `src/study/ui/Debrief.tsx`
@@ -1380,12 +1205,12 @@ git commit -m "feat: add branching story player"
 - Modify: `src/styles/study.css`
 
 **Interfaces:**
-- Consumes: completed `StorySession`, learning events, `deriveKnowledgeState`, knowledge nodes, handbook entries.
-- Produces: narrative consequence review and inspectable learning-state views.
+- Consumes ended StorySession, case data, knowledge graph, events, Learning Engine.
+- Produces debrief and both learner-facing mastery views.
 
 - [ ] **Step 1: Write failing debrief test**
 
-Complete a short case in the UI test, click `ケースを振り返る`, and assert the debrief contains:
+Complete a case and assert debrief includes:
 
 ```text
 あなたの判断
@@ -1394,27 +1219,28 @@ Complete a short case in the UI test, click `ケースを振り返る`, and asse
 試験ではどう問われるか
 ```
 
-Also assert at least one relevant knowledge-node title is shown.
+At least one related knowledge title must be visible.
 
-- [ ] **Step 2: Implement session completion handoff**
+- [ ] **Step 2: Implement completion handoff**
 
-When entering Debrief:
+When `ケースを振り返る` is selected:
 
 ```text
-repository.completeSession(session, endingId, now)
-reload case history
-recompute recommendations
+completeSession(session, endingId, now)
+reload history/events
+recompute recommendation
+navigate to debrief
 ```
 
-The debrief derives its decision list from `choiceHistory` and story data rather than storing duplicate prose in history.
+Debrief reconstructs choice labels/consequence context from story data plus `choiceHistory`; it does not store duplicate story prose in IndexedDB.
 
-- [ ] **Step 3: Implement `Debrief` without turning it into a score page**
+- [ ] **Step 3: Implement consequence-to-knowledge debrief**
 
-For each major decision, show choice text, resulting consequence scene/ending context, linked knowledge statements, and handbook links. Add an `examConnection` optional string field to `KnowledgeNode` schema/type and author concise exam-style connection notes only where useful; this is explanatory prose, not a full bank of quiz questions.
+Show major choice, observed consequence, linked atomic knowledge statements, handbook links, and `examConnection` when present. Do not show a single overall percentage score.
 
 - [ ] **Step 4: Implement simple Knowledge View**
 
-Default view groups nodes by curriculum section and converts derived state to these text bands:
+Text bands:
 
 ```text
 apply >= 0.8 and recall >= 0.7 -> 安定して使えている
@@ -1423,71 +1249,68 @@ encounter > 0 -> もう一度別の状況で使いたい
 encounter == 0 -> まだケースで扱っていない
 ```
 
-Add one sentence when `helpDependence >= 0.5`: `資料を参照しながら使った経験が多い。`
+If `helpDependence >= 0.5`, append `資料を参照しながら使った経験が多い。`
 
 - [ ] **Step 5: Implement detailed Knowledge View**
 
-A toggle labelled `詳細を見る` exposes numeric `encounter`, `apply`, `discriminate`, `recall`, `helpDependence`, `eventCount`, and `lastSeenAt`. Use accessible HTML progress bars/tables; do not add a charting library for MVP.
+`詳細を見る` reveals numeric `encounter`, `apply`, `discriminate`, `recall`, `helpDependence`, `eventCount`, and `lastSeenAt`. Use accessible progress/table elements; do not add a chart library.
 
-- [ ] **Step 6: Run UI tests**
+- [ ] **Step 6: Verify and commit**
 
 ```bash
 npm test -- src/study/ui/study-app.test.tsx
-```
-
-Expected: PASS.
-
-- [ ] **Step 7: Commit**
-
-```bash
-git add src/study/ui/Debrief.tsx src/study/ui/KnowledgeView.tsx src/study/ui/StudyApp.tsx src/study/ui/study-app.test.tsx src/styles/study.css src/study/domain/content-types.ts src/study/domain/content-schema.ts src/study-content/hazardous-materials/knowledge
+git add src/study/ui/Debrief.tsx src/study/ui/KnowledgeView.tsx src/study/ui/StudyApp.tsx src/study/ui/study-app.test.tsx src/styles/study.css
 git commit -m "feat: add debrief and knowledge views"
 ```
 
 ---
 
-### Task 14: Integrate navigation, end-to-end checks, and deployment gate
+### Task 12: Site integration, full checks, and deployment readiness
 
 **Files:**
 - Modify: `src/components/SiteHeader.astro`
 - Modify: `src/study/ui/study-app.test.tsx`
 - Modify: `package.json`
+- Modify: `package-lock.json`
 - Modify: `README.md`
 
 **Interfaces:**
-- Consumes all preceding tasks.
-- Produces a discoverable `/study/` application that cannot deploy with broken content or failing tests.
+- Produces a discoverable `/study/` application and one repeatable verification command.
 
-- [ ] **Step 1: Add Study to the site header**
+- [ ] **Step 1: Add Study navigation**
 
-Insert before `About`:
+Before `About` in `SiteHeader.astro`:
 
 ```astro
 <a href="/study/" aria-current={path.startsWith('/study') ? 'page' : undefined}>Study</a>
 ```
 
-- [ ] **Step 2: Add one complete UI integration test**
+- [ ] **Step 2: Add one full UI integration flow**
 
-The test must:
+The test must execute:
 
 ```text
-render app
-open warehouse case
-make at least five decisions
-open one handbook entry
-reach an ending
-open debrief
+qualification picker
+warehouse case selection
+>=5 decisions
+one handbook entry opened
+ending reached
+debrief opened
 return to case library
-verify completion count increased
-open Knowledge View
-verify one detailed mastery row can be displayed
+completion count increased
+Knowledge View opened
+detailed mastery row displayed
 ```
 
-Use deterministic variant selection by injecting a fixed `now` and a repository seeded with no history; `warehouse/gasoline-leak` should be marked `recommendedFirst: true` in content and win the initial tie.
+Seed an empty repository and fixed clock. Mark `warehouse` as `recommendedFirst:true`; initial deterministic tie behavior must choose `warehouse/gasoline-leak`.
 
-- [ ] **Step 3: Add a single CI-quality check script**
+- [ ] **Step 3: Add Astro type checking and combined study check**
 
-Add to `package.json`:
+```bash
+npm install -D @astrojs/check typescript
+```
+
+Add:
 
 ```json
 {
@@ -1495,17 +1318,11 @@ Add to `package.json`:
 }
 ```
 
-Install `@astrojs/check` and `typescript` as dev dependencies if not already present:
+Do not add another deployment workflow. Existing Pages deployment remains authoritative; `prebuild` already runs content validation.
 
-```bash
-npm install -D @astrojs/check typescript
-```
+- [ ] **Step 4: Document development and storage behavior**
 
-Do not add a second GitHub Actions workflow. The existing Pages workflow remains the deployment mechanism; `prebuild` already runs the content validator.
-
-- [ ] **Step 4: Document local development and content commands**
-
-Add a `Study app` section to `README.md` with exactly these commands and purposes:
+README `Study app` section documents:
 
 ```bash
 npm run dev
@@ -1515,11 +1332,9 @@ npm run check:study
 npm run build
 ```
 
-Document that learning history is browser-local IndexedDB and that deleting site data resets it.
+Also state that normal learning history is browser-local IndexedDB, clearing site data resets it, and emergency JSON export appears only when an incompatible stored schema is detected.
 
-- [ ] **Step 5: Run the full verification suite**
-
-Run:
+- [ ] **Step 5: Run automated verification**
 
 ```bash
 npm run validate:study
@@ -1531,32 +1346,32 @@ npm run build
 Expected:
 
 ```text
-validator: 0 structural errors
-Vitest: all tests pass
-Astro check: 0 errors
-Astro build: exits 0 and emits dist/study/index.html
+0 structural content errors
+all Vitest tests pass
+Astro check exits 0
+Astro build exits 0
+dist/study/index.html exists
 ```
 
-Coverage warnings are allowed only when they correspond to nodes listed as not yet story-covered in `docs/study-content/otsu4-seisho-coverage.md`.
+Coverage warnings are acceptable only when the corresponding nodes are explicitly listed as not yet story-covered in `docs/study-content/otsu4-seisho-coverage.md`.
 
-- [ ] **Step 6: Manually smoke-test the production build**
-
-Run:
+- [ ] **Step 6: Smoke-test production preview**
 
 ```bash
 npm run preview
 ```
 
-Verify in a browser:
+Verify:
 
 ```text
-/study/ loads directly
-all three cases can be started in any order
-refresh during a case resumes it
-handbook remains usable on mobile width
-ending does not stop before the final debrief action
-learning state changes after completion
-existing /notes/, /topics/, /now/, and /about/ still render
+/study/ direct load works
+qualification picker opens 危険物取扱者
+all three cases are selectable in any order
+refresh during a case resumes progress
+handbook is usable at mobile width
+ending waits for explicit debrief transition
+completion changes learning state/recommendation
+/notes/, /topics/, /now/, /about/ still render
 ```
 
 - [ ] **Step 7: Commit**
@@ -1570,7 +1385,7 @@ git commit -m "feat: integrate study platform into site"
 
 ## Final Verification Gate
 
-Before declaring the MVP complete, run all of the following from a clean checkout with dependencies installed:
+Run from a clean checkout after dependency installation:
 
 ```bash
 npm run validate:study
@@ -1579,19 +1394,26 @@ npx astro check
 npm run build
 ```
 
-Then verify the implementation against the design spec section by section:
+Then confirm every spec requirement has evidence:
 
 ```text
-Product principles: consequence-first, no early game over, cases unordered
-Architecture: Astro + React + YAML + IndexedDB + validator
-Knowledge model: provenance + relations + coverage report
-Learning state: event log is canonical, E/A/D/R/H derived
-Handbook: use is recorded but not blocked or scored as failure
-Recommendation: weak concepts select new authored variants
-MVP content: 3 cases, >=2 variants each
-Debrief: decisions -> consequences -> knowledge -> exam connection
-Storage: resume, history, memory fallback
-Extensibility: qualification-specific data does not enter Story Engine
+Qualification selection exists before case library.
+Cases are unordered and recommendation never locks content.
+Story decisions show consequences, not immediate correct/incorrect labels.
+No early failure termination exists.
+Each of 3 cases has >=2 authored variants.
+Handbook use is recorded as assistance, not failure.
+Learning events are persisted as canonical history.
+E/A/D/R/H state is derived and inspectable in simple + detailed forms.
+Variant recommendation targets weak concepts rather than failed question IDs.
+Knowledge nodes and handbook entries have authoritative provenance.
+Validator reports encounter/apply/discriminate/recall coverage.
+Interrupted cases resume.
+IndexedDB failure falls back to memory without blocking play.
+Incompatible future DB versions are not deleted and known data is recoverable as JSON.
+Debrief connects decisions -> consequences -> knowledge -> exam framing.
+Story/learning engines contain no 乙4-specific logic.
+Existing Astro pages still build and render.
 ```
 
-If any item is not demonstrably satisfied by code/tests/content, fix it before opening or merging the implementation PR.
+If any line above cannot be demonstrated by test, validator output, source data, or manual smoke check, fix it before opening or merging the implementation PR.
