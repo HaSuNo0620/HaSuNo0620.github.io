@@ -1,18 +1,34 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { openDB } from 'idb';
 import { describe, expect, it } from 'vitest';
 import StudyApp from './StudyApp';
 
 describe('StudyApp', () => {
-  it('renders qualification selection then all unordered cases', async () => {
+  it('navigates from qualification selection into consequence-first case play and records handbook assistance', async () => {
     render(<StudyApp />);
-    expect(screen.getByRole('heading', { name: '資格学習' })).toBeInTheDocument();
-    const qualification = await screen.findByRole('heading', { name: '危険物取扱者' });
-    expect(qualification).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: '危険物取扱者' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'ケースを見る' }));
-    expect(await screen.findByText('ガソリン臭のする倉庫')).toBeInTheDocument();
-    expect(screen.getByText('溶剤を扱う作業場')).toBeInTheDocument();
-    expect(screen.getByText('正体不明の液体')).toBeInTheDocument();
-    expect(screen.getAllByRole('button', { name: 'このケースを始める' })).toHaveLength(3);
-    expect(screen.getByText('今やるならこれ')).toBeInTheDocument();
+    const caseHeading = await screen.findByText('ガソリン臭のする倉庫');
+    const card = caseHeading.closest('article');
+    expect(card).not.toBeNull();
+    fireEvent.click(within(card!).getByRole('button', { name: 'このケースを始める' }));
+
+    expect(await screen.findByText(/倉庫の扉を開けると強い石油系の臭気/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /照明スイッチには触れず/ }));
+    expect(await screen.findByText(/着火源を増やさずに状況確認へ進める/)).toBeInTheDocument();
+    expect(document.body.textContent).not.toMatch(/正解|不正解/);
+
+    fireEvent.click(screen.getByRole('button', { name: '続ける' }));
+    expect(await screen.findByText(/床付近で臭気が強く/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '危険物手帳' }));
+    fireEvent.click(await screen.findByRole('button', { name: '着火源と蒸気' }));
+    fireEvent.click(screen.getByRole('button', { name: /床面や低所へ蒸気/ }));
+
+    await waitFor(async () => {
+      const db = await openDB('qualification-study');
+      const events = await db.getAll('learning-events');
+      db.close();
+      expect(events.some((event: { assistance?: string }) => event.assistance === 'handbook')).toBe(true);
+    });
   });
 });
