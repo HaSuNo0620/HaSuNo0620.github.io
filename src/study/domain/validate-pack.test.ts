@@ -5,14 +5,11 @@ import { validatePack } from './validate-pack';
 function basePack(): QualificationPack {
   return {
     manifest: {
-      id: 'hazardous-materials',
-      title: '危険物取扱者',
+      id: 'hazardous-materials', title: '危険物取扱者',
       sections: [{ id: 'otsu4-seisho', title: '性質・火災予防・消火' }],
       sources: [{ id: 'official', label: 'Official', url: 'https://example.com', checkedAt: '2026-09-14' }],
     },
-    knowledge: [{
-      id: 'k1', title: 'K1', statement: 'fact', examConnection: null, section: 'otsu4-seisho', tags: [], relations: [], sources: ['official'],
-    }],
+    knowledge: [{ id: 'k1', title: 'K1', statement: 'fact', examConnection: null, section: 'otsu4-seisho', tags: [], relations: [], sources: ['official'] }],
     handbook: [],
     stories: [{
       id: 'case', qualificationId: 'hazardous-materials', section: 'otsu4-seisho', title: 'Case', summary: 'summary', durationMinutes: 10,
@@ -30,17 +27,15 @@ function basePack(): QualificationPack {
 }
 
 describe('validatePack', () => {
-  it('accepts a structurally valid pack', () => {
+  it('accepts a structurally valid pack and counts coverage', () => {
     const report = validatePack(basePack());
     expect(report.errors).toEqual([]);
-    expect(report.coverage[0].modes).toContain('apply');
+    expect(report.coverage[0]).toMatchObject({ knowledgeId: 'k1', apply: 2 });
   });
 
   it('reports unknown knowledge and scene targets', () => {
     const pack = basePack();
-    pack.stories[0].variants[0].scenes.start = {
-      kind: 'decision', text: 'broken', choices: [{ id: 'c', text: 'go', next: 'missing', effects: {}, learning: [{ knowledgeId: 'missing', mode: 'apply', result: 1 }] }],
-    };
+    pack.stories[0].variants[0].scenes.start = { kind: 'decision', text: 'broken', choices: [{ id: 'c', text: 'go', next: 'missing', effects: {}, learning: [{ knowledgeId: 'missing', mode: 'apply', result: 1 }] }] };
     const report = validatePack(pack);
     expect(report.errors).toContainEqual(expect.objectContaining({ code: 'UNKNOWN_KNOWLEDGE_ID' }));
     expect(report.errors).toContainEqual(expect.objectContaining({ code: 'UNKNOWN_SCENE_TARGET' }));
@@ -58,7 +53,17 @@ describe('validatePack', () => {
   it('warns when a knowledge node has no story coverage', () => {
     const pack = basePack();
     pack.knowledge.push({ id: 'k2', title: 'K2', statement: 'fact', examConnection: null, section: 'otsu4-seisho', tags: [], relations: [], sources: ['official'] });
+    expect(validatePack(pack).warnings).toContainEqual(expect.objectContaining({ code: 'NO_STORY_COVERAGE' }));
+  });
+
+  it('requires provenance and validates source metadata', () => {
+    const pack = basePack();
+    pack.knowledge[0].sources = [];
+    pack.manifest.sources[0].url = 'http://example.com';
+    pack.manifest.sources[0].checkedAt = '2026-99-99';
     const report = validatePack(pack);
-    expect(report.warnings).toContainEqual(expect.objectContaining({ code: 'NO_STORY_COVERAGE' }));
+    expect(report.errors).toContainEqual(expect.objectContaining({ code: 'MISSING_PROVENANCE' }));
+    expect(report.errors).toContainEqual(expect.objectContaining({ code: 'INVALID_SOURCE_URL' }));
+    expect(report.errors).toContainEqual(expect.objectContaining({ code: 'INVALID_SOURCE_DATE' }));
   });
 });

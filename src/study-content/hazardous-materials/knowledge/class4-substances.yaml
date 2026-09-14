@@ -1,0 +1,121 @@
+knowledge:
+  - id: class4.gasoline.first
+    title: ガソリンは第一石油類
+    statement: ガソリンは消防法の第一石油類の代表例である。
+    examConnection: 代表物質と品名区分の対応。
+    section: otsu4-seisho
+    tags: [ガソリン, 第一石油類]
+    relations: [{ type: example_of, target: class4.classification.first }]
+    sources: [fdma-fire-law]
+  - id: class4.gasoline.flash
+    title: ガソリンは常温で容易に引火し得る
+    statement: ガソリンの引火点は非常に低く、NITEは灯油より著しく低いことを事故防止情報で示している。
+    examConnection: ガソリンと灯油の危険性比較。
+    section: otsu4-seisho
+    tags: [ガソリン, 引火点]
+    relations: [{ type: used_with, target: class4.prevention.avoid-ignition }]
+    sources: [nite-stove, pubchem-gasoline]
+  - id: class4.gasoline.vapor
+    title: ガソリン蒸気は低所へ広がり得る
+    statement: ガソリンの蒸気は空気より重く、漏洩蒸気が着火源まで移動して引火する危険がある。
+    examConnection: 蒸気の挙動と着火源管理。
+    section: otsu4-seisho
+    tags: [ガソリン, 蒸気]
+    relations: [{ type: used_with, target: class4.prevention.limit-vapor }]
+    sources: [pubchem-gasoline]
+  - id: class4.gasoline.water
+    title: ガソリンは水に溶けにくい
+    statement: ガソリンは水に不溶で水より軽いという性質を持つ。
+    examConnection: 水との関係を問う識別問題。
+    section: otsu4-seisho
+    tags: [ガソリン, 水溶性]
+    relations: [{ type: contrasts_with, target: class4.ethanol.water }]
+    sources: [pubchem-gasoline]
+  - id: class4.kerosene.second
+    title: 灯油は第二石油類
+    statement: 灯油は消防法の第二石油類の代表例である。
+    examConnection: 代表物質と品名区分の対応。
+    section: otsu4-seisho
+    tags: [灯油, 第二石油類]
+    relations: [{ type: example_of, target: class4.classification.second }]
+    sources: [fdma-fire-law]
+  - id: class4.kerosene.flash
+    title: 灯油の引火点はガソリンより高い
+    statement: 灯油はガソリンより引火点が高く、NITEも両者の危険性の違いを事故防止情報で示している。
+    examConnection: ガソリンと灯油の識別。
+    section: otsu4-seisho
+    tags: [灯油, 引火点]
+    relations: [{ type: contrasts_with, target: class4.gasoline.flash }]
+    sources: [nite-stove, pubchem-kerosene]
+  - id: class4.kerosene.water
+    title: 灯油は水に溶けにくい
+    statement: 灯油は水に不溶で水より軽い。
+    examConnection: 物質の性質による識別。
+    section: otsu4-seisho
+    tags: [灯油, 水溶性]
+    relations: []
+    sources: [pubchem-kerosene]
+  - id: class4.ethanol.alcohol
+    title: エタノールはアルコール類
+    statement: エタノールは炭素数2の飽和一価アルコールで、消防法上のアルコール類に該当する。
+    examConnection: アルコール類の代表物質。
+    section: otsu4-seisho
+    tags: [エタノール, アルコール類]
+    relations: [{ type: example_of, target: class4.classification.alcohol }]
+    sources: [fdma-fire-law, pubchem-ethanol]
+  - id: class4.ethanol.water
+    title: エタノールは水とよく混ざる
+    statement: エタノールは水溶性の引火性液体として扱われ、非水溶性の石油系液体と消火上の考え方が異なる。
+    examConnection: 水溶性危険物と非水溶性危険物の識別。
+    section: otsu4-seisho
+    tags: [エタノール, 水溶性]
+    relations: [{ type: contrasts_with, target: class4.gasoline.water }]
+    sources: [pubchem-ethanol, pubchem-alcohol-fire]
+  - id: class4.toluene.first
+    title: トルエンは第一石油類
+    statement: トルエンは低い引火点を持ち、第一石油類の引火点範囲に入る。
+    examConnection: 代表的溶剤の分類。
+    section: otsu4-seisho
+    tags: [トルエン, 第一石油類]
+    relations: [{ type: example_of, target: class4.classification.first }]
+    sources: [fdma-fire-law, pubchem-toluene]
+  - id: class4.toluene.water
+    title: トルエンは水に溶けにくい
+    statement: トルエンは水にほとんど溶けず、水より軽い。
+    examConnection: 溶剤の水溶性識別。
+    section: otsu4-seisho
+    tags: [トルエン, 水溶性]
+    relations: [{ type: contrasts_with, target: class4.ethanol.water }]
+    sources: [pubchem-toluene]
+  - id: class4.toluene.vapor
+    title: トルエン蒸気は空気より重い
+    statement: トルエン蒸気は空気より重く、低所や閉所での蒸気滞留を考慮する必要がある。
+    examConnection: 蒸気密度と火災予防。
+    section: otsu4-seisho
+    tags: [トルエン, 蒸気]
+    relations: [{ type: used_with, target: class4.prevention.limit-vapor }]
+    sources: [pubchem-toluene]
+  - id: class4.ether.special
+    title: ジエチルエーテルは特殊引火物
+    statement: ジエチルエーテルは消防法で特殊引火物の代表例として挙げられている。
+    examConnection: 特殊引火物の代表物質。
+    section: otsu4-seisho
+    tags: [ジエチルエーテル, 特殊引火物]
+    relations: [{ type: example_of, target: class4.classification.special }]
+    sources: [fdma-fire-law]
+  - id: class4.ether.boiling
+    title: ジエチルエーテルは沸点が低い
+    statement: ジエチルエーテルは常圧沸点がおよそ35℃で、非常に揮発しやすい。
+    examConnection: 特殊引火物の危険性を性質から理解する。
+    section: otsu4-seisho
+    tags: [ジエチルエーテル, 沸点]
+    relations: [{ type: used_with, target: class4.prevention.limit-vapor }]
+    sources: [pubchem-ether]
+  - id: class4.ether.vapor
+    title: ジエチルエーテル蒸気は空気より重い
+    statement: ジエチルエーテル蒸気は空気より重く、蒸気の移動と着火源を同時に考える必要がある。
+    examConnection: 揮発性と蒸気密度の組合せ。
+    section: otsu4-seisho
+    tags: [ジエチルエーテル, 蒸気]
+    relations: [{ type: used_with, target: class4.prevention.avoid-ignition }]
+    sources: [pubchem-ether]

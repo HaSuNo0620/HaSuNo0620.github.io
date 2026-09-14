@@ -1,0 +1,25 @@
+knowledge:
+  - id: class4.response.remove-ignition
+    title: 漏洩時は着火源を増やさない
+    statement: 第4類の漏洩を疑う場面では、火花や高温体など新たな着火源を作らない判断が基本になる。
+    examConnection: 火災予防の場面判断。
+    section: otsu4-seisho
+    tags: [初動, 着火源]
+    relations: [{ type: derived_from, target: class4.prevention.avoid-ignition }]
+    sources: [egov-decree]
+  - id: class4.response.vapor-low-areas
+    title: 蒸気の滞留場所を考える
+    statement: 空気より重い蒸気を生じる物質では、床面や低所、閉所への広がりを想定して着火源から隔離する必要がある。
+    examConnection: 蒸気密度から危険箇所を推定する。
+    section: otsu4-seisho
+    tags: [初動, 蒸気]
+    relations: [{ type: used_with, target: class4.gasoline.vapor }]
+    sources: [pubchem-gasoline, pubchem-toluene, pubchem-ether]
+  - id: class4.response.identify-before-action
+    title: 物質の性質を確認してから対応を選ぶ
+    statement: 引火性液体は水溶性、引火点、蒸気の性質などが異なるため、物質・性質を確認せず同一の対応を当てはめない。
+    examConnection: 性質から火災予防・消火方法を選ぶ総合問題。
+    section: otsu4-seisho
+    tags: [初動, 識別]
+    relations: []
+    sources: [fdma-fire-law, egov-decree]
