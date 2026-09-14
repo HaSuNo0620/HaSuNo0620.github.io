@@ -235,7 +235,7 @@ $$
 
 という固定点を作る。
 
-## 7. $Z$ の幅は不均衡とは限らない
+## 7. $p$ を $Z$ に写すと、価格差の見え方が変わる
 
 この例では
 
@@ -253,9 +253,31 @@ $$
 Z_B=p_B^*-10q_B\approx-13.29.
 $$
 
-![実価格と品質調整価格](/figures/nash-bertrand-price-competition/price-vs-quality-adjusted-price.svg)
+実価格だけを見ると
 
-*差別化市場では、均衡していても品質調整価格は一致しない。*
+$$
+p_A-p_B\approx17.97
+$$
+
+とかなり差がある。一方、品質価値 $\theta q_i$ を差し引いて比較すると
+
+$$
+|Z_A-Z_B|\approx2.03
+$$
+
+まで縮む。
+
+![実価格から品質調整価格への変換](/figures/nash-bertrand-price-competition/price-vs-quality-adjusted-price.svg)
+
+*実価格の差の多くは品質差を補正すると消える。ただし $Z_A=Z_B$ にはならず、均衡markupや費用差などの寄与が残る。*
+
+ここで重要なのは、$p$ と $Z$ を別々の量として大小比較することではない。見るべきなのは
+
+$$
+\boxed{p_i\longrightarrow Z_i=p_i-\theta q_i}
+$$
+
+という変換で、商品間の距離がどう変わるかである。
 
 $\gamma=\alpha/\lambda$ とおけば価格条件は
 
