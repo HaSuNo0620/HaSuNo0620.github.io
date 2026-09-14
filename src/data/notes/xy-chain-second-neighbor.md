@@ -2,47 +2,46 @@
 title: "1次元XY模型 — 第二近接相互作用と螺旋的な空間記憶"
 summary: "最近接XY鎖に第二近接相互作用を加えると、独立だった角度差が相互作用し、競合相互作用から有限twist、chirality、有限波数応答が生まれる。基底状態、低温揺らぎ、transfer operator、空間変調外場への応答を通して、phase diffusionがcorrelated driftへ変わる過程を整理する。"
 publishedAt: 2026-09-13T22:40:00+09:00
-updatedAt: 2026-09-13
+updatedAt: 2026-09-14
 area: "Physics"
 topics: ["statistical mechanics", "XY model", "second-neighbor interaction", "frustration", "helical order", "chirality", "correlation", "transfer operator", "linear response"]
 status: growing
 ---
 
-最近接XY鎖では、角度差
+最近接XY鎖では
 
 $$
 \phi_i=\theta_{i+1}-\theta_i
 $$
 
-が独立だった。そのため遠距離の角度は、独立な小さな回転を足し合わせる **phase diffusion** として理解できた。
+が独立で、遠距離の角度は独立な小回転の和としてphase diffusionした。
 
-第二近接相互作用を加えると、この単純さがちょうど壊れる。
+第二近接を加えると
 
 $$
 \boxed{
 \text{independent phase increments}
 \longrightarrow
-\text{interacting phase increments}
-}
+\text{interacting phase increments}}
 $$
 
-しかも変わるのは相関長だけではない。競合相互作用は有限の回転率を選び、相関関数のピークを $q=0$ から有限波数へ移し、外場に対する最も強い応答も有限波数へ移す。
+となる。
+
+変わるのは相関長だけではない。相互作用自身が有限の回転率を選び、相関と外場応答の中心波数を $q=0$ からfinite-$q$へ移す。
 
 以下では
 
 $$
 \beta\equiv\frac{1}{k_{\mathrm B}T},
 \qquad
-K_1\equiv\beta J_1,
+K_1=\beta J_1,
 \qquad
-K_2\equiv\beta J_2
+K_2=\beta J_2
 $$
 
 とする。
 
-## 1. 第二近接相互作用は隣り合う角度差どうしを結びつける
-
-最近接と第二近接を持つ古典XY鎖を
+## 1. 第二近接は隣接する角度増分を直接結ぶ
 
 $$
 H
@@ -50,32 +49,29 @@ H
 -J_2\sum_i\cos(\theta_{i+2}-\theta_i)
 $$
 
-とする。
-
-角度差 $\phi_i=\theta_{i+1}-\theta_i$ を使えば
+に対して
 
 $$
 \theta_{i+2}-\theta_i
 =\phi_i+\phi_{i+1}
 $$
 
-だから
+なので
 
 $$
 \boxed{
 H
 =-J_1\sum_i\cos\phi_i
--J_2\sum_i\cos(\phi_i+\phi_{i+1})
-}
+-J_2\sum_i\cos(\phi_i+\phi_{i+1})}
 $$
 
 となる。
 
-最近接だけなら各 $\phi_i$ は独立だったが、第二近接項は $\phi_i$ と $\phi_{i+1}$ を直接結びつける。したがって空間方向のphase diffusionは、独立増分のrandom walkではなく、相関した増分を持つ過程になる。
+最近接で独立だったphase incrementは、一段の空間記憶を持つ相関増分へ変わる。
 
-## 2. 競合相互作用は有限のtwistを選ぶ
+## 2. 競合は有限twistを選ぶ
 
-一様twist $\phi_i=q$ を仮定すると、1サイトあたりのエネルギーは
+一様twist $\phi_i=q$ なら
 
 $$
 e(q)=-J_1\cos q-J_2\cos2q.
@@ -84,46 +80,42 @@ $$
 極値条件は
 
 $$
-\frac{de}{dq}
-=\sin q\left(J_1+4J_2\cos q\right)=0.
+\sin q(J_1+4J_2\cos q)=0.
 $$
 
-したがって $q=0,\pi$ のほかに
+したがって
 
 $$
 \boxed{
-\cos q_\ast=-\frac{J_1}{4J_2}
-}
+\cos q_\ast=-\frac{J_1}{4J_2}}
 $$
 
-という有限twist解が現れる。
+というfinite-twist解が現れる。
 
-特に $J_1>0$、$J_2<0$ として
+$J_1>0$、$J_2<0$ として
 
 $$
 \kappa\equiv\frac{|J_2|}{J_1}
 $$
 
-とおくと、$\kappa>1/4$ で
+とおけば、$\kappa>1/4$ で
 
 $$
 \boxed{
-q_\ast
-=\arccos\left(\frac{1}{4\kappa}\right)
-}
+q_\ast=\arccos\left(\frac{1}{4\kappa}\right)}
 $$
 
 が選ばれる。
 
-最近接XYでは自然な構造波数は $q_\ast=0$ だった。第二近接の競合は、相互作用自身によって有限の構造波数を選ぶ。
-
 ![第二近接XY鎖の選択twistと低温stiffness](/figures/xy-second-neighbor/preferred-twist-stiffness.svg)
 
-*競合比 $\kappa=|J_2|/J_1$ に対する基底状態twist $q_\ast$ と、一様twistまわりの曲率 $A_0=e''(q_\ast)$。$\kappa=1/4$ で有限twistが立ち上がると同時に単純な調和stiffnessが消えるため、この近傍ではGaussian近似に注意が必要になる。*
+*有限twistの立ち上がりと、同じ点でsoftになる一様twist stiffness。*
 
-## 3. 螺旋状態ではphase diffusionにdriftが加わる
+最近接XYの $q_\ast=0$ に対して、第二近接では相互作用自身が構造波数を選んでいる。
 
-一つのchiralityを選び
+## 3. phase diffusion は drift + correlated diffusion へ変わる
+
+一つのchirality sectorで
 
 $$
 \phi_i=q_\ast+\delta_i
@@ -137,25 +129,20 @@ $$
 \sum_{i=0}^{r-1}\delta_i.
 $$
 
-したがって最近接XYの
-
-$$
-\text{phase diffusion}
-$$
-
-は第二近接の螺旋領域で
+したがって
 
 $$
 \boxed{
-\text{drift}+\text{correlated diffusion}
-}
+\text{phase diffusion}
+\longrightarrow
+\text{drift}+\text{correlated diffusion}}
 $$
 
-へ変わる。
+となる。
 
-平均的には一定速度 $q_\ast$ で角度が回転し、その上に熱揺らぎが重なる。
+平均角度は一定速度 $q_\ast$ で回転し、その上に相関した熱揺らぎが重なる。
 
-## 4. 低温調和近似ではtwist stiffnessが位相記憶を決める
+## 4. 低温位相記憶は twist stiffness で決まる
 
 $\phi_i=q_\ast+\delta_i$ として二次まで展開すると
 
@@ -164,68 +151,64 @@ H_2
 =\frac12\sum_i
 \left[
 J_1\cos q_\ast\,\delta_i^2
-+J_2\cos2q_\ast\,(\delta_i+\delta_{i+1})^2
++J_2\cos2q_\ast(\delta_i+\delta_{i+1})^2
 \right].
 $$
 
 Fourier空間では
 
 $$
-H_2=\frac12\sum_kA(k)|\delta_k|^2,
+H_2=\frac12\sum_kA(k)|\delta_k|^2
 $$
+
+で
 
 $$
 \boxed{
-A(k)
-=J_1\cos q_\ast
-+2J_2\cos2q_\ast(1+\cos k)
-}
+A(k)=J_1\cos q_\ast
++2J_2\cos2q_\ast(1+\cos k)}
 $$
 
 となる。
 
-長距離の位相揺らぎを支配するのは
+長距離を支配する $k\to0$ stiffness は
 
 $$
 \boxed{
-A_0=A(0)
+A_0
 =J_1\cos q_\ast+4J_2\cos2q_\ast
-=e''(q_\ast)
-}
+=e''(q_\ast)}
 $$
 
 である。
 
-単一chirality sectorでの低温調和近似では
+単一chirality sectorでは
 
 $$
 \left\langle
 (\theta_r-\theta_0-q_\ast r)^2
 \right\rangle
-\simeq
-r\frac{k_{\mathrm B}T}{A_0},
+\simeq r\frac{k_{\mathrm B}T}{A_0}
 $$
 
-したがって
+より
 
 $$
 \boxed{
 C(r)
 \sim
-\cos(q_\ast r)
-\exp\left(-\frac{r}{\xi_{\rm ph}}\right),
+\cos(q_\ast r)e^{-r/\xi_{\rm ph}},
 \qquad
-\xi_{\rm ph}\simeq\frac{2A_0}{k_{\mathrm B}T}=2\beta A_0
-}
+\xi_{\rm ph}\simeq\frac{2A_0}{k_{\mathrm B}T}=2\beta A_0}
 $$
 
 となる。
 
-ただし $\kappa=1/4$ では $A_0\to0$ なので、このGaussian近似は使えない。ここでは高次勾配・非調和項を含めたsoft-mode問題になる。
+$\kappa=1/4$ では $A_0\to0$ なので、このGaussian近似自体がsoftになる。境界近傍では高次項が必要になる。
 
-## 5. 有限twistには左右二つのchiralityがある
+## 5. finite twist は離散chiralityを同時に生む
 
-$e(q)=e(-q)$ なので、螺旋領域では
+$e(q)=e(-q)$ なので
 
 $$
 \boxed{+q_\ast\quad\text{と}\quad-q_\ast}
@@ -233,7 +216,7 @@ $$
 
 が縮退する。
 
-局所chiralityは例えば
+局所chiralityは
 
 $$
 \kappa_i^{\rm ch}
@@ -241,133 +224,114 @@ $$
 =\sin\phi_i
 $$
 
-で測れる。低温では $\kappa_i^{\rm ch}\simeq\pm\sin q_\ast$ である。
+で見られる。
 
-有限温度の1次元系では、局所的に $+q_\ast$ を選んだ領域と $-q_\ast$ を選んだ領域の間にchirality wallが入りうる。したがって完全な記憶喪失には
+有限温度では $+q_\ast$ と $-q_\ast$ の領域の間にchirality wallが入りうるため、記憶喪失には
 
 $$
 \boxed{
 \text{continuous phase fluctuation}
-+\text{discrete chirality switching}
-}
++\text{discrete chirality switching}}
 $$
 
-という二つの機構がある。
+という二層がある。
 
-## 6. 相関関数では減衰長と構造波数を分けて読む
+## 6. $q_{\rm corr}$ と $\xi$ は別の記憶情報である
 
-単一chirality sectorでは
+長距離相関を
 
 $$
 C(r)
 \sim e^{-r/\xi}\cos(q_{\rm corr}r+\delta)
 $$
 
-という振動減衰相関が自然に現れる。低温でchiralityが長く保たれるなら $q_{\rm corr}\simeq q_\ast$ である。
-
-ここで
+と書けば
 
 $$
 \boxed{q_{\rm corr}:\ \text{どの回転率を覚えているか}}
 $$
 
-と
-
 $$
 \boxed{\xi:\ \text{その回転情報をどこまで覚えているか}}
 $$
 
-は異なる情報である。
+となる。
 
-さらに全系ではchirality correlation lengthが別に現れる可能性があり、単一の $\xi$ だけで全距離を表せるとは限らない。
+低温でchiralityが十分長く保たれるなら $q_{\rm corr}\simeq q_\ast$ である。ただし全系ではchirality correlation lengthも別に存在しうるため、単一の $\xi$ で全距離を閉じるとは限らない。
 
-## 7. transfer operatorは角度差のMarkov過程になる
+## 7. transfer operator は角度増分の Markov kernel になる
 
-角度差表示ではHamiltonianが $\phi_i,\phi_{i+1}$ の最近接相互作用になるため、transfer kernelを
+角度差表示では
 
 $$
 \boxed{
 \mathcal T(\phi,\phi')
-=
-\exp\left[
+=\exp\left[
 \frac{\beta J_1}{2}(\cos\phi+\cos\phi')
 +\beta J_2\cos(\phi+\phi')
-\right]
-}
+\right]}
 $$
 
 と取れる。
 
-最近接XYでは各 $\phi_i$ が独立だったのに対し、第二近接では
+最近接では独立だった $\phi_i$ が、第二近接では
 
 $$
 P(\phi_{i+1}|\phi_i)
 $$
 
-という一段のMarkov過程として角度増分が伝わる。
+というMarkov過程になる。
 
-したがって最近接での単純な
+最近接での
 
 $$
 I_m(K_1)/I_0(K_1)
 $$
 
-という1-step memoryは、一般のtransfer-operator固有値問題へ置き換わる。
+という単純な1-step memoryは、一般のtransfer-operator spectrumへ置き換わる。
 
-## 8. スピン相関にはtilted transfer operatorが必要になる
-
-元のスピン相関は
+## 8. スピン相関は tilted spectrum の位相と絶対値を読む
 
 $$
 \left\langle e^{i(\theta_r-\theta_0)}\right\rangle
 =
-\left\langle
-\prod_{j=0}^{r-1}e^{i\phi_j}
-\right\rangle.
+\left\langle\prod_{j=0}^{r-1}e^{i\phi_j}\right\rangle
 $$
 
-したがって平衡分布を作る $\mathcal T$ だけでなく、位相因子 $e^{i\phi}$ を組み込んだtilted transfer operatorを見る必要がある。
+なので、平衡kernelだけでなく位相因子を組み込んだ tilted transfer operator が自然になる。
 
-その支配固有値を
+支配固有値を
 
 $$
-\Lambda_\ast
-=|\Lambda_\ast|e^{iq_{\rm corr}}
+\Lambda_\ast=|\Lambda_\ast|e^{iq_{\rm corr}}
 $$
 
-と書けば、概念的には
+と書けば
 
 $$
 C(r)
 \sim
 \left|\frac{\Lambda_\ast}{\Lambda_0}\right|^r
-\cos(q_{\rm corr}r+\delta).
+\cos(q_{\rm corr}r+\delta)
 $$
 
-したがって
+であり
 
 $$
 \boxed{
 \xi^{-1}
-=-\ln\left|\frac{\Lambda_\ast}{\Lambda_0}\right|
-}
+=-\ln\left|\frac{\Lambda_\ast}{\Lambda_0}\right|,
+\qquad
+q_{\rm corr}=\arg\Lambda_\ast}
 $$
 
-と
+となる。
 
-$$
-\boxed{
-q_{\rm corr}=\arg\Lambda_\ast
-}
-$$
+第二近接XYでは、長距離記憶が spectrum の**大きさと位相**の二つへ分かれている。
 
-という二つの量がスペクトルから読める。
+## 9. 外場応答の中心は $Q=0$ から $Q=\pm q_{\rm corr}$ へ移る
 
-## 9. 空間変調外場では応答ピークが有限波数へ移る
-
-ここまでの相関構造は、微小外場への線形応答にそのまま現れる。
-
-$x$方向の空間変調外場
+固定方向の空間変調外場
 
 $$
 H_h=-\sum_i h_i\cos\theta_i,
@@ -375,17 +339,16 @@ H_h=-\sum_i h_i\cos\theta_i,
 h_i=h_Q\cos(Qi)
 $$
 
-を考えると
+に対して
 
 $$
 \delta m_x(Q)=\chi_{xx}(Q)h_Q.
 $$
 
-零外場では回転対称性から
+零外場では
 
 $$
 \chi_{xx}(r)
-=\beta\langle\cos\theta_0\cos\theta_r\rangle
 =\frac{\beta}{2}C(r).
 $$
 
@@ -395,7 +358,7 @@ $$
 C(r)\sim e^{-|r|/\xi}\cos(q_{\rm corr}r)
 $$
 
-なら、$\chi_{xx}(Q)$ は概念的に
+なら概念的に
 
 $$
 \boxed{
@@ -403,143 +366,95 @@ $$
 \propto
 \frac{\xi}{1+\xi^2(Q-q_{\rm corr})^2}
 +
-\frac{\xi}{1+\xi^2(Q+q_{\rm corr})^2}
-}
-$$
-
-という二つのピークを持つ。
-
-最近接強磁性XYでは $q_{\rm corr}=0$ なので応答最大は $Q=0$ だった。第二近接の螺旋領域では
-
-$$
-\boxed{
-Q\simeq\pm q_{\rm corr}
-}
-$$
-
-が最も強く応答する波数になる。
-
-つまり第二近接は単に「短波長応答を弱める」のではない。
-
-$$
-\boxed{
-\text{response filter centered at }Q=0
-\longrightarrow
-\text{response filter centered at }Q=\pm q_{\rm corr}
-}
-$$
-
-という質的変化を起こす。
-
-ピーク幅はおおよそ $\xi^{-1}$ なので、応答から
-
-$$
-\boxed{
-\text{peak position}\to q_{\rm corr},
-\qquad
-\text{peak width}\to\xi^{-1}
-}
-$$
-
-を同時に読み出せる。
-
-## 10. XYでは回転外場が螺旋構造に直接phase-matchする
-
-XYにはさらに自然なprobeがある。外場そのものを空間的に回転させ、
-
-$$
-\mathbf h_i
-=h(\cos Qi,\sin Qi)
-$$
-
-とする。このとき外場項は
-
-$$
-\boxed{
-H_h^{\rm rot}
-=-h\sum_i\cos(\theta_i-Qi)
-}
+\frac{\xi}{1+\xi^2(Q+q_{\rm corr})^2}}
 $$
 
 となる。
 
-もしスピンが
+最近接強磁性XYでは $q_{\rm corr}=0$ だったが、螺旋領域では
+
+$$
+\boxed{Q\simeq\pm q_{\rm corr}}
+$$
+
+がresponse peakになる。
+
+$$
+\boxed{
+\text{filter centered at }Q=0
+\longrightarrow
+\text{filter centered at }Q=\pm q_{\rm corr}}
+$$
+
+という質的変化である。
+
+peak position は $q_{\rm corr}$、peak width はおおよそ $\xi^{-1}$ を測る。
+
+## 10. rotating field は pitch と chirality の両方に phase-match する
+
+XYでは外場自身を回転させ
+
+$$
+\mathbf h_i=h(\cos Qi,\sin Qi)
+$$
+
+とできる。
+
+外場項は
+
+$$
+\boxed{
+H_h^{\rm rot}
+=-h\sum_i\cos(\theta_i-Qi)}
+$$
+
+となる。
+
+スピンが
 
 $$
 \theta_i\simeq q_\ast i+\theta_0
 $$
 
-と回転しているなら、$Q=q_\ast$ の外場は各サイトでほぼ同じ位相差を保つ。逆に $Q$ が $q_\ast$ から外れると、スピンと外場の位相差が距離とともにずれていく。
-
-したがって
+なら、$Q=q_\ast$ で外場とスピンの位相差は空間的にほぼ一定になる。
 
 $$
-\boxed{
-Q=q_\ast
-}
+\boxed{Q=q_\ast}
 $$
 
-は空間的なresonance条件として読める。
+は空間的なphase-matching条件である。
 
-さらに
+さらに $Q=+q_\ast$ と $Q=-q_\ast$ は回転方向が逆なので、rotating field は二つのchiralityを区別できる。
 
-$$
-Q=+q_\ast
-\quad\text{と}\quad
-Q=-q_\ast
-$$
+固定方向のcosine外場がpitchをprobeするのに対し、rotating fieldは**pitchとchiralityを同時にprobeできる**。
 
-は回転方向が逆なので、回転外場は二つのchiralityを区別できる。
+## 11. 第二近接XYで外場から読める三つの量
+
+応答で分けて読みたいのは
 
 $$
-\boxed{
-\text{rotating field probes not only pitch but also chirality}
-}
-$$
-
-これは振幅だけを $\cos Qi$ で変調する固定方向外場にはない、XY特有の情報である。
-
-## 11. 第二近接XYの外場応答で見るべき三つの量
-
-第二近接XYでは、外場応答を単一の一様感受率だけで表すのは不十分になる。
-
-見るべきなのは
-
-$$
-\boxed{
-q_{\rm corr},\qquad \xi,\qquad \text{chirality}
-}
+\boxed{q_{\rm corr},\qquad\xi,\qquad\text{chirality}}
 $$
 
 である。
 
-- $\chi(Q)$ のピーク位置は、系が好む空間回転率 $q_{\rm corr}$ を測る。
-- ピーク幅は、その回転情報が保たれる距離 $\xi$ を測る。
-- $Q$ の符号を持つ回転外場は、$\pm q_\ast$ のchiralityを選別する。
+- response peak position → 構造波数 $q_{\rm corr}$
+- peak width → 記憶長 $\xi$
+- rotating field の符号 → chirality
 
-したがって第二近接XYにおいて外場は
+第二近接XYでは外場は絶対方向を揃えるだけでなく、**内部構造波数へ照準を合わせるprobe**になる。
 
-$$
-\boxed{
-\text{absolute directionを指定するだけでなく、
-系の内部構造波数に照準を合わせるprobe}
-}
-$$
+## 12. 最近接から第二近接への変化
 
-になる。
-
-## 12. 最近接から第二近接へ何が変わったか
-
-最近接XYでは
+最近接では
 
 $$
 \boxed{
 \text{independent increments}
-\longrightarrow
+\to
 \text{phase diffusion}
-\longrightarrow
-\chi(Q)\text{ peaked at }Q=0
-}
+\to
+\chi(Q)\text{ centered at }0}
 $$
 
 だった。
@@ -549,27 +464,19 @@ $$
 $$
 \boxed{
 \text{interacting increments}
-\longrightarrow
-\text{preferred twist}+\text{correlated diffusion}+\text{chirality}
-}
+\to
+\text{preferred twist}
++\text{correlated diffusion}
++\text{chirality}}
 $$
 
-となり、応答も
+となり
 
 $$
 \boxed{
-\chi(Q)\text{ peaked near }Q=\pm q_{\rm corr}
-}
+\chi(Q)\text{ centered near }\pm q_{\rm corr}}
 $$
 
 へ変わる。
 
-最近接XYが「向きがどう拡散して忘れられるか」を見る模型なら、第二近接XYは
-
-$$
-\boxed{
-\text{系がどの回転率を選び、その回転情報をどこまで保持し、どの外場波数に応答するか}
-}
-$$
-
-を見る模型である。
+この模型で残る中心像は、**どの回転率を選ぶか、その回転情報をどこまで保つか、どの外場波数に最も応答するか**が同じtransfer spectrumからつながることである。
