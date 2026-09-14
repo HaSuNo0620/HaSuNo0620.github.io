@@ -105,17 +105,20 @@ class IndexedDbStudyRepository implements StudyRepository {
 }
 
 async function openVersion1(): Promise<IDBPDatabase<StudyDb>> {
-  return openDB<StudyDb>(DB_NAME, DB_VERSION, {
+  let connection: IDBPDatabase<StudyDb> | null = null;
+  connection = await openDB<StudyDb>(DB_NAME, DB_VERSION, {
     upgrade(db) {
       if (!db.objectStoreNames.contains('learning-events')) db.createObjectStore('learning-events', { keyPath: 'id', autoIncrement: true });
       if (!db.objectStoreNames.contains('case-history')) db.createObjectStore('case-history', { keyPath: 'id' });
       if (!db.objectStoreNames.contains('active-sessions')) db.createObjectStore('active-sessions', { keyPath: 'caseId' });
       if (!db.objectStoreNames.contains('settings')) db.createObjectStore('settings', { keyPath: 'key' });
     },
-  }).then(async (db) => {
-    await db.put('settings', { key: 'schema-version', value: DB_VERSION });
-    return db;
+    blocking() {
+      connection?.close();
+    },
   });
+  await connection.put('settings', { key: 'schema-version', value: DB_VERSION });
+  return connection;
 }
 
 async function recoverFutureDatabase(): Promise<StudySnapshot> {
