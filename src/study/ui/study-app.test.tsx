@@ -20,6 +20,7 @@ describe('StudyApp', () => {
     expect(await screen.findByText(/着火源を増やさずに状況確認へ進める/)).toBeInTheDocument();
     expect(document.body.textContent).not.toMatch(/正解|不正解/);
     fireEvent.click(screen.getByRole('button', { name: '続ける' }));
+    await screen.findByRole('button', { name: /床面や低所へ蒸気/ });
 
     fireEvent.click(screen.getByRole('button', { name: '危険物手帳' }));
     fireEvent.click(await screen.findByRole('button', { name: '着火源と蒸気' }));
