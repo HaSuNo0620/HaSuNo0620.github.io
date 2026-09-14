@@ -42,16 +42,19 @@ export default function StoryPlayer({ story, session, handbook, repository, onSe
   };
 
   const continueNarrative = () => {
+    if (busy) return;
     const next = advanceNarrative(story, session, new Date());
     void persist(next);
   };
 
   const selectChoice = (choiceId: string) => {
+    if (busy) return;
     const outcome = choose(story, session, choiceId, new Date());
     void persist(outcome.session, outcome.learningEvents);
   };
 
   const reference = async (entry: HandbookEntry) => {
+    if (busy) return;
     const next = markAssistance(session, entry.knowledgeIds, 'handbook', new Date());
     await persist(next);
   };
@@ -61,8 +64,8 @@ export default function StoryPlayer({ story, session, handbook, repository, onSe
   return (
     <section className="study-story" aria-labelledby="story-title">
       <div className="study-story-topbar">
-        <button className="study-button-secondary" type="button" onClick={onBack}>ケース一覧</button>
-        <button className="study-button-secondary" type="button" onClick={() => setHandbookOpen(true)}>危険物手帳</button>
+        <button className="study-button-secondary" type="button" disabled={busy} onClick={onBack}>ケース一覧</button>
+        <button className="study-button-secondary" type="button" disabled={busy} onClick={() => setHandbookOpen(true)}>危険物手帳</button>
       </div>
       <p className="study-eyebrow">case / {session.variantId}</p>
       <h2 id="story-title">{story.title}</h2>
