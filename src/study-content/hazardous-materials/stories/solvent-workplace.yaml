@@ -1,0 +1,195 @@
+id: solvent-workplace
+qualificationId: hazardous-materials
+section: otsu4-seisho
+title: 溶剤を扱う作業場
+summary: 水溶性と非水溶性の違いを使い、溶剤の識別と火災対応を組み立てる。
+durationMinutes: 12
+dimensions: [identification, ignition, extinguishing]
+recommendedFirst: false
+variants:
+  - id: ethanol-spill
+    startScene: d1
+    targetKnowledge: [class4.ethanol.alcohol, class4.ethanol.water, class4.extinguishing.alcohol-resistant-foam, class4.extinguishing.avoid-solid-stream-alcohol]
+    scenes:
+      d1:
+        kind: decision
+        text: 作業台の容器から透明な溶剤が漏れている。SDSには「水と混和」とある。まず何を判断材料にする？
+        choices:
+          - id: use-solubility
+            text: 水溶性という情報を物質識別と消火方法の判断に使う
+            next: c1a
+            effects: { identification: 1 }
+            learning: [{ knowledgeId: class4.ethanol.water, mode: apply, result: 1 }, { knowledgeId: class4.response.identify-before-action, mode: apply, result: 1 }]
+          - id: ignore-solubility
+            text: 水溶性は火災対応と関係しないので無視する
+            next: c1b
+            effects: { identification: -1 }
+            learning: [{ knowledgeId: class4.ethanol.water, mode: apply, result: 0 }]
+      c1a: { kind: narrative, text: 水との混ざり方を、石油系の非水溶性液体との識別材料として使える。, next: d2 }
+      c1b: { kind: narrative, text: 水溶性の違いは消火方法の選択にも関係するため、重要な情報を捨ててしまった。, next: d2 }
+      d2:
+        kind: decision
+        text: ラベルでエタノールと確認できた。消防法上はどの区分？
+        choices:
+          - id: alcohol
+            text: アルコール類
+            next: c2a
+            effects: { identification: 1 }
+            learning: [{ knowledgeId: class4.ethanol.alcohol, mode: recall, result: 1 }, { knowledgeId: class4.classification.alcohol, mode: apply, result: 1 }]
+          - id: first
+            text: 第一石油類
+            next: c2b
+            effects: { identification: -1 }
+            learning: [{ knowledgeId: class4.ethanol.alcohol, mode: recall, result: 0 }]
+      c2a: { kind: narrative, text: エタノールをアルコール類として整理できた。次は水溶性を消火判断へつなげる。, next: d3 }
+      c2b: { kind: narrative, text: エタノールの法令上の区分を取り違えた。アルコール類として整理し直す。, next: d3 }
+      d3:
+        kind: decision
+        text: まだ着火していない。周辺の電気操作についてどうする？
+        choices:
+          - id: avoid-spark
+            text: 火花になり得る操作を増やさない
+            next: c3a
+            effects: { ignition: 1 }
+            learning: [{ knowledgeId: class4.prevention.avoid-ignition, mode: recall, result: 1 }, { knowledgeId: class4.response.remove-ignition, mode: apply, result: 1 }]
+          - id: add-electric
+            text: 状況確認のため電気機器を次々に動かす
+            next: c3b
+            effects: { ignition: -1 }
+            learning: [{ knowledgeId: class4.response.remove-ignition, mode: apply, result: 0 }]
+      c3a: { kind: narrative, text: 引火性液体の漏洩時に着火源候補を増やさずに済んだ。, next: d4 }
+      c3b: { kind: narrative, text: 引火性液体がある状況で着火源候補を増やした。以後は操作を抑える。, next: d4 }
+      d4:
+        kind: decision
+        text: 火災に備える消火手段を選ぶ。エタノールの性質に合う考え方は？
+        choices:
+          - id: alcohol-resistant
+            text: 水溶性引火性液体として耐アルコール泡など適応手段を確認する
+            next: c4a
+            effects: { extinguishing: 1 }
+            learning: [{ knowledgeId: class4.extinguishing.alcohol-resistant-foam, mode: apply, result: 1 }, { knowledgeId: class4.extinguishing.match-agent, mode: apply, result: 1 }]
+          - id: same-as-oil
+            text: 非水溶性の石油系液体と区別せず同じ方法だけを選ぶ
+            next: c4b
+            effects: { extinguishing: -1 }
+            learning: [{ knowledgeId: class4.ethanol.water, mode: discriminate, result: 0 }, { knowledgeId: class4.extinguishing.match-agent, mode: apply, result: 0 }]
+      c4a: { kind: narrative, text: 水溶性であることを消火剤選択へつなげられた。, next: d5 }
+      c4b: { kind: narrative, text: 水溶性と非水溶性の違いを消火判断に反映できていない。, next: d5 }
+      d5:
+        kind: decision
+        text: 小規模火災が起きたと仮定する。水の使い方として避けるべき判断は？
+        choices:
+          - id: avoid-solid-stream
+            text: 製品へ棒状水流を直接向けることは避ける
+            next: r
+            effects: { extinguishing: 1 }
+            learning: [{ knowledgeId: class4.extinguishing.avoid-solid-stream-alcohol, mode: recall, result: 1 }, { knowledgeId: class4.ethanol.water, mode: discriminate, result: 1 }]
+          - id: direct-solid-stream
+            text: 棒状水流を製品へ直接向けることを第一選択にする
+            next: r
+            effects: { extinguishing: -1 }
+            learning: [{ knowledgeId: class4.extinguishing.avoid-solid-stream-alcohol, mode: recall, result: 0 }]
+      r: { kind: resolution, text: エタノール漏洩を題材に、識別から火災対応までを振り返る。 }
+    endings:
+      - id: controlled
+        text: 水溶性とアルコール類の性質を消火判断までつなげられた。
+        when: [{ dimension: identification, operator: gte, value: 2 }, { dimension: ignition, operator: gte, value: 1 }, { dimension: extinguishing, operator: gte, value: 2 }]
+      - id: safe-but-uncertain
+        text: 物質識別には課題が残ったが、着火源を増やさない判断で火災は避けた。
+        when: [{ dimension: ignition, operator: gte, value: 1 }]
+      - id: escalation
+        text: 物質特性と火災対応を十分に結びつけられなかった。
+        default: true
+  - id: toluene-spill
+    startScene: d1
+    targetKnowledge: [class4.toluene.first, class4.toluene.water, class4.toluene.vapor, class4.response.vapor-low-areas]
+    scenes:
+      d1:
+        kind: decision
+        text: 別の作業場で溶剤が漏れた。SDSには「水にほとんど溶けない」とある。最初にどう使う？
+        choices:
+          - id: distinguish
+            text: 水溶性溶剤とは異なる性質として識別材料にする
+            next: c1a
+            effects: { identification: 1 }
+            learning: [{ knowledgeId: class4.toluene.water, mode: discriminate, result: 1 }, { knowledgeId: class4.ethanol.water, mode: discriminate, result: 1 }]
+          - id: ignore
+            text: 水への溶け方は物質識別には使わない
+            next: c1b
+            effects: { identification: -1 }
+            learning: [{ knowledgeId: class4.toluene.water, mode: discriminate, result: 0 }]
+      c1a: { kind: narrative, text: 非水溶性という情報を、エタノールのような水溶性液体との区別に使える。, next: d2 }
+      c1b: { kind: narrative, text: 物質間の重要な違いを識別材料から外してしまった。, next: d2 }
+      d2:
+        kind: decision
+        text: ラベルでトルエンと確認できた。低い引火点を踏まえた分類は？
+        choices:
+          - id: first
+            text: 第一石油類
+            next: c2a
+            effects: { identification: 1 }
+            learning: [{ knowledgeId: class4.toluene.first, mode: recall, result: 1 }, { knowledgeId: class4.classification.first, mode: apply, result: 1 }]
+          - id: second
+            text: 第二石油類
+            next: c2b
+            effects: { identification: -1 }
+            learning: [{ knowledgeId: class4.toluene.first, mode: recall, result: 0 }]
+      c2a: { kind: narrative, text: 第一石油類として整理できた。低い引火点を着火源管理へつなげる。, next: d3 }
+      c2b: { kind: narrative, text: 品名区分を取り違えた。トルエンは第一石油類として整理する。, next: d3 }
+      d3:
+        kind: decision
+        text: 蒸気の広がりについて特に警戒する場所は？
+        choices:
+          - id: low-area
+            text: 床面や低所
+            next: c3a
+            effects: { ignition: 1 }
+            learning: [{ knowledgeId: class4.toluene.vapor, mode: apply, result: 1 }, { knowledgeId: class4.response.vapor-low-areas, mode: apply, result: 1 }]
+          - id: ceiling
+            text: 天井付近だけ
+            next: c3b
+            effects: { ignition: -1 }
+            learning: [{ knowledgeId: class4.toluene.vapor, mode: apply, result: 0 }]
+      c3a: { kind: narrative, text: 空気より重い蒸気が低所へ広がる前提で着火源を考えられる。, next: d4 }
+      c3b: { kind: narrative, text: 蒸気の性質と危険箇所の対応が逆になった。低所側も見直す。, next: d4 }
+      d4:
+        kind: decision
+        text: 漏洩が続く間の基本方針は？
+        choices:
+          - id: avoid-ignition
+            text: 火花や高温体を避け、蒸気をみだりに増やさない
+            next: c4a
+            effects: { ignition: 1 }
+            learning: [{ knowledgeId: class4.prevention.avoid-ignition, mode: recall, result: 1 }, { knowledgeId: class4.prevention.limit-vapor, mode: apply, result: 1 }]
+          - id: heat-and-inspect
+            text: 加熱して蒸発させながら状態を確認する
+            next: c4b
+            effects: { ignition: -1 }
+            learning: [{ knowledgeId: class4.prevention.limit-vapor, mode: apply, result: 0 }]
+      c4a: { kind: narrative, text: 引火性液体の基本的な火災予防に沿って着火源と蒸気を抑えられる。, next: d5 }
+      c4b: { kind: narrative, text: 蒸気発生を増やす方向へ進んだ。第4類では加熱と蒸気発生を避ける判断が基本になる。, next: d5 }
+      d5:
+        kind: decision
+        text: 火災対応の準備で最後に確認することは？
+        choices:
+          - id: match-agent
+            text: 対象物に適応する消火方法を確認する
+            next: r
+            effects: { extinguishing: 1 }
+            learning: [{ knowledgeId: class4.extinguishing.match-agent, mode: recall, result: 1 }, { knowledgeId: class4.response.identify-before-action, mode: apply, result: 1 }]
+          - id: generic
+            text: どの第4類でも同じ消火方法だけでよいと決める
+            next: r
+            effects: { extinguishing: -1 }
+            learning: [{ knowledgeId: class4.extinguishing.match-agent, mode: recall, result: 0 }]
+      r: { kind: resolution, text: トルエン漏洩の判断を終えた。 }
+    endings:
+      - id: controlled
+        text: 非水溶性、蒸気、分類を火災予防と消火準備へつなげられた。
+        when: [{ dimension: identification, operator: gte, value: 2 }, { dimension: ignition, operator: gte, value: 2 }, { dimension: extinguishing, operator: gte, value: 1 }]
+      - id: safe-but-uncertain
+        text: 識別に不確実さは残ったが、着火源管理によって火災は避けた。
+        when: [{ dimension: ignition, operator: gte, value: 1 }]
+      - id: escalation
+        text: 蒸気と着火源への対応が不十分で危険が残った。
+        default: true

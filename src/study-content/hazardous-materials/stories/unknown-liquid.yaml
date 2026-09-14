@@ -1,0 +1,227 @@
+id: unknown-liquid
+qualificationId: hazardous-materials
+section: otsu4-seisho
+title: 正体不明の液体
+summary: 物質名を先に与えず、記録された性質から危険性・分類・対応を推論する。
+durationMinutes: 14
+dimensions: [identification, ignition, extinguishing, evidence]
+recommendedFirst: false
+variants:
+  - id: unknown-gasoline
+    startScene: d1
+    targetKnowledge: [class4.gasoline.first, class4.gasoline.flash, class4.gasoline.vapor, class4.gasoline.water, class4.classification.first]
+    scenes:
+      d1:
+        kind: decision
+        text: 倉庫にラベルが読めない容器がある。既存の安全記録から一つ情報を先に確認できる。何を見る？
+        choices:
+          - id: properties
+            text: 引火点・水溶性・蒸気の性質が記録された物性欄
+            next: c1a
+            effects: { evidence: 1 }
+            learning: [{ knowledgeId: class4.response.identify-before-action, mode: apply, result: 1 }]
+          - id: color
+            text: 液体の色だけ
+            next: c1b
+            effects: { evidence: -1 }
+            learning: [{ knowledgeId: class4.response.identify-before-action, mode: apply, result: 0 }]
+      c1a: { kind: narrative, text: 記録には「引火点は0℃を大きく下回る、水に溶けにくい、蒸気は空気より重い」とある。, next: d2 }
+      c1b: { kind: narrative, text: 色だけでは危険性の判断材料が不足している。追加で物性記録を確認すると、非常に低い引火点・非水溶性・空気より重い蒸気が記されている。, next: d2 }
+      d2:
+        kind: decision
+        text: この情報から最も優先して推論する危険は？
+        choices:
+          - id: easy-ignition
+            text: 常温でも着火源管理を厳しく考える必要がある
+            next: c2a
+            effects: { ignition: 1 }
+            learning: [{ knowledgeId: class4.gasoline.flash, mode: apply, result: 1 }, { knowledgeId: class4.prevention.avoid-ignition, mode: recall, result: 1 }]
+          - id: low-risk
+            text: 常温では引火をほとんど考えなくてよい
+            next: c2b
+            effects: { ignition: -1 }
+            learning: [{ knowledgeId: class4.gasoline.flash, mode: apply, result: 0 }]
+      c2a: { kind: narrative, text: 低い引火点から、着火源を増やさない判断へつなげられる。, next: d3 }
+      c2b: { kind: narrative, text: 引火点の意味を逆に扱った。非常に低い引火点は常温での引火危険を軽視できないことを示す。, next: d3 }
+      d3:
+        kind: decision
+        text: 蒸気について、どこまで警戒する？
+        choices:
+          - id: low-area
+            text: 低所や離れた着火源まで広がる可能性を見る
+            next: c3a
+            effects: { ignition: 1 }
+            learning: [{ knowledgeId: class4.gasoline.vapor, mode: apply, result: 1 }, { knowledgeId: class4.response.vapor-low-areas, mode: recall, result: 1 }]
+          - id: top-only
+            text: 容器の真上だけを見る
+            next: c3b
+            effects: { ignition: -1 }
+            learning: [{ knowledgeId: class4.gasoline.vapor, mode: apply, result: 0 }]
+      c3a: { kind: narrative, text: 空気より重い蒸気の挙動を、着火源の位置まで含めて考えられる。, next: d4 }
+      c3b: { kind: narrative, text: 蒸気が低所へ広がる性質を反映できていない。警戒範囲を見直す。, next: d4 }
+      d4:
+        kind: decision
+        text: 非水溶性という情報は何に使える？
+        choices:
+          - id: discriminate
+            text: 水溶性アルコール類などとの識別と対応選択に使う
+            next: c4a
+            effects: { evidence: 1, identification: 1 }
+            learning: [{ knowledgeId: class4.gasoline.water, mode: discriminate, result: 1 }, { knowledgeId: class4.ethanol.water, mode: discriminate, result: 1 }]
+          - id: irrelevant
+            text: 分類や対応にはまったく使わない
+            next: c4b
+            effects: { evidence: -1 }
+            learning: [{ knowledgeId: class4.gasoline.water, mode: discriminate, result: 0 }]
+      c4a: { kind: narrative, text: 水溶性の違いを、候補の絞り込みと対応方法の選択に利用できる。, next: d5 }
+      c4b: { kind: narrative, text: 水溶性は候補物質を区別する有力な情報である。識別材料として戻す。, next: d5 }
+      d5:
+        kind: decision
+        text: 火災対応を準備する際の判断は？
+        choices:
+          - id: matched-agent
+            text: 推定した性質に適応する消火方法を確認する
+            next: c5a
+            effects: { extinguishing: 1 }
+            learning: [{ knowledgeId: class4.extinguishing.match-agent, mode: apply, result: 1 }]
+          - id: generic
+            text: 物性に関係なく同じ方法だけでよいとする
+            next: c5b
+            effects: { extinguishing: -1 }
+            learning: [{ knowledgeId: class4.extinguishing.match-agent, mode: apply, result: 0 }]
+      c5a: { kind: narrative, text: 物質名を完全に確定する前でも、確認済みの性質を使って安全側の対応を選べる。, next: d6 }
+      c5b: { kind: narrative, text: 確認済みの物性を消火判断に反映していない。性質に適応する方法へ戻す必要がある。, next: d6 }
+      d6:
+        kind: decision
+        text: 最後に、記録された非常に低い引火点と性質から最も整合する整理は？
+        choices:
+          - id: first-gasoline
+            text: 第一石油類のガソリンに整合する
+            next: r
+            effects: { identification: 1 }
+            learning: [{ knowledgeId: class4.gasoline.first, mode: recall, result: 1 }, { knowledgeId: class4.classification.first, mode: apply, result: 1 }]
+          - id: second-kerosene
+            text: 第二石油類の灯油に整合する
+            next: r
+            effects: { identification: -1 }
+            learning: [{ knowledgeId: class4.gasoline.first, mode: recall, result: 0 }, { knowledgeId: class4.kerosene.second, mode: discriminate, result: 0 }]
+      r: { kind: resolution, text: 物質名を後回しにし、性質から危険性と分類を推論するケースを終えた。 }
+    endings:
+      - id: identified-and-safe
+        text: 物性を集め、安全対応を維持しながら第一石油類の候補まで絞り込めた。
+        when: [{ dimension: evidence, operator: gte, value: 1 }, { dimension: ignition, operator: gte, value: 2 }, { dimension: identification, operator: gte, value: 2 }, { dimension: extinguishing, operator: gte, value: 1 }]
+      - id: safe-unknown
+        text: 最終同定は不十分でも、確認済みの性質から着火源と火災対応を安全側に選べた。
+        when: [{ dimension: ignition, operator: gte, value: 1 }, { dimension: extinguishing, operator: gte, value: 1 }]
+      - id: escalation
+        text: 証拠を十分に使えず、安全対応にも不確実さが残った。
+        default: true
+  - id: unknown-kerosene
+    startScene: d1
+    targetKnowledge: [class4.kerosene.second, class4.kerosene.flash, class4.kerosene.water, class4.classification.second]
+    scenes:
+      d1:
+        kind: decision
+        text: 別の無表示容器について、既存の安全記録から一つ情報を先に確認できる。何を見る？
+        choices:
+          - id: properties
+            text: 引火点・水溶性・密度などの物性欄
+            next: c1a
+            effects: { evidence: 1 }
+            learning: [{ knowledgeId: class4.response.identify-before-action, mode: apply, result: 1 }]
+          - id: appearance
+            text: 見た目だけ
+            next: c1b
+            effects: { evidence: -1 }
+            learning: [{ knowledgeId: class4.response.identify-before-action, mode: apply, result: 0 }]
+      c1a: { kind: narrative, text: 記録には「引火点はおよそ40℃台、水に溶けにくく水より軽い」とある。, next: d2 }
+      c1b: { kind: narrative, text: 見た目だけでは足りない。追加の物性記録には、引火点がおよそ40℃台で水に溶けにくいことが記されている。, next: d2 }
+      d2:
+        kind: decision
+        text: 引火点の情報から、ガソリンのような第一石油類との違いをどう考える？
+        choices:
+          - id: higher-flash
+            text: より高い引火点を持つ第二石油類の候補として考える
+            next: c2a
+            effects: { identification: 1 }
+            learning: [{ knowledgeId: class4.kerosene.flash, mode: discriminate, result: 1 }, { knowledgeId: class4.gasoline.flash, mode: discriminate, result: 1 }]
+          - id: same-risk
+            text: 引火点の差は分類や危険性の比較に使わない
+            next: c2b
+            effects: { identification: -1 }
+            learning: [{ knowledgeId: class4.kerosene.flash, mode: discriminate, result: 0 }]
+      c2a: { kind: narrative, text: ガソリンより高い引火点を、第二石油類候補という整理へつなげられる。, next: d3 }
+      c2b: { kind: narrative, text: 引火点は石油類の区分を判断する重要な基準である。差を識別材料に戻す。, next: d3 }
+      d3:
+        kind: decision
+        text: まだ物質名は不明。着火源についてどうする？
+        choices:
+          - id: avoid-ignition
+            text: 引火性液体として火花や高温体を避ける
+            next: c3a
+            effects: { ignition: 1 }
+            learning: [{ knowledgeId: class4.prevention.avoid-ignition, mode: apply, result: 1 }]
+          - id: ignore-ignition
+            text: 名前が分からないので着火源管理は後回しにする
+            next: c3b
+            effects: { ignition: -1 }
+            learning: [{ knowledgeId: class4.prevention.avoid-ignition, mode: apply, result: 0 }]
+      c3a: { kind: narrative, text: 最終同定前でも、引火性液体という確認済みの性質から安全側に判断できる。, next: d4 }
+      c3b: { kind: narrative, text: 名前が未確定でも引火性が示されている以上、着火源管理は必要である。, next: d4 }
+      d4:
+        kind: decision
+        text: 非水溶性という情報をどう扱う？
+        choices:
+          - id: use-solubility
+            text: 水溶性液体との識別と対応選択に使う
+            next: c4a
+            effects: { evidence: 1 }
+            learning: [{ knowledgeId: class4.kerosene.water, mode: discriminate, result: 1 }, { knowledgeId: class4.ethanol.water, mode: discriminate, result: 1 }]
+          - id: discard-solubility
+            text: 物質識別には使えない情報として捨てる
+            next: c4b
+            effects: { evidence: -1 }
+            learning: [{ knowledgeId: class4.kerosene.water, mode: discriminate, result: 0 }]
+      c4a: { kind: narrative, text: 水に溶けにくいという性質を、候補の絞り込みに利用できる。, next: d5 }
+      c4b: { kind: narrative, text: 水溶性の違いは候補を区別する手掛かりになる。証拠として戻す。, next: d5 }
+      d5:
+        kind: decision
+        text: 消火対応を準備する際の方針は？
+        choices:
+          - id: matched-agent
+            text: 推定した危険物の性質に適応する消火方法を確認する
+            next: c5a
+            effects: { extinguishing: 1 }
+            learning: [{ knowledgeId: class4.extinguishing.match-agent, mode: recall, result: 1 }]
+          - id: one-method
+            text: すべての第4類に同じ一つの方法だけを当てはめる
+            next: c5b
+            effects: { extinguishing: -1 }
+            learning: [{ knowledgeId: class4.extinguishing.match-agent, mode: recall, result: 0 }]
+      c5a: { kind: narrative, text: 不明点を残していても、確認済みの性質を安全対応へ反映できる。, next: d6 }
+      c5b: { kind: narrative, text: 性質と適応消火方法の対応を無視している。物性に合わせて選び直す必要がある。, next: d6 }
+      d6:
+        kind: decision
+        text: 引火点がおよそ40℃台で非水溶性という記録に最も整合する候補は？
+        choices:
+          - id: second-kerosene
+            text: 第二石油類の灯油
+            next: r
+            effects: { identification: 1 }
+            learning: [{ knowledgeId: class4.kerosene.second, mode: recall, result: 1 }, { knowledgeId: class4.classification.second, mode: apply, result: 1 }]
+          - id: first-gasoline
+            text: 第一石油類のガソリン
+            next: r
+            effects: { identification: -1 }
+            learning: [{ knowledgeId: class4.kerosene.second, mode: recall, result: 0 }, { knowledgeId: class4.gasoline.first, mode: discriminate, result: 0 }]
+      r: { kind: resolution, text: 物性から第二石油類の候補を推論するケースを終えた。 }
+    endings:
+      - id: identified-and-safe
+        text: 物性を使い、安全対応を保ちながら第二石油類の候補まで絞り込めた。
+        when: [{ dimension: evidence, operator: gte, value: 1 }, { dimension: ignition, operator: gte, value: 1 }, { dimension: identification, operator: gte, value: 2 }, { dimension: extinguishing, operator: gte, value: 1 }]
+      - id: safe-unknown
+        text: 最終同定は不十分でも、引火性という情報から着火源と火災対応を安全側に選べた。
+        when: [{ dimension: ignition, operator: gte, value: 1 }, { dimension: extinguishing, operator: gte, value: 1 }]
+      - id: escalation
+        text: 物性情報を十分に使えず、対応にも不確実さが残った。
+        default: true
