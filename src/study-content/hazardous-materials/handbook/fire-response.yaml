@@ -1,0 +1,16 @@
+entries:
+  - id: handbook.ignition-vapor
+    title: 着火源と蒸気
+    body: 第4類では炎・火花・高温体を避け、みだりに蒸気を発生させない。ガソリン、トルエン、ジエチルエーテルなど空気より重い蒸気を生じる物質では低所への移動も考える。
+    knowledgeIds: [class4.prevention.avoid-ignition, class4.prevention.limit-vapor, class4.response.vapor-low-areas]
+    sources: [egov-decree, pubchem-gasoline, pubchem-toluene, pubchem-ether]
+  - id: handbook.gasoline-kerosene
+    title: ガソリンと灯油
+    body: ガソリンは第一石油類で引火点が非常に低く、灯油は第二石油類で引火点がより高い。見た目だけで同じ燃料として扱わず、ラベルと性質を確認する。
+    knowledgeIds: [class4.gasoline.first, class4.gasoline.flash, class4.kerosene.second, class4.kerosene.flash]
+    sources: [fdma-fire-law, nite-stove]
+  - id: handbook.water-miscibility
+    title: 水溶性と消火
+    body: エタノールのような水溶性引火性液体と、ガソリン・灯油・トルエンのような非水溶性液体を区別する。消火方法は対象物の性質と適応消火設備に合わせる。
+    knowledgeIds: [class4.ethanol.water, class4.gasoline.water, class4.kerosene.water, class4.toluene.water, class4.extinguishing.match-agent, class4.extinguishing.alcohol-resistant-foam]
+    sources: [pubchem-alcohol-fire, pubchem-gasoline, pubchem-kerosene, pubchem-toluene, egov-decree]

@@ -1,8 +1,10 @@
 import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
 import remarkMath from 'remark-math';
 import rehypeMathjaxBrowser from 'rehype-mathjax/browser';
 
 export default defineConfig({
+  integrations: [react()],
   site: 'https://HaSuNo0620.github.io',
   output: 'static',
   trailingSlash: 'always',

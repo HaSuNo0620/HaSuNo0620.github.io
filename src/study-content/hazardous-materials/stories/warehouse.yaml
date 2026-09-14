@@ -1,0 +1,195 @@
+id: warehouse
+qualificationId: hazardous-materials
+section: otsu4-seisho
+title: ガソリン臭のする倉庫
+summary: 漏洩を疑う倉庫で、着火源・蒸気・物質の性質をつないで初動を判断する。
+durationMinutes: 12
+dimensions: [identification, ignition, containment]
+recommendedFirst: true
+variants:
+  - id: gasoline-leak
+    startScene: d1
+    targetKnowledge: [class4.gasoline.first, class4.gasoline.flash, class4.gasoline.vapor, class4.response.remove-ignition, class4.response.vapor-low-areas]
+    scenes:
+      d1:
+        kind: decision
+        text: 倉庫の扉を開けると強い石油系の臭気がする。室内の照明は消えている。最初にどう動く？
+        choices:
+          - id: avoid-switch
+            text: 照明スイッチには触れず、火気や火花を生じ得る操作を避ける
+            next: c1a
+            effects: { ignition: 1 }
+            learning: [{ knowledgeId: class4.response.remove-ignition, mode: apply, result: 1 }, { knowledgeId: class4.prevention.avoid-ignition, mode: recall, result: 1 }]
+          - id: switch-light
+            text: まず照明をつけて床を確認する
+            next: c1b
+            effects: { ignition: -1 }
+            learning: [{ knowledgeId: class4.response.remove-ignition, mode: apply, result: 0 }]
+      c1a: { kind: narrative, text: 着火源を増やさずに状況確認へ進める。臭気の発生源はまだ特定できていない。, next: d2 }
+      c1b: { kind: narrative, text: 可燃性蒸気が存在する可能性を残したまま電気操作を増やしてしまった。以後は着火源を増やさない方針へ切り替える。, next: d2 }
+      d2:
+        kind: decision
+        text: 床付近で臭気が強く、奥には低いくぼみがある。どこを特に警戒する？
+        choices:
+          - id: low-area
+            text: 床面や低所へ蒸気が広がる可能性を考える
+            next: c2a
+            effects: { identification: 1 }
+            learning: [{ knowledgeId: class4.gasoline.vapor, mode: apply, result: 1 }, { knowledgeId: class4.response.vapor-low-areas, mode: apply, result: 1 }]
+          - id: ceiling-only
+            text: 蒸気は上へ集まると考え、天井付近だけを警戒する
+            next: c2b
+            effects: { identification: -1 }
+            learning: [{ knowledgeId: class4.gasoline.vapor, mode: apply, result: 0 }]
+      c2a: { kind: narrative, text: 空気より重い蒸気が低所へ広がる危険を前提に、床面側の着火源にも注意を向けられる。, next: d3 }
+      c2b: { kind: narrative, text: 低所へ広がる蒸気の危険を見落としている。床面側も含めて状況を見直す必要がある。, next: d3 }
+      d3:
+        kind: decision
+        text: 漏洩元の容器ラベルに「ガソリン」とある。試験上の分類としてどう整理する？
+        choices:
+          - id: first-petroleum
+            text: 第一石油類として扱う
+            next: c3a
+            effects: { identification: 1 }
+            learning: [{ knowledgeId: class4.gasoline.first, mode: recall, result: 1 }, { knowledgeId: class4.classification.first, mode: apply, result: 1 }]
+          - id: second-petroleum
+            text: 第二石油類として扱う
+            next: c3b
+            effects: { identification: -1 }
+            learning: [{ knowledgeId: class4.gasoline.first, mode: recall, result: 0 }]
+      c3a: { kind: narrative, text: ガソリンを第一石油類として整理できた。非常に低い引火点を持つことと着火源管理がつながる。, next: d4 }
+      c3b: { kind: narrative, text: ガソリンの品名区分を取り違えた。引火点21℃未満の第一石油類として整理し直す。, next: d4 }
+      d4:
+        kind: decision
+        text: 漏洩液は排水口の方向へ広がりつつある。次の判断として優先したいのは？
+        choices:
+          - id: isolate-source
+            text: 着火源を増やさず、物質の性質を確認したうえで漏洩拡大を抑える対応を選ぶ
+            next: c4a
+            effects: { containment: 1 }
+            learning: [{ knowledgeId: class4.response.identify-before-action, mode: apply, result: 1 }, { knowledgeId: class4.gasoline.water, mode: discriminate, result: 1 }]
+          - id: flush-water
+            text: とりあえず大量の水で流してしまう
+            next: c4b
+            effects: { containment: -1 }
+            learning: [{ knowledgeId: class4.response.identify-before-action, mode: apply, result: 0 }, { knowledgeId: class4.gasoline.water, mode: discriminate, result: 0 }]
+      c4a: { kind: narrative, text: 非水溶性で水より軽いガソリンに、性質を無視した一律対応を当てはめずに済んだ。, next: d5 }
+      c4b: { kind: narrative, text: 水に溶けにくい液体へ性質を確認せず水を使う判断になった。対応は物質の性質に合わせて選ぶ必要がある。, next: d5 }
+      d5:
+        kind: decision
+        text: 小規模な着火が起きた場合の準備として、何を基準に消火手段を選ぶ？
+        choices:
+          - id: matched-agent
+            text: 第4類と対象物の性質に適応する消火方法を確認する
+            next: r
+            effects: { containment: 1, ignition: 1 }
+            learning: [{ knowledgeId: class4.extinguishing.match-agent, mode: apply, result: 1 }, { knowledgeId: class4.gasoline.flash, mode: recall, result: 1 }]
+          - id: any-water
+            text: 液体火災なら物質を問わず同じ水の使い方でよいと考える
+            next: r
+            effects: { containment: -1 }
+            learning: [{ knowledgeId: class4.extinguishing.match-agent, mode: apply, result: 0 }]
+      r: { kind: resolution, text: 倉庫内の初動対応を終え、判断の積み重ねを振り返る。 }
+    endings:
+      - id: controlled
+        text: 着火源、蒸気、分類、対応手段をつないで事故拡大を抑えた。
+        when: [{ dimension: ignition, operator: gte, value: 2 }, { dimension: identification, operator: gte, value: 2 }, { dimension: containment, operator: gte, value: 1 }]
+      - id: residual-hazard
+        text: 火災は避けたが、識別または漏洩対応に課題が残った。
+        when: [{ dimension: ignition, operator: gte, value: 1 }]
+      - id: escalation
+        text: 着火源や物質特性を十分に扱えず、危険が拡大した。
+        default: true
+  - id: ether-container
+    startScene: d1
+    targetKnowledge: [class4.ether.special, class4.ether.boiling, class4.ether.vapor, class4.prevention.avoid-ignition, class4.prevention.limit-vapor]
+    scenes:
+      d1:
+        kind: decision
+        text: 別の倉庫で、密栓された溶剤容器の周辺に強い揮発性溶剤の臭気がある。最初にどうする？
+        choices:
+          - id: avoid-ignition
+            text: 火花や高温体を近づけず、電気操作も増やさない
+            next: c1a
+            effects: { ignition: 1 }
+            learning: [{ knowledgeId: class4.prevention.avoid-ignition, mode: apply, result: 1 }]
+          - id: inspect-with-switch
+            text: まず近くの電気機器を動かして詳しく確認する
+            next: c1b
+            effects: { ignition: -1 }
+            learning: [{ knowledgeId: class4.prevention.avoid-ignition, mode: apply, result: 0 }]
+      c1a: { kind: narrative, text: 着火源を増やさず、容器ラベルと周囲の情報を確認できる。, next: d2 }
+      c1b: { kind: narrative, text: 揮発性の高い液体を疑う状況で着火源候補を増やした。以後は電気操作を避けて確認する。, next: d2 }
+      d2:
+        kind: decision
+        text: ラベルには「ジエチルエーテル」とある。消防法上の分類は？
+        choices:
+          - id: special
+            text: 特殊引火物
+            next: c2a
+            effects: { identification: 1 }
+            learning: [{ knowledgeId: class4.ether.special, mode: recall, result: 1 }, { knowledgeId: class4.classification.special, mode: apply, result: 1 }]
+          - id: second
+            text: 第二石油類
+            next: c2b
+            effects: { identification: -1 }
+            learning: [{ knowledgeId: class4.ether.special, mode: recall, result: 0 }]
+      c2a: { kind: narrative, text: 特殊引火物として整理できた。ここでは強い揮発性が重要な判断材料になる。, next: d3 }
+      c2b: { kind: narrative, text: 品名区分を取り違えた。ジエチルエーテルは特殊引火物の代表例として整理し直す。, next: d3 }
+      d3:
+        kind: decision
+        text: 室温に近い条件でも蒸気が生じやすい理由として、どの性質が重要？
+        choices:
+          - id: low-boiling
+            text: 沸点がおよそ35℃と低いこと
+            next: c3a
+            effects: { identification: 1 }
+            learning: [{ knowledgeId: class4.ether.boiling, mode: apply, result: 1 }, { knowledgeId: class4.prevention.limit-vapor, mode: apply, result: 1 }]
+          - id: high-boiling
+            text: 沸点が非常に高いこと
+            next: c3b
+            effects: { identification: -1 }
+            learning: [{ knowledgeId: class4.ether.boiling, mode: apply, result: 0 }]
+      c3a: { kind: narrative, text: 低い沸点と蒸気発生を結びつけられた。容器周辺の蒸気を軽視できない。, next: d4 }
+      c3b: { kind: narrative, text: 揮発しやすさの理由を逆に捉えた。ジエチルエーテルは沸点が低い。, next: d4 }
+      d4:
+        kind: decision
+        text: 蒸気が漏れているなら、どの場所まで着火源を意識する？
+        choices:
+          - id: low-spread
+            text: 低所や離れた場所まで蒸気が移動する可能性を考える
+            next: c4a
+            effects: { ignition: 1 }
+            learning: [{ knowledgeId: class4.ether.vapor, mode: apply, result: 1 }, { knowledgeId: class4.response.vapor-low-areas, mode: discriminate, result: 1 }]
+          - id: near-container-only
+            text: 容器の真上だけを警戒すればよいと考える
+            next: c4b
+            effects: { ignition: -1 }
+            learning: [{ knowledgeId: class4.ether.vapor, mode: apply, result: 0 }]
+      c4a: { kind: narrative, text: 空気より重い蒸気が低所へ広がる可能性まで含めて着火源を管理できる。, next: d5 }
+      c4b: { kind: narrative, text: 蒸気の移動範囲を狭く見積もっている。低所側も含めた着火源管理が必要になる。, next: d5 }
+      d5:
+        kind: decision
+        text: 最終的な初動方針として最も一貫しているのは？
+        choices:
+          - id: property-first
+            text: 蒸気発生を抑え、着火源を避け、物質に適応する対応を選ぶ
+            next: r
+            effects: { containment: 1, ignition: 1 }
+            learning: [{ knowledgeId: class4.response.identify-before-action, mode: apply, result: 1 }, { knowledgeId: class4.extinguishing.match-agent, mode: recall, result: 1 }]
+          - id: generic-response
+            text: 他の液体と同じ対応を性質確認なしで当てはめる
+            next: r
+            effects: { containment: -1 }
+            learning: [{ knowledgeId: class4.response.identify-before-action, mode: apply, result: 0 }]
+      r: { kind: resolution, text: 特殊引火物を扱う初動判断を終えた。 }
+    endings:
+      - id: controlled
+        text: 揮発性、蒸気の挙動、着火源を一貫して扱い、危険を抑えた。
+        when: [{ dimension: ignition, operator: gte, value: 2 }, { dimension: identification, operator: gte, value: 2 }, { dimension: containment, operator: gte, value: 1 }]
+      - id: residual-hazard
+        text: 着火は避けたが、物質特性の識別か対応選択に不確実さが残った。
+        when: [{ dimension: ignition, operator: gte, value: 1 }]
+      - id: escalation
+        text: 揮発性と着火源の扱いが不十分で、危険が残った。
+        default: true

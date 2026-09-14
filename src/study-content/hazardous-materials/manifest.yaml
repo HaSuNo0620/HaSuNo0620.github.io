@@ -1,0 +1,42 @@
+id: hazardous-materials
+title: 危険物取扱者
+sections:
+  - id: otsu4-seisho
+    title: 乙種第4類・性質／火災予防／消火
+sources:
+  - id: fdma-fire-law
+    label: 総務省消防庁「消防法 別表第一」
+    url: https://www.fdma.go.jp/relocation/kasai_yobo/about_shiken_unpan/houbeppyou.html
+    checkedAt: '2026-09-14'
+  - id: egov-decree
+    label: e-Gov「危険物の規制に関する政令」
+    url: https://laws.e-gov.go.jp/law/334CO0000000306
+    checkedAt: '2026-09-14'
+  - id: nite-stove
+    label: NITE「石油ストーブ 製品による建物火災の原因トップ3」
+    url: https://www.nite.go.jp/jiko/chuikanki/poster/nenshou/2023021701.html
+    checkedAt: '2026-09-14'
+  - id: pubchem-gasoline
+    label: NIH PubChem Gasoline
+    url: https://pubchem.ncbi.nlm.nih.gov/compound/Indolene
+    checkedAt: '2026-09-14'
+  - id: pubchem-kerosene
+    label: NIH PubChem Kerosene
+    url: https://pubchem.ncbi.nlm.nih.gov/compound/8008-20-6
+    checkedAt: '2026-09-14'
+  - id: pubchem-ethanol
+    label: NIH PubChem Ethanol
+    url: https://pubchem.ncbi.nlm.nih.gov/compound/702
+    checkedAt: '2026-09-14'
+  - id: pubchem-toluene
+    label: NIH PubChem Toluene
+    url: https://pubchem.ncbi.nlm.nih.gov/compound/1140
+    checkedAt: '2026-09-14'
+  - id: pubchem-ether
+    label: NIH PubChem Diethyl Ether
+    url: https://pubchem.ncbi.nlm.nih.gov/compound/3283
+    checkedAt: '2026-09-14'
+  - id: pubchem-alcohol-fire
+    label: PubChem/CAMEO ERG Guide 127 Water-Miscible Flammable Liquids
+    url: https://pubchem.ncbi.nlm.nih.gov/compound/Alcohols_-n.o.s
+    checkedAt: '2026-09-14'

@@ -1,0 +1,11 @@
+entries:
+  - id: handbook.class4-thresholds
+    title: 第4類の品名区分
+    body: 特殊引火物、第一石油類、アルコール類、第二〜第四石油類、動植物油類の定義を、引火点などの法令上の基準で整理する。第一石油類は21℃未満、第二石油類は21℃以上70℃未満、第三石油類は70℃以上200℃未満、第四石油類は200℃以上250℃未満が基本範囲。
+    knowledgeIds: [class4.classification.special, class4.classification.first, class4.classification.alcohol, class4.classification.second, class4.classification.third, class4.classification.fourth, class4.classification.animal-vegetable]
+    sources: [fdma-fire-law]
+  - id: handbook.identification
+    title: 代表物質の見分け方
+    body: ガソリンは第一石油類、灯油は第二石油類、エタノールはアルコール類、ジエチルエーテルは特殊引火物。トルエンは低い引火点と非水溶性を持つ第一石油類として扱う。
+    knowledgeIds: [class4.gasoline.first, class4.kerosene.second, class4.ethanol.alcohol, class4.ether.special, class4.toluene.first]
+    sources: [fdma-fire-law, pubchem-toluene]

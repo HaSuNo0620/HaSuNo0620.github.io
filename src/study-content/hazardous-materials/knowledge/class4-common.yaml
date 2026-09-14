@@ -1,0 +1,81 @@
+knowledge:
+  - id: class4.definition.flammable-liquid
+    title: 第4類は引火性液体
+    statement: 消防法上の第4類危険物は引火性液体である。
+    examConnection: 類別と性質の対応を問う設問。
+    section: otsu4-seisho
+    tags: [分類, 共通性質]
+    relations: []
+    sources: [fdma-fire-law]
+  - id: class4.classification.special
+    title: 特殊引火物
+    statement: 特殊引火物にはジエチルエーテル、二硫化炭素などが含まれ、消防法は発火点・引火点・沸点の条件で定義する。
+    examConnection: 特殊引火物の定義・代表物質。
+    section: otsu4-seisho
+    tags: [分類, 特殊引火物]
+    relations: []
+    sources: [fdma-fire-law]
+  - id: class4.classification.first
+    title: 第一石油類
+    statement: 第一石油類は一気圧で引火点21℃未満のもの（法令上の除外を除く）で、ガソリンやアセトンが例示される。
+    examConnection: 引火点から品名区分を判断する。
+    section: otsu4-seisho
+    tags: [分類, 第一石油類]
+    relations: []
+    sources: [fdma-fire-law]
+  - id: class4.classification.alcohol
+    title: アルコール類
+    statement: アルコール類は炭素数1〜3の飽和一価アルコールを基本とする法令上の区分である。
+    examConnection: アルコール類の定義。
+    section: otsu4-seisho
+    tags: [分類, アルコール類]
+    relations: []
+    sources: [fdma-fire-law]
+  - id: class4.classification.second
+    title: 第二石油類
+    statement: 第二石油類は一気圧で引火点21℃以上70℃未満のもの（法令上の除外を除く）で、灯油や軽油が例示される。
+    examConnection: 引火点と第二石油類の対応。
+    section: otsu4-seisho
+    tags: [分類, 第二石油類]
+    relations: []
+    sources: [fdma-fire-law]
+  - id: class4.classification.third
+    title: 第三石油類
+    statement: 第三石油類は一気圧で引火点70℃以上200℃未満のもの（法令上の除外を除く）で、重油やクレオソート油が例示される。
+    examConnection: 引火点と第三石油類の対応。
+    section: otsu4-seisho
+    tags: [分類, 第三石油類]
+    relations: []
+    sources: [fdma-fire-law]
+  - id: class4.classification.fourth
+    title: 第四石油類
+    statement: 第四石油類は一気圧で引火点200℃以上250℃未満のもの（法令上の除外を除く）で、ギヤー油やシリンダー油が例示される。
+    examConnection: 引火点と第四石油類の対応。
+    section: otsu4-seisho
+    tags: [分類, 第四石油類]
+    relations: []
+    sources: [fdma-fire-law]
+  - id: class4.classification.animal-vegetable
+    title: 動植物油類
+    statement: 動植物から抽出した油で、一気圧で引火点250℃未満のもののうち法令上の条件に該当するものは動植物油類に区分される。
+    examConnection: 動植物油類の定義。
+    section: otsu4-seisho
+    tags: [分類, 動植物油類]
+    relations: []
+    sources: [fdma-fire-law]
+  - id: class4.prevention.avoid-ignition
+    title: 炎・火花・高温体を避ける
+    statement: 第4類危険物は炎、火花、高温体への接近や過熱を避けることが法令上の基本的な取扱基準である。
+    examConnection: 火災予防の基本原則。
+    section: otsu4-seisho
+    tags: [火災予防, 着火源]
+    relations: []
+    sources: [egov-decree]
+  - id: class4.prevention.limit-vapor
+    title: みだりに蒸気を発生させない
+    statement: 第4類危険物はみだりに蒸気を発生させないことが法令上の基本的な取扱基準である。
+    examConnection: 蒸気発生を抑える理由と取扱基準。
+    section: otsu4-seisho
+    tags: [火災予防, 蒸気]
+    relations: []
+    sources: [egov-decree]

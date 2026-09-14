@@ -1,0 +1,25 @@
+knowledge:
+  - id: class4.extinguishing.match-agent
+    title: 危険物に適応する消火方法を選ぶ
+    statement: 消火設備には対象となる危険物の区分があり、対象物の性質に適応する消火方法を選択する必要がある。
+    examConnection: 消火設備・消火方法の適応を問う問題。
+    section: otsu4-seisho
+    tags: [消火]
+    relations: []
+    sources: [egov-decree]
+  - id: class4.extinguishing.alcohol-resistant-foam
+    title: アルコール火災では耐アルコール泡を考慮する
+    statement: エタノールなど水溶性引火性液体の火災では、ERGは耐アルコール泡を適応手段として示している。
+    examConnection: 水溶性液体の消火方法。
+    section: otsu4-seisho
+    tags: [消火, アルコール類]
+    relations: [{ type: used_with, target: class4.ethanol.water }]
+    sources: [pubchem-alcohol-fire]
+  - id: class4.extinguishing.avoid-solid-stream-alcohol
+    title: 水溶性引火性液体へ棒状水流を直接向けない
+    statement: ERGは水溶性引火性液体の火災で、製品へ直線的な棒状水流を直接向けることを避けるよう示している。
+    examConnection: 不適切な消火操作の識別。
+    section: otsu4-seisho
+    tags: [消火, 水]
+    relations: [{ type: used_with, target: class4.extinguishing.alcohol-resistant-foam }]
+    sources: [pubchem-alcohol-fire]

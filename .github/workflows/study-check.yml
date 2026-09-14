@@ -1,0 +1,32 @@
+name: Study app checks
+
+on:
+  push:
+    branches: [feat/qualification-study-platform]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Validate study content
+        run: npm run validate:study
+      - name: Run tests
+        run: npm test
+      - name: Astro type check
+        run: npx astro check
+      - name: Build site
+        run: npm run build

@@ -1,0 +1,62 @@
+.study-shell { width: 100%; }
+.study-hero { max-width: 820px; margin-bottom: 56px; }
+.study-hero h1 { margin: 8px 0 18px; font-size: clamp(48px, 8vw, 86px); line-height: 1; letter-spacing: -.06em; }
+.study-hero > p:last-child { max-width: 680px; margin: 0; color: var(--muted); }
+.study-eyebrow { margin: 0 0 8px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .08em; text-transform: lowercase; }
+.study-panel, .study-story { padding: 34px 0; border-top: 1px solid var(--ink); }
+.study-panel h2, .study-story h2 { margin: 4px 0 10px; font-size: clamp(28px, 4vw, 44px); letter-spacing: -.035em; }
+.study-panel > h3, .study-debrief > h3 { margin: 38px 0 14px; font-size: 20px; }
+.study-section-header { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+.study-header-actions, .study-story-topbar { display: flex; flex-wrap: wrap; gap: 10px; }
+.study-story-topbar { justify-content: space-between; margin-bottom: 28px; }
+.study-muted { color: var(--muted); }
+.study-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 18px; }
+.study-card { position: relative; display: flex; flex-direction: column; min-height: 250px; padding: 22px; border: 1px solid var(--ink); background: color-mix(in srgb, var(--paper) 92%, white); box-shadow: 5px 5px 0 var(--ink); }
+.study-card h3 { margin: 6px 0 10px; font-size: 21px; letter-spacing: -.025em; }
+.study-card p { color: var(--muted); font-size: 13px; }
+.study-card button, .study-scene > button, .study-choices button { min-height: 44px; padding: 10px 14px; border: 1px solid var(--ink); font: inherit; cursor: pointer; }
+.study-card button { width: 100%; margin-top: auto; background: var(--ink); color: var(--paper); }
+.study-card button:hover, .study-scene > button:hover { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+.study-card-kicker, .study-card-meta { font-family: 'IBM Plex Mono', monospace; font-size: 10px !important; }
+.study-card-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); }
+.study-recommendation { align-self: flex-start; margin: 12px 0 0; padding: 3px 7px; background: var(--accent-soft); color: var(--ink); font-family: 'IBM Plex Mono', monospace; font-size: 10px; }
+.study-button-secondary { min-height: 44px; padding: 8px 13px; border: 1px solid var(--ink); background: transparent; color: var(--ink); font: inherit; cursor: pointer; }
+.study-button-secondary:hover { background: var(--ink); color: var(--paper); }
+.study-warning { margin: 0 0 28px; padding: 14px 16px; border: 1px solid #9b7a23; background: #fff8c9; font-size: 13px; }
+.study-warning p { margin: 0 0 10px; }
+.study-scene { max-width: 780px; margin-top: 30px; padding: clamp(22px, 4vw, 38px); border: 1px solid var(--ink); background: var(--paper-2); }
+.study-scene-narrative { border-left: 5px solid var(--accent); }
+.study-scene-resolution { border-left: 5px solid var(--green); }
+.study-scene-label { margin: 0 0 8px; color: var(--green); font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+.study-scene-text { margin: 0 0 28px; font-size: clamp(17px, 2.5vw, 21px); line-height: 1.9; }
+.study-choices { display: grid; gap: 12px; }
+.study-choices button { text-align: left; background: var(--paper); color: var(--ink); }
+.study-choices button:hover { transform: translateX(4px); border-color: var(--accent); }
+.study-handbook { position: fixed; z-index: 20; top: 0; right: 0; width: min(440px, 100%); height: 100vh; overflow-y: auto; padding: 28px; border-left: 1px solid var(--ink); background: var(--paper); box-shadow: -12px 0 30px rgba(23,23,20,.15); }
+.study-handbook-header { display: flex; align-items: start; justify-content: space-between; gap: 18px; }
+.study-handbook-header h3 { margin: 0; font-size: 28px; }
+.study-handbook-list { margin-top: 24px; border-top: 1px solid var(--ink); }
+.study-handbook-entry { border-bottom: 1px solid var(--line); }
+.study-handbook-title { width: 100%; min-height: 48px; padding: 12px 0; border: 0; background: none; color: var(--ink); text-align: left; font: inherit; font-weight: 600; cursor: pointer; }
+.study-handbook-entry p { margin: 0 0 16px; color: var(--muted); font-size: 13px; }
+.study-ending-summary { max-width: 760px; padding: 18px 20px; border-left: 4px solid var(--green); background: var(--paper-2); font-size: 17px; }
+.study-debrief-list { padding-left: 24px; }
+.study-debrief-list li { margin: 8px 0; }
+.study-debrief-cards, .study-knowledge-notes, .study-knowledge-list { display: grid; gap: 12px; }
+.study-debrief-cards article, .study-knowledge-notes article, .study-knowledge-list article { padding: 16px 18px; border: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 94%, white); }
+.study-debrief-cards span { color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 10px; }
+.study-debrief-cards p, .study-knowledge-notes p, .study-knowledge-list p { margin: 6px 0 0; color: var(--muted); }
+.study-knowledge-notes small { display: block; margin-top: 8px; color: var(--accent); }
+.study-exam-links { padding-left: 20px; }
+.study-exam-links li { margin: 10px 0; }
+.study-table-wrap { overflow-x: auto; }
+.study-knowledge-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.study-knowledge-table th, .study-knowledge-table td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; white-space: nowrap; }
+.study-knowledge-table progress { width: 72px; }
+@media (max-width: 640px) {
+  .study-section-header { align-items: stretch; flex-direction: column; }
+  .study-header-actions { display: grid; grid-template-columns: 1fr 1fr; }
+  .study-card-grid { grid-template-columns: 1fr; }
+  .study-card { min-height: 220px; }
+  .study-handbook { width: 100%; }
+}
