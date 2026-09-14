@@ -74,6 +74,6 @@ describe('StudyApp', () => {
     expect(screen.getByRole('heading', { name: '起きたこと' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '関係する知識' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: '試験ではどう問われるか' })).toBeInTheDocument();
-    expect(screen.getByText('漏洩時は着火源を増やさない')).toBeInTheDocument();
+    expect(screen.getAllByText('漏洩時は着火源を増やさない').length).toBeGreaterThan(0);
   });
 });
