@@ -1,39 +1,33 @@
 ---
-title: "1次元スピン模型 — 第二近接相互作用で見るIsingとXYの共通構造"
-summary: "最近接では独立だった局所変数が第二近接相互作用によって相互作用し始めるという共通構造をIsing鎖とXY鎖で比較する。domain wallとphase increment、有限波数相関、transfer spectrum、空間変調外場への応答、XY固有のchirality選択を整理する。"
+title: "第二近接IsingとXY — 欠陥・局所遷移・transfer spectrumの三つの解像度"
+summary: "第二近接Ising鎖とXY鎖を、粗視化された欠陥像、Bethe/cavity型の局所遷移確率、transfer spectrumという三つの解像度で比較する。Isingではwall配置、XYではtwistとchiralityが同じ統計構造の異なる表現として現れ、有限波数相関と応答へつながる。"
 publishedAt: 2026-09-13T22:45:00+09:00
-updatedAt: 2026-09-14
+updatedAt: 2026-09-15
 area: "Physics"
-topics: ["statistical mechanics", "Ising model", "XY model", "second-neighbor interaction", "frustration", "correlation", "wave number", "memory", "linear response"]
+topics: ["Ising model", "XY model", "second-neighbor interaction", "chirality"]
 status: growing
 ---
 
-最近接のIsing鎖とXY鎖では、零外場の自然な局所相対変数が独立だった。
-
-$$
-\tau_i=s_is_{i+1}
-$$
-
-と
-
-$$
-\phi_i=\theta_{i+1}-\theta_i
-$$
-
-である。
-
-第二近接を入れると、両方で
+第二近接相互作用を入れたIsing鎖とXY鎖は、局所自由度の見え方はかなり違う。それでも、同じ現象を
 
 $$
 \boxed{
-\text{independent local variables}
-\longrightarrow
-\text{interacting local variables}}
+\text{欠陥・粗視化像}
+\longleftrightarrow
+\text{局所遷移確率}
+\longleftrightarrow
+\text{transfer spectrum}}
 $$
 
-が起こる。
+という三つの解像度で読むと、共通構造がはっきりする。
 
-共通するのは「有限記憶化」で、その現れ方は離散wallと連続twistで分かれる。
+以下では
+
+$$
+\beta\equiv\frac{1}{k_{\mathrm B}T}
+$$
+
+とする。
 
 ## 1. 第二近接は局所相対変数どうしを結ぶ
 
@@ -48,10 +42,16 @@ $$
 に対して
 
 $$
+\tau_i=s_is_{i+1}=\pm1
+$$
+
+とおけば
+
+$$
 s_is_{i+2}=\tau_i\tau_{i+1}
 $$
 
-なので
+だから
 
 $$
 \boxed{
@@ -70,13 +70,19 @@ H_{\rm XY}
 -J_2\sum_i\cos(\theta_{i+2}-\theta_i)
 $$
 
-と
+に対して
+
+$$
+\phi_i=\theta_{i+1}-\theta_i
+$$
+
+とおくと
 
 $$
 \theta_{i+2}-\theta_i=\phi_i+\phi_{i+1}
 $$
 
-から
+より
 
 $$
 \boxed{
@@ -87,347 +93,515 @@ $$
 
 となる。
 
-$$
-\boxed{
-\text{independent noise in space}
-\longrightarrow
-\text{correlated noise in space}}
-$$
-
-という構造は同じである。
-
-## 2. 離散wallは配置を変え、連続twistは回転率そのものを選べる
-
-Isingの $\tau_i=\pm1$ は離散変数なので、第二近接はwall配置の統計を組み替える。
-
-XYの $\phi_i$ は連続角度なので、第二近接は
-
-$$
-\phi_i\simeq q_\ast
-$$
-
-という局所回転率そのものを選べる。
-
-$$
-\boxed{\text{Ising}:\ \text{wall arrangement is reorganized}}
-$$
-
-$$
-\boxed{\text{XY}:\ \text{local twist itself is selected}}
-$$
-
-という違いになる。
-
-## 3. finite-$q$ correlation は共通しても $q$ の意味は同じではない
-
-両模型とも
-
-$$
-C(r)\sim e^{-r/\xi}\cos(q_{\rm corr}r+\delta)
-$$
-
-のような振動減衰相関を持ちうる。
-
-Isingでは $q_{\rm corr}$ は離散スピン・wall配置の相関波数として transfer spectrum から現れる。
-
-XYでは
-
-$$
-e(q)=-J_1\cos q-J_2\cos2q
-$$
-
-の最小化から
-
-$$
-\cos q_\ast=-\frac{J_1}{4J_2}
-$$
-
-というfinite twistが直接選ばれる。
-
-$$
-\boxed{\text{Ising}:\ q_{\rm corr}\text{ は離散配置の相関波数}}
-$$
-
-$$
-\boxed{\text{XY}:\ q_\ast\text{ は局所回転率そのもの}}
-$$
-
-という区別を残しておく必要がある。
-
-## 4. 記憶の運び方は interacting walls と drifting phase increments に分かれる
-
-最近接Isingでは rare wall が記憶を反転させた。第二近接ではwall列自体が有限記憶を持つ。
-
-最近接XYでは phase diffusion が記憶を失わせた。finite twistが選ばれると
-
-$$
-\theta_r-\theta_0
-\simeq q_\ast r+\text{fluctuation}
-$$
-
-となる。
-
-$$
-\boxed{\text{Ising}:\ \text{interacting walls}}
-$$
-
-に対して
-
-$$
-\boxed{\text{XY}:\ \text{drifting, correlated phase increments}}
-$$
-
-である。
-
-## 5. XYでは continuous phase の上に discrete chirality が増える
-
-finite twist状態では
-
-$$
-+q_\ast
-\quad\text{と}\quad
--q_\ast
-$$
-
-が縮退する。
-
-局所chiralityは
-
-$$
-\kappa_i^{\rm ch}
-\sim\sin(\theta_{i+1}-\theta_i)
-$$
-
-で区別できる。
-
-したがって第二近接XYは
+どちらも最近接模型で独立だった局所相対変数が、第二近接によって一段の空間記憶を持つ。
 
 $$
 \boxed{
-\text{continuous phase mode}
-+\text{discrete chirality mode}}
-$$
-
-を同時に持つ。
-
-これはIsingの離散spin自由度と同一ではない。XYでは連続角度場の上に、回転方向という追加の二値自由度が生じる。
-
-## 6. transfer object は一つ前の局所状態を記憶する
-
-第二近接では現在のサイトだけでは次の局所統計を決められない。
-
-Isingでは $(s_i,s_{i+1})$ を状態とする4×4 transfer matrix、または $\tau_i$ のMarkov過程が自然になる。
-
-XYでは
-
-$$
-\mathcal T(\phi,\phi')
-=\exp\left[
-\frac{\beta J_1}{2}(\cos\phi+\cos\phi')
-+\beta J_2\cos(\phi+\phi')
-\right]
-$$
-
-という積分作用素になる。
-
-$$
-\boxed{
-\text{interaction range grows}
+\text{independent local variables}
 \longrightarrow
-\text{state must carry memory}
-\longrightarrow
-\text{transfer object becomes larger}}
+\text{interacting local variables}}
 $$
 
 という骨格は共通している。
 
-## 7. spectrum は decay と oscillation を別々に持つ
+## 2. 第一の解像度：欠陥・粗視化像
 
-概念的に支配modeを
+Isingの $\tau_i$ は離散変数であり、$\tau_i=-1$ はスピン列のdomain wallに対応する。第二近接相互作用はwallの有無だけでなく、wallどうしの配置統計を変える。
+
+したがってIsingで自然に見えるのは
 
 $$
-\lambda_\ast=|\lambda_\ast|e^{iq_{\rm corr}}
+\boxed{
+\text{wall configuration}
+}
+$$
+
+である。
+
+一方XYの $\phi_i$ は連続角度である。$J_1>0$, $J_2<0$ として
+
+$$
+\kappa\equiv\frac{|J_2|}{J_1}
+$$
+
+とおくと、一様twist $\phi_i=q$ のエネルギーは
+
+$$
+e(q)=-J_1\cos q+\kappa J_1\cos2q.
+$$
+
+極値条件は
+
+$$
+\sin q\left(1-4\kappa\cos q\right)=0
+$$
+
+であり、$\kappa>1/4$ では
+
+$$
+\boxed{
+q_\ast=\arccos\left(\frac{1}{4\kappa}\right)}
+$$
+
+が選ばれる。
+
+ここでは
+
+$$
++q_\ast,\qquad -q_\ast
+$$
+
+という二つのchirality sectorが生じる。
+
+XYで自然に見える欠陥は、その二つをつなぐchirality kinkである。
+
+$$
+\boxed{
+\text{Ising}:\ \text{discrete wall arrangement}}
+$$
+
+$$
+\boxed{
+\text{XY}:\ \text{continuous twist}+\text{chirality kink}}
+$$
+
+という違いになる。
+
+## 3. 連続場はXYのchirality kinkを可視化する
+
+$\kappa=1/4+\delta$、$\delta>0$ を小さく取り、$\phi_i\to\phi(x)$ として小振幅・長波長展開すると
+
+$$
+F[\phi]
+\simeq
+\int dx
+\left[
+\frac{J_1\kappa}{2}(\partial_x\phi)^2
++
+\frac{J_1}{8}(\phi^2-8\delta)^2
+\right].
+$$
+
+これは元の格子模型の長波長展開であり、ここからさらに
+
+$$
+\frac{\delta F}{\delta\phi}=0
+$$
+
+を解いて代表的な場配置を選ぶ段階がsaddle-point、すなわち平均場的な扱いに対応する。
+
+kink profileは
+
+$$
+\phi_{\rm k}(x)
+=\phi_0\tanh\frac{x-x_0}{\ell_{\rm k}},
+\qquad
+\phi_0=\sqrt{8\delta}
+$$
+
+で、
+
+$$
+\ell_{\rm k}\propto\delta^{-1/2}.
+$$
+
+kink energyは
+
+$$
+\boxed{
+E_{\rm k}
+\propto
+J_1\delta^{3/2}}
+$$
+
+となる。
+
+この表示の価値は、相関長そのものを精密に求めることより、なぜchirality memoryが長くなるのかを
+
+$$
+\boxed{
+\text{kink barrier}
+\longrightarrow
+\text{rare switching}}
+$$
+
+として読めることにある。
+
+Isingでも粗視化したwall密度やbond orderに対する連続場は書けるが、microscopicな自由度自体が離散なので、XYほどkink profileの連続形状に情報が集中しない。
+
+## 4. 第二の解像度：局所遷移確率
+
+第二近接模型は、局所相対変数のMarkov過程としても読める。
+
+Isingでは
+
+$$
+P(\tau_{i+1}|\tau_i)
+$$
+
+が2状態遷移確率になる。
+
+対称な場合を
+
+$$
+P=
+\begin{pmatrix}
+1-p & p\\
+p & 1-p
+\end{pmatrix}
 $$
 
 と書けば
 
 $$
-C(r)
-\sim
-\left|\frac{\lambda_\ast}{\lambda_0}\right|^r
-\cos(q_{\rm corr}r+\delta).
+\langle\tau_0\tau_r\rangle
+=(1-2p)^r
 $$
 
-したがって
+なので
 
 $$
 \boxed{
-|\lambda_\ast/\lambda_0|\longrightarrow\xi,
-\qquad
-\arg\lambda_\ast\longrightarrow q_{\rm corr}}
+\xi_\tau^{-1}
+=-\ln|1-2p|}
 $$
 
 となる。
 
-第二近接では「どれだけ速く忘れるか」と「どんな空間周期を保ちながら忘れるか」が別の情報になる。
-
-XYではスピン相関を測るために、平衡transfer operatorに位相因子を組み込んだtilted operatorが必要になる点がIsingと異なる。
-
-## 8. 外場応答の自然変数は $(Q-q_{\rm corr})\xi$ になる
-
-最近接強磁性鎖では相関の中心が $q=0$ だったため、空間変調外場は $Q\xi$ で整理できた。
-
-finite-$q$ structureが生じると基準点自体が移る。
+1次元最近接Markov鎖では、このBethe/cavity表現は実質的にexactである。したがってIsingでは
 
 $$
-\boxed{(Q-q_{\rm corr})\xi}
+\boxed{
+\text{local flip probability}
+\leftrightarrow
+\text{correlation length}}
 $$
 
-が自然なdetuningになる。
+が直接つながる。
+
+XYでは連続状態の条件付き分布
 
 $$
-C(r)\sim e^{-|r|/\xi}\cos(q_{\rm corr}r)
+P(\phi'|\phi)
 $$
 
-なら概念的に
+を考える。
+
+低温の螺旋側で
 
 $$
-S(Q)
-\propto
-\frac{\xi}{1+\xi^2(Q-q_{\rm corr})^2}
+\phi\simeq\pm q_\ast
+$$
+
+の二領域へ粗視化すれば、chiralityの有効遷移確率
+
+$$
+p_{\rm flip}
+$$
+
+を定義できる。
+
+そのとき
+
+$$
+\boxed{
+\xi_\chi^{-1}
+\simeq
+-\ln(1-2p_{\rm flip})}
+$$
+
+となり、$p_{\rm flip}\ll1$ なら
+
+$$
+\xi_\chi\simeq\frac{1}{2p_{\rm flip}}.
+$$
+
+連続場で得た $E_{\rm k}$ と局所確率は概念的に
+
+$$
+\boxed{
+p_{\rm flip}
+\sim
+\exp[-\beta\Delta F_{\rm k}]}
+$$
+
+で結ばれる。
+
+ここで $\Delta F_{\rm k}$ はkinkの自由エネルギーであり、平均場的な $E_{\rm k}$ に揺らぎのエントロピー補正を含めた量である。
+
+## 5. 第三の解像度：transfer spectrum
+
+Isingの $\tau$ 表現では transfer matrix は
+
+$$
+T_{\tau,\tau'}
+=
+\exp\left[
+\beta J_2\tau\tau'
 +
-\frac{\xi}{1+\xi^2(Q+q_{\rm corr})^2}.
+\frac{\beta J_1}{2}(\tau+\tau')
+\right]
 $$
 
-応答ピークは
+という $2\times2$ 行列になる。
+
+固有値を $\lambda_0,\lambda_1$ とすれば
 
 $$
-\boxed{Q\simeq\pm q_{\rm corr}}
+\boxed{
+\xi_\tau^{-1}
+=-\ln\left|\frac{\lambda_1}{\lambda_0}\right|}
 $$
 
-に現れ、幅はおおよそ $\xi^{-1}$ になる。
+である。
 
-問題は「外場が長波長か短波長か」から、**外場波数が内部構造波数にどれだけphase-matchしているか**へ変わる。
+Bethe/cavityで現れた $1-2p$ は、この固有値比と同じ記憶率を表している。
 
-## 9. Isingでは scalar modulated field が離散配置をprobeする
+XYでは
+
+$$
+\boxed{
+\mathcal T(\phi,\phi')
+=\exp\left[
+\frac{\beta J_1}{2}(\cos\phi+\cos\phi')
++\beta J_2\cos(\phi+\phi')
+\right]}
+$$
+
+という積分作用素になる。
+
+chirality observable $\sin\phi$ は反転 $\phi\to-\phi$ に対してoddなので、最大even固有値 $\lambda_0$ と最大odd固有値 $\lambda_\chi$ から
+
+$$
+\boxed{
+\xi_\chi^{-1}
+=-\ln\left|\frac{\lambda_\chi}{\lambda_0}\right|}
+$$
+
+を得る。
+
+低温で $\lambda_\chi\to\lambda_0$ となることは、二つのchirality sector間のswitchingが希薄になることと同じ情報である。
+
+## 6. 三つの解像度は同じ量を別の言葉で読む
+
+chirality sectorを例にすると、XYでは
+
+$$
+\boxed{
+E_{\rm k}
+\longrightarrow
+p_{\rm flip}
+\longrightarrow
+\lambda_\chi/\lambda_0
+\longrightarrow
+\xi_\chi}
+$$
+
+という対応がある。
+
+Isingではより直接に
+
+$$
+\boxed{
+\text{wall cost}
+\longrightarrow
+p
+\longrightarrow
+\lambda_1/\lambda_0
+\longrightarrow
+\xi_\tau}
+$$
+
+となる。
+
+平均場・Bethe・transfer matrixのどれか一つが他より多くの情報を持つわけではない。
+
+- 粗視化・saddle pointは、どの欠陥が記憶を壊すかを見せる。
+- Bethe/cavityは、その欠陥が局所的にどの確率で現れるかを見せる。
+- transfer spectrumは、それらを長距離減衰率として厳密にまとめる。
+
+同じ現象を異なる解像度で読むことで、固有値の変化を物理的な機構へ戻せる。
+
+## 7. XYではspin memoryがさらに別channelになる
+
+XYではchirality memoryだけではspin correlationを決められない。
+
+$$
+\theta_r-\theta_0
+=\sum_{i=0}^{r-1}\phi_i
+$$
+
+だから、spin correlationは
+
+$$
+\left\langle e^{i(\theta_r-\theta_0)}\right\rangle
+=
+\left\langle\prod_{i=0}^{r-1}e^{i\phi_i}\right\rangle
+$$
+
+という経路積算量になる。
+
+したがって平衡transfer operatorに位相因子を掛けたtilted operatorが必要になる。
+
+その支配固有値を
+
+$$
+z_\ast=|z_\ast|e^{iq_{\rm corr}}
+$$
+
+と書けば
+
+$$
+\boxed{
+\xi_{\rm spin}^{-1}
+=-\ln\left|\frac{z_\ast}{\lambda_0}\right|,
+\qquad
+q_{\rm corr}=\arg z_\ast}
+$$
+
+となる。
+
+低温では
+
+$$
+\phi\simeq q_\ast\sigma+\eta,
+\qquad \sigma=\pm1
+$$
+
+と分けられ、
+
+$$
+\boxed{
+\text{continuous phase diffusion}
++
+\text{discrete chirality switching}}
+$$
+
+が同時にspin memoryを壊す。
+
+これはIsingにはない追加構造である。
+
+## 8. finite-$q$相関でも三つの波数を分ける
+
+Isingでは有限波数相関が現れても、その $q_{\rm corr}$ は離散wall・spin配置の相関波数である。
+
+XYでは少なくとも
+
+$$
+q_\ast,\qquad q_{\rm corr},\qquad Q_{\rm peak}
+$$
+
+を区別する必要がある。
+
+$$
+\boxed{
+q_\ast:\ \text{局所的にエネルギーが選ぶtwist}}
+$$
+
+$$
+\boxed{
+q_{\rm corr}:\ \text{実空間相関の振動波数}}
+$$
+
+$$
+\boxed{
+Q_{\rm peak}:\ \text{構造因子・応答の最大位置}}
+$$
+
+である。
+
+chirality switchingが有限なら一般に
+
+$$
+Q_{\rm peak}\neq q_{\rm corr}\neq q_\ast
+$$
+
+となりうる。
+
+## 9. 外場応答はtransfer spectrumの観測側になる
+
+両模型とも
+
+$$
+C(r)\sim e^{-r/\xi}\cos(q_{\rm corr}r)
+$$
+
+なら、Fourier空間では $Q\simeq\pm q_{\rm corr}$ 近傍に応答が集まる。
+
+したがって自然なdetuningは
+
+$$
+\boxed{
+(Q-q_{\rm corr})\xi}
+$$
+
+である。
+
+Isingでは
 
 $$
 H_h^{\rm I}
 =-\sum_i h_Q\cos(Qi)s_i
 $$
 
-に対して
+というscalar modulated fieldが、離散配置の相関波数をprobeする。
 
-$$
-\delta m(Q)=\chi_{\rm I}(Q)h_Q
-$$
-
-であり
-
-$$
-\chi_{\rm I}(Q)
-=\beta\sum_r e^{-iQr}\langle s_0s_r\rangle.
-$$
-
-finite-$q$ correlationがあれば、$\chi_{\rm I}(Q)$ もその近くで大きくなる。
-
-ここで $Q$ は離散spin配置の相関波数に照準を合わせる量であり、局所spinが少しずつ回転しているわけではない。
-
-## 10. XYでは rotating field が pitch と chirality の両方に直接結合する
-
-固定方向の変調場でも
-
-$$
-H_h^x
-=-\sum_i h_Q\cos(Qi)\cos\theta_i
-$$
-
-として $Q\simeq\pm q_{\rm corr}$ をprobeできる。
-
-さらにXYでは
+XYではさらに
 
 $$
 \mathbf h_i=h(\cos Qi,\sin Qi)
 $$
 
-という rotating field が使える。
+というrotating fieldを使え、
 
 $$
-\boxed{
 H_h^{\rm rot}
-=-h\sum_i\cos(\theta_i-Qi)}
-$$
-
-となるので、内部構造
-
-$$
-\theta_i\simeq q_\ast i+\theta_0
-$$
-
-に対して
-
-$$
-\boxed{Q=q_\ast}
-$$
-
-が直接的なphase-matching条件になる。
-
-しかも $Q=+q_\ast$ と $Q=-q_\ast$ は回転方向が逆なので、chiralityまで選別できる。
-
-$$
-\boxed{
-\text{XY rotating field}
-:\ \text{pitch}+\text{chiralityを同時にprobe}}
-$$
-
-という情報はIsingにはない。
-
-## 11. finite-$q$ response の共通部分と模型固有部分
-
-| 観点 | Ising | XY |
-| --- | --- | --- |
-| 最近接の局所変数 | $\tau_i=s_is_{i+1}$ | $\phi_i=\theta_{i+1}-\theta_i$ |
-| 第二近接での結合 | $\tau_i\tau_{i+1}$ | $\cos(\phi_i+\phi_{i+1})$ |
-| finite-$q$ の意味 | 離散配置の相関波数 | 局所回転率に対応可能 |
-| probe | scalar modulated field | amplitude modulation / rotating field |
-| resonance | $Q\simeq q_{\rm corr}$ | $Q\simeq q_{\rm corr}\simeq q_\ast$ |
-| $Q$ の符号 | chirality情報を通常持たない | chiralityを選べる |
-| peak幅 | $\sim\xi^{-1}$ | $\sim\xi^{-1}$ |
-
-共通して
-
-$$
-\boxed{
-\text{finite-}q\text{ correlation}
-\longrightarrow
-\text{finite-}Q\text{ response peak}}
-$$
-
-だが、probeが何にphase-matchしているかは違う。
-
-## 12. 第二近接が作るのは internal spatial carrier である
-
-最近接では $Q=0$ が基準だったため
-
-$$
-Q\xi
-$$
-
-で十分だった。
-
-第二近接では
-
-$$
-\boxed{
-Q\xi
-\longrightarrow
-(Q-q_{\rm corr})\xi}
+=-h\sum_i\cos(\theta_i-Qi)
 $$
 
 となる。
 
-これは単なる相関長の修正ではなく、系が**内部のcarrier wave**を持つようになったことを表している。
+$Q=+q_\ast$ と $Q=-q_\ast$ は回転方向が逆なので、XYではpitchだけでなくchiralityまで直接選別できる。
 
-Isingではそのcarrierはwall・spin配置の相関構造として、XYでは局所twistとchiralityとして現れる。
+## 10. IsingとXYの対応表
 
-同じ「有限記憶化」が、離散系ではwall structure、連続系ではtwist structureになり、その違いがfinite-$Q$外場への応答に直接現れる。
+| 解像度 | Ising | XY |
+| --- | --- | --- |
+| 局所相対変数 | $\tau_i=s_is_{i+1}=\pm1$ | $\phi_i=\theta_{i+1}-\theta_i$ |
+| 粗視化された構造 | wall配置 | twist field + chirality |
+| 主要な欠陥 | domain wall配置の乱れ | chirality kink |
+| 局所統計 | $P(\tau'|\tau)$ | $P(\phi'|\phi)$ |
+| 低温switching | wall/flip probability | chirality flip probability |
+| exact object | $2\times2$ transfer matrix | integral transfer operator |
+| defect memory | $\lambda_1/\lambda_0$ | $\lambda_\chi/\lambda_0$ |
+| spin correlation | ordinary spectrumで扱える | tilted spectrumが必要 |
+| finite-$q$ の起源 | 離散配置 | local twist + switching |
+| 特有の追加自由度 | なし | continuous phase mode |
+
+## 11. 第二近接模型を見る軸
+
+第二近接を入れたときに見るべきものは、単に「相関長がどう変わるか」ではない。
+
+$$
+\boxed{
+\text{どの欠陥が記憶を壊すか}
+}
+$$
+
+$$
+\boxed{
+\text{その欠陥が局所的にどの頻度で現れるか}
+}
+$$
+
+$$
+\boxed{
+\text{その頻度がtransfer spectrumのどのgapになるか}
+}
+$$
+
+を対応させると、IsingとXYを同じ言葉で比較できる。
+
+Isingではこの対応がほぼ完全に離散Markov鎖へ閉じる。XYではその上にcontinuous phase accumulationが残るため、chirality sectorとspin sectorが分裂する。
+
+この違いが、同じ第二近接相互作用からIsingではwall statistics、XYではtwist・chirality・finite-$q$ responseが現れる理由である。
