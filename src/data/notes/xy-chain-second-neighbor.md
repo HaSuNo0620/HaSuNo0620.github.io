@@ -1,8 +1,8 @@
 ---
 title: "1次元XY模型 — 第二近接相互作用と螺旋的な空間記憶"
-summary: "最近接XY鎖に第二近接相互作用を加えると、独立だった角度差が相互作用し、競合相互作用から有限twist、chirality、有限波数応答が生まれる。基底状態、低温揺らぎ、transfer operator、空間変調外場への応答を通して、phase diffusionがcorrelated driftへ変わる過程を整理する。"
+summary: "最近接XY鎖に第二近接相互作用を加えると、独立だった角度差が相互作用し、競合相互作用から有限twist、chirality、有限波数応答が生まれる。基底状態、長波長場、低温揺らぎ、transfer operator、空間変調外場への応答を通して、phase diffusionがcorrelated driftへ変わる過程を整理する。"
 publishedAt: 2026-09-13T22:40:00+09:00
-updatedAt: 2026-09-14
+updatedAt: 2026-09-15
 area: "Physics"
 topics: ["statistical mechanics", "XY model", "second-neighbor interaction", "frustration", "helical order", "chirality", "correlation", "transfer operator", "linear response"]
 status: growing
@@ -69,51 +69,208 @@ $$
 
 最近接で独立だったphase incrementは、一段の空間記憶を持つ相関増分へ変わる。
 
-## 2. 競合は有限twistを選ぶ
+## 2. $\kappa=1/4$ で一様状態から有限twistが分岐する
 
-一様twist $\phi_i=q$ なら
+競合する場合として
 
 $$
-e(q)=-J_1\cos q-J_2\cos2q.
+J_1>0,
+\qquad
+J_2<0,
+\qquad
+\kappa\equiv\frac{|J_2|}{J_1}
 $$
+
+を考える。一様twist $\phi_i=q$ なら、1サイトあたりのエネルギーは
+
+$$
+e(q)
+=-J_1\cos q+\kappa J_1\cos2q
+$$
+
+である。
 
 極値条件は
 
 $$
-\sin q(J_1+4J_2\cos q)=0.
+\frac{de}{dq}
+=J_1\sin q-2\kappa J_1\sin2q
 $$
 
-したがって
-
-$$
-\boxed{
-\cos q_\ast=-\frac{J_1}{4J_2}}
-$$
-
-というfinite-twist解が現れる。
-
-$J_1>0$、$J_2<0$ として
-
-$$
-\kappa\equiv\frac{|J_2|}{J_1}
-$$
-
-とおけば、$\kappa>1/4$ で
+すなわち
 
 $$
 \boxed{
-q_\ast=\arccos\left(\frac{1}{4\kappa}\right)}
+\sin q\left(1-4\kappa\cos q\right)=0}
 $$
 
-が選ばれる。
+となる。
+
+$q=0$ のほかに有限twist解が存在するためには
+
+$$
+\cos q=\frac{1}{4\kappa}
+$$
+
+が実数解を持つ必要がある。したがって
+
+$$
+\kappa\ge\frac14
+$$
+
+が必要になる。
+
+同時に $q=0$ の曲率は
+
+$$
+e''(0)=J_1(1-4\kappa)
+$$
+
+なので、$\kappa>1/4$ では一様状態そのものが不安定になる。したがって選ばれるtwistは
+
+$$
+\boxed{
+q_\ast=
+\begin{cases}
+0, & \kappa\le 1/4,\\[4pt]
+\pm\arccos\left(\dfrac{1}{4\kappa}\right), & \kappa>1/4.
+\end{cases}}
+$$
+
+となる。
 
 ![第二近接XY鎖の選択twistと低温stiffness](/figures/xy-second-neighbor/preferred-twist-stiffness.svg)
 
-*有限twistの立ち上がりと、同じ点でsoftになる一様twist stiffness。*
+*有限twistは $\kappa=1/4$ から立ち上がり、同じ点で $q=0$ の曲率がsoftになる。*
 
 最近接XYの $q_\ast=0$ に対して、第二近接では相互作用自身が構造波数を選んでいる。
 
-## 3. phase diffusion は drift + correlated diffusion へ変わる
+## 3. 連続場は格子模型の長波長展開として出る
+
+$\kappa=1/4$ の近傍では $q_\ast\to0$ なので、局所twist $\phi_i$ 自体が小さく、かつchirality wallのような構造は多数の格子点にまたがってゆっくり変化する。この領域では
+
+$$
+\phi_i\longrightarrow\phi(x),
+\qquad
+\phi_{i+1}=\phi(x+1)
+$$
+
+とみなし、格子模型を長波長展開できる。
+
+まず空間的に一様な部分は
+
+$$
+V(\phi)
+=-J_1\cos\phi+\kappa J_1\cos2\phi
+$$
+
+である。$\phi\ll1$ として
+
+$$
+V(\phi)
+=\text{const}
++J_1\left[
+\left(\frac12-2\kappa\right)\phi^2
++
+\left(-\frac1{24}+\frac{2\kappa}{3}\right)\phi^4
++\cdots
+\right].
+$$
+
+$$
+\kappa=\frac14+\delta,
+\qquad
+0<\delta\ll1
+$$
+
+とおけば、主要項は
+
+$$
+V(\phi)
+\simeq
+J_1\left[-2\delta\phi^2+\frac18\phi^4\right]
+$$
+
+であり、定数を除いて
+
+$$
+\boxed{
+V(\phi)
+=\frac{J_1}{8}
+\left(\phi^2-8\delta\right)^2}
+$$
+
+と書ける。
+
+二つの極小は
+
+$$
+\boxed{
+\phi=\pm\sqrt{8\delta}}
+$$
+
+である。一方、格子模型の厳密な一様twist
+
+$$
+q_\ast=\arccos\left(\frac{1}{4\kappa}\right)
+$$
+
+を $\delta\ll1$ で展開すると
+
+$$
+q_\ast\simeq\sqrt{8\delta}
+$$
+
+となり、二重井戸の極小位置と一致する。
+
+空間変化のコストも元の格子模型から出る。小さな $\phi_i$ の二次部分をFourier空間で書くと
+
+$$
+H_2
+=\frac12\sum_k A(k)|\phi_k|^2,
+$$
+
+$$
+A(k)
+=J_1\left[1-2\kappa-2\kappa\cos k\right].
+$$
+
+小波数では
+
+$$
+A(k)
+\simeq
+J_1\left[1-4\kappa+\kappa k^2\right].
+$$
+
+$k^2|\phi_k|^2$ は実空間では $(\partial_x\phi)^2$ に対応するので、臨界点近傍の有効汎関数は
+
+$$
+\boxed{
+F[\phi]
+=\int dx\left[
+\frac{J_1\kappa}{2}(\partial_x\phi)^2
++
+\frac{J_1}{8}(\phi^2-8\delta)^2
+\right]}
+$$
+
+となる。
+
+これは独立に仮定したLandau自由エネルギーではなく、**元の格子ハミルトニアンを小振幅・長波長で展開した有効場**である。ただし、この $F[\phi]$ の極値をEuler--Lagrange方程式で求め、熱揺らぎをその周りの補正として扱う段階では、場の経路積分をsaddle pointで置き換えている。その意味で kink の古典解は **Landau--Ginzburg型の平均場、より正確にはsaddle-point近似**に相当する。
+
+したがってここで使う近似は
+
+$$
+\boxed{
+\text{small amplitude}
++\text{long wavelength}
++\text{saddle point}}
+$$
+
+の三段階に分けて考える方がよい。
+
+## 4. phase diffusion は drift + correlated diffusion へ変わる
 
 一つのchirality sectorで
 
@@ -142,7 +299,7 @@ $$
 
 平均角度は一定速度 $q_\ast$ で回転し、その上に相関した熱揺らぎが重なる。
 
-## 4. 低温位相記憶は twist stiffness で決まる
+## 5. 低温位相記憶は twist stiffness で決まる
 
 $\phi_i=q_\ast+\delta_i$ として二次まで展開すると
 
@@ -204,9 +361,9 @@ $$
 
 となる。
 
-$\kappa=1/4$ では $A_0\to0$ なので、このGaussian近似自体がsoftになる。境界近傍では高次項が必要になる。
+$\kappa=1/4$ では $A_0\to0$ なので、このGaussian近似自体がsoftになる。境界近傍では前節の高次項が必要になる。
 
-## 5. finite twist は離散chiralityを同時に生む
+## 6. finite twist は離散chiralityを同時に生む
 
 $e(q)=e(-q)$ なので
 
@@ -236,7 +393,7 @@ $$
 
 という二層がある。
 
-## 6. $q_{\rm corr}$ と $\xi$ は別の記憶情報である
+## 7. $q_{\rm corr}$ と $\xi$ は別の記憶情報である
 
 長距離相関を
 
@@ -259,7 +416,7 @@ $$
 
 低温でchiralityが十分長く保たれるなら $q_{\rm corr}\simeq q_\ast$ である。ただし全系ではchirality correlation lengthも別に存在しうるため、単一の $\xi$ で全距離を閉じるとは限らない。
 
-## 7. transfer operator は角度増分の Markov kernel になる
+## 8. transfer operator は角度増分の Markov kernel になる
 
 角度差表示では
 
@@ -290,7 +447,7 @@ $$
 
 という単純な1-step memoryは、一般のtransfer-operator spectrumへ置き換わる。
 
-## 8. スピン相関は tilted spectrum の位相と絶対値を読む
+## 9. スピン相関は tilted spectrum の位相と絶対値を読む
 
 $$
 \left\langle e^{i(\theta_r-\theta_0)}\right\rangle
@@ -329,7 +486,7 @@ $$
 
 第二近接XYでは、長距離記憶が spectrum の**大きさと位相**の二つへ分かれている。
 
-## 9. 外場応答の中心は $Q=0$ から $Q=\pm q_{\rm corr}$ へ移る
+## 10. 外場応答の中心は $Q=0$ から $Q=\pm q_{\rm corr}$ へ移る
 
 固定方向の空間変調外場
 
@@ -390,7 +547,7 @@ $$
 
 peak position は $q_{\rm corr}$、peak width はおおよそ $\xi^{-1}$ を測る。
 
-## 10. rotating field は pitch と chirality の両方に phase-match する
+## 11. rotating field は pitch と chirality の両方に phase-match する
 
 XYでは外場自身を回転させ
 
@@ -428,7 +585,7 @@ $$
 
 固定方向のcosine外場がpitchをprobeするのに対し、rotating fieldは**pitchとchiralityを同時にprobeできる**。
 
-## 11. 第二近接XYで外場から読める三つの量
+## 12. 第二近接XYで外場から読める三つの量
 
 応答で分けて読みたいのは
 
@@ -444,7 +601,7 @@ $$
 
 第二近接XYでは外場は絶対方向を揃えるだけでなく、**内部構造波数へ照準を合わせるprobe**になる。
 
-## 12. 最近接から第二近接への変化
+## 13. 最近接から第二近接への変化
 
 最近接では
 
