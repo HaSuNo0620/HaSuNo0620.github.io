@@ -2,7 +2,7 @@
 title: "界面を考えるとき、何を見ればよいのか"
 summary: "密度プロファイル、相関、自由エネルギー、濡れ、長さスケールを同じ問題の異なる層として整理する。"
 publishedAt: 2026-09-09T18:40:00+09:00
-updatedAt: 2026-09-14
+updatedAt: 2026-09-16
 area: "Physics"
 topics: ["interfaces", "statistical mechanics", "liquid theory"]
 status: growing
@@ -20,6 +20,8 @@ status: growing
 が重なっていることにある。
 
 自分の中では、これらをいったん別の解像度として分け、その間をあとからつなぐ方が整理しやすい。
+
+このノートは界面系列の入口として、個別理論の導出ではなく「どの解像度を見ているか」の地図に徹する。巨視的な界面力学は [Young–Laplace](/notes/young-laplace-coarse-graining/) に、界面を熱力学的部分系として数える方法は [Gibbsの界面熱力学](/notes/gibbs-to-tolman-gauge-curvature/) に分ける。
 
 ## 1. 密度場が最初の解像度になる
 
