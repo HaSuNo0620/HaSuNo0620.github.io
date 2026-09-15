@@ -1,25 +1,26 @@
 ---
-title: "第二近接IsingとXY — 欠陥・局所遷移・transfer spectrumの三つの解像度"
-summary: "第二近接Ising鎖とXY鎖を、粗視化された欠陥像、Bethe/cavity型の局所遷移確率、transfer spectrumという三つの解像度で比較する。Isingではwall配置、XYではtwistとchiralityが同じ統計構造の異なる表現として現れ、有限波数相関と応答へつながる。"
+title: "第二近接IsingとXY — 平均場・Bethe・transfer spectrumで見る三つの解像度"
+summary: "第二近接Ising鎖とXY鎖を、平均場・saddle point、Bethe/cavity、厳密transfer spectrumという三つの方法で比較する。欠陥の形、局所遷移確率、長距離相関の固有値がどう対応するかを通して、Isingのwall statisticsとXYのtwist・chiralityを同じ軸で整理する。"
 publishedAt: 2026-09-13T22:45:00+09:00
-updatedAt: 2026-09-15
+updatedAt: 2026-09-16
 area: "Physics"
 topics: ["Ising model", "XY model", "second-neighbor interaction", "chirality"]
 status: growing
 ---
 
-第二近接相互作用を入れたIsing鎖とXY鎖は、局所自由度の見え方はかなり違う。それでも、同じ現象を
+第二近接Ising鎖と第二近接XY鎖は、厳密にはtransfer matrix / transfer operatorで扱える。それでも平均場やBethe/cavityを見る意味は残る。違いは精度の段階ではなく、同じ統計構造のどこを可視化するかにある。
 
 $$
 \boxed{
-\text{欠陥・粗視化像}
+\text{平均場・saddle point}
 \longleftrightarrow
-\text{局所遷移確率}
+\text{Bethe / cavity}
 \longleftrightarrow
-\text{transfer spectrum}}
+\text{exact transfer spectrum}
+}
 $$
 
-という三つの解像度で読むと、共通構造がはっきりする。
+平均場は「どんな欠陥・場配置が記憶を壊すか」を見せ、Bethe/cavityは「その局所遷移がどの頻度で起こるか」を見せ、transfer spectrumは「その結果として長距離相関がどう減衰するか」を厳密にまとめる。
 
 以下では
 
@@ -93,7 +94,7 @@ $$
 
 となる。
 
-どちらも最近接模型で独立だった局所相対変数が、第二近接によって一段の空間記憶を持つ。
+どちらも、最近接模型で独立だった局所相対変数が第二近接によって相互作用する。
 
 $$
 \boxed{
@@ -104,27 +105,42 @@ $$
 
 という骨格は共通している。
 
-## 2. 第一の解像度：欠陥・粗視化像
+## 2. 方法I：平均場・saddle pointは欠陥の形を見せる
 
-Isingの $\tau_i$ は離散変数であり、$\tau_i=-1$ はスピン列のdomain wallに対応する。第二近接相互作用はwallの有無だけでなく、wallどうしの配置統計を変える。
+平均場的な見方では、局所変数そのものより、粗視化した場とその代表配置を見る。
 
-したがってIsingで自然に見えるのは
+### Ising
+
+$\tau_i=\pm1$ は離散変数なので、microscopicにはdomain wallの配置として見るのが自然である。粗視化したbond order $m_\tau(x)$ を導入すれば
+
+$$
+F[m_\tau]
+=\int dx\left[
+\frac{K}{2}(\partial_xm_\tau)^2+V(m_\tau)
+\right]
+$$
+
+のようなLandau-Ginzburg型記述は書ける。
+
+ただしIsingではwall自体が格子上の離散欠陥なので、連続profileより
 
 $$
 \boxed{
-\text{wall configuration}
+\text{wall cost と wall 配置}
 }
 $$
 
-である。
+に物理が集中する。
 
-一方XYの $\phi_i$ は連続角度である。$J_1>0$, $J_2<0$ として
+### XY
+
+$J_1>0$, $J_2<0$ とし
 
 $$
 \kappa\equiv\frac{|J_2|}{J_1}
 $$
 
-とおくと、一様twist $\phi_i=q$ のエネルギーは
+とおく。一様twist $\phi_i=q$ のエネルギーは
 
 $$
 e(q)=-J_1\cos q+\kappa J_1\cos2q.
@@ -133,41 +149,23 @@ $$
 極値条件は
 
 $$
-\sin q\left(1-4\kappa\cos q\right)=0
+\sin q\left(1-4\kappa\cos q\right)=0.
 $$
 
-であり、$\kappa>1/4$ では
+$\kappa\le1/4$ では $q_\ast=0$ が安定だが、$\kappa>1/4$ では
 
 $$
 \boxed{
 q_\ast=\arccos\left(\frac{1}{4\kappa}\right)}
 $$
 
-が選ばれる。
-
-ここでは
+が選ばれ、
 
 $$
 +q_\ast,\qquad -q_\ast
 $$
 
 という二つのchirality sectorが生じる。
-
-XYで自然に見える欠陥は、その二つをつなぐchirality kinkである。
-
-$$
-\boxed{
-\text{Ising}:\ \text{discrete wall arrangement}}
-$$
-
-$$
-\boxed{
-\text{XY}:\ \text{continuous twist}+\text{chirality kink}}
-$$
-
-という違いになる。
-
-## 3. 連続場はXYのchirality kinkを可視化する
 
 $\kappa=1/4+\delta$、$\delta>0$ を小さく取り、$\phi_i\to\phi(x)$ として小振幅・長波長展開すると
 
@@ -182,13 +180,13 @@ F[\phi]
 \right].
 $$
 
-これは元の格子模型の長波長展開であり、ここからさらに
+ここまでは長波長展開であり、さらに
 
 $$
 \frac{\delta F}{\delta\phi}=0
 $$
 
-を解いて代表的な場配置を選ぶ段階がsaddle-point、すなわち平均場的な扱いに対応する。
+を解いて代表配置を選ぶ段階がsaddle-point、すなわち平均場的な扱いになる。
 
 kink profileは
 
@@ -202,38 +200,36 @@ $$
 で、
 
 $$
-\ell_{\rm k}\propto\delta^{-1/2}.
+\ell_{\rm k}\propto\delta^{-1/2},
 $$
 
-kink energyは
+さらに
 
 $$
 \boxed{
-E_{\rm k}
-\propto
-J_1\delta^{3/2}}
+E_{\rm k}\propto J_1\delta^{3/2}}
 $$
 
 となる。
 
-この表示の価値は、相関長そのものを精密に求めることより、なぜchirality memoryが長くなるのかを
+平均場から新しく見えるのは、相関長そのものではなく
 
 $$
 \boxed{
 \text{kink barrier}
 \longrightarrow
-\text{rare switching}}
+\text{rare chirality switching}}
 $$
 
-として読めることにある。
+という機構と、そのbarrierのスケーリングである。
 
-Isingでも粗視化したwall密度やbond orderに対する連続場は書けるが、microscopicな自由度自体が離散なので、XYほどkink profileの連続形状に情報が集中しない。
+## 3. 方法II：Bethe / cavityは局所遷移確率を見せる
 
-## 4. 第二の解像度：局所遷移確率
+Bethe/cavityでは、場の代表配置ではなく条件付き確率を見る。
 
-第二近接模型は、局所相対変数のMarkov過程としても読める。
+### Ising
 
-Isingでは
+$\tau_i$ 表現では
 
 $$
 P(\tau_{i+1}|\tau_i)
@@ -254,30 +250,32 @@ $$
 と書けば
 
 $$
-\langle\tau_0\tau_r\rangle
-=(1-2p)^r
+\langle\tau_0\tau_r\rangle=(1-2p)^r
 $$
 
-なので
+だから
 
 $$
 \boxed{
-\xi_\tau^{-1}
-=-\ln|1-2p|}
+\xi_\tau^{-1}=-\ln|1-2p|}
 $$
 
 となる。
 
-1次元最近接Markov鎖では、このBethe/cavity表現は実質的にexactである。したがってIsingでは
+第二近接Isingは $\tau$ 表現では1次元最近接Markov鎖なので、このBethe/cavity記述は実質的にexactである。
+
+したがってIsingでは
 
 $$
 \boxed{
-\text{local flip probability}
-\leftrightarrow
+\text{wall / flip probability}
+\longleftrightarrow
 \text{correlation length}}
 $$
 
 が直接つながる。
+
+### XY
 
 XYでは連続状態の条件付き分布
 
@@ -293,7 +291,7 @@ $$
 \phi\simeq\pm q_\ast
 $$
 
-の二領域へ粗視化すれば、chiralityの有効遷移確率
+の二領域へ粗視化すれば、chirality flip probability
 
 $$
 p_{\rm flip}
@@ -310,13 +308,16 @@ $$
 -\ln(1-2p_{\rm flip})}
 $$
 
-となり、$p_{\rm flip}\ll1$ なら
+であり、$p_{\rm flip}\ll1$ なら
 
 $$
-\xi_\chi\simeq\frac{1}{2p_{\rm flip}}.
+\boxed{
+\xi_\chi\simeq\frac{1}{2p_{\rm flip}}}
 $$
 
-連続場で得た $E_{\rm k}$ と局所確率は概念的に
+となる。
+
+平均場で得たkink energyとBethe/cavity側の局所確率は
 
 $$
 \boxed{
@@ -325,13 +326,15 @@ p_{\rm flip}
 \exp[-\beta\Delta F_{\rm k}]}
 $$
 
-で結ばれる。
+でつながる。
 
-ここで $\Delta F_{\rm k}$ はkinkの自由エネルギーであり、平均場的な $E_{\rm k}$ に揺らぎのエントロピー補正を含めた量である。
+$E_{\rm k}$ がsaddle-pointのエネルギー障壁なのに対して、$\Delta F_{\rm k}$ はその周囲の揺らぎによるエントロピーまで含むkink自由エネルギーである。
 
-## 5. 第三の解像度：transfer spectrum
+## 4. 方法III：transfer matrix / operatorは長距離相関を厳密にまとめる
 
-Isingの $\tau$ 表現では transfer matrix は
+### Ising
+
+$\tau$ 表現では
 
 $$
 T_{\tau,\tau'}
@@ -343,7 +346,7 @@ T_{\tau,\tau'}
 \right]
 $$
 
-という $2\times2$ 行列になる。
+という $2\times2$ transfer matrixになる。
 
 固有値を $\lambda_0,\lambda_1$ とすれば
 
@@ -355,7 +358,9 @@ $$
 
 である。
 
-Bethe/cavityで現れた $1-2p$ は、この固有値比と同じ記憶率を表している。
+Bethe/cavityに現れた $1-2p$ は、この固有値比が表す記憶率と同じ情報である。
+
+### XY
 
 XYでは
 
@@ -370,7 +375,7 @@ $$
 
 という積分作用素になる。
 
-chirality observable $\sin\phi$ は反転 $\phi\to-\phi$ に対してoddなので、最大even固有値 $\lambda_0$ と最大odd固有値 $\lambda_\chi$ から
+chirality observable $\sin\phi$ は $\phi\to-\phi$ に対してoddなので、最大even固有値 $\lambda_0$ と最大odd固有値 $\lambda_\chi$ から
 
 $$
 \boxed{
@@ -380,11 +385,17 @@ $$
 
 を得る。
 
-低温で $\lambda_\chi\to\lambda_0$ となることは、二つのchirality sector間のswitchingが希薄になることと同じ情報である。
+低温で
 
-## 6. 三つの解像度は同じ量を別の言葉で読む
+$$
+\lambda_\chi\to\lambda_0
+$$
 
-chirality sectorを例にすると、XYでは
+となることは、二つのchirality sector間のswitchingが希薄になることと同じ情報である。
+
+## 5. 三つの方法が見ているものは同じだが、見え方が違う
+
+XYのchirality sectorでは
 
 $$
 \boxed{
@@ -399,7 +410,7 @@ $$
 
 という対応がある。
 
-Isingではより直接に
+Isingでは
 
 $$
 \boxed{
@@ -414,15 +425,36 @@ $$
 
 となる。
 
-平均場・Bethe・transfer matrixのどれか一つが他より多くの情報を持つわけではない。
+ここで三つの方法の役割を分けると
 
-- 粗視化・saddle pointは、どの欠陥が記憶を壊すかを見せる。
-- Bethe/cavityは、その欠陥が局所的にどの確率で現れるかを見せる。
-- transfer spectrumは、それらを長距離減衰率として厳密にまとめる。
+| 方法 | 主に見えるもの | 強み | 弱み |
+| --- | --- | --- | --- |
+| 平均場・saddle point | 欠陥の形、幅、barrier | 機構とスケーリングが見える | 揺らぎを落とす |
+| Bethe / cavity | 局所遷移確率 | defect frequencyへ直結する | 長いtextureの形は見えにくい |
+| transfer spectrum | 長距離減衰率と波数 | 1Dでは厳密 | 機構が固有値に埋もれやすい |
 
-同じ現象を異なる解像度で読むことで、固有値の変化を物理的な機構へ戻せる。
+したがって
 
-## 7. XYではspin memoryがさらに別channelになる
+$$
+\boxed{
+\text{平均場}<\text{Bethe}<\text{exact}
+}
+$$
+
+という単純な精度序列として使うのではない。
+
+$$
+\boxed{
+\text{形}
+\longleftrightarrow
+\text{頻度}
+\longleftrightarrow
+\text{長距離スペクトル}}
+$$
+
+という異なる解像度を対応させるために三つを並べる。
+
+## 6. XYではchirality memoryとspin memoryが分裂する
 
 XYではchirality memoryだけではspin correlationを決められない。
 
@@ -431,7 +463,7 @@ $$
 =\sum_{i=0}^{r-1}\phi_i
 $$
 
-だから、spin correlationは
+だから
 
 $$
 \left\langle e^{i(\theta_r-\theta_0)}\right\rangle
@@ -441,9 +473,9 @@ $$
 
 という経路積算量になる。
 
-したがって平衡transfer operatorに位相因子を掛けたtilted operatorが必要になる。
+そのためspin correlationには、平衡transfer operatorに位相因子を組み込んだtilted operatorが必要になる。
 
-その支配固有値を
+支配固有値を
 
 $$
 z_\ast=|z_\ast|e^{iq_{\rm corr}}
@@ -459,7 +491,7 @@ $$
 q_{\rm corr}=\arg z_\ast}
 $$
 
-となる。
+である。
 
 低温では
 
@@ -481,9 +513,9 @@ $$
 
 これはIsingにはない追加構造である。
 
-## 8. finite-$q$相関でも三つの波数を分ける
+## 7. finite-$q$相関でも局所波数・相関波数・応答波数を分ける
 
-Isingでは有限波数相関が現れても、その $q_{\rm corr}$ は離散wall・spin配置の相関波数である。
+Isingではfinite-$q$ correlationが現れても、その $q_{\rm corr}$ は離散wall・spin配置の相関波数である。
 
 XYでは少なくとも
 
@@ -518,7 +550,7 @@ $$
 
 となりうる。
 
-## 9. 外場応答はtransfer spectrumの観測側になる
+## 8. 外場応答はtransfer spectrumを観測側から読む
 
 両模型とも
 
@@ -528,7 +560,7 @@ $$
 
 なら、Fourier空間では $Q\simeq\pm q_{\rm corr}$ 近傍に応答が集まる。
 
-したがって自然なdetuningは
+自然なdetuningは
 
 $$
 \boxed{
@@ -563,45 +595,48 @@ $$
 
 $Q=+q_\ast$ と $Q=-q_\ast$ は回転方向が逆なので、XYではpitchだけでなくchiralityまで直接選別できる。
 
-## 10. IsingとXYの対応表
+## 9. IsingとXYの対応
 
-| 解像度 | Ising | XY |
+| 観点 | Ising | XY |
 | --- | --- | --- |
 | 局所相対変数 | $\tau_i=s_is_{i+1}=\pm1$ | $\phi_i=\theta_{i+1}-\theta_i$ |
-| 粗視化された構造 | wall配置 | twist field + chirality |
-| 主要な欠陥 | domain wall配置の乱れ | chirality kink |
-| 局所統計 | $P(\tau'|\tau)$ | $P(\phi'|\phi)$ |
-| 低温switching | wall/flip probability | chirality flip probability |
-| exact object | $2\times2$ transfer matrix | integral transfer operator |
+| 平均場で見えるもの | wall / bond-order texture | twist field / chirality kink |
+| Betheで見る量 | $P(\tau'|\tau)$ | $P(\phi'|\phi)$ |
+| 局所switching | wall / flip probability | chirality flip probability |
+| exact transfer object | $2\times2$ matrix | integral operator |
 | defect memory | $\lambda_1/\lambda_0$ | $\lambda_\chi/\lambda_0$ |
-| spin correlation | ordinary spectrumで扱える | tilted spectrumが必要 |
+| spin correlation | ordinary spectrum | tilted spectrum |
 | finite-$q$ の起源 | 離散配置 | local twist + switching |
-| 特有の追加自由度 | なし | continuous phase mode |
+| 追加自由度 | なし | continuous phase mode |
 
-## 11. 第二近接模型を見る軸
+## 10. 三つの方法を並べる意味
 
-第二近接を入れたときに見るべきものは、単に「相関長がどう変わるか」ではない。
+厳密解があるから平均場やBetheが不要になるわけではない。厳密transfer spectrumは結果を与えるが、その固有値差が何の欠陥によって作られ、どの局所過程を通じて長距離減衰へ変換されるかは、別の表現へ移した方が見えやすい。
 
-$$
-\boxed{
-\text{どの欠陥が記憶を壊すか}
-}
-$$
+Isingでは
 
 $$
 \boxed{
-\text{その欠陥が局所的にどの頻度で現れるか}
-}
+\text{wall}
+\to
+\text{local flip probability}
+\to
+\text{transfer gap}}
 $$
+
+XYでは
 
 $$
 \boxed{
-\text{その頻度がtransfer spectrumのどのgapになるか}
-}
+\text{chirality kink}
+\to
+\text{chirality switching probability}
+\to
+\text{even/odd transfer splitting}}
 $$
 
-を対応させると、IsingとXYを同じ言葉で比較できる。
+となる。
 
-Isingではこの対応がほぼ完全に離散Markov鎖へ閉じる。XYではその上にcontinuous phase accumulationが残るため、chirality sectorとspin sectorが分裂する。
+さらにXYだけはその上にcontinuous phase accumulationが残るため、chirality sectorとspin sectorが分裂する。
 
-この違いが、同じ第二近接相互作用からIsingではwall statistics、XYではtwist・chirality・finite-$q$ responseが現れる理由である。
+三つの方法を並べることで、同じ第二近接相互作用がIsingではwall statisticsとして、XYではtwist・chirality・finite-$q$ responseとして現れる過程を、同じ統計構造の異なる解像度として読める。
