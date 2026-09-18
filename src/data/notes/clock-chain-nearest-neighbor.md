@@ -1,10 +1,10 @@
 ---
 title: "1次元一様最近接 cosine-Zq スピン系 — 離散位相増分と角度記憶"
-summary: "1次元最近接clock鎖を、Isingの離散的な反転記憶とXYの連続的な位相増分記憶の間を埋める模型として読む。有限qの離散位相増分、transfer spectrum、XY spectrumのaliasing、rare jumpからphase diffusionへのcross-overを通して、Z2→Zq→U(1)で何が連続的に変わるかを整理する。"
+summary: "1次元最近接clock鎖を、Isingの離散的な反転記憶とXYの連続的な位相増分記憶の間を埋める模型として読む。有限qの離散位相増分、transfer spectrum、XYスペクトルのaliasing、rare jumpからphase diffusionへのcross-overを通して、Z2→Zq→U(1)で何が連続的に変わるかを整理する。"
 publishedAt: 2026-09-17T10:20:00+09:00
 updatedAt: 2026-09-19
 area: "Physics"
-topics: ["statistical mechanics", "clock model", "spin model", "transfer matrix", "phase diffusion", "correlation", "Fourier spectrum"]
+topics: ["statistical mechanics", "clock 模型", "spin model", "transfer matrix", "phase diffusion", "correlation", "Fourier spectrum"]
 status: growing
 system:
   dimension: 1
@@ -20,7 +20,7 @@ Ising鎖では、隣接スピンの関係は「反転したか、していない
 
 この二つの間で、局所的に記憶できる角度差だけを増やしていくと何が変わるのか。
 
-clock modelでは
+clock 模型では
 
 $$
 \theta_i=\frac{2\pi n_i}{q},
@@ -78,7 +78,7 @@ $$
 \phi_i\equiv\theta_{i+1}-\theta_i
 $$
 
-とする。clock modelでは
+とする。clock 模型では
 
 $$
 \boxed{
@@ -104,7 +104,7 @@ $$
 
 $$
 \begin{array}{c|c}
-\text{model} & \text{allowed 位相増分}\\
+\text{模型} & \text{許される位相増分}\\
 \hline
 Z_2 & \{0,\pi\}\\[1mm]
 Z_q & \left\{\dfrac{2\pi a}{q}\right\}_{a=0}^{q-1}\\[3mm]
@@ -138,11 +138,11 @@ $$
 
 $$
 \boxed{
-\text{two-state increment}
+\text{二値増分}
 \to
-\text{discrete 位相増分}
+\text{離散位相増分}
 \to
-\text{continuous 位相増分}
+\text{連続位相増分}
 }
 $$
 
@@ -208,7 +208,7 @@ $$
 
 となる。
 
-## 3. 転送スペクトルは離散Fourier spectrumになる
+## 3. 転送スペクトルは離散Fourierスペクトルになる
 
 1 bondの転送行列は
 
@@ -256,7 +256,7 @@ $$
 \Lambda_{q-m}^{(q)}=\Lambda_m^{(q)}
 $$
 
-なので、独立な記憶 sectorは有限個しかない。
+なので、独立な記憶セクターは有限個しかない。
 
 $$
 \boxed{
@@ -339,7 +339,7 @@ $$
 
 となり、最近接XY鎖の記憶スペクトルへつながる。
 
-有限$q$では有限個だった記憶 sectorが、$q\to\infty$で
+有限$q$では有限個だった記憶セクターが、$q\to\infty$で
 
 $$
 m=1,2,3,\ldots
@@ -347,7 +347,7 @@ $$
 
 という無限の高調波階層になる。
 
-## 6. clock spectrumはXY spectrumを折り畳んだものとして書ける
+## 6. clockスペクトルはXYスペクトルを折り畳んだものとして書ける
 
 Fourier展開
 
@@ -396,13 +396,13 @@ $$
 
 である。
 
-有限$q$のclock spectrumは、XYで本来独立な
+有限$q$のclockスペクトルは、XYで本来独立な
 
 $$
 \ldots,m-q,m,m+q,\ldots
 $$
 
-を一つのsectorへ重ね合わせたものになっている。
+を一つのセクターへ重ね合わせたものになっている。
 
 $$
 \boxed{
@@ -414,9 +414,9 @@ $$
 
 という対応がある。
 
-![有限$q$の記憶スペクトルとXY極限](/figures/clock-r1/記憶-spectrum-folding.svg)
+![有限$q$の記憶スペクトルとXY極限](/figures/clock-r1/memory-spectrum-folding.svg)
 
-*$K=20$における$\rho_m^{(q)}$。有限$q$では独立sectorが$m\le q/2$までに折り畳まれる。$q$を増やすと低い高調波からXYの無限spectrumへ収束し、細かい角度情報ほど有限$q$性を長く残す。*
+*$K=20$における$\rho_m^{(q)}$。有限$q$では独立セクターが$m\le q/2$までに折り畳まれる。$q$を増やすと低い高調波からXYの無限スペクトルへ収束し、細かい角度情報ほど有限$q$性を長く残す。*
 
 ## 7. 低温では局所位相増分に二つの見え方が現れる
 
@@ -502,7 +502,7 @@ $$
 
 $$
 \boxed{
-\text{rare discrete jumps}
+\text{稀な離散ジャンプ}
 \longrightarrow
 \text{dense small-step 位相拡散}
 }
@@ -642,7 +642,7 @@ $$
 
 となる。
 
-clock modelではaliasing表示から
+clock 模型ではエイリアシング表示から
 
 $$
 \boxed{
@@ -662,7 +662,7 @@ $$
 
 と書ける。
 
-$m$ sectorに対する最も近いaliasは$m-q$なので、本来のXY成分に対するaliasの比は
+$m$ セクターに対する最も近いaliasは$m-q$なので、本来のXY成分に対するaliasの比は
 
 $$
 \boxed{
@@ -732,7 +732,7 @@ $$
 
 ## 12. 得られた見方
 
-clock modelをIsingとXYの間に置くと、対称性の違いは単なるスピン状態数の違いではなく、局所記憶の角度分解能の違いとして見える。
+clock 模型をIsingとXYの間に置くと、対称性の違いは単なるスピン状態数の違いではなく、局所記憶の角度分解能の違いとして見える。
 
 $$
 \boxed{
@@ -766,7 +766,7 @@ $$
 }
 $$
 
-という有限刻みがrare discrete jumpを作り、Fourier空間では同じ離散化が
+という有限刻みが稀な離散ジャンプを作り、Fourier空間では同じ離散化が
 
 $$
 \boxed{
