@@ -172,17 +172,13 @@ $$
 距離 $r$ の角度差は
 
 $$
-\theta_r-\theta_0
-=
-\sum_{j=0}^{r-1}\phi_j
+\theta_r-\theta_0 = \sum_{j=0}^{r-1}\phi_j
 $$
 
 なので、
 
 $$
-e^{im(\theta_r-\theta_0)}
-=
-\prod_{j=0}^{r-1}e^{im\phi_j}.
+e^{im(\theta_r-\theta_0)} = \prod_{j=0}^{r-1}e^{im\phi_j}.
 $$
 
 最近接・零外場では各 $\phi_j$ は独立だから、
@@ -192,9 +188,7 @@ C_m(r)
 \equiv
 \left\langle
 e^{im(\theta_r-\theta_0)}
-\right\rangle
-=
-\left[
+\right\rangle = \left[
 \left\langle e^{im\phi}\right\rangle
 \right]^r.
 $$
@@ -228,9 +222,7 @@ $$
 $Z_q$ では transfer matrix は circulant で、
 
 $$
-T_{ab}
-=
-\exp\left[
+T_{ab} = \exp\left[
 K\cos\frac{2\pi(a-b)}q
 \right].
 $$
@@ -239,9 +231,7 @@ $$
 
 $$
 \boxed{
-\Lambda_m^{(q)}
-=
-\sum_{a=0}^{q-1}
+\Lambda_m^{(q)} = \sum_{a=0}^{q-1}
 e^{K\cos(2\pi a/q)}
 e^{-2\pi i ma/q}
 }
@@ -253,9 +243,7 @@ $$
 
 $$
 \boxed{
-\rho_m^{(q)}
-=
-\frac{\Lambda_m^{(q)}}{\Lambda_0^{(q)}}
+\rho_m^{(q)} = \frac{\Lambda_m^{(q)}}{\Lambda_0^{(q)}}
 }
 $$
 
@@ -298,9 +286,7 @@ $$
 
 $$
 \boxed{
-\rho_m^{U(1)}
-=
-\frac{I_m(K)}{I_0(K)}
+\rho_m^{U(1)} = \frac{I_m(K)}{I_0(K)}
 }
 $$
 
@@ -327,9 +313,7 @@ $$
 Fourier 展開
 
 $$
-e^{K\cos\phi}
-=
-\sum_{n=-\infty}^{\infty}
+e^{K\cos\phi} = \sum_{n=-\infty}^{\infty}
 I_n(K)e^{in\phi}
 $$
 
@@ -337,9 +321,7 @@ $$
 
 $$
 \boxed{
-\Lambda_m^{(q)}
-=
-q\sum_{\ell\in\mathbb Z}
+\Lambda_m^{(q)} = q\sum_{\ell\in\mathbb Z}
 I_{m+\ell q}(K)
 }
 $$
@@ -350,9 +332,7 @@ $$
 
 $$
 \boxed{
-\rho_m^{(q)}
-=
-\frac{
+\rho_m^{(q)} = \frac{
 \displaystyle\sum_{\ell\in\mathbb Z}
 I_{m+\ell q}(K)
 }{
@@ -420,9 +400,7 @@ $$
 
 $$
 \boxed{
-\Delta E_q
-=
-J\left(
+\Delta E_q = J\left(
 1-\cos\frac{2\pi}{q}
 \right)
 }
@@ -459,11 +437,7 @@ clock spacing と thermal width の比
 
 $$
 \boxed{
-\eta
-=
-\frac{2\pi/q}{K^{-1/2}}
-=
-\frac{2\pi\sqrt K}{q}
+\eta = \frac{2\pi/q}{K^{-1/2}} = \frac{2\pi\sqrt K}{q}
 }
 $$
 
@@ -506,9 +480,7 @@ $m=1$ の相関長は全て
 
 $$
 \boxed{
-\xi^{-1}
-=
--\ln|\rho_1|
+\xi^{-1} = -\ln|\rho_1|
 }
 $$
 
@@ -518,9 +490,7 @@ $Z_2$ では
 
 $$
 \boxed{
-\xi_{Z_2}
-=
-\frac{1}{
+\xi_{Z_2} = \frac{1}{
 -\ln(\tanh K)
 }
 \simeq
@@ -611,9 +581,7 @@ $$
 とすると
 
 $$
-\eta
-=
-\frac{2\pi\sqrt K}{q}
+\eta = \frac{2\pi\sqrt K}{q}
 \to\infty
 $$
 
@@ -729,9 +697,7 @@ $$
 $$
 \boxed{
 \sum_{r=-\infty}^{\infty}
-\rho_1^{|r|}e^{-ikr}
-=
-\frac{1-\rho_1^2}
+\rho_1^{|r|}e^{-ikr} = \frac{1-\rho_1^2}
 {1-2\rho_1\cos k+\rho_1^2}
 }
 $$
@@ -743,9 +709,7 @@ $$
 $Z_2$ では scalar spin 自体が $m=1$ observable なので
 
 $$
-\chi_{Z_2}(k)
-=
-\beta
+\chi_{Z_2}(k) = \beta
 \frac{1-\rho_1^2}
 {1-2\rho_1\cos k+\rho_1^2}.
 $$
@@ -753,9 +717,7 @@ $$
 $Z_q$ と $U(1)$ の planar $x$ 成分では、$q>2$ なら回転対称平均から
 
 $$
-\chi^{xx}(k)
-=
-\frac{\beta}{2}
+\chi^{xx}(k) = \frac{\beta}{2}
 \frac{1-\rho_1^2}
 {1-2\rho_1\cos k+\rho_1^2}.
 $$
