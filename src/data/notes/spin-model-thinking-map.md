@@ -476,7 +476,9 @@ $$
 | 模型 | [1次元周期最近接 cosine-$Z_2$ スピン系 — 構造波数](/notes/ising-r1-periodic) | 1 | periodic | $R=1$ | cosine | $Z_2$ | 位置依存のドメイン壁重み |
 | 模型 | [1次元周期最近接 cosine-$Z_2$ スピン系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | 1 | 周期 + 外場 | $R=1$ | cosine | $Z_2$ | ドメイン壁 + 絶対スピン応答 |
 | 模型 | [1次元一様第二近接 cosine-$Z_2$ スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | 1 | uniform | $R=2$ | cosine | $Z_2$ | 相互作用する壁配置 |
-| 模型 | [1次元一様有限範囲 cosine-$Z_2$ スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | 1 | uniform | $R=n$ | cosine | $Z_2$ | longer 壁配置 |
+| 模型 | [1次元一様有限範囲 cosine-$Z_2$ スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | 1 | uniform | $R=n$ | cosine | $Z_2$ | 高次ドメイン壁配置 |
+| 模型 | [1次元一様有限範囲 cosine-$Z_q$ スピン系 — 離散位相履歴と有限記憶](/notes/clock-chain-finite-range) | 1 | uniform | $R=n$ | cosine | $Z_q$ | 離散位相履歴 |
+| 模型 | [1次元一様有限範囲 cosine-$U(1)$ スピン系 — 連続位相履歴と複数モード](/notes/xy-chain-finite-range) | 1 | uniform | $R=n$ | cosine | $U(1)$ | 連続位相履歴 |
 | 模型 | [1次元一様最近接 cosine-$Z_q$ スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $Z_q$ | 離散位相増分 |
 | 模型 | [1次元一様第二近接 cosine-$Z_q$ スピン系 — 離散螺旋と角度記憶](/notes/clock-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $Z_q$ | ロックされた離散ねじれ / カイラリティ |
 | 模型 | [1次元一様最近接 cosine-$U(1)$ スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $U(1)$ | 連続位相増分 |
@@ -492,6 +494,7 @@ $$
 | 比較 | [1次元一様最近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ と記憶の連続化](/notes/ising-xy-nearest-neighbor-comparison) | $d=1$, uniform, $R=1$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | 局所増分, $\rho_m$, 転送スペクトル, $\xi$, $\chi(k)$ |
 | 比較 | [1次元一様第二近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ を三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) | $d=1$, uniform, $R=2$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | 欠陥 / テクスチャ, 局所遷移, 転送スペクトル, ピッチロッキング |
 | 比較 | [1次元一様 cosine-$Z_2$ スピン系 — 相互作用範囲と空間記憶](/notes/ising-range-comparison) | $d=1$, uniform, cosine, $Z_2$, classical | 相互作用範囲 $R$ | $R=1 \leftrightarrow R=2 \leftrightarrow R=n$ | ドメイン壁相互作用, 局所記憶次数, 転送状態, 相関スペクトル, $q_\chi$ |
+| 比較 | [1次元一様有限範囲 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ と有限履歴](/notes/finite-range-symmetry-comparison) | $d=1$, uniform, $R=n$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | 履歴アルファベット, 履歴空間, 転送対象, 複数相関モード |
 
 比較ノートは新しい 模型点 ではなく、
 
@@ -524,20 +527,20 @@ $$
 | --- | --- | --- | --- | --- |
 | $R=1$ | [模型](/notes/ising-transfer-matrix) | [模型](/notes/clock-chain-nearest-neighbor) | [模型](/notes/xy-chain-nearest-neighbor) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-nearest-neighbor-comparison) |
 | $R=2$ | [模型](/notes/ising-r2-transfer-matrix) | [模型](/notes/clock-chain-second-neighbor) | [模型](/notes/xy-chain-second-neighbor) / [カイラリティ](/notes/xy-chain-chirality-memory) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-second-neighbor-comparison) |
-| $R=n$ | [模型](/notes/ising-rn-transfer-matrix) | — | — | — |
+| $R=n$ | [模型](/notes/ising-rn-transfer-matrix) | [模型](/notes/clock-chain-finite-range) | [模型](/notes/xy-chain-finite-range) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/finite-range-symmetry-comparison) |
 | **縦方向の比較** | [$R=1\leftrightarrow R=2\leftrightarrow R=n$](/notes/ising-range-comparison) | — | — | — |
 
-この表では空欄そのものが次の学習候補になる。今回 $R=2$ の $Z_q$ が埋まったことで、
+今回 $R=n$ の $Z_q$ と $U(1)$ まで埋まったことで、
 
-$$
+$
 \boxed{
-R=1, R=2
-\quad\text{では}\quad
+R=1, R=2, R=n
+\quad\text{のすべてで}\quad
 Z_2\leftrightarrow Z_q\leftrightarrow U(1)
 }
-$$
+$
 
-という 対称性 軸が二段とも閉じた。次に残る明確な空白は $R=n$ 側の $Z_q/U(1)$、または 空間構造 側の quasiperiodic / random である。
+となり、$R\times$ 対称性の基準平面は閉じた。以後この平面は、新しい模型点を増やす場所というより、空間構造や相互作用族を動かしたときの基準面として使える。
 
 一方 空間構造 軸は $Z_2$, $R=1$ で
 
@@ -950,19 +953,17 @@ $$
 
 として読む必要がある、という見方である。
 
-interaction-range 軸も
+相互作用範囲軸も
 
-$$
+$
 R=1
 \to
 R=2
 \to
 R=n
-$$
+$
 
-まで Ising 側で進み、XY 側では $R=2$ まで接続している。
-
-現在もっとも薄いのは 空間構造 軸である。
+まで $Z_2$、$Z_q$、$U(1)$ の三列すべてで接続した。したがって現在もっとも薄いのは空間構造軸である。
 
 $$
 \boxed{
