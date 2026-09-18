@@ -12,9 +12,7 @@ Ising、clock、XYは別々の模型名として学ぶことが多い。しか�
 
 $
 \boxed{
-H
-=
--\sum_i\sum_{r=1}^{R}
+H = -\sum_i\sum_{r=1}^{R}
 J_{i,r}\cos(\theta_{i+r}-\theta_i)
 }
 $
@@ -42,9 +40,7 @@ $
 
 $$
 \boxed{
-\text{model coordinates}
-=
-(\text{state space / symmetry},\ R,\ \text{spatial organization})
+\text{model coordinates} = (\text{state space / symmetry},\ R,\ \text{spatial organization})
 \qquad
 [\text{cosine family fixed}]
 }
@@ -54,9 +50,7 @@ $$
 
 $$
 \boxed{
-\text{approximation / representation}
-=
-\text{information filter}
+\text{approximation / representation} = \text{information filter}
 }
 $$
 
@@ -121,18 +115,14 @@ $$
 を局所変数に取れる。$\tau_i=-1$ は domain wall / spin flip であり、
 
 $$
-s_0s_r
-=
-\prod_{j=0}^{r-1}\tau_j
+s_0s_r = \prod_{j=0}^{r-1}\tau_j
 $$
 
 だから、遠距離のスピン記憶は局所的な符号反転列の積として作られる。
 
 $$
 \boxed{
-\text{Ising}
-=
-\text{離散的な flip / wall 配置を記憶する系}
+\text{Ising} = \text{離散的な flip / wall 配置を記憶する系}
 }
 $$
 
@@ -145,18 +135,14 @@ $$
 が対応する局所増分で、
 
 $$
-e^{i(\theta_r-\theta_0)}
-=
-\prod_{j=0}^{r-1}e^{i\phi_j}.
+e^{i(\theta_r-\theta_0)} = \prod_{j=0}^{r-1}e^{i\phi_j}.
 $$
 
 したがって
 
 $$
 \boxed{
-\text{XY}
-=
-\text{連続的な phase increment を記憶する系}
+\text{XY} = \text{連続的な phase increment を記憶する系}
 }
 $$
 
@@ -187,9 +173,7 @@ $$
 局所増分は
 
 $$
-\phi_i
-=
-\frac{2\pi a_i}{q},
+\phi_i = \frac{2\pi a_i}{q},
 \qquad
 a_i\in\mathbb Z_q.
 $$
@@ -237,9 +221,7 @@ $$
 
 $$
 \boxed{
-\eta
-=
-\frac{\Delta\phi}{\sigma_T}
+\eta = \frac{\Delta\phi}{\sigma_T}
 \sim
 \frac{2\pi\sqrt K}{q}
 }
@@ -300,17 +282,13 @@ memory variable を固定して相互作用範囲だけを伸ばすと、局所�
 Ising では
 
 $$
-s_i s_{i+r}
-=
-\prod_{m=0}^{r-1}\tau_{i+m}
+s_i s_{i+r} = \prod_{m=0}^{r-1}\tau_{i+m}
 $$
 
 なので、
 
 $$
-H
-=
--\sum_i\sum_{r=1}^{R}
+H = -\sum_i\sum_{r=1}^{R}
 J_r s_i s_{i+r}
 $$
 
@@ -318,9 +296,7 @@ $$
 
 $$
 \boxed{
-H
-=
--\sum_i\sum_{r=1}^{R}
+H = -\sum_i\sum_{r=1}^{R}
 J_r
 \prod_{m=0}^{r-1}\tau_{i+m}
 }
@@ -339,9 +315,7 @@ $$
 $R=2$ では
 
 $$
-H
-=
--J_1\sum_i\tau_i
+H = -J_1\sum_i\tau_i
 -J_2\sum_i\tau_i\tau_{i+1},
 $$
 
@@ -350,9 +324,7 @@ $$
 $R=3$ では
 
 $$
-s_i s_{i+3}
-=
-\tau_i\tau_{i+1}\tau_{i+2}
+s_i s_{i+3} = \tau_i\tau_{i+1}\tau_{i+2}
 $$
 
 が入り、より長い wall pattern を局所エネルギーが区別する。
@@ -360,9 +332,7 @@ $$
 XY でも
 
 $$
-\theta_{i+r}-\theta_i
-=
-\sum_{m=0}^{r-1}\phi_{i+m}
+\theta_{i+r}-\theta_i = \sum_{m=0}^{r-1}\phi_{i+m}
 $$
 
 なので、
@@ -380,9 +350,7 @@ $$
 
 $$
 \boxed{
-R
-=
-\text{memory depth}
+R = \text{memory depth}
 }
 $$
 
@@ -392,9 +360,7 @@ $$
 
 $$
 \boxed{
-\text{Ising / clock / XY の違い}
-=
-\text{何を記憶するか}
+\text{Ising / clock / XY の違い} = \text{何を記憶するか}
 }
 $$
 
@@ -402,9 +368,7 @@ $$
 
 $$
 \boxed{
-R\text{ の違い}
-=
-\text{どこまで記憶するか}
+R\text{ の違い} = \text{どこまで記憶するか}
 }
 $$
 
@@ -442,9 +406,7 @@ $$
 
 $$
 \boxed{
-\text{spatial organization}
-=
-\text{memory rule が空間のどこでどう変わるか}
+\text{spatial organization} = \text{memory rule が空間のどこでどう変わるか}
 }
 $$
 
@@ -475,18 +437,14 @@ $$
 最近接零外場なら
 
 $$
-C_i(r)
-=
-\prod_{n=0}^{r-1}
+C_i(r) = \prod_{n=0}^{r-1}
 \tanh(\beta J_{i+n})
 $$
 
 だから、
 
 $$
-\ln C_i(r)
-=
-\sum_{n=0}^{r-1}
+\ln C_i(r) = \sum_{n=0}^{r-1}
 \ln\tanh(\beta J_{i+n})
 $$
 
@@ -538,9 +496,7 @@ $$
 
 $$
 \boxed{
-\text{coordinate bridge}
-=
-\text{一つの軸だけを動かして複数の model point を読むノート}
+\text{coordinate bridge} = \text{一つの軸だけを動かして複数の model point を読むノート}
 }
 $$
 
@@ -694,9 +650,7 @@ mean field、Bethe/cavity、transfer matrix/operator は model coordinates の�
 
 $$
 \boxed{
-\text{approximation / representation}
-=
-\text{information filter}
+\text{approximation / representation} = \text{information filter}
 }
 $$
 
@@ -776,9 +730,7 @@ $$
 
 $$
 \boxed{
-\xi^{-1}
-=
--\ln\left|
+\xi^{-1} = -\ln\left|
 \frac{\lambda_1}{\lambda_0}
 \right|
 }
