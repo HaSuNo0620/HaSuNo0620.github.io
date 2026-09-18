@@ -4,16 +4,16 @@ summary: "1次元一様最近接 cosine スピン系を、Z2・Zq・U(1)とい�
 publishedAt: 2026-09-13T01:50:00+09:00
 updatedAt: 2026-09-19
 area: "Physics"
-topics: ["statistical mechanics", "spin model", "clock model", "Ising model", "XY model", "correlation", "転送行列", "memory", "nearest-neighbor", "linear 応答"]
+topics: ["statistical mechanics", "spin model", "clock model", "Ising model", "XY model", "correlation", "transfer matrix", "memory", "nearest-neighbor", "linear response"]
 status: growing
 system:
   dimension: 1
   spatial: uniform
   range: R1
   interaction: cosine
-  対称性: [Z2, Zq, U(1)]
+  symmetry: [Z2, Zq, U(1)]
   mechanics: classical
-  role: 比較
+  role: comparison
 ---
 
 Ising、clock、XYという名前を外すと、三者は同じ Hamiltonian で書ける。
