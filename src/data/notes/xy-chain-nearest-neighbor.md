@@ -6,6 +6,14 @@ updatedAt: 2026-09-19
 area: "Physics"
 topics: ["statistical mechanics", "XY model", "phase diffusion", "transfer operator", "correlation", "Bessel function", "compact field"]
 status: growing
+system:
+  dimension: 1
+  spatial: uniform
+  range: R1
+  interaction: cosine
+  symmetry: [U(1)]
+  mechanics: classical
+  role: model
 ---
 
 隣り合うスピンがほとんど同じ向きなら、遠くまでその向きを覚えていそうに見える。1次元最近接XY鎖では、この直感が有限温度で外れる。
