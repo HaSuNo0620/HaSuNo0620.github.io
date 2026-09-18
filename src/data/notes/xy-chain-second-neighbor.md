@@ -6,6 +6,14 @@ updatedAt: 2026-09-19
 area: "Physics"
 topics: ["statistical mechanics", "XY model", "second-neighbor interaction", "frustration", "helical order", "chirality", "correlation", "transfer operator", "linear response"]
 status: growing
+system:
+  dimension: 1
+  spatial: uniform
+  range: R2
+  interaction: cosine
+  symmetry: [U(1)]
+  mechanics: classical
+  role: model
 ---
 
 最近接XY鎖では
