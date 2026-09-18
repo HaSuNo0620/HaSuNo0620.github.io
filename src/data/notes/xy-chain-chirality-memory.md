@@ -1,6 +1,6 @@
 ---
 title: "1次元一様第二近接 cosine-U(1) スピン系 — chirality kinkと複数の空間記憶"
-summary: "第二近接相互作用で生じる ±q* のchirality二重性を、kink、transfer operator、tilted spectrum、telegraph過程の各表示からつなぐ。局所preferred twist q*、実空間相関波数 q_corr、構造因子ピーク Q_peak、および ξ_chi と ξ_spin が一般に一致しないことを整理する。"
+summary: "第二近接相互作用で生じる ±q* のchirality二重性を、kink、transfer operator、傾斜スペクトル、telegraph過程の各表示からつなぐ。局所preferred twist q*、実空間相関波数 q_corr、構造因子ピーク Q_peak、および ξ_chi と ξ_spin が一般に一致しないことを整理する。"
 publishedAt: 2026-09-15T15:55:00+09:00
 updatedAt: 2026-09-19
 area: "Physics"
@@ -22,7 +22,7 @@ $$
 C(r)\sim e^{-r/\xi}\cos(qr)
 $$
 
-と書くだけでは、どの記憶が失われているのかが混ざる。局所的に好まれる ねじれ、実空間で観測される振動波数、Fourier 空間で最大になる波数は一般に同じではない。相関長も一つではなく、continuous phase fluctuation と カイラリティ反転 が別の記憶チャネルを持つ。
+と書くだけでは、どの記憶が失われているのかが混ざる。局所的に好まれる ねじれ、実空間で観測される振動波数、Fourier空間で最大になる波数は一般に同じではない。相関長も一つではなく、連続位相揺らぎ と カイラリティ反転 が別の記憶チャネルを持つ。
 
 モデルは
 
@@ -68,7 +68,7 @@ $$
 のままで、ここでは同じ座標点の中に現れる複数の 記憶 channel
 
 $$
-\text{phase},\qquad
+\text{位相},\qquad
 \text{カイラリティ},\qquad
 \text{spin correlation}
 $$
@@ -105,7 +105,7 @@ $$
 \chi_i\simeq\pm\sin q_\ast.
 $$
 
-つまり continuous angle の中に、右巻き・左巻きという離散自由度が現れる。
+つまり 連続角度 の中に、右巻き・左巻きという離散自由度が現れる。
 
 ## Lifshitz点近傍では kink が広がる
 
@@ -173,7 +173,7 @@ $$
 \xi_\chi\sim\exp\left(\frac{E_{\mathrm k}}{k_{\mathrm B}T}\right).
 $$
 
-一方、カイラリティ を固定した sector 内では位相は Gaussian に拡散し、
+一方、カイラリティ を固定したセクター 内では位相は Gaussian に拡散し、
 
 $$
 \xi_{\mathrm{ph}}
@@ -205,7 +205,7 @@ $$
 }
 $$
 
-と書ける。$\sigma=\pm1$ は カイラリティ、$\eta$ は continuous phase noise である。
+と書ける。$\sigma=\pm1$ は カイラリティ、$\eta$ は 連続位相雑音 である。
 
 カイラリティ flip rate を $\nu$ とすると
 
@@ -318,7 +318,7 @@ $$
 
 ## ordinary 転送作用素 は カイラリティ 記憶 を持つ
 
-$\phi$ を状態変数にすると、kernel は
+$\phi$ を状態変数にすると、核は
 
 $$
 \mathcal T(\phi,\phi') = \exp\left[
@@ -347,7 +347,7 @@ $$
 
 となる。
 
-$\mathcal T$ は $\phi\to-\phi$ と可換するため even / odd sector に分かれる。最大 even 固有値を $\lambda_0$、最大 odd 固有値を $\lambda_\chi$ とすると
+$\mathcal T$ は $\phi\to-\phi$ と可換するため 偶 / 奇セクター に分かれる。最大偶固有値を $\lambda_0$、最大奇固有値を $\lambda_\chi$ とすると
 
 $$
 \boxed{
@@ -358,7 +358,7 @@ $$
 
 カイラリティキンク の希薄化は、転送スペクトル では even / odd splitting の指数的小ささとして見える。
 
-## spin 記憶 は tilted spectrum に入る
+## スピン記憶 は 傾斜スペクトル に入る
 
 spin correlation は
 
@@ -441,7 +441,7 @@ spin direction の記憶が失われても、右巻きか左巻きかという �
 $$
 \boxed{
 q_\ast
-=\text{local 選好ねじれ}
+=\text{局所選好ねじれ}
 }
 $$
 
@@ -473,4 +473,4 @@ $$
 
 も別の 記憶 channel である。
 
-第二近接相互作用が作っているのは単なる finite-$q$ correlation ではない。continuous 位相拡散 に discrete カイラリティ反転 が重なり、観測量ごとに異なる spectral object が支配する構造である。
+第二近接相互作用が作っているのは単なる 有限波数相関 ではない。連続位相拡散 に 離散カイラリティ反転 が重なり、観測量ごとに異なる スペクトル対象 が支配する構造である。
