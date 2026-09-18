@@ -40,7 +40,7 @@ $$
 
 $$
 \boxed{
-\text{model coordinates} = (\text{状態空間 / 対称性},\ R,\ \text{空間構造})
+\text{模型座標} = (\text{状態空間 / 対称性},\ R,\ \text{空間構造})
 \qquad
 [\text{cosine family fixed}]
 }
@@ -122,7 +122,7 @@ $$
 
 $$
 \boxed{
-\text{Ising} = \text{離散的な flip / wall 配置を記憶する系}
+\text{Ising} = \text{離散的な 反転 / ドメイン壁配置を記憶する系}
 }
 $$
 
@@ -162,7 +162,7 @@ $$
 
 ### 離散二値と連続位相の間
 
-$q$-state clock model では
+$q$ 状態 clock 模型 では
 
 $$
 \theta_i=\frac{2\pi n_i}{q},
@@ -310,7 +310,7 @@ $$
 H=-J_1\sum_i\tau_i
 $$
 
-で wall 変数は独立。
+で ドメイン壁変数は独立。
 
 $R=2$ では
 
@@ -319,7 +319,7 @@ H = -J_1\sum_i\tau_i
 -J_2\sum_i\tau_i\tau_{i+1},
 $$
 
-隣接する wall / flip 配置が相関する。
+隣接する ドメイン壁 / 反転配置が相関する。
 
 $R=3$ では
 
@@ -344,7 +344,7 @@ $$
 \right)
 $$
 
-が長さ $r$ の phase-increment pattern を読む。
+が長さ $r$ の 位相増分パターン を読む。
 
 したがって
 
@@ -402,7 +402,7 @@ $$
 H=-\sum_iJ_i\tau_i
 $$
 
-なので、$J_i$ を変えても wall 同士は独立なままである。変わるのは「どの位置で wall を作りやすいか」という空間規則である。
+なので、$J_i$ を変えても ドメイン壁同士は独立なままである。変わるのは「どの位置で wall を作りやすいか」という空間規則である。
 
 $$
 \boxed{
@@ -472,13 +472,13 @@ $$
 
 | 役割 | ノート | $d$ | 空間構造 | $R$ | 相互作用 | 対称性 / 状態空間 | 局所記憶 |
 | --- | --- | ---: | --- | --- | --- | --- | --- |
-| 模型 | [1次元一様最近接 cosine-$Z_2$ スピン系 — 空間記憶と応答](/notes/ising-transfer-matrix) | 1 | uniform | $R=1$ | cosine | $Z_2$ | flip / wall |
-| 模型 | [1次元周期最近接 cosine-$Z_2$ スピン系 — 構造波数](/notes/ising-r1-periodic) | 1 | periodic | $R=1$ | cosine | $Z_2$ | position-dependent wall weight |
-| 模型 | [1次元周期最近接 cosine-$Z_2$ スピン系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | 1 | periodic + field | $R=1$ | cosine | $Z_2$ | wall + absolute-spin 応答 |
-| 模型 | [1次元一様第二近接 cosine-$Z_2$ スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | 1 | uniform | $R=2$ | cosine | $Z_2$ | interacting 壁配置 |
+| 模型 | [1次元一様最近接 cosine-$Z_2$ スピン系 — 空間記憶と応答](/notes/ising-transfer-matrix) | 1 | uniform | $R=1$ | cosine | $Z_2$ | 反転 / ドメイン壁 |
+| 模型 | [1次元周期最近接 cosine-$Z_2$ スピン系 — 構造波数](/notes/ising-r1-periodic) | 1 | periodic | $R=1$ | cosine | $Z_2$ | 位置依存のドメイン壁重み |
+| 模型 | [1次元周期最近接 cosine-$Z_2$ スピン系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | 1 | 周期 + 外場 | $R=1$ | cosine | $Z_2$ | ドメイン壁 + 絶対スピン応答 |
+| 模型 | [1次元一様第二近接 cosine-$Z_2$ スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | 1 | uniform | $R=2$ | cosine | $Z_2$ | 相互作用する壁配置 |
 | 模型 | [1次元一様有限範囲 cosine-$Z_2$ スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | 1 | uniform | $R=n$ | cosine | $Z_2$ | longer 壁配置 |
 | 模型 | [1次元一様最近接 cosine-$Z_q$ スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $Z_q$ | 離散位相増分 |
-| 模型 | [1次元一様第二近接 cosine-$Z_q$ スピン系 — 離散螺旋と角度記憶](/notes/clock-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $Z_q$ | locked 離散ねじれ / カイラリティ |
+| 模型 | [1次元一様第二近接 cosine-$Z_q$ スピン系 — 離散螺旋と角度記憶](/notes/clock-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $Z_q$ | ロックされた離散ねじれ / カイラリティ |
 | 模型 | [1次元一様最近接 cosine-$U(1)$ スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $U(1)$ | 連続位相増分 |
 | 模型 | [1次元一様第二近接 cosine-$U(1)$ スピン系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $U(1)$ | correlated 位相増分 |
 | 模型 | [1次元一様第二近接 cosine-$U(1)$ スピン系 — カイラリティキンクと複数の空間記憶](/notes/xy-chain-chirality-memory) | 1 | uniform | $R=2$ | cosine | $U(1)$ | 位相 + カイラリティセクター |
@@ -521,9 +521,9 @@ $$
 
 | 相互作用範囲 | $Z_2$ | $Z_q$ | $U(1)$ | 横方向の比較 |
 | --- | --- | --- | --- | --- |
-| $R=1$ | [model](/notes/ising-transfer-matrix) | [model](/notes/clock-chain-nearest-neighbor) | [model](/notes/xy-chain-nearest-neighbor) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-nearest-neighbor-comparison) |
-| $R=2$ | [model](/notes/ising-r2-transfer-matrix) | [model](/notes/clock-chain-second-neighbor) | [model](/notes/xy-chain-second-neighbor) / [カイラリティ](/notes/xy-chain-chirality-memory) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-second-neighbor-comparison) |
-| $R=n$ | [model](/notes/ising-rn-transfer-matrix) | — | — | — |
+| $R=1$ | [模型](/notes/ising-transfer-matrix) | [模型](/notes/clock-chain-nearest-neighbor) | [模型](/notes/xy-chain-nearest-neighbor) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-nearest-neighbor-comparison) |
+| $R=2$ | [模型](/notes/ising-r2-transfer-matrix) | [模型](/notes/clock-chain-second-neighbor) | [模型](/notes/xy-chain-second-neighbor) / [カイラリティ](/notes/xy-chain-chirality-memory) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-second-neighbor-comparison) |
+| $R=n$ | [模型](/notes/ising-rn-transfer-matrix) | — | — | — |
 
 この表では空欄そのものが次の学習候補になる。今回 $R=2$ の $Z_q$ が埋まったことで、
 
@@ -644,7 +644,7 @@ $$
 
 ## 6. approximation / representation は 情報フィルター
 
-mean field、Bethe/cavity、転送行列/operator は model coordinates の第四軸ではない。
+平均場、Bethe/cavity、転送行列 / 転送作用素 は 模型座標 の第四軸ではない。
 
 同じ模型に対して、どの自由度を残して見るかが異なる。
 
@@ -656,7 +656,7 @@ $$
 
 とみなす。
 
-### mean field / 鞍点
+### 平均場 / 鞍点
 
 揺らぎを抑えて代表的な配置を残すため、
 
@@ -759,7 +759,7 @@ $$
 三つの関係は
 
 $$
-\text{mean field}
+\text{平均場}
 <
 \text{Bethe}
 <
@@ -1075,7 +1075,7 @@ $$
 $$
 \boxed{
 \begin{array}{c}
-\text{model coordinates}\\[1mm]
+\text{模型座標}\\[1mm]
 (\text{状態空間 / 対称性},\ R,\ \text{空間構造})
 \quad [\text{cosine family fixed}]
 \end{array}
@@ -1084,7 +1084,7 @@ $$
 \boxed{
 \begin{array}{c}
 \text{情報フィルター}\\[1mm]
-\text{mean field / Bethe / transfer / \cdots}
+\text{平均場 / Bethe / transfer / \cdots}
 \end{array}
 }
 $$
