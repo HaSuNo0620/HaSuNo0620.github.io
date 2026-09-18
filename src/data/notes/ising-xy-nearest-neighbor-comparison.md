@@ -89,7 +89,7 @@ $$
 
 $$
 \boxed{
-\text{local increment}
+\text{局所増分}
 \to
 \text{1-step retention}
 \to
@@ -163,7 +163,7 @@ S^1
 }
 $$
 
-は、局所 memory alphabet の細分化として読める。
+は、局所 記憶アルファベット の細分化として読める。
 
 ---
 
@@ -304,7 +304,7 @@ $$
 }
 $$
 
-が同じ 1-step memory の $Z_2\to Z_q\to U(1)$ 変形である。
+が同じ 1-step 記憶 の $Z_2\to Z_q\to U(1)$ 変形である。
 
 ---
 
@@ -350,25 +350,25 @@ $$
 m\sim m+q
 $$
 
-なので、本来 $U(1)$ で独立な harmonic が同じ sector へ折り畳まれる。
+なので、本来 $U(1)$ で独立な 高調波 が同じ sector へ折り畳まれる。
 
 $$
 \boxed{
-\text{finite angular resolution}
+\text{finite 角度分解能}
 \longleftrightarrow
-\text{harmonic-space aliasing}
+\text{高調波-space aliasing}
 }
 $$
 
 という対応になる。
 
-![有限$q$のmemory spectrumとU(1)極限](/figures/clock-r1/memory-spectrum-folding.svg)
+![有限$q$の記憶スペクトルとU(1)極限](/figures/clock-r1/記憶-spectrum-folding.svg)
 
-*$K=20$。低い harmonic は比較的小さい $q$ でも早く $U(1)$ spectrum へ近づく一方、$m\sim q/2$ の細かい角度情報には finite-$q$ folding が残る。*
+*$K=20$。低い 高調波 は比較的小さい $q$ でも早く $U(1)$ spectrum へ近づく一方、$m\sim q/2$ の細かい角度情報には finite-$q$ folding が残る。*
 
 ---
 
-## 5. memory loss は rare wall から 位相拡散 へ連続化する
+## 5. 記憶喪失 は rare wall から 位相拡散 へ連続化する
 
 $Z_2$ で非零増分は
 
@@ -388,7 +388,7 @@ $$
 p_{\rm wall}\sim e^{-2K}
 $$
 
-なので、memory loss は sparse な localized wall によって起こる。
+なので、記憶喪失 は sparse な localized wall によって起こる。
 
 $Z_q$ では最小非零増分が
 
@@ -427,13 +427,13 @@ P(\phi)
 e^{-K\phi^2/2}
 $$
 
-なので thermal width は
+なので 熱揺らぎ幅 は
 
 $$
 \sigma_T\sim K^{-1/2}.
 $$
 
-clock spacing と thermal width の比
+clock spacing と 熱揺らぎ幅 の比
 
 $$
 \boxed{
@@ -463,7 +463,7 @@ Z_2:
 \text{rare wall}
 \to
 Z_q:
-\text{finite-angle jump}
+\text{有限角ジャンプ}
 \to
 U(1):
 \text{位相拡散}
@@ -543,12 +543,12 @@ $$
 $$
 \boxed{
 \text{finite }q:
-\text{activated memory}
+\text{activated 記憶}
 \qquad
 \longrightarrow
 \qquad
 q=\infty:
-\text{diffusive memory}
+\text{diffusive 記憶}
 }
 $$
 
@@ -615,9 +615,9 @@ $$
 
 ---
 
-## 8. harmonic memory は (Z_2) の1本から (U(1)) の無限階層へ開く
+## 8. 高調波 記憶 は (Z_2) の1本から (U(1)) の無限階層へ開く
 
-$Z_2$ では非自明な harmonic sector は実質
+$Z_2$ では非自明な 高調波 sector は実質
 
 $$
 m=1
@@ -661,19 +661,19 @@ $$
 
 となる。
 
-![harmonicごとのmemory length](/figures/clock-r1/harmonic-memory-hierarchy.svg)
+![高調波ごとの記憶長](/figures/clock-r1/高調波-記憶-hierarchy.svg)
 
-*finite $q$ では低い harmonic から $m^{-2}$ hierarchy が回復し、fine angular memory ほど離散性を長く保持する。*
+*finite $q$ では低い 高調波 から $m^{-2}$ hierarchy が回復し、fine angular 記憶 ほど離散性を長く保持する。*
 
 したがって
 
 $$
 \boxed{
 Z_2:
-\text{one nontrivial memory mode}
+\text{one nontrivial 記憶モード}
 \to
 Z_q:
-\text{finite harmonic spectrum}
+\text{finite 高調波 spectrum}
 \to
 U(1):
 \text{infinite hierarchy}
@@ -684,7 +684,7 @@ $$
 
 ---
 
-## 9. 波数応答も同じ spatial filter に還元される
+## 9. 波数応答も同じ 空間フィルター に還元される
 
 $m=1$ 相関が
 
@@ -704,7 +704,7 @@ $$
 
 である。
 
-したがって三者とも、零外場の $m=1$ memory を読む spatial 応答 は同じ denominator を持つ。
+したがって三者とも、零外場の $m=1$ 記憶 を読む spatial 応答 は同じ denominator を持つ。
 
 $Z_2$ では scalar spin 自体が $m=1$ observable なので
 
@@ -761,7 +761,7 @@ $$
 \to
 \xi(T)
 \to
-\text{spatial filter width}
+\text{空間フィルター width}
 $$
 
 を通じて 応答 に伝わる。
@@ -808,7 +808,7 @@ $$
 \boxed{
 \text{rare wall}
 \to
-\text{finite-angle jump}
+\text{有限角ジャンプ}
 \to
 \text{位相拡散}
 }
@@ -822,7 +822,7 @@ $$
 \to
 \text{finite folded spectrum}
 \to
-\text{infinite harmonic hierarchy}
+\text{infinite 高調波階層}
 }
 $$
 
@@ -865,4 +865,4 @@ $$
 
 として読める。
 
-その連続化は、実空間では defect から diffusion への変化、Fourier 空間では spectral folding の解除、長距離では activated から diffusive memory への変化として同時に現れる。
+その連続化は、実空間では defect から diffusion への変化、Fourier 空間では スペクトルの折り畳み の解除、長距離では activated から diffusive 記憶 への変化として同時に現れる。
