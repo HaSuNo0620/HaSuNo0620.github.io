@@ -5,11 +5,37 @@ import { topicSlug } from '../../lib/topics';
 
 const notes = (await getCollection('notes', ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
 const statusLabel = { seed: '○ seed', growing: '◐ growing', evergreen: '● evergreen' };
 const formatDate = (date: Date) => date.toLocaleDateString('ja-JP', {
   year: 'numeric', month: '2-digit', day: '2-digit',
 }).replaceAll('/', '.');
 const areaId = (area: string) => area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+const systems = notes.flatMap((note) => note.data.system ? [note.data.system] : []);
+const unique = (values: string[]) => [...new Set(values)];
+const dimensions = unique(systems.map((s) => String(s.dimension))).sort((a, b) => Number(a) - Number(b));
+const spatials = unique(systems.map((s) => s.spatial));
+const ranges = unique(systems.map((s) => s.range));
+const interactions = unique(systems.map((s) => s.interaction));
+const symmetries = unique(systems.flatMap((s) => s.symmetry));
+const mechanics = unique(systems.map((s) => s.mechanics));
+
+const spatialLabel: Record<string, string> = {
+  uniform: '一様',
+  periodic: '周期',
+  quasiperiodic: '準周期',
+  random: 'ランダム',
+};
+const rangeLabel: Record<string, string> = {
+  R1: '最近接',
+  R2: '第二近接',
+  Rn: '有限範囲',
+};
+const mechanicsLabel: Record<string, string> = {
+  classical: '古典',
+  quantum: '量子',
+};
 ---
 
 <BaseLayout title="Notes" description="勉強、計算、実装、考察。完成した記事だけではなく途中の断片も含むノート。">
@@ -22,28 +48,206 @@ const areaId = (area: string) => area.toLowerCase().replace(/[^a-z0-9]+/g, '-').
     </p>
   </section>
 
-  <div class="notes-index">
-    {notes.map((note) => (
-      <article class="index-row">
-        <div class="index-date">{formatDate(note.data.publishedAt)}</div>
-        <div class="index-body">
-          <div class="index-title-line">
-            <span class={`status-text status-${note.data.status}`}>{statusLabel[note.data.status]}</span>
-            <h2><a href={`/notes/${note.id}/`}>{note.data.title}</a></h2>
+  <section class="system-controls" aria-label="スピン系ノートの絞り込みと並べ替え">
+    <div class="system-controls-head">
+      <div>
+        <p class="section-label">system coordinates</p>
+        <p class="system-controls-copy">構造化されたスピン系ノートは、各座標で絞り込み・並べ替えできます。</p>
+      </div>
+      <button type="button" class="system-reset" data-system-reset>reset</button>
+    </div>
+
+    <div class="system-filter-grid">
+      <label>
+        <span>dimension</span>
+        <select data-system-filter="dimension">
+          <option value="">all</option>
+          {dimensions.map((value) => <option value={value}>{value}D</option>)}
+        </select>
+      </label>
+      <label>
+        <span>spatial</span>
+        <select data-system-filter="spatial">
+          <option value="">all</option>
+          {spatials.map((value) => <option value={value}>{spatialLabel[value] ?? value}</option>)}
+        </select>
+      </label>
+      <label>
+        <span>range</span>
+        <select data-system-filter="range">
+          <option value="">all</option>
+          {ranges.map((value) => <option value={value}>{rangeLabel[value] ?? value}</option>)}
+        </select>
+      </label>
+      <label>
+        <span>interaction</span>
+        <select data-system-filter="interaction">
+          <option value="">all</option>
+          {interactions.map((value) => <option value={value}>{value}</option>)}
+        </select>
+      </label>
+      <label>
+        <span>symmetry</span>
+        <select data-system-filter="symmetry">
+          <option value="">all</option>
+          {symmetries.map((value) => <option value={value}>{value}</option>)}
+        </select>
+      </label>
+      <label>
+        <span>mechanics</span>
+        <select data-system-filter="mechanics">
+          <option value="">all</option>
+          {mechanics.map((value) => <option value={value}>{mechanicsLabel[value] ?? value}</option>)}
+        </select>
+      </label>
+      <label class="system-sort">
+        <span>sort</span>
+        <select data-system-sort>
+          <option value="published">新しい順</option>
+          <option value="symmetry">symmetry</option>
+          <option value="range">interaction range</option>
+          <option value="spatial">spatial organization</option>
+          <option value="interaction">interaction family</option>
+          <option value="mechanics">classical / quantum</option>
+        </select>
+      </label>
+    </div>
+    <p class="system-result" data-system-result>{notes.length} notes</p>
+  </section>
+
+  <div class="notes-index" data-notes-index>
+    {notes.map((note, index) => {
+      const system = note.data.system;
+      const symmetry = system?.symmetry.join('|') ?? '';
+      return (
+        <article
+          class="index-row"
+          data-note-row
+          data-original-index={index}
+          data-published={note.data.publishedAt.valueOf()}
+          data-system={system ? 'true' : 'false'}
+          data-dimension={system?.dimension ?? ''}
+          data-spatial={system?.spatial ?? ''}
+          data-range={system?.range ?? ''}
+          data-interaction={system?.interaction ?? ''}
+          data-symmetry={symmetry}
+          data-mechanics={system?.mechanics ?? ''}
+        >
+          <div class="index-date">{formatDate(note.data.publishedAt)}</div>
+          <div class="index-body">
+            <div class="index-title-line">
+              <span class={`status-text status-${note.data.status}`}>{statusLabel[note.data.status]}</span>
+              <h2><a href={`/notes/${note.id}/`}>{note.data.title}</a></h2>
+            </div>
+            <p>{note.data.summary}</p>
+            {system && (
+              <div class="system-tags" aria-label="system coordinates">
+                <span>{system.dimension}D</span>
+                <span>{spatialLabel[system.spatial] ?? system.spatial}</span>
+                <span>{rangeLabel[system.range] ?? system.range}</span>
+                <span>{system.interaction}</span>
+                {system.symmetry.map((value) => <span>{value}</span>)}
+                <span>{mechanicsLabel[system.mechanics] ?? system.mechanics}</span>
+              </div>
+            )}
+            <div class="index-topics">
+              <a class="area-tag" href={`/topics/#${areaId(note.data.area)}`}>{note.data.area}</a>
+              {note.data.topics.map((topic) => (
+                <a class="topic-link" href={`/topics/${topicSlug(topic)}/`}>#{topic}</a>
+              ))}
+            </div>
           </div>
-          <p>{note.data.summary}</p>
-          <div class="index-topics">
-            <a class="area-tag" href={`/topics/#${areaId(note.data.area)}`}>{note.data.area}</a>
-            {note.data.topics.map((topic) => (
-              <a class="topic-link" href={`/topics/${topicSlug(topic)}/`}>#{topic}</a>
-            ))}
-          </div>
-        </div>
-        <a class="index-arrow" href={`/notes/${note.id}/`} aria-label={`${note.data.title}を読む`}>↗</a>
-      </article>
-    ))}
+          <a class="index-arrow" href={`/notes/${note.id}/`} aria-label={`${note.data.title}を読む`}>↗</a>
+        </article>
+      );
+    })}
   </div>
 </BaseLayout>
+
+<script>
+  const index = document.querySelector('[data-notes-index]');
+  const rows = Array.from(document.querySelectorAll('[data-note-row]'));
+  const filters = Array.from(document.querySelectorAll('[data-system-filter]'));
+  const sortSelect = document.querySelector('[data-system-sort]');
+  const reset = document.querySelector('[data-system-reset]');
+  const result = document.querySelector('[data-system-result]');
+
+  const order = {
+    symmetry: ['Z2', 'Zq', 'U(1)', 'SU(2)'],
+    range: ['R1', 'R2', 'Rn'],
+    spatial: ['uniform', 'periodic', 'quasiperiodic', 'random'],
+    mechanics: ['classical', 'quantum'],
+  };
+
+  const rank = (field, value) => {
+    const values = order[field] ?? [];
+    const position = values.indexOf(value);
+    return position === -1 ? values.length + 1 : position;
+  };
+
+  const apply = () => {
+    const active = Object.fromEntries(
+      filters.map((select) => [select.dataset.systemFilter, select.value])
+    );
+
+    let visible = 0;
+    rows.forEach((row) => {
+      const hasActiveFilter = Object.values(active).some(Boolean);
+      let matches = !hasActiveFilter || row.dataset.system === 'true';
+
+      for (const [field, expected] of Object.entries(active)) {
+        if (!expected || !matches) continue;
+        if (field === 'symmetry') {
+          const values = (row.dataset.symmetry ?? '').split('|').filter(Boolean);
+          matches = values.includes(expected);
+        } else {
+          matches = row.dataset[field] === expected;
+        }
+      }
+
+      row.hidden = !matches;
+      if (matches) visible += 1;
+    });
+
+    const sort = sortSelect?.value ?? 'published';
+    const sorted = [...rows].sort((a, b) => {
+      if (sort === 'published') return Number(b.dataset.published) - Number(a.dataset.published);
+
+      const aStructured = a.dataset.system === 'true';
+      const bStructured = b.dataset.system === 'true';
+      if (aStructured !== bStructured) return aStructured ? -1 : 1;
+
+      const av = sort === 'symmetry'
+        ? (a.dataset.symmetry ?? '').split('|')[0]
+        : (a.dataset[sort] ?? '');
+      const bv = sort === 'symmetry'
+        ? (b.dataset.symmetry ?? '').split('|')[0]
+        : (b.dataset[sort] ?? '');
+
+      if (sort in order) {
+        const diff = rank(sort, av) - rank(sort, bv);
+        if (diff !== 0) return diff;
+      } else {
+        const diff = av.localeCompare(bv);
+        if (diff !== 0) return diff;
+      }
+      return Number(a.dataset.originalIndex) - Number(b.dataset.originalIndex);
+    });
+
+    sorted.forEach((row) => index?.appendChild(row));
+    if (result) result.textContent = `${visible} / ${rows.length} notes`;
+  };
+
+  filters.forEach((select) => select.addEventListener('change', apply));
+  sortSelect?.addEventListener('change', apply);
+  reset?.addEventListener('click', () => {
+    filters.forEach((select) => { select.value = ''; });
+    if (sortSelect) sortSelect.value = 'published';
+    apply();
+  });
+
+  apply();
+</script>
 
 <style>
   .index-title-line h2 a,
@@ -65,5 +269,99 @@ const areaId = (area: string) => area.toLowerCase().replace(/[^a-z0-9]+/g, '-').
   .topic-link:hover {
     text-decoration: underline;
     text-underline-offset: 4px;
+  }
+
+  .system-controls {
+    margin: 2.5rem 0 2rem;
+    padding: 1.1rem 1.2rem 1.2rem;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+
+  .system-controls-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: start;
+    margin-bottom: 1rem;
+  }
+
+  .system-controls-copy,
+  .system-result {
+    margin: .25rem 0 0;
+    color: var(--muted);
+    font-size: .88rem;
+  }
+
+  .system-reset {
+    border: 0;
+    background: none;
+    color: var(--accent);
+    padding: .15rem 0;
+    cursor: pointer;
+    font: inherit;
+  }
+
+  .system-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+    gap: .75rem;
+  }
+
+  .system-filter-grid label {
+    display: grid;
+    gap: .3rem;
+  }
+
+  .system-filter-grid label > span {
+    color: var(--muted);
+    font-size: .72rem;
+    letter-spacing: .04em;
+  }
+
+  .system-filter-grid select {
+    width: 100%;
+    min-width: 0;
+    padding: .48rem .55rem;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: .84rem;
+  }
+
+  .system-sort {
+    grid-column: span 2;
+  }
+
+  .system-result {
+    margin-top: .8rem;
+  }
+
+  .system-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+    margin: .55rem 0 .1rem;
+  }
+
+  .system-tags span {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: .12rem .48rem;
+    color: var(--muted);
+    font-size: .72rem;
+    line-height: 1.35;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  @media (max-width: 620px) {
+    .system-sort {
+      grid-column: auto;
+    }
   }
 </style>
