@@ -22,15 +22,15 @@ $$
 \phi_i=\theta_{i+1}-\theta_i
 $$
 
-が独立で、遠距離の角度は独立な小回転の和としてphase diffusionした。
+が独立で、遠距離の角度は独立な小回転の和として位相拡散した。
 
 第二近接を加えると
 
 $$
 \boxed{
-\text{independent phase increments}
+\text{independent 位相増分s}
 \longrightarrow
-\text{interacting phase increments}}
+\text{interacting 位相増分s}}
 $$
 
 となる。
@@ -64,13 +64,13 @@ H = -J_1\sum_i\cos(\theta_{i+1}-\theta_i)
 -J_2\sum_i\cos(\theta_{i+2}-\theta_i),
 $$
 
-局所 memory variable は
+局所 記憶変数 は
 
 $$
 \phi_i=\theta_{i+1}-\theta_i.
 $$
 
-$R=1$ で独立だった phase increment が、$R=2$ で隣接 increment の相関と finite twist を持つようになる。
+$R=1$ で独立だった 位相増分 が、$R=2$ で隣接 increment の相関と finite ねじれ を持つようになる。
 
 ## 1. 第二近接は隣接する角度増分を直接結ぶ
 
@@ -98,9 +98,9 @@ $$
 
 となる。
 
-最近接で独立だったphase incrementは、一段の空間記憶を持つ相関増分へ変わる。
+最近接で独立だった位相増分は、一段の空間記憶を持つ相関増分へ変わる。
 
-## 2. $\kappa=1/4$ で一様状態から有限twistが分岐する
+## 2. $\kappa=1/4$ で一様状態から有限ねじれが分岐する
 
 競合する場合として
 
@@ -112,7 +112,7 @@ J_2<0,
 \kappa\equiv\frac{|J_2|}{J_1}
 $$
 
-を考える。一様twist $\phi_i=q$ なら、1サイトあたりのエネルギーは
+を考える。一様ねじれ $\phi_i=q$ なら、1サイトあたりのエネルギーは
 
 $$
 e(q)
@@ -137,7 +137,7 @@ $$
 
 となる。
 
-$q=0$ のほかに有限twist解が存在するためには
+$q=0$ のほかに有限ねじれ解が存在するためには
 
 $$
 \cos q=\frac{1}{4\kappa}
@@ -157,7 +157,7 @@ $$
 e''(0)=J_1(1-4\kappa)
 $$
 
-なので、$\kappa>1/4$ では一様状態そのものが不安定になる。したがって選ばれるtwistは
+なので、$\kappa>1/4$ では一様状態そのものが不安定になる。したがって選ばれるねじれは
 
 $$
 \boxed{
@@ -170,15 +170,15 @@ $$
 
 となる。
 
-![第二近接XY鎖の選択twistと低温stiffness](/figures/xy-second-neighbor/preferred-twist-stiffness.svg)
+![第二近接XY鎖の選択ねじれと低温stiffness](/figures/xy-second-neighbor/preferred-ねじれ-stiffness.svg)
 
-*有限twistは $\kappa=1/4$ から立ち上がり、同じ点で $q=0$ の曲率がsoftになる。*
+*有限ねじれは $\kappa=1/4$ から立ち上がり、同じ点で $q=0$ の曲率がsoftになる。*
 
 最近接XYの $q_\ast=0$ に対して、第二近接では相互作用自身が構造波数を選んでいる。
 
 ## 3. 連続場は格子模型の長波長展開として出る
 
-$\kappa=1/4$ の近傍では $q_\ast\to0$ なので、局所twist $\phi_i$ 自体が小さく、かつchirality wallのような構造は多数の格子点にまたがってゆっくり変化する。この領域では
+$\kappa=1/4$ の近傍では $q_\ast\to0$ なので、局所ねじれ $\phi_i$ 自体が小さく、かつカイラリティ壁のような構造は多数の格子点にまたがってゆっくり変化する。この領域では
 
 $$
 \phi_i\longrightarrow\phi(x),
@@ -240,7 +240,7 @@ $$
 \phi=\pm\sqrt{8\delta}}
 $$
 
-である。一方、格子模型の厳密な一様twist
+である。一方、格子模型の厳密な一様ねじれ
 
 $$
 q_\ast=\arccos\left(\frac{1}{4\kappa}\right)
@@ -288,7 +288,7 @@ $$
 
 となる。
 
-これは独立に仮定したLandau自由エネルギーではなく、**元の格子ハミルトニアンを小振幅・長波長で展開した有効場**である。ただし、この $F[\phi]$ の極値をEuler--Lagrange方程式で求め、熱揺らぎをその周りの補正として扱う段階では、場の経路積分をsaddle pointで置き換えている。その意味で kink の古典解は **Landau--Ginzburg型の平均場、より正確にはsaddle-point近似**に相当する。
+これは独立に仮定したLandau自由エネルギーではなく、**元の格子ハミルトニアンを小振幅・長波長で展開した有効場**である。ただし、この $F[\phi]$ の極値をEuler--Lagrange方程式で求め、熱揺らぎをその周りの補正として扱う段階では、場の経路積分を鞍点で置き換えている。その意味で kink の古典解は **Landau--Ginzburg型の平均場、より正確には鞍点近似**に相当する。
 
 したがってここで使う近似は
 
@@ -296,14 +296,14 @@ $$
 \boxed{
 \text{small amplitude}
 +\text{long wavelength}
-+\text{saddle point}}
++\text{鞍点}}
 $$
 
 の三段階に分けて考える方がよい。
 
-## 4. phase diffusion は drift + correlated diffusion へ変わる
+## 4. 位相拡散 は drift + correlated diffusion へ変わる
 
-一つのchirality sectorで
+一つのカイラリティセクターで
 
 $$
 \phi_i=q_\ast+\delta_i
@@ -321,7 +321,7 @@ $$
 
 $$
 \boxed{
-\text{phase diffusion}
+\text{位相拡散}
 \longrightarrow
 \text{drift}+\text{correlated diffusion}}
 $$
@@ -330,7 +330,7 @@ $$
 
 平均角度は一定速度 $q_\ast$ で回転し、その上に相関した熱揺らぎが重なる。
 
-## 5. 低温位相記憶は twist stiffness で決まる
+## 5. 低温位相記憶は ねじれ stiffness で決まる
 
 $\phi_i=q_\ast+\delta_i$ として二次まで展開すると
 
@@ -370,7 +370,7 @@ $$
 
 である。
 
-単一chirality sectorでは
+単一カイラリティセクターでは
 
 $$
 \left\langle
@@ -394,7 +394,7 @@ $$
 
 $\kappa=1/4$ では $A_0\to0$ なので、このGaussian近似自体がsoftになる。境界近傍では前節の高次項が必要になる。
 
-## 6. finite twist は離散chiralityを同時に生む
+## 6. finite ねじれ は離散カイラリティを同時に生む
 
 $e(q)=e(-q)$ なので
 
@@ -404,7 +404,7 @@ $$
 
 が縮退する。
 
-局所chiralityは
+局所カイラリティは
 
 $$
 \kappa_i^{\rm ch}
@@ -414,12 +414,12 @@ $$
 
 で見られる。
 
-有限温度では $+q_\ast$ と $-q_\ast$ の領域の間にchirality wallが入りうるため、記憶喪失には
+有限温度では $+q_\ast$ と $-q_\ast$ の領域の間にカイラリティ壁が入りうるため、記憶喪失には
 
 $$
 \boxed{
 \text{continuous phase fluctuation}
-+\text{discrete chirality switching}}
++\text{discrete カイラリティ反転}}
 $$
 
 という二層がある。
@@ -445,9 +445,9 @@ $$
 
 となる。
 
-低温でchiralityが十分長く保たれるなら $q_{\rm corr}\simeq q_\ast$ である。ただし全系ではchirality correlation lengthも別に存在しうるため、単一の $\xi$ で全距離を閉じるとは限らない。
+低温でカイラリティが十分長く保たれるなら $q_{\rm corr}\simeq q_\ast$ である。ただし全系ではカイラリティ correlation lengthも別に存在しうるため、単一の $\xi$ で全距離を閉じるとは限らない。
 
-## 8. transfer operator は角度増分の Markov kernel になる
+## 8. 転送作用素 は角度増分の マルコフ核 になる
 
 角度差表示では
 
@@ -476,7 +476,7 @@ $$
 I_m(K_1)/I_0(K_1)
 $$
 
-という単純な1-step memoryは、一般のtransfer-operator spectrumへ置き換わる。
+という単純な1-step 記憶は、一般のtransfer-operator spectrumへ置き換わる。
 
 ## 9. スピン相関は tilted spectrum の位相と絶対値を読む
 
@@ -484,7 +484,7 @@ $$
 \left\langle e^{i(\theta_r-\theta_0)}\right\rangle = \left\langle\prod_{j=0}^{r-1}e^{i\phi_j}\right\rangle
 $$
 
-なので、平衡kernelだけでなく位相因子を組み込んだ tilted transfer operator が自然になる。
+なので、平衡kernelだけでなく位相因子を組み込んだ tilted 転送作用素 が自然になる。
 
 支配固有値を
 
@@ -563,7 +563,7 @@ $$
 \boxed{Q\simeq\pm q_{\rm corr}}
 $$
 
-がresponse peakになる。
+が応答ピークになる。
 
 $$
 \boxed{
@@ -576,7 +576,7 @@ $$
 
 peak position は $q_{\rm corr}$、peak width はおおよそ $\xi^{-1}$ を測る。
 
-## 11. rotating field は pitch と chirality の両方に phase-match する
+## 11. rotating field は pitch と カイラリティ の両方に phase-match する
 
 XYでは外場自身を回転させ
 
@@ -610,23 +610,23 @@ $$
 
 は空間的なphase-matching条件である。
 
-さらに $Q=+q_\ast$ と $Q=-q_\ast$ は回転方向が逆なので、rotating field は二つのchiralityを区別できる。
+さらに $Q=+q_\ast$ と $Q=-q_\ast$ は回転方向が逆なので、rotating field は二つのカイラリティを区別できる。
 
-固定方向のcosine外場がpitchをprobeするのに対し、rotating fieldは**pitchとchiralityを同時にprobeできる**。
+固定方向のcosine外場がpitchをprobeするのに対し、rotating fieldは**pitchとカイラリティを同時にprobeできる**。
 
 ## 12. 第二近接XYで外場から読める三つの量
 
 応答で分けて読みたいのは
 
 $$
-\boxed{q_{\rm corr},\qquad\xi,\qquad\text{chirality}}
+\boxed{q_{\rm corr},\qquad\xi,\qquad\text{カイラリティ}}
 $$
 
 である。
 
-- response peak position → 構造波数 $q_{\rm corr}$
+- 応答ピーク position → 構造波数 $q_{\rm corr}$
 - peak width → 記憶長 $\xi$
-- rotating field の符号 → chirality
+- rotating field の符号 → カイラリティ
 
 第二近接XYでは外場は絶対方向を揃えるだけでなく、**内部構造波数へ照準を合わせるprobe**になる。
 
@@ -638,7 +638,7 @@ $$
 \boxed{
 \text{independent increments}
 \to
-\text{phase diffusion}
+\text{位相拡散}
 \to
 \chi(Q)\text{ centered at }0}
 $$
@@ -651,9 +651,9 @@ $$
 \boxed{
 \text{interacting increments}
 \to
-\text{preferred twist}
+\text{選好ねじれ}
 +\text{correlated diffusion}
-+\text{chirality}}
++\text{カイラリティ}}
 $$
 
 となり
@@ -665,4 +665,4 @@ $$
 
 へ変わる。
 
-この模型で残る中心像は、**どの回転率を選ぶか、その回転情報をどこまで保つか、どの外場波数に最も応答するか**が同じtransfer spectrumからつながることである。
+この模型で残る中心像は、**どの回転率を選ぶか、その回転情報をどこまで保つか、どの外場波数に最も応答するか**が同じ転送スペクトルからつながることである。
