@@ -6,6 +6,14 @@ updatedAt: 2026-09-19
 area: "Physics"
 topics: ["statistical mechanics", "Ising model", "transfer matrix", "correlation", "periodic modulation", "inhomogeneous systems"]
 status: growing
+system:
+  dimension: 1
+  spatial: periodic
+  range: R1
+  interaction: cosine
+  symmetry: [Z2]
+  mechanics: classical
+  role: model
 ---
 
 一様な最近接 Ising 鎖から離れる方向は、相互作用距離を伸ばすことだけではない。最近接のまま
