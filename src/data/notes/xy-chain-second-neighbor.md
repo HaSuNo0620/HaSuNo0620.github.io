@@ -1,5 +1,5 @@
 ---
-title: "1次元一様第二近接 U(1) スピン系 — 螺旋的空間記憶"
+title: "1次元一様第二近接 cosine-U(1) スピン系 — 螺旋的空間記憶"
 summary: "最近接XY鎖に第二近接相互作用を加えると、独立だった角度差が相互作用し、競合相互作用から有限twist、chirality、有限波数応答が生まれる。基底状態、長波長場、低温揺らぎ、transfer operator、空間変調外場への応答を通して、phase diffusionがcorrelated driftへ変わる過程を整理する。"
 publishedAt: 2026-09-13T22:40:00+09:00
 updatedAt: 2026-09-19
