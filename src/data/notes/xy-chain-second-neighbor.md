@@ -60,9 +60,7 @@ $$
 Hamiltonian は
 
 $$
-H
-=
--J_1\sum_i\cos(\theta_{i+1}-\theta_i)
+H = -J_1\sum_i\cos(\theta_{i+1}-\theta_i)
 -J_2\sum_i\cos(\theta_{i+2}-\theta_i),
 $$
 
@@ -483,9 +481,7 @@ $$
 ## 9. スピン相関は tilted spectrum の位相と絶対値を読む
 
 $$
-\left\langle e^{i(\theta_r-\theta_0)}\right\rangle
-=
-\left\langle\prod_{j=0}^{r-1}e^{i\phi_j}\right\rangle
+\left\langle e^{i(\theta_r-\theta_0)}\right\rangle = \left\langle\prod_{j=0}^{r-1}e^{i\phi_j}\right\rangle
 $$
 
 なので、平衡kernelだけでなく位相因子を組み込んだ tilted transfer operator が自然になる。
