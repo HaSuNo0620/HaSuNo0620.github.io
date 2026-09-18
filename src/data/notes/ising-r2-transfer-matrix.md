@@ -39,6 +39,31 @@ $$
 
 ![R=1 と R=2 の物理的な違い](/figures/ising-r2/overview-r1-r2.svg)
 
+## 系の座標
+
+$$
+\boxed{
+(d=1,\ \text{uniform},\ R=2,\ Z_2)
+}
+$$
+
+Hamiltonian は
+
+$$
+H
+=
+-J_1\sum_i s_i s_{i+1}
+-J_2\sum_i s_i s_{i+2},
+$$
+
+局所変数を
+
+$$
+\tau_i=s_i s_{i+1}
+$$
+
+とすると、$R=1$ で独立だった wall が $R=2$ で相互作用する。ここで動かした軸は interaction range だけである。
+
 ## 1. 第二近接結合は domain wall 間相互作用になる
 
 $$
