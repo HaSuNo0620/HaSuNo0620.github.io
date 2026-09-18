@@ -45,7 +45,7 @@ $$
 
 $$
 \boxed{
-(d=1,\ \text{uniform},\ R=2,\ U(1))
+(d=1,\ \text{uniform},\ R=2,\ \text{cosine},\ U(1))
 }
 $$
 
