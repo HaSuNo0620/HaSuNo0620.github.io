@@ -43,9 +43,7 @@ $$
 有限範囲 Hamiltonian
 
 $$
-H
-=
--\sum_i\sum_{r=1}^{R}
+H = -\sum_i\sum_{r=1}^{R}
 J_r s_i s_{i+r}
 $$
 
