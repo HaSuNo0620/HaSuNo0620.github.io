@@ -38,6 +38,32 @@ $$
 
 $q=2$ではIsing、$q\to\infty$ではXYへ近づく。しかし、重要なのは単に局所状態数が増えることではない。局所角度差の離散性が弱まり、長距離記憶を担うtransfer spectrumの構造そのものが変わる。
 
+## 系の座標
+
+$$
+\boxed{
+(d=1,\ \text{uniform},\ R=1,\ Z_q)
+}
+$$
+
+Hamiltonian は
+
+$$
+H=-J\sum_i\cos(\theta_{i+1}-\theta_i),
+\qquad
+\theta_i=\frac{2\pi n_i}{q},
+$$
+
+局所 memory variable は
+
+$$
+\phi_i=\theta_{i+1}-\theta_i
+=
+\frac{2\pi a_i}{q}.
+$$
+
+$Z_2$ と $U(1)$ の間で動かすのは symmetry / memory alphabet だけである。
+
 ## 1. 局所記憶変数は離散化された位相増分である
 
 隣接角度差を
