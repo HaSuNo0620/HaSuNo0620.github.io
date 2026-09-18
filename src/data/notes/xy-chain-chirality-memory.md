@@ -1,8 +1,8 @@
 ---
-title: "1次元第二近接XY模型 — chirality kinkと複数の空間記憶"
+title: "1次元XY模型 — 第二近接系のchirality kinkと複数の空間記憶"
 summary: "第二近接相互作用で生じる ±q* のchirality二重性を、kink、transfer operator、tilted spectrum、telegraph過程の各表示からつなぐ。局所preferred twist q*、実空間相関波数 q_corr、構造因子ピーク Q_peak、および ξ_chi と ξ_spin が一般に一致しないことを整理する。"
 publishedAt: 2026-09-15T15:55:00+09:00
-updatedAt: 2026-09-15
+updatedAt: 2026-09-19
 area: "Physics"
 topics: ["XY model", "chirality", "frustration"]
 status: growing
