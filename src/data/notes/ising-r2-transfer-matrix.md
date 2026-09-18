@@ -533,3 +533,67 @@ $$
 は弱い外場で最も励起しやすい空間パターンに対応する。
 
 第二近接鎖は、**pole complexification** と **応答-peak bifurcation** を同じ最小模型の中で分離して追える点に価値がある。
+
+
+## 13. 一様外場と周期外場は同じ \(\chi(q)\) を読む
+
+外場を
+
+$$
+H_h=-\sum_i h_i s_i
+$$
+
+として加える。零外場まわりの線形応答は
+
+$$
+\delta\langle s_i\rangle
+=
+\sum_j\chi_{ij}h_j,
+\qquad
+\chi_{ij}
+=
+\beta\langle s_i s_j\rangle
+$$
+
+である。
+
+一様外場 \(h_i=h\) は \(q=0\) 成分だけを励起し、
+
+$$
+\boxed{
+m=\chi(0)h+O(h^3)
+}
+$$
+
+となる。
+
+一方、
+
+$$
+h_i=h_q\cos(qi+\varphi)
+$$
+
+という周期外場なら、
+
+$$
+\boxed{
+\delta\langle s_i\rangle
+=
+\chi(q)h_q\cos(qi+\varphi)
++O(h_q^3)
+}
+$$
+
+である。
+
+したがって、この模型で導入した \(q_\chi\) は抽象的な Fourier 最大ではなく、**どの周期外場に最も強く応答するか**を直接表す。
+
+$$
+\boxed{
+q_\chi
+=
+\operatorname*{arg\,max}_q \chi(q)
+}
+$$
+
+Stephenson disorder line では長距離相関の位相が変わり、Lifshitz-like line では外場応答の最適波数が変わる。この二つを分けることが、第二近接模型の応答を読む上で重要になる。
