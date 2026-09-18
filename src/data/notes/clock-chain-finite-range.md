@@ -319,54 +319,51 @@ $$
 
 固定方向の外場を
 
-$
-H_h
-=
+$$
+H_h =
 -\sum_i h_i\cos\theta_i
-$
+$$
 
 として加える。
 
 一様外場 \(h_i=h\) では \(Q=0\) の応答、
 
-$
+$$
 m_x=\chi(0)h+O(h^3)
-$
+$$
 
 を読む。
 
 周期外場
 
-$
+$$
 h_i=h_Q\cos(Qi+\varphi)
-$
+$$
 
 なら
 
-$
+$$
 \boxed{
-\delta\langle\cos\theta_i\rangle
-=
+\delta\langle\cos\theta_i\rangle =
 \chi(Q)h_Q\cos(Qi+\varphi)
 +O(h_Q^3)
 }
-$
+$$
 
 となる。
 
 有限範囲では複数の転送モード
 
-$
-\Lambda_a
-=
+$$
+\Lambda_a =
 |\Lambda_a|e^{iq_a}
-$
+$$
 
 が存在しうるため、\(\chi(Q)\) はそれらを全距離で重ねた応答になる。
 
 したがって
 
-$
+$$
 \boxed{
 \{q_a\}
 \longrightarrow
@@ -374,17 +371,16 @@ $
 \longrightarrow
 Q_{\rm peak}
 }
-$
+$$
 
 を区別する。
 
 回転外場
 
-$
-H_{\rm rot}
-=
+$$
+H_{\rm rot} =
 -h\sum_i\cos(\theta_i-Qi-\varphi)
-$
+$$
 
 を用いれば、離散ねじれ候補のどれに位相整合するかも直接調べられる。有限 \(q\) では、この応答にも角度格子へのロッキングが残る。
 
