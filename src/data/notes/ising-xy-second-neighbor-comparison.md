@@ -119,13 +119,13 @@ $$
 \boxed{
 \text{independent 局所増分}
 \longrightarrow
-\text{interacting 局所増分}
+\text{相互作用する局所増分}
 }
 $$
 
 である。
 
-## 2. 実空間の構造は wall → ロックされたねじれ → 連続らせん と変わる
+## 2. 実空間の構造はドメイン壁 → ロックされたねじれ → 連続らせんと変わる
 
 ### $Z_2$
 
@@ -228,7 +228,7 @@ $$
 | 対称性 | 鞍点 / energetic object |
 | --- | --- |
 | $Z_2$ | 壁生成コスト / 壁配置 |
-| $Z_q$ | locked 選好ねじれ $q_\ast^{(q)}$ |
+| $Z_q$ | ロックされた選好ねじれ $q_\ast^{(q)}$ |
 | $U(1)$ | 連続選好ねじれ $q_\ast$ / カイラリティキンク |
 
 $Z_q$ では特に
@@ -283,7 +283,7 @@ $$
 
 ## 6. 転送対象 も 2×2 → q×q → 積分作用素 になる
 
-increment 表示で対称分割すると、
+増分表示で対称分割すると、
 
 $$
 T_{ab} = \exp\left[
@@ -346,7 +346,7 @@ $$
 \qquad
 \arg\Lambda_\ast
 \longrightarrow
-\text{記憶 phase}
+\text{記憶位相}
 }
 $$
 
@@ -422,7 +422,7 @@ $$
 \boxed{
 \text{spectral interpolation}
 +
-\text{spatial-structure quantization}
+\text{空間構造の量子化}
 }
 $$
 
