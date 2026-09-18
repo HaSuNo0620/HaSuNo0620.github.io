@@ -474,7 +474,6 @@ $$
 | --- | --- | ---: | --- | --- | --- | --- | --- |
 | 模型 | [1次元一様最近接 cosine-$Z_2$ スピン系 — 空間記憶と応答](/notes/ising-transfer-matrix) | 1 | uniform | $R=1$ | cosine | $Z_2$ | 反転 / ドメイン壁 |
 | 模型 | [1次元周期最近接 cosine-$Z_2$ スピン系 — 構造波数](/notes/ising-r1-periodic) | 1 | periodic | $R=1$ | cosine | $Z_2$ | 位置依存のドメイン壁重み |
-| 模型 | [1次元周期最近接 cosine-$Z_2$ スピン系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | 1 | 周期 + 外場 | $R=1$ | cosine | $Z_2$ | ドメイン壁 + 絶対スピン応答 |
 | 模型 | [1次元一様第二近接 cosine-$Z_2$ スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | 1 | uniform | $R=2$ | cosine | $Z_2$ | 相互作用する壁配置 |
 | 模型 | [1次元一様有限範囲 cosine-$Z_2$ スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | 1 | uniform | $R=n$ | cosine | $Z_2$ | 高次ドメイン壁配置 |
 | 模型 | [1次元一様有限範囲 cosine-$Z_q$ スピン系 — 離散位相履歴と有限記憶](/notes/clock-chain-finite-range) | 1 | uniform | $R=n$ | cosine | $Z_q$ | 離散位相履歴 |
@@ -483,7 +482,6 @@ $$
 | 模型 | [1次元一様第二近接 cosine-$Z_q$ スピン系 — 離散螺旋と角度記憶](/notes/clock-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $Z_q$ | ロックされた離散ねじれ / カイラリティ |
 | 模型 | [1次元一様最近接 cosine-$U(1)$ スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $U(1)$ | 連続位相増分 |
 | 模型 | [1次元一様第二近接 cosine-$U(1)$ スピン系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $U(1)$ | correlated 位相増分 |
-| 模型 | [1次元一様第二近接 cosine-$U(1)$ スピン系 — カイラリティキンクと複数の空間記憶](/notes/xy-chain-chirality-memory) | 1 | uniform | $R=2$ | cosine | $U(1)$ | 位相 + カイラリティセクター |
 
 同じ行方向で 対称性 を動かし、同じ列方向で $R$ や 空間構造 を動かす、と読む。
 
@@ -526,7 +524,7 @@ $$
 | 相互作用範囲 | $Z_2$ | $Z_q$ | $U(1)$ | 横方向の比較 |
 | --- | --- | --- | --- | --- |
 | $R=1$ | [模型](/notes/ising-transfer-matrix) | [模型](/notes/clock-chain-nearest-neighbor) | [模型](/notes/xy-chain-nearest-neighbor) | [比較](/notes/ising-xy-nearest-neighbor-comparison) |
-| $R=2$ | [模型](/notes/ising-r2-transfer-matrix) | [模型](/notes/clock-chain-second-neighbor) | [模型](/notes/xy-chain-second-neighbor) / [カイラリティ](/notes/xy-chain-chirality-memory) | [比較](/notes/ising-xy-second-neighbor-comparison) |
+| $R=2$ | [模型](/notes/ising-r2-transfer-matrix) | [模型](/notes/clock-chain-second-neighbor) | [模型](/notes/xy-chain-second-neighbor) | [比較](/notes/ising-xy-second-neighbor-comparison) |
 | $R=n$ | [模型](/notes/ising-rn-transfer-matrix) | [模型](/notes/clock-chain-finite-range) | [模型](/notes/xy-chain-finite-range) | [比較](/notes/finite-range-symmetry-comparison) |
 | **縦方向の比較** | [比較](/notes/ising-range-comparison) | — | — | — |
 
