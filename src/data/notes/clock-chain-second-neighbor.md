@@ -284,61 +284,57 @@ $$
 
 固定方向の外場を
 
-$
-H_h
-=
+$$
+H_h =
 -\sum_i h_i\cos\theta_i
-$
+$$
 
 として加える。
 
 一様外場 \(h_i=h\) は \(Q=0\) 成分を励起し、
 
-$
+$$
 m_x=\chi(0)h+O(h^3)
-$
+$$
 
 となる。
 
 一方、
 
-$
+$$
 h_i=h_Q\cos(Qi+\varphi)
-$
+$$
 
 なら線形応答は
 
-$
+$$
 \boxed{
-\delta\langle\cos\theta_i\rangle
-=
+\delta\langle\cos\theta_i\rangle =
 \chi(Q)h_Q\cos(Qi+\varphi)
 +O(h_Q^3)
 }
-$
+$$
 
 である。
 
 したがって
 
-$
+$$
 \boxed{
-Q_{\rm peak}
-=
+Q_{\rm peak} =
 \operatorname*{arg\,max}_Q\chi(Q)
 }
-$
+$$
 
 は、どの周期外場に最も強く応答するかを表す。
 
 さらに角度方向まで回転する外場
 
-$
-H_{\rm rot}
-=
+$$
+H_{\rm rot} =
 -h\sum_i
 \cos(\theta_i-Qi-\varphi)
-$
+$$
 
 を使えば、螺旋配置そのものへ位相整合できる。
 
