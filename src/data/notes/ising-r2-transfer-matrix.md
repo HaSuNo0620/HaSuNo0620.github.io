@@ -1,8 +1,8 @@
 ---
-title: "1次元イジング模型 — 第二近接相互作用と振動相関・有限波数応答"
+title: "1次元一様第二近接イジング系 — 振動相関と有限波数応答"
 summary: "第二近接相互作用を加えた1次元Ising鎖を、相互作用するドメイン壁、4状態転送行列、Stephenson disorder line、解析的に求まる q_spec と q_chi、Lifshitz-like line、Fisher–Widom型クロスオーバーという構造で読む。"
 publishedAt: 2026-09-11T02:10:00+09:00
-updatedAt: 2026-09-14
+updatedAt: 2026-09-19
 area: "Physics"
 topics: ["statistical mechanics", "Ising model", "transfer matrix", "correlation", "frustration", "information thermodynamics"]
 status: growing
