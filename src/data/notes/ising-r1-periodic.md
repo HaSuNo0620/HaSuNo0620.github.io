@@ -399,47 +399,46 @@ $$
 
 外場を
 
-$
+$$
 H_h=-\sum_i h_i s_i
-$
+$$
 
 として加える。
 
 一様外場 \(h_i=h\) でも、bond が周期的なら単位胞内部の各サイト応答は一般に同一ではない。単位胞内の磁化ベクトルを \(\mathbf m\)、外場を \(\mathbf h\) とすれば、
 
-$
+$$
 \boxed{
-\delta\mathbf m(Q)
-=
+\delta\mathbf m(Q) =
 \boldsymbol\chi(Q)\mathbf h(Q)
 }
-$
+$$
 
 という行列応答になる。
 
 周期外場
 
-$
+$$
 h_i=h_Q\cos(Qi+\varphi)
-$
+$$
 
 は、単位胞の逆格子ベクトル \(G\) により
 
-$
+$$
 Q,\qquad Q+G,\qquad Q+2G,\ldots
-$
+$$
 
 のチャネルを混合しうる。
 
 したがって一様系の単一 \(\chi(Q)\) に対して、周期 bond 系では
 
-$
+$$
 \boxed{
 \chi(Q)
 \longrightarrow
 \boldsymbol\chi_{GG'}(Q)
 }
-$
+$$
 
 と読む方が自然である。
 
