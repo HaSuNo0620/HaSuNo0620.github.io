@@ -558,15 +558,23 @@ $$
 
 比較ノートは独立模型ではなく、二つ以上の座標点を同じ物理量で読むための辞書に限定する。
 
-[1次元一様最近接 cosine スピン系 — Z2・U(1)の空間記憶](/notes/ising-xy-nearest-neighbor-comparison) は、
+[1次元一様最近接 cosine スピン系 — Z2・Zq・U(1)の空間記憶](/notes/ising-xy-nearest-neighbor-comparison) は、
 
-$$
+$
 R=1,
 \qquad
-\text{uniform}
-$$
+\text{uniform},
+\qquad
+\text{cosine family}
+$
 
-を固定して、memory variable の違いが相関喪失へどう現れるかを見る。
+を固定して、
+
+$
+Z_2\to Z_q\to U(1)
+$
+
+と local state space だけを動かす。rare wall、finite-angle jump、phase diffusion、spectral folding、相関長の activated-to-diffusive crossover を同じ比較軸で読む。
 
 [1次元一様第二近接 cosine スピン系 — Z2・U(1)を三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) は、
 
