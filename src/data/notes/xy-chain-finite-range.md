@@ -49,8 +49,7 @@ $$
 角度差は
 
 $$
-\theta_{i+r}-\theta_i
-=
+\theta_{i+r}-\theta_i =
 \sum_{m=0}^{r-1}\phi_{i+m}
 $$
 
@@ -89,8 +88,7 @@ $$
 
 $$
 \boxed{
-\boldsymbol\phi_i
-=
+\boldsymbol\phi_i =
 (\phi_{i-R+2},\ldots,\phi_i)
 \in
 (S^1)^{R-1}
@@ -126,8 +124,7 @@ $R$ は連続状態空間の次元を増やすのではなく、**同時に保�
 
 $$
 \boxed{
-e_R(q)
-=
+e_R(q) =
 -\sum_{r=1}^{R}J_r\cos(rq)
 }
 $$
@@ -142,11 +139,9 @@ $R=2$ では競合結合によって有限 $q_\ast$ が生じうる。
 
 $$
 \boxed{
-\frac{de_R}{dq}
-=
+\frac{de_R}{dq} =
 \sum_{r=1}^{R}
-rJ_r\sin(rq)
-=
+rJ_r\sin(rq) =
 0
 }
 $$
@@ -208,16 +203,14 @@ $$
 転送作用素の固有値を
 
 $$
-\Lambda_a
-=
+\Lambda_a =
 |\Lambda_a|e^{iq_a}
 $$
 
 とすると、
 
 $$
-\xi_a^{-1}
-=
+\xi_a^{-1} =
 -\ln\left|
 \frac{\Lambda_a}{\Lambda_0}
 \right|
@@ -287,8 +280,7 @@ $$
 $Z_q$ では
 
 $$
-\phi_i
-=
+\phi_i =
 \frac{2\pi a_i}{q}
 $$
 
@@ -334,8 +326,7 @@ $$
 
 $$
 \boxed{
-R
-=
+R =
 \text{連続位相履歴の深さ}
 }
 $$
