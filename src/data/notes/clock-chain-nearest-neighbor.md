@@ -1,8 +1,8 @@
 ---
-title: "1次元clock模型 — 離散位相増分と角度記憶"
+title: "1次元クロック模型 — 離散位相増分と角度記憶"
 summary: "1次元最近接clock鎖を、Isingの離散的な反転記憶とXYの連続的な位相増分記憶の間を埋める模型として読む。有限qの離散位相増分、transfer spectrum、XY spectrumのaliasing、rare jumpからphase diffusionへのcross-overを通して、Z2→Zq→U(1)で何が連続的に変わるかを整理する。"
 publishedAt: 2026-09-17T10:20:00+09:00
-updatedAt: 2026-09-18
+updatedAt: 2026-09-19
 area: "Physics"
 topics: ["statistical mechanics", "clock model", "spin model", "transfer matrix", "phase diffusion", "correlation", "Fourier spectrum"]
 status: growing
