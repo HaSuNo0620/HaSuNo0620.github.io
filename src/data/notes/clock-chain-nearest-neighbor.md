@@ -65,9 +65,7 @@ $$
 局所 memory variable は
 
 $$
-\phi_i=\theta_{i+1}-\theta_i
-=
-\frac{2\pi a_i}{q}.
+\phi_i=\theta_{i+1}-\theta_i = \frac{2\pi a_i}{q}.
 $$
 
 $Z_2$ と $U(1)$ の間で動かすのは symmetry / memory alphabet だけである。
@@ -175,9 +173,7 @@ $$
 $$
 C_m(r)
 \equiv
-\left\langle e^{im(\theta_r-\theta_0)}\right\rangle
-=
-\left\langle e^{im\phi}\right\rangle^r.
+\left\langle e^{im(\theta_r-\theta_0)}\right\rangle = \left\langle e^{im\phi}\right\rangle^r.
 $$
 
 したがって1 bond進んだときの$m$次角度情報のretentionを
@@ -217,9 +213,7 @@ $$
 1 bondのtransfer matrixは
 
 $$
-T_{ab}
-=
-\exp\left[
+T_{ab} = \exp\left[
 K\cos\frac{2\pi(a-b)}q
 \right]
 $$
@@ -236,9 +230,7 @@ $$
 
 $$
 \boxed{
-\Lambda_m^{(q)}
-=
-\sum_{a=0}^{q-1}
+\Lambda_m^{(q)} = \sum_{a=0}^{q-1}
 \exp\left[K\cos\frac{2\pi a}{q}\right]
 e^{-2\pi i m a/q}
 }
@@ -250,9 +242,7 @@ $$
 
 $$
 \boxed{
-\rho_m^{(q)}
-=
-\frac{\Lambda_m^{(q)}}{\Lambda_0^{(q)}}
+\rho_m^{(q)} = \frac{\Lambda_m^{(q)}}{\Lambda_0^{(q)}}
 }
 $$
 
@@ -343,9 +333,7 @@ $$
 
 $$
 \boxed{
-\lim_{q\to\infty}\rho_m^{(q)}
-=
-\frac{I_m(K)}{I_0(K)}
+\lim_{q\to\infty}\rho_m^{(q)} = \frac{I_m(K)}{I_0(K)}
 }
 $$
 
@@ -388,9 +376,7 @@ $$
 
 $$
 \boxed{
-\Lambda_m^{(q)}
-=
-q\sum_{\ell\in\mathbb Z}I_{m+\ell q}(K)
+\Lambda_m^{(q)} = q\sum_{\ell\in\mathbb Z}I_{m+\ell q}(K)
 }
 $$
 
@@ -400,9 +386,7 @@ $$
 
 $$
 \boxed{
-\rho_m^{(q)}
-=
-\frac{
+\rho_m^{(q)} = \frac{
 \displaystyle\sum_{\ell\in\mathbb Z}I_{m+\ell q}(K)
 }{
 \displaystyle\sum_{\ell\in\mathbb Z}I_{\ell q}(K)
