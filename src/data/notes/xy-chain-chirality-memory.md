@@ -6,6 +6,14 @@ updatedAt: 2026-09-19
 area: "Physics"
 topics: ["XY model", "chirality", "frustration"]
 status: growing
+system:
+  dimension: 1
+  spatial: uniform
+  range: R2
+  interaction: cosine
+  symmetry: [U(1)]
+  mechanics: classical
+  role: model
 ---
 
 第二近接XY鎖の螺旋側では、相関関数を単に
