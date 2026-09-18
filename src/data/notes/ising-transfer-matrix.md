@@ -41,7 +41,7 @@ $$
 
 $$
 \boxed{
-(d=1,\ \text{uniform},\ R=1,\ Z_2)
+(d=1,\ \text{uniform},\ R=1,\ \text{cosine},\ Z_2)
 }
 $$
 
@@ -59,6 +59,15 @@ $$
 $$
 
 この座標では $\tau_i$ が独立になることが、長距離記憶と応答の基準点になる。
+
+
+$Z_2$ では $\theta_i\in\{0,\pi\}$ と置けば
+
+$$
+\cos(\theta_i-\theta_j)=s_i s_j
+$$
+
+なので、標準 bilinear Ising 相互作用と cosine-$Z_2$ 表現は同値である。
 
 ## 1. 局所記憶は1スピンで閉じる
 
