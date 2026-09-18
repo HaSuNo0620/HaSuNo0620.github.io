@@ -16,7 +16,7 @@ system:
   role: model
 ---
 
-最近接ではdomain wallは独立、第二近接ではwall同士が相互作用した。相互作用範囲をさらに伸ばすと、この対応はそのまま高次化する。
+最近接ではドメイン壁は独立、第二近接ではwall同士が相互作用した。相互作用範囲をさらに伸ばすと、この対応はそのまま高次化する。
 
 有限範囲 $N$ の Ising 鎖を
 
@@ -28,9 +28,9 @@ $$
 
 とする。
 
-この一般化で増えるのは transfer matrix のサイズだけではない。相互作用範囲 $N$ は、wall表示では**最大 $N$ 体の局所相互作用**へ、条件付き統計では**最大 $N-1$ step の空間記憶**へ写る。
+この一般化で増えるのは 転送行列 のサイズだけではない。相互作用範囲 $N$ は、wall表示では**最大 $N$ 体の局所相互作用**へ、条件付き統計では**最大 $N-1$ step の空間記憶**へ写る。
 
-![相互作用範囲と壁相互作用・記憶長の対応](/figures/ising-rn/range-memory-map.svg)
+![相互作用範囲と壁相互作用・記憶長の対応](/figures/ising-rn/range-記憶-map.svg)
 
 ## 系の座標
 
@@ -53,7 +53,7 @@ $$
 \tau_i=s_i s_{i+1}
 $$
 
-で読む。$R$ を伸ばすことは、局所エネルギーが読む wall pattern の長さを伸ばすことに対応する。
+で読む。$R$ を伸ばすことは、局所エネルギーが読む 壁配置 の長さを伸ばすことに対応する。
 
 ## 1. 距離 $n$ のスピン結合は連続する $n$ 個の wall の積になる
 
@@ -85,7 +85,7 @@ $$
 
 $$
 \boxed{
-\text{spin interaction range }N
+\text{spin 相互作用範囲 }N
 \Longleftrightarrow
 \text{wall variables の最大 }N\text{体相互作用}}
 $$
@@ -113,7 +113,7 @@ $$
 
 第三近接で初めて、壁ペアだけでは表せない3体項が現れる。
 
-## 2. スピン表示の state size と wall 列の memory length は別の数え方になる
+## 2. スピン表示の state size と wall 列の 記憶長 は別の数え方になる
 
 新しいスピンを加えるとき、距離 $N$ までの局所 Boltzmann 重みを決めるには直前の $N$ 個のスピンが必要になる。
 
@@ -142,11 +142,11 @@ $$
 一方、wall Hamiltonian は最大 $N$ 個連続した $\tau$ を含むので、次のwallの条件付き確率には最大で直前 $N-1$ 個のwallが必要になる。
 
 $$
-N=1:\ 0\text{ step memory},
+N=1:\ 0\text{ step 記憶},
 \qquad
-N=2:\ 1\text{ step memory},
+N=2:\ 1\text{ step 記憶},
 \qquad
-N=3:\ 2\text{ step memory}.
+N=3:\ 2\text{ step 記憶}.
 $$
 
 一般には
@@ -155,14 +155,14 @@ $$
 \boxed{
 N\text{ range}
 \Longrightarrow
-(N-1)\text{ step wall memory}}
+(N-1)\text{ step wall 記憶}}
 $$
 
 となる。
 
-ここでいうmemoryは時間発展の非平衡記憶ではなく、**鎖に沿って次の局所確率を決めるために必要な履歴**である。
+ここでいう記憶は時間発展の非平衡記憶ではなく、**鎖に沿って次の局所確率を決めるために必要な履歴**である。
 
-## 3. 第三近接では3体wall相互作用と2-step memoryが同時に現れる
+## 3. 第三近接では3体wall相互作用と2-step 記憶が同時に現れる
 
 $$
 H=-J_1\sum_i s_is_{i+1}
@@ -183,7 +183,7 @@ $$
 
 ![R=3 で初めて現れる3体壁相互作用](/figures/ising-rn/r3-wall-interaction.svg)
 
-$J_3$ は単独のwallや隣接wall pairではなく、3つ並んだwall patternそのものへエネルギーを与える。
+$J_3$ は単独のwallや隣接wall pairではなく、3つ並んだ壁配置そのものへエネルギーを与える。
 
 確率過程としても一般には
 
@@ -199,7 +199,7 @@ $$
 
 第二近接では、相関を担うodd sectorは実質2×2であり、長距離を支配する構造は二つの実固有値か一組の複素共役対だった。
 
-第三近接では transfer matrix は8×8となり、対称性でsector分解しても subleading mode の候補が増える。
+第三近接では 転送行列 は8×8となり、対称性でsector分解しても subleading mode の候補が増える。
 
 したがって一般には
 
@@ -245,7 +245,7 @@ $$
 \to
 \text{wall-pattern weights}
 \to
-\text{transfer spectrum}
+\text{転送スペクトル}
 \to
 q_{\rm spec}
 \to
@@ -254,7 +254,7 @@ $$
 
 という階層がより重要になる。
 
-$q_{\rm spec}$ は最も遅く減衰するmodeの位相であり、$q_\chi$ は全距離相関を足し上げたresponseの最大位置である。前者の候補が複数になっても、後者と自動的に一致するわけではない。
+$q_{\rm spec}$ は最も遅く減衰するmodeの位相であり、$q_\chi$ は全距離相関を足し上げた応答の最大位置である。前者の候補が複数になっても、後者と自動的に一致するわけではない。
 
 ## 6. 第三近接で見るべき spectrum の変化
 
@@ -295,7 +295,7 @@ N\text{ range}
 \begin{cases}
 \text{wall picture: 最大 }N\text{体局所相互作用}\\
 \text{spin transfer picture: }2^N\text{ states}\\
-\text{wall process: 最大 }N-1\text{ step memory}\\
+\text{wall process: 最大 }N-1\text{ step 記憶}\\
 \text{correlation spectrum: 複数 subleading mode の競合が可能}
 \end{cases}}
 $$
