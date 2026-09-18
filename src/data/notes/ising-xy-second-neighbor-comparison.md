@@ -4,16 +4,16 @@ summary: "第二近接 cosine スピン系を、Z2・Zq・U(1)という局所状
 publishedAt: 2026-09-13T22:45:00+09:00
 updatedAt: 2026-09-19
 area: "Physics"
-topics: ["spin model", "clock model", "Ising model", "XY model", "second-neighbor interaction", "chirality", "転送行列"]
+topics: ["spin model", "clock model", "Ising model", "XY model", "second-neighbor interaction", "chirality", "transfer matrix"]
 status: growing
 system:
   dimension: 1
   spatial: uniform
   range: R2
   interaction: cosine
-  対称性: [Z2, Zq, U(1)]
+  symmetry: [Z2, Zq, U(1)]
   mechanics: classical
-  role: 比較
+  role: comparison
 ---
 
 第二近接 cosine 系では
