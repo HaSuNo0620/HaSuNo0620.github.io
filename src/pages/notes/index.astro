@@ -165,12 +165,12 @@ const mechanicsLabel: Record<string, string> = {
 </BaseLayout>
 
 <script>
-  const index = document.querySelector('[data-notes-index]');
-  const rows = Array.from(document.querySelectorAll('[data-note-row]'));
-  const filters = Array.from(document.querySelectorAll('[data-system-filter]'));
-  const sortSelect = document.querySelector('[data-system-sort]');
-  const reset = document.querySelector('[data-system-reset]');
-  const result = document.querySelector('[data-system-result]');
+  const index = document.querySelector<HTMLElement>('[data-notes-index]');
+  const rows = Array.from(document.querySelectorAll<HTMLElement>('[data-note-row]'));
+  const filters = Array.from(document.querySelectorAll<HTMLSelectElement>('[data-system-filter]'));
+  const sortSelect = document.querySelector<HTMLSelectElement>('[data-system-sort]');
+  const reset = document.querySelector<HTMLButtonElement>('[data-system-reset]');
+  const result = document.querySelector<HTMLElement>('[data-system-result]');
 
   const order = {
     symmetry: ['Z2', 'Zq', 'U(1)', 'SU(2)'],
@@ -325,8 +325,8 @@ const mechanicsLabel: Record<string, string> = {
     padding: .48rem .55rem;
     border: 1px solid var(--line);
     border-radius: 7px;
-    background: var(--bg);
-    color: var(--text);
+    background: var(--paper);
+    color: var(--ink);
     font: inherit;
     font-size: .84rem;
   }
