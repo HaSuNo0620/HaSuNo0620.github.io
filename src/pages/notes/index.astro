@@ -16,7 +16,7 @@ const systems = notes.flatMap((note) => note.data.system ? [note.data.system] : 
 const unique = (values: string[]) => [...new Set(values)];
 const dimensions = unique(systems.map((s) => String(s.dimension))).sort((a, b) => Number(a) - Number(b));
 const spatials = unique(systems.map((s) => s.spatial));
-const ranges = unique(systems.map((s) => s.range));
+const ranges = unique(systems.flatMap((s) => Array.isArray(s.range) ? s.range : [s.range]));
 const interactions = unique(systems.map((s) => s.interaction));
 const symmetries = unique(systems.flatMap((s) => s.symmetry));
 const mechanics = unique(systems.map((s) => s.mechanics));
@@ -119,6 +119,7 @@ const mechanicsLabel: Record<string, string> = {
     {notes.map((note, index) => {
       const system = note.data.system;
       const symmetry = system?.symmetry.join('|') ?? '';
+      const range = system ? (Array.isArray(system.range) ? system.range.join('|') : system.range) : '';
       return (
         <article
           class="index-row"
@@ -128,7 +129,7 @@ const mechanicsLabel: Record<string, string> = {
           data-system={system ? 'true' : 'false'}
           data-dimension={system?.dimension ?? ''}
           data-spatial={system?.spatial ?? ''}
-          data-range={system?.range ?? ''}
+          data-range={range}
           data-interaction={system?.interaction ?? ''}
           data-symmetry={symmetry}
           data-mechanics={system?.mechanics ?? ''}
@@ -144,7 +145,7 @@ const mechanicsLabel: Record<string, string> = {
               <div class="system-tags" aria-label="system coordinates">
                 <span>{system.dimension}D</span>
                 <span>{spatialLabel[system.spatial] ?? system.spatial}</span>
-                <span>{rangeLabel[system.range] ?? system.range}</span>
+                {(Array.isArray(system.range) ? system.range : [system.range]).map((value) => <span>{rangeLabel[value] ?? value}</span>)}
                 <span>{system.interaction}</span>
                 {system.symmetry.map((value) => <span>{value}</span>)}
                 <span>{mechanicsLabel[system.mechanics] ?? system.mechanics}</span>
@@ -197,8 +198,8 @@ const mechanicsLabel: Record<string, string> = {
 
       for (const [field, expected] of Object.entries(active)) {
         if (!expected || !matches) continue;
-        if (field === 'symmetry') {
-          const values = (row.dataset.symmetry ?? '').split('|').filter(Boolean);
+        if (field === 'symmetry' || field === 'range') {
+          const values = (row.dataset[field] ?? '').split('|').filter(Boolean);
           matches = values.includes(expected);
         } else {
           matches = row.dataset[field] === expected;
@@ -217,11 +218,11 @@ const mechanicsLabel: Record<string, string> = {
       const bStructured = b.dataset.system === 'true';
       if (aStructured !== bStructured) return aStructured ? -1 : 1;
 
-      const av = sort === 'symmetry'
-        ? (a.dataset.symmetry ?? '').split('|')[0]
+      const av = (sort === 'symmetry' || sort === 'range')
+        ? (a.dataset[sort] ?? '').split('|')[0]
         : (a.dataset[sort] ?? '');
-      const bv = sort === 'symmetry'
-        ? (b.dataset.symmetry ?? '').split('|')[0]
+      const bv = (sort === 'symmetry' || sort === 'range')
+        ? (b.dataset[sort] ?? '').split('|')[0]
         : (b.dataset[sort] ?? '');
 
       if (sort in order) {
