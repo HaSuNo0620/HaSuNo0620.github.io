@@ -4,14 +4,14 @@ summary: "第二近接相互作用を持つ1次元Zq cosineスピン鎖を、離
 publishedAt: 2026-09-19T02:10:00+09:00
 updatedAt: 2026-09-19
 area: "Physics"
-topics: ["statistical mechanics", "clock model", "spin model", "second-neighbor interaction", "chirality", "転送行列", "frustration"]
+topics: ["statistical mechanics", "clock model", "spin model", "second-neighbor interaction", "chirality", "transfer matrix", "frustration"]
 status: growing
 system:
   dimension: 1
   spatial: uniform
   range: R2
   interaction: cosine
-  対称性: [Zq]
+  symmetry: [Zq]
   mechanics: classical
   role: model
 ---
