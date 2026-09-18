@@ -30,7 +30,7 @@ $$
 \boxed{
 \text{independent 位相増分s}
 \longrightarrow
-\text{interacting 位相増分s}}
+\text{相互作用する位相増分}}
 $$
 
 となる。
@@ -70,7 +70,7 @@ $$
 \phi_i=\theta_{i+1}-\theta_i.
 $$
 
-$R=1$ で独立だった 位相増分 が、$R=2$ で隣接 increment の相関と finite ねじれ を持つようになる。
+$R=1$ で独立だった 位相増分 が、$R=2$ で隣接増分 の相関と 有限ねじれ を持つようになる。
 
 ## 1. 第二近接は隣接する角度増分を直接結ぶ
 
@@ -170,7 +170,7 @@ $$
 
 となる。
 
-![第二近接XY鎖の選択ねじれと低温stiffness](/figures/xy-second-neighbor/preferred-ねじれ-stiffness.svg)
+![第二近接XY鎖の選択ねじれと低温stiffness](/figures/xy-second-neighbor/preferred-twist-stiffness.svg)
 
 *有限ねじれは $\kappa=1/4$ から立ち上がり、同じ点で $q=0$ の曲率がsoftになる。*
 
@@ -394,7 +394,7 @@ $$
 
 $\kappa=1/4$ では $A_0\to0$ なので、このGaussian近似自体がsoftになる。境界近傍では前節の高次項が必要になる。
 
-## 6. finite ねじれ は離散カイラリティを同時に生む
+## 6. 有限ねじれ は離散カイラリティを同時に生む
 
 $e(q)=e(-q)$ なので
 
@@ -418,8 +418,8 @@ $$
 
 $$
 \boxed{
-\text{continuous phase fluctuation}
-+\text{discrete カイラリティ反転}}
+\text{連続位相揺らぎ}
++\text{離散カイラリティ反転}}
 $$
 
 という二層がある。
@@ -476,15 +476,15 @@ $$
 I_m(K_1)/I_0(K_1)
 $$
 
-という単純な1-step 記憶は、一般のtransfer-operator spectrumへ置き換わる。
+という単純な1-step 記憶は、一般の転送作用素スペクトルへ置き換わる。
 
-## 9. スピン相関は tilted spectrum の位相と絶対値を読む
+## 9. スピン相関は 傾斜スペクトル の位相と絶対値を読む
 
 $$
 \left\langle e^{i(\theta_r-\theta_0)}\right\rangle = \left\langle\prod_{j=0}^{r-1}e^{i\phi_j}\right\rangle
 $$
 
-なので、平衡kernelだけでなく位相因子を組み込んだ tilted 転送作用素 が自然になる。
+なので、平衡核だけでなく位相因子を組み込んだ 傾斜転送作用素 が自然になる。
 
 支配固有値を
 
@@ -513,7 +513,7 @@ $$
 
 となる。
 
-第二近接XYでは、長距離記憶が spectrum の**大きさと位相**の二つへ分かれている。
+第二近接XYでは、長距離記憶が スペクトルの**大きさと位相**の二つへ分かれている。
 
 ## 10. 外場応答の中心は $Q=0$ から $Q=\pm q_{\rm corr}$ へ移る
 
@@ -567,16 +567,16 @@ $$
 
 $$
 \boxed{
-\text{filter centered at }Q=0
+\text{フィルター中心 }Q=0
 \longrightarrow
-\text{filter centered at }Q=\pm q_{\rm corr}}
+\text{フィルター中心 }Q=\pm q_{\rm corr}}
 $$
 
 という質的変化である。
 
 peak position は $q_{\rm corr}$、peak width はおおよそ $\xi^{-1}$ を測る。
 
-## 11. rotating field は pitch と カイラリティ の両方に phase-match する
+## 11. 回転外場 は ピッチとカイラリティ の両方に 位相整合 する
 
 XYでは外場自身を回転させ
 
@@ -608,11 +608,11 @@ $$
 \boxed{Q=q_\ast}
 $$
 
-は空間的なphase-matching条件である。
+は空間的な位相整合ing条件である。
 
-さらに $Q=+q_\ast$ と $Q=-q_\ast$ は回転方向が逆なので、rotating field は二つのカイラリティを区別できる。
+さらに $Q=+q_\ast$ と $Q=-q_\ast$ は回転方向が逆なので、回転外場 は二つのカイラリティを区別できる。
 
-固定方向のcosine外場がpitchをprobeするのに対し、rotating fieldは**pitchとカイラリティを同時にprobeできる**。
+固定方向のcosine外場がpitchをprobeするのに対し、回転外場は**pitchとカイラリティを同時にprobeできる**。
 
 ## 12. 第二近接XYで外場から読める三つの量
 
@@ -626,7 +626,7 @@ $$
 
 - 応答ピーク position → 構造波数 $q_{\rm corr}$
 - peak width → 記憶長 $\xi$
-- rotating field の符号 → カイラリティ
+- 回転外場 の符号 → カイラリティ
 
 第二近接XYでは外場は絶対方向を揃えるだけでなく、**内部構造波数へ照準を合わせるprobe**になる。
 
@@ -649,7 +649,7 @@ $$
 
 $$
 \boxed{
-\text{interacting increments}
+\text{相互作用する増分}
 \to
 \text{選好ねじれ}
 +\text{correlated diffusion}
