@@ -34,7 +34,7 @@ $$
 
 $$
 \boxed{
-(d=1,\ \text{periodic},\ R=1,\ Z_2)
+(d=1,\ \text{periodic},\ R=1,\ \text{cosine},\ Z_2)
 }
 $$
 
@@ -60,6 +60,15 @@ $$
 $$
 
 だが、外場は absolute spin を読むため wall 表示を非局所化する。ここでは「同じ模型座標に外場を加えたとき、何の情報が混ざるか」を追う。
+
+
+$Z_2$ では $\theta_i\in\{0,\pi\}$ と置けば
+
+$$
+\cos(\theta_i-\theta_j)=s_i s_j
+$$
+
+なので、標準 bilinear Ising 相互作用と cosine-$Z_2$ 表現は同値である。
 
 ## 1. 外場は wall 表示を非局所化する
 
