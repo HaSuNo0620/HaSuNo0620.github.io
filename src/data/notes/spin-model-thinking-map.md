@@ -525,10 +525,10 @@ $$
 
 | 相互作用範囲 | $Z_2$ | $Z_q$ | $U(1)$ | 横方向の比較 |
 | --- | --- | --- | --- | --- |
-| $R=1$ | [模型](/notes/ising-transfer-matrix) | [模型](/notes/clock-chain-nearest-neighbor) | [模型](/notes/xy-chain-nearest-neighbor) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-nearest-neighbor-comparison) |
-| $R=2$ | [模型](/notes/ising-r2-transfer-matrix) | [模型](/notes/clock-chain-second-neighbor) | [模型](/notes/xy-chain-second-neighbor) / [カイラリティ](/notes/xy-chain-chirality-memory) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-second-neighbor-comparison) |
-| $R=n$ | [模型](/notes/ising-rn-transfer-matrix) | [模型](/notes/clock-chain-finite-range) | [模型](/notes/xy-chain-finite-range) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/finite-range-symmetry-comparison) |
-| **縦方向の比較** | [$R=1\leftrightarrow R=2\leftrightarrow R=n$](/notes/ising-range-comparison) | — | — | — |
+| $R=1$ | [模型](/notes/ising-transfer-matrix) | [模型](/notes/clock-chain-nearest-neighbor) | [模型](/notes/xy-chain-nearest-neighbor) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$ 比較ノート](/notes/ising-xy-nearest-neighbor-comparison) |
+| $R=2$ | [模型](/notes/ising-r2-transfer-matrix) | [模型](/notes/clock-chain-second-neighbor) | [模型](/notes/xy-chain-second-neighbor) / [カイラリティ](/notes/xy-chain-chirality-memory) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$ 比較ノート](/notes/ising-xy-second-neighbor-comparison) |
+| $R=n$ | [模型](/notes/ising-rn-transfer-matrix) | [模型](/notes/clock-chain-finite-range) | [模型](/notes/xy-chain-finite-range) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$ 比較ノート](/notes/finite-range-symmetry-comparison) |
+| **縦方向の比較** | [$R=1\leftrightarrow R=2\leftrightarrow R=n$ 比較ノート](/notes/ising-range-comparison) | — | — | — |
 
 今回 $R=n$ の $Z_q$ と $U(1)$ まで埋まったことで、
 
