@@ -687,7 +687,7 @@ $$
 
 という階層が現れる。
 
-![高調波ごとの記憶長](/figures/clock-r1/高調波-記憶-hierarchy.svg)
+![高調波ごとの記憶長](/figures/clock-r1/harmonic-memory-hierarchy.svg)
 
 *$K=20$での$\xi_m/\xi_1$。$q$が大きくなるにつれてXY低温則$\xi_m/\xi_1\simeq m^{-2}$が低い高調波から回復する。有限$q$ではNyquist境界$m\sim q/2$へ近づくほどfoldingの影響が強くなる。*
 
