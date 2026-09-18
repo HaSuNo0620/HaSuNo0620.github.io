@@ -58,9 +58,7 @@ $$
 Hamiltonian は
 
 $$
-H
-=
--J_1\sum_i s_i s_{i+1}
+H = -J_1\sum_i s_i s_{i+1}
 -J_2\sum_i s_i s_{i+2},
 $$
 
@@ -267,9 +265,7 @@ $$
 ![R=2 Ising鎖の相関構造マップ](/figures/ising-r2/correlation-structure-map.svg)
 
 $$
-(q_{\rm spec},q_\chi)
-=
-\begin{cases}
+(q_{\rm spec},q_\chi) = \begin{cases}
 (0,0), & \kappa<\kappa_{\rm d}(t),\\
 (>0,0), & \kappa_{\rm d}(t)<\kappa<\kappa_{\rm L}(t),\\
 (>0,>0), & \kappa>\kappa_{\rm L}(t).
