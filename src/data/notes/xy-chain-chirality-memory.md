@@ -42,6 +42,33 @@ $$
 
 を使う。
 
+## 系の座標
+
+$$
+\boxed{
+(d=1,\ \text{uniform},\ R=2,\ U(1))
+}
+$$
+
+対象は一様第二近接 $U(1)$ 系の螺旋側である。Hamiltonian 自体は
+
+$$
+H
+=
+-J_1\sum_i\cos(\theta_{i+1}-\theta_i)
+-J_2\sum_i\cos(\theta_{i+2}-\theta_i)
+$$
+
+のままで、ここでは同じ座標点の中に現れる複数の memory channel
+
+$$
+\text{phase},\qquad
+\text{chirality},\qquad
+\text{spin correlation}
+$$
+
+を分離して読む。
+
 ## 螺旋側では chirality が二重化する
 
 一様 twist $\phi_i=q$ のエネルギー密度は
