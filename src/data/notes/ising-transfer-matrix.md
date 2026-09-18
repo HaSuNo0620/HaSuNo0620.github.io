@@ -60,7 +60,7 @@ H=-J\sum_i s_i s_{i+1},
 \qquad s_i=\pm1,
 $$
 
-局所 memory variable は
+局所 記憶変数 は
 
 $$
 \tau_i=s_i s_{i+1}.
@@ -129,7 +129,7 @@ $$
 \tau_i\equiv s_i s_{i+1}=\pm1
 $$
 
-を導入すると、$\tau_i=-1$ がdomain wallに対応する。
+を導入すると、$\tau_i=-1$ がドメイン壁に対応する。
 
 基準スピン $s_1$ を残せば
 
@@ -197,7 +197,7 @@ $$
 }
 $$
 
-となる。transfer spectrum と実空間の欠陥密度が同じ量を見ている。
+となる。転送スペクトル と実空間の欠陥密度が同じ量を見ている。
 
 外場項は
 
@@ -280,7 +280,7 @@ $$
 H=-J\sum_i s_i s_{i+1}-h\sum_i s_i
 $$
 
-で、split-field transfer matrix は
+で、split-field 転送行列 は
 
 $$
 T=
@@ -406,13 +406,13 @@ $$
 
 となる。
 
-![空間振動外場と磁化応答](/figures/ising-r1/spatial-field-response.svg)
+![空間振動外場と磁化応答](/figures/ising-r1/spatial-field-応答.svg)
 
 *$\beta J=1.2$、$h_q/J=0.05$。長波長では応答が大きく、短波長では強く抑制される。*
 
 同じ外場振幅でも、波数が違えば応答は大きく変わる。これは $\chi(q)$ が実空間の記憶長を Fourier 空間で読んだ量だからである。
 
-有限振幅では位置依存 transfer matrix
+有限振幅では位置依存 転送行列
 
 $$
 T_i(s_i,s_{i+1})
@@ -458,7 +458,7 @@ P(s_r=s_0\mid s_0)=\frac{1+C(r)}{2},
 P(s_r\neq s_0\mid s_0)=\frac{1-C(r)}{2}.
 $$
 
-$s_0\to s_r$ は、熱的domain wallが作る binary channel として読める。
+$s_0\to s_r$ は、熱的ドメイン壁が作る binary channel として読める。
 
 ただし壁そのものが情報を消すわけではない。全ての $\tau_i$ が既知なら
 
@@ -525,9 +525,9 @@ $$
 
 $$
 \boxed{
-\text{independent domain walls}
+\text{independent ドメイン壁s}
 \longrightarrow
-\text{interacting domain walls}
+\text{interacting ドメイン壁s}
 }
 $$
 
@@ -559,9 +559,9 @@ $$
 
 $$
 \boxed{
-\text{interaction range}
+\text{相互作用範囲}
 \longleftrightarrow
-\text{finite spatial memory}
+\text{finite spatial 記憶}
 }
 $$
 
