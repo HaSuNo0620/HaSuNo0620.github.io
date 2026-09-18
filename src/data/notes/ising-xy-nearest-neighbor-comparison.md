@@ -31,6 +31,28 @@ $$
 
 である。
 
+## 比較座標
+
+$$
+\boxed{
+d=1,\qquad
+\text{uniform},\qquad
+R=1
+}
+$$
+
+を固定し、
+
+$$
+\boxed{
+Z_2
+\longleftrightarrow
+U(1)
+}
+$$
+
+だけを動かす。比較する中心量は、局所 memory variable、1-step retention、相関長、transfer spectrum、波数応答である。
+
 ## 1. Ising は稀なwall、XYは小回転の累積で向きを失う
 
 Isingでは
