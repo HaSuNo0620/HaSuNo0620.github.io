@@ -39,7 +39,7 @@ $J>0$ は隣接角度差を小さくするが、XYでは各bondが**少しずつ
 
 $$
 \boxed{
-(d=1,\ \text{uniform},\ R=1,\ U(1))
+(d=1,\ \text{uniform},\ R=1,\ \text{cosine},\ U(1))
 }
 $$
 
