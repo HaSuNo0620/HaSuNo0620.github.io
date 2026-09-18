@@ -325,67 +325,63 @@ $$
 
 固定方向の外場を
 
-$
-H_h
-=
+$$
+H_h =
 -\sum_i h_i\cos\theta_i
-$
+$$
 
 として加える。
 
 一様外場 \(h_i=h\) は \(Q=0\) 成分を読み、
 
-$
+$$
 m_x=\chi(0)h+O(h^3)
-$
+$$
 
 となる。
 
 周期外場
 
-$
+$$
 h_i=h_Q\cos(Qi+\varphi)
-$
+$$
 
 では
 
-$
+$$
 \boxed{
-\delta\langle\cos\theta_i\rangle
-=
+\delta\langle\cos\theta_i\rangle =
 \chi(Q)h_Q\cos(Qi+\varphi)
 +O(h_Q^3)
 }
-$
+$$
 
 である。
 
 有限範囲では複数の長距離モード \(q_a\) が競合できるため、
 
-$
+$$
 \boxed{
-Q_{\rm peak}
-=
+Q_{\rm peak} =
 \operatorname*{arg\,max}_Q\chi(Q)
 }
-$
+$$
 
 は、どのモードが外場から最も強く見えるかを表す。
 
 さらに回転外場
 
-$
-H_{\rm rot}
-=
+$$
+H_{\rm rot} =
 -h\sum_i
 \cos(\theta_i-Qi-\varphi)
-$
+$$
 
 を用いれば、特定の螺旋波数 \(Q\) に直接位相整合できる。
 
 したがって有限範囲 \(U(1)\) 系では、
 
-$
+$$
 \boxed{
 q_{\ast,a}
 \quad\text{局所選好},
@@ -396,7 +392,7 @@ q_a
 Q_{\rm peak}
 \quad\text{外場応答}
 }
-$
+$$
 
 を分離して読むことが必要になる。
 
