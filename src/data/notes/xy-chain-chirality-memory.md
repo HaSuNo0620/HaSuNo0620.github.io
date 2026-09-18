@@ -1,5 +1,5 @@
 ---
-title: "1次元一様第二近接XY系 — chirality kinkと複数の空間記憶"
+title: "1次元一様第二近接 U(1) スピン系 — chirality kinkと複数の空間記憶"
 summary: "第二近接相互作用で生じる ±q* のchirality二重性を、kink、transfer operator、tilted spectrum、telegraph過程の各表示からつなぐ。局所preferred twist q*、実空間相関波数 q_corr、構造因子ピーク Q_peak、および ξ_chi と ξ_spin が一般に一致しないことを整理する。"
 publishedAt: 2026-09-15T15:55:00+09:00
 updatedAt: 2026-09-19
