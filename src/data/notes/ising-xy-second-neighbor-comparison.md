@@ -1,19 +1,19 @@
 ---
 title: "1次元一様第二近接 cosine スピン系 — Z2・Zq・U(1)を三つの解像度で見る"
-summary: "第二近接 cosine スピン系を、Z2・Zq・U(1)という局所状態空間の違いだけを動かして比較する。interacting wall、locked discrete twist、continuous helixを、saddle point、local transition、transfer spectrumという三つの解像度で対応づける。"
+summary: "第二近接 cosine スピン系を、Z2・Zq・U(1)という局所状態空間の違いだけを動かして比較する。interacting wall、locked 離散ねじれ、連続らせんを、saddle point、局所遷移、転送スペクトルという三つの解像度で対応づける。"
 publishedAt: 2026-09-13T22:45:00+09:00
 updatedAt: 2026-09-19
 area: "Physics"
-topics: ["spin model", "clock model", "Ising model", "XY model", "second-neighbor interaction", "chirality", "transfer matrix"]
+topics: ["spin model", "clock model", "Ising model", "XY model", "second-neighbor interaction", "chirality", "転送行列"]
 status: growing
 system:
   dimension: 1
   spatial: uniform
   range: R2
   interaction: cosine
-  symmetry: [Z2, Zq, U(1)]
+  対称性: [Z2, Zq, U(1)]
   mechanics: classical
-  role: comparison
+  role: 比較
 ---
 
 第二近接 cosine 系では
@@ -38,7 +38,7 @@ U(1)
 }
 $$
 
-と local state space だけを変えられる。
+と local 状態空間 だけを変えられる。
 
 個別導出は
 
@@ -62,7 +62,7 @@ $$
 
 動かすのは
 
-state space / symmetry だけで、
+状態空間 / 対称性 だけで、
 
 $$
 Z_2
@@ -80,9 +80,9 @@ $$
 \boxed{
 \text{defect / texture}
 \longleftrightarrow
-\text{local transition rule}
+\text{局所遷移 rule}
 \longleftrightarrow
-\text{transfer spectrum}
+\text{転送スペクトル}
 }
 $$
 
@@ -125,7 +125,7 @@ $$
 
 である。
 
-## 2. 実空間の構造は wall → locked twist → continuous helix と変わる
+## 2. 実空間の構造は wall → locked twist → 連続らせん と変わる
 
 ### $Z_2$
 
@@ -139,7 +139,7 @@ H=
 }
 $$
 
-であり、第二近接相互作用は wall pattern を相互作用させる。
+であり、第二近接相互作用は 壁配置 を相互作用させる。
 
 ### $Z_q$
 
@@ -169,25 +169,25 @@ $$
 
 連続角度では
 
-preferred twist は $\cos q_\ast=-J_1/(4J_2)$ に従って連続的に動く。
+選好ねじれ は $\cos q_\ast=-J_1/(4J_2)$ に従って連続的に動く。
 
 三者を並べると
 
 $$
 \boxed{
-\text{interacting walls}
+\text{相互作用する壁}
 \to
-\text{locked discrete twists}
+\text{locked 離散ねじれs}
 \to
-\text{continuous helix}
+\text{連続らせん}
 }
 $$
 
 となる。
 
-## 3. chirality の出方も state space に沿って連続化する
+## 3. chirality の出方も 状態空間 に沿って連続化する
 
-非零 preferred twist があると、
+非零 選好ねじれ があると、
 
 $+q_\ast$ と $-q_\ast$ という二つの向きが生じる。
 
@@ -211,7 +211,7 @@ $U(1)$ ではその sector の内部に continuous phase fluctuation も残る�
 
 $$
 \boxed{
-\text{wall pattern}
+\text{壁配置}
 \to
 \text{discrete chirality + locked twist}
 \to
@@ -225,11 +225,11 @@ $$
 
 三者で saddle-point 的に見る量は異なる。
 
-| symmetry | saddle-point / energetic object |
+| 対称性 | saddle-point / energetic object |
 | --- | --- |
-| $Z_2$ | wall cost / wall pattern |
-| $Z_q$ | locked preferred twist $q_\ast^{(q)}$ |
-| $U(1)$ | continuous preferred twist $q_\ast$ / chirality kink |
+| $Z_2$ | wall cost / 壁配置 |
+| $Z_q$ | locked 選好ねじれ $q_\ast^{(q)}$ |
+| $U(1)$ | continuous 選好ねじれ $q_\ast$ / chirality kink |
 
 $Z_q$ では特に
 
@@ -243,9 +243,9 @@ $$
 
 これは最近接 $Z_q$ にはなかった、第二近接だからこそ現れる angular discretization の効果である。
 
-## 5. local transition は 2-state → q-state → continuous kernel へ移る
+## 5. 局所遷移 は 2-state → q-state → continuous kernel へ移る
 
-第二近接では $\phi_i$ は Markov chain になる。
+第二近接では $\phi_i$ は マルコフ連鎖 になる。
 
 ### $Z_2$
 
@@ -354,7 +354,7 @@ $$
 
 ## 8. 「構造波数」は三者で同じ名前でも同じ量ではない
 
-$Z_2$ では $q_{\rm spec}$ が subleading eigenvalue の位相として現れ、$q_\chi$ は response peak の位置である。
+$Z_2$ では $q_{\rm spec}$ が subleading eigenvalue の位相として現れ、$q_\chi$ は 応答 peak の位置である。
 
 $Z_q$ では
 
@@ -382,9 +382,9 @@ $$
 
 比較すると、
 
-| symmetry | local energetic pitch | long-distance pitch | response peak |
+| 対称性 | local energetic pitch | long-distance pitch | 応答 peak |
 | --- | --- | --- | --- |
-| $Z_2$ | wall pattern / ground-state modulation | $q_{\rm spec}$ | $q_\chi$ |
+| $Z_2$ | 壁配置 / ground-state modulation | $q_{\rm spec}$ | $q_\chi$ |
 | $Z_q$ | $q_\ast^{(q)}$ | $q_{\rm corr}$ | $Q_{\rm peak}$ |
 | $U(1)$ | $q_\ast$ | $q_{\rm corr}$ | $Q_{\rm peak}$ |
 
@@ -428,15 +428,15 @@ $$
 
 という二重の役割を持つ。
 
-## 10. 三つの information filter を並べる
+## 10. 三つの 情報フィルター を並べる
 
 | 解像度 | $Z_2$ | $Z_q$ | $U(1)$ |
 | --- | --- | --- | --- |
-| energetic / saddle point | wall cost / wall pattern | locked twist $q_\ast^{(q)}$ | continuous $q_\ast$ / chirality kink |
-| local transition | $P(\tau'|\tau)$ | $P(a'|a)$ | $P(\phi'|\phi)$ |
+| energetic / saddle point | wall cost / 壁配置 | locked twist $q_\ast^{(q)}$ | continuous $q_\ast$ / chirality kink |
+| 局所遷移 | $P(\tau'|\tau)$ | $P(a'|a)$ | $P(\phi'|\phi)$ |
 | transfer object | $2\times2$ | $q\times q$ | integral operator |
 | long-distance memory | $(\xi,q_{\rm spec})$ | $(\xi,q_{\rm corr})$ | $(\xi,q_{\rm corr})$ |
-| response | $q_\chi$ | $Q_{\rm peak}$ | $Q_{\rm peak}$ |
+| 応答 | $q_\chi$ | $Q_{\rm peak}$ | $Q_{\rm peak}$ |
 
 この表で $Z_q$ は単なる「中間モデル」ではなく、
 
@@ -448,7 +448,7 @@ $$
 }
 $$
 
-を有限状態 Markov chain でつなぐ位置にいる。
+を有限状態 マルコフ連鎖 でつなぐ位置にいる。
 
 ## 11. $q\to\infty$ で消えるものと残るもの
 
@@ -457,7 +457,7 @@ $q\to\infty$ では $\Delta\phi=2\pi/q\to0$ なので twist locking は消え、
 一方、
 
 $$
-\text{preferred twist},
+\text{選好ねじれ},
 \qquad
 \text{chirality},
 \qquad
@@ -478,7 +478,7 @@ $$
 
 ## 得られた見方
 
-第二近接 cosine 系の symmetry 軸は
+第二近接 cosine 系の 対称性 軸は
 
 $$
 \boxed{
@@ -494,17 +494,17 @@ $$
 
 $$
 \boxed{
-\text{interacting walls}
+\text{相互作用する壁}
 \to
-\text{locked discrete twists}
+\text{locked 離散ねじれs}
 \to
-\text{continuous helix}
+\text{連続らせん}
 }
 $$
 
 と変化する。
 
-同時に information filter 側では
+同時に 情報フィルター 側では
 
 $$
 \boxed{
@@ -530,4 +530,4 @@ $$
 
 へ連続化する。
 
-したがって $R=2$ に $Z_q$ を入れることで、$Z_2$ と $U(1)$ の差を「離散か連続か」で終わらせず、**角度分解能が wall pattern を locked twist へ、さらに continuous helix へどう変形するか**として追えるようになる。
+したがって $R=2$ に $Z_q$ を入れることで、$Z_2$ と $U(1)$ の差を「離散か連続か」で終わらせず、**角度分解能が 壁配置 を locked twist へ、さらに 連続らせん へどう変形するか**として追えるようになる。
