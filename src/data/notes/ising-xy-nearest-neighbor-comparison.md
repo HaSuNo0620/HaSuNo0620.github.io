@@ -6,6 +6,14 @@ updatedAt: 2026-09-19
 area: "Physics"
 topics: ["statistical mechanics", "Ising model", "XY model", "correlation", "transfer matrix", "memory", "nearest-neighbor", "linear response"]
 status: growing
+system:
+  dimension: 1
+  spatial: uniform
+  range: R1
+  interaction: cosine
+  symmetry: [Z2, U(1)]
+  mechanics: classical
+  role: comparison
 ---
 
 1次元最近接Ising鎖とXY鎖は、どちらも有限温度では長距離秩序を持たない。ただし「向きを忘れる方法」はかなり違う。
