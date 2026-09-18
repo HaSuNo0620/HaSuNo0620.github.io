@@ -38,7 +38,7 @@ U(1)
 }
 $$
 
-と local 状態空間 だけを変えられる。
+と 局所状態空間 だけを変えられる。
 
 個別導出は
 
@@ -163,7 +163,7 @@ $$
 
 で決まる。
 
-したがって preferred pitch は staircase 状にロックされる。
+したがって 選好ピッチ は 階段状にロックされる。
 
 ### $U(1)$
 
@@ -177,7 +177,7 @@ $$
 \boxed{
 \text{相互作用する壁}
 \to
-\text{locked 離散ねじれs}
+\text{ロックされた離散ねじれ}
 \to
 \text{連続らせん}
 }
@@ -191,7 +191,7 @@ $$
 
 $+q_\ast$ と $-q_\ast$ という二つの向きが生じる。
 
-$Z_2$ では角度 alphabet が二値なので、独立な continuous カイラリティセクター は持たない。
+$Z_2$ では角度アルファベット が二値なので、独立な 連続カイラリティセクター は持たない。
 
 $Z_q$ では
 
@@ -205,7 +205,7 @@ $$
 
 という離散 カイラリティセクター が現れる。
 
-$U(1)$ ではその sector の内部に continuous phase fluctuation も残る。
+$U(1)$ ではその セクター内部に 連続位相揺らぎ も残る。
 
 したがって
 
@@ -213,9 +213,9 @@ $$
 \boxed{
 \text{壁配置}
 \to
-\text{discrete カイラリティ + ロックされたねじれ}
+\text{離散カイラリティ + ロックされたねじれ}
 \to
-\text{continuous phase + カイラリティ}
+\text{連続位相 + カイラリティ}
 }
 $$
 
@@ -229,7 +229,7 @@ $$
 | --- | --- |
 | $Z_2$ | 壁生成コスト / 壁配置 |
 | $Z_q$ | locked 選好ねじれ $q_\ast^{(q)}$ |
-| $U(1)$ | continuous 選好ねじれ $q_\ast$ / カイラリティキンク |
+| $U(1)$ | 連続選好ねじれ $q_\ast$ / カイラリティキンク |
 
 $Z_q$ では特に
 
@@ -243,13 +243,13 @@ $$
 
 これは最近接 $Z_q$ にはなかった、第二近接だからこそ現れる angular discretization の効果である。
 
-## 5. 局所遷移 は 2-state → q-state → continuous kernel へ移る
+## 5. 局所遷移 は 2状態 → $q$状態 → 連続核 へ移る
 
 第二近接では $\phi_i$ は マルコフ連鎖 になる。
 
 ### $Z_2$
 
-2-state transition $P(\tau_{i+1}\mid\tau_i)$ である。
+2状態 transition $P(\tau_{i+1}\mid\tau_i)$ である。
 
 ### $Z_q$
 
@@ -265,7 +265,7 @@ $$
 
 ### $U(1)$
 
-continuous conditional density $P(\phi_{i+1}\mid\phi_i)$ になる。
+連続条件付き確率密度 $P(\phi_{i+1}\mid\phi_i)$ になる。
 
 したがって
 
@@ -275,7 +275,7 @@ $$
 \to
 q\text{-state Markov}
 \to
-\text{continuous マルコフ核}
+\text{連続マルコフ核}
 }
 $$
 
@@ -310,9 +310,9 @@ q\times q
 }
 $$
 
-は state-space 連続極限 の transfer-space 表現である。
+は 状態空間の連続極限を転送空間で表したものである。
 
-## 7. 長距離 記憶 は三者とも spectrum の大きさと位相で読める
+## 7. 長距離 記憶 は三者とも スペクトルの大きさと位相で読める
 
 長距離相関を担う tilted 転送対象 の支配固有値を
 
@@ -354,7 +354,7 @@ $$
 
 ## 8. 「構造波数」は三者で同じ名前でも同じ量ではない
 
-$Z_2$ では $q_{\rm spec}$ が subleading eigenvalue の位相として現れ、$q_\chi$ は 応答 peak の位置である。
+$Z_2$ では $q_{\rm spec}$ が subleading eigenvalue の位相として現れ、$q_\chi$ は 応答ピーク の位置である。
 
 $Z_q$ では
 
@@ -382,7 +382,7 @@ $$
 
 比較すると、
 
-| 対称性 | local energetic pitch | long-distance pitch | 応答 peak |
+| 対称性 | 局所エネルギーが選ぶ波数 | 長距離相関波数 | 応答ピーク |
 | --- | --- | --- | --- |
 | $Z_2$ | 壁配置 / ground-state modulation | $q_{\rm spec}$ | $q_\chi$ |
 | $Z_q$ | $q_\ast^{(q)}$ | $q_{\rm corr}$ | $Q_{\rm peak}$ |
@@ -432,7 +432,7 @@ $$
 
 | 解像度 | $Z_2$ | $Z_q$ | $U(1)$ |
 | --- | --- | --- | --- |
-| energetic / 鞍点 | 壁生成コスト / 壁配置 | ロックされたねじれ $q_\ast^{(q)}$ | continuous $q_\ast$ / カイラリティキンク |
+| エネルギー / 鞍点 | 壁生成コスト / 壁配置 | ロックされたねじれ $q_\ast^{(q)}$ | 連続 $q_\ast$ / カイラリティキンク |
 | 局所遷移 | $P(\tau'|\tau)$ | $P(a'|a)$ | $P(\phi'|\phi)$ |
 | 転送対象 | $2\times2$ | $q\times q$ | 積分作用素 |
 | 長距離記憶 | $(\xi,q_{\rm spec})$ | $(\xi,q_{\rm corr})$ | $(\xi,q_{\rm corr})$ |
@@ -442,9 +442,9 @@ $$
 
 $$
 \boxed{
-\text{discrete defect statistics}
+\text{離散欠陥統計}
 \leftrightarrow
-\text{continuous texture statistics}
+\text{連続テクスチャ統計}
 }
 $$
 
@@ -496,7 +496,7 @@ $$
 \boxed{
 \text{相互作用する壁}
 \to
-\text{locked 離散ねじれs}
+\text{ロックされた離散ねじれ}
 \to
 \text{連続らせん}
 }
@@ -512,7 +512,7 @@ $$
 \to
 q\text{-state transition}
 \to
-\text{continuous kernel}
+\text{連続核}
 }
 $$
 
