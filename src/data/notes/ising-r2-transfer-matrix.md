@@ -546,12 +546,10 @@ $$
 として加える。零外場まわりの線形応答は
 
 $$
-\delta\langle s_i\rangle
-=
+\delta\langle s_i\rangle =
 \sum_j\chi_{ij}h_j,
 \qquad
-\chi_{ij}
-=
+\chi_{ij} =
 \beta\langle s_i s_j\rangle
 $$
 
@@ -577,8 +575,7 @@ $$
 
 $$
 \boxed{
-\delta\langle s_i\rangle
-=
+\delta\langle s_i\rangle =
 \chi(q)h_q\cos(qi+\varphi)
 +O(h_q^3)
 }
@@ -590,8 +587,7 @@ $$
 
 $$
 \boxed{
-q_\chi
-=
+q_\chi =
 \operatorname*{arg\,max}_q \chi(q)
 }
 $$
