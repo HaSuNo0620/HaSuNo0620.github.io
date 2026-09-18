@@ -6,6 +6,14 @@ updatedAt: 2026-09-19
 area: "Physics"
 topics: ["Ising model", "XY model", "second-neighbor interaction", "chirality"]
 status: growing
+system:
+  dimension: 1
+  spatial: uniform
+  range: R2
+  interaction: cosine
+  symmetry: [Z2, U(1)]
+  mechanics: classical
+  role: comparison
 ---
 
 第二近接Ising鎖と第二近接XY鎖は、どちらも厳密にはtransfer objectで扱える。それでも平均場やBethe/cavityを見る意味は残る。三つの方法は単なる精度の階層ではなく、同じ統計構造の異なる断面を見せる。
