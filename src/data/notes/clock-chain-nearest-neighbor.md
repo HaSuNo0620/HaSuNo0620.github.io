@@ -420,13 +420,13 @@ $$
 
 を一つのsectorへ重ね合わせたものになっている。
 
-$
+$$
 \boxed{
 \text{finite angular discretization}
 \longleftrightarrow
 \text{harmonic-space aliasing}
 }
-$
+$$
 
 という対応がある。
 
