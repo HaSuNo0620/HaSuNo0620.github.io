@@ -1,6 +1,6 @@
 ---
-title: "1次元一様最近接 cosine スピン系 — Z2・Zq・U(1)の空間記憶"
-summary: "1次元一様最近接 cosine スピン系を、Z2・Zq・U(1)という局所状態空間の違いだけを動かして比較する。局所位相増分、1-step retention、転送スペクトル、相関長、波数応答を共通言語にし、rare wallからfinite-angle jumpを経て位相拡散へ移る構造を整理する。"
+title: "1次元一様最近接 cosine スピン系 — Z2・Zq・U(1)と記憶の連続化"
+summary: "1次元一様最近接 cosine スピン系を、Z2・Zq・U(1)という局所状態空間の違いだけを動かして比較する。局所位相増分、1-step retention、転送スペクトル、相関長、波数応答を共通言語にし、稀なドメイン壁からfinite-angle jumpを経て位相拡散へ移る構造を整理する。"
 publishedAt: 2026-09-13T01:50:00+09:00
 updatedAt: 2026-09-19
 area: "Physics"
@@ -147,7 +147,7 @@ e^{i\phi_i}
 =\pm1
 $$
 
-だから、従来の domain-wall 変数は位相増分表示の $q=2$ 特殊例になる。
+だから、従来の ドメイン壁変数は位相増分表示の $q=2$ 特殊例になる。
 
 一方 $U(1)$ では $\phi_i$ は連続量である。
 
@@ -308,7 +308,7 @@ $$
 
 ---
 
-## 4. finite (q) は (U(1)) spectrum を折り畳む
+## 4. finite $q$ は $U(1)$ スペクトルを折り畳む
 
 Fourier 展開
 
@@ -350,7 +350,7 @@ $$
 m\sim m+q
 $$
 
-なので、本来 $U(1)$ で独立な 高調波 が同じ sector へ折り畳まれる。
+なので、本来 $U(1)$ で独立な 高調波 が同じセクターへ折り畳まれる。
 
 $$
 \boxed{
@@ -362,13 +362,13 @@ $$
 
 という対応になる。
 
-![有限$q$の記憶スペクトルとU(1)極限](/figures/clock-r1/記憶-spectrum-folding.svg)
+![有限$q$の記憶スペクトルとU(1)極限](/figures/clock-r1/memory-spectrum-folding.svg)
 
-*$K=20$。低い 高調波 は比較的小さい $q$ でも早く $U(1)$ spectrum へ近づく一方、$m\sim q/2$ の細かい角度情報には finite-$q$ folding が残る。*
+*$K=20$。低い 高調波 は比較的小さい $q$ でも早く $U(1)$ スペクトル へ近づく一方、$m\sim q/2$ の細かい角度情報には finite-$q$ の折り畳み が残る。*
 
 ---
 
-## 5. 記憶喪失 は rare wall から 位相拡散 へ連続化する
+## 5. 記憶喪失 は 稀なドメイン壁 から 位相拡散 へ連続化する
 
 $Z_2$ で非零増分は
 
@@ -388,7 +388,7 @@ $$
 p_{\rm wall}\sim e^{-2K}
 $$
 
-なので、記憶喪失 は sparse な localized wall によって起こる。
+なので、記憶喪失 は 疎な局在ドメイン壁 によって起こる。
 
 $Z_q$ では最小非零増分が
 
@@ -446,7 +446,7 @@ $$
 $$
 \eta\gg1
 \quad\Rightarrow\quad
-\text{rare discrete jumps},
+\text{稀な離散ジャンプ},
 $$
 
 $$
@@ -460,7 +460,7 @@ $$
 $$
 \boxed{
 Z_2:
-\text{rare wall}
+\text{稀なドメイン壁}
 \to
 Z_q:
 \text{有限角ジャンプ}
@@ -585,7 +585,7 @@ $$
 \to\infty
 $$
 
-なので、どれほど大きな $q$ でも最終的には discrete-jump regime へ戻る。
+なので、どれほど大きな $q$ でも最終的には 離散ジャンプ領域 へ戻る。
 
 一方、先に
 
@@ -617,7 +617,7 @@ $$
 
 ## 8. 高調波 記憶 は (Z_2) の1本から (U(1)) の無限階層へ開く
 
-$Z_2$ では非自明な 高調波 sector は実質
+$Z_2$ では非自明な 高調波セクター は実質
 
 $$
 m=1
@@ -704,9 +704,9 @@ $$
 
 である。
 
-したがって三者とも、零外場の $m=1$ 記憶 を読む spatial 応答 は同じ denominator を持つ。
+したがって三者とも、零外場の $m=1$ 記憶 を読む 空間応答 は同じ denominator を持つ。
 
-$Z_2$ では scalar spin 自体が $m=1$ observable なので
+$Z_2$ では スカラー・スピン 自体が $m=1$ 観測量 なので
 
 $$
 \chi_{Z_2}(k) = \beta
@@ -722,7 +722,7 @@ $$
 {1-2\rho_1\cos k+\rho_1^2}.
 $$
 
-振幅は observable の規格化で異なるが、filter width はすべて
+振幅は 観測量 の規格化で異なるが、フィルター幅 はすべて
 
 $$
 \boxed{
@@ -796,7 +796,7 @@ $$
 
 $$
 \boxed{
-\text{local 状態空間}
+\text{局所状態空間}
 }
 $$
 
@@ -806,7 +806,7 @@ $$
 
 $$
 \boxed{
-\text{rare wall}
+\text{稀なドメイン壁}
 \to
 \text{有限角ジャンプ}
 \to
@@ -820,7 +820,7 @@ $$
 \boxed{
 \text{one mode}
 \to
-\text{finite folded spectrum}
+\text{有限の折り畳みスペクトル}
 \to
 \text{infinite 高調波階層}
 }
@@ -832,7 +832,7 @@ $$
 
 $$
 \boxed{
-\text{local transfer rule}
+\text{局所転送則}
 \to
 \rho_1
 \to
