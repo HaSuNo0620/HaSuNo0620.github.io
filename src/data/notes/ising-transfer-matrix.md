@@ -6,6 +6,14 @@ updatedAt: 2026-09-19
 area: "Physics"
 topics: ["statistical mechanics", "Ising model", "transfer matrix", "correlation", "linear response"]
 status: growing
+system:
+  dimension: 1
+  spatial: uniform
+  range: R1
+  interaction: cosine
+  symmetry: [Z2]
+  mechanics: classical
+  role: model
 ---
 
 1次元 Ising 模型は「厳密に解ける簡単な模型」というだけでなく、相互作用範囲を伸ばしたときに何が新しく生まれるかを見る基準点として使いやすい。
