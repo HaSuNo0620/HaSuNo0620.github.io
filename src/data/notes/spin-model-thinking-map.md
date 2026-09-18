@@ -215,7 +215,7 @@ $$
 
 が同じ有限-$q$性の二つの表現になる。
 
-[1次元クロック模型 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) は、この $Z_2\to Z_q\to U(1)$ 軸を実際に埋める位置にある。
+[1次元一様最近接クロック系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) は、この $Z_2\to Z_q\to U(1)$ 軸を実際に埋める位置にある。
 
 ---
 
@@ -438,15 +438,15 @@ $$
 
 | ノート | memory variable | $R$ | spatial organization |
 | --- | --- | --- | --- |
-| [1次元イジング模型 — 最近接相互作用と空間応答](/notes/ising-transfer-matrix) | flip / wall | $1$ | uniform |
-| [1次元イジング模型 — 周期的最近接結合と構造波数](/notes/ising-r1-periodic) | flip / wall | $1$ | periodic |
-| [1次元イジング模型 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | flip + absolute-spin response | $1$ | periodic + field |
-| [1次元イジング模型 — 第二近接相互作用と振動相関・有限波数応答](/notes/ising-r2-transfer-matrix) | interacting wall pattern | $2$ | uniform |
-| [1次元イジング模型 — 有限範囲相互作用と高次壁相互作用・有限記憶](/notes/ising-rn-transfer-matrix) | longer wall pattern | $n$ | uniform |
-| [1次元クロック模型 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | discrete phase increment | $1$ | uniform |
-| [1次元XY模型 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | continuous phase increment | $1$ | uniform |
-| [1次元XY模型 — 第二近接相互作用と螺旋的な空間記憶](/notes/xy-chain-second-neighbor) | correlated phase increment / chirality | $2$ | uniform |
-| [1次元XY模型 — 第二近接系のchirality kinkと複数の空間記憶](/notes/xy-chain-chirality-memory) | chirality sector + phase | $2$ | uniform |
+| [1次元一様最近接イジング系 — 空間記憶と応答](/notes/ising-transfer-matrix) | flip / wall | $1$ | uniform |
+| [1次元周期最近接イジング系 — 構造波数](/notes/ising-r1-periodic) | flip / wall | $1$ | periodic |
+| [1次元周期最近接イジング系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | flip + absolute-spin response | $1$ | periodic + field |
+| [1次元一様第二近接イジング系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | interacting wall pattern | $2$ | uniform |
+| [1次元一様有限範囲イジング系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | longer wall pattern | $n$ | uniform |
+| [1次元一様最近接クロック系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | discrete phase increment | $1$ | uniform |
+| [1次元一様最近接XY系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | continuous phase increment | $1$ | uniform |
+| [1次元一様第二近接XY系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | correlated phase increment / chirality | $2$ | uniform |
+| [1次元一様第二近接XY系 — chirality kinkと複数の空間記憶](/notes/xy-chain-chirality-memory) | chirality sector + phase | $2$ | uniform |
 
 この表で重要なのは、模型数そのものではなく「どの座標を動かしたノートなのか」が見えることである。
 
@@ -484,7 +484,7 @@ $$
 
 比較ノートは独立模型ではなく、二つ以上の座標点を同じ物理量で読むための辞書に限定する。
 
-[1次元スピン模型 — 最近接Ising・XYの空間記憶](/notes/ising-xy-nearest-neighbor-comparison) は、
+[1次元一様最近接スピン系 — Ising・XYの空間記憶](/notes/ising-xy-nearest-neighbor-comparison) は、
 
 $$
 R=1,
@@ -494,7 +494,7 @@ $$
 
 を固定して、memory variable の違いが相関喪失へどう現れるかを見る。
 
-[1次元スピン模型 — 第二近接Ising・XYを三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) は、
+[1次元一様第二近接スピン系 — Ising・XYを三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) は、
 
 $$
 R=2,
