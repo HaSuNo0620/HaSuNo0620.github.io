@@ -506,85 +506,142 @@ $$
 
 ---
 
-## 4. 既存ノートを model coordinates に置く
+## 4. 既存ノートを座標点と座標間の橋として置く
 
-個別模型ノートは次の座標に置ける。
+現在のノート群は、個別模型ノートを **model point**、比較ノートを **coordinate bridge** として分けると構造が見えやすい。
 
-| ノート | memory variable | $R$ | spatial organization |
-| --- | --- | --- | --- |
-| [1次元一様最近接 cosine-Z2 スピン系 — 空間記憶と応答](/notes/ising-transfer-matrix) | flip / wall | $1$ | uniform |
-| [1次元周期最近接 cosine-Z2 スピン系 — 構造波数](/notes/ising-r1-periodic) | flip / wall | $1$ | periodic |
-| [1次元周期最近接 cosine-Z2 スピン系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | flip + absolute-spin response | $1$ | periodic + field |
-| [1次元一様第二近接 cosine-Z2 スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | interacting wall pattern | $2$ | uniform |
-| [1次元一様有限範囲 cosine-Z2 スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | longer wall pattern | $n$ | uniform |
-| [1次元一様最近接 cosine-Zq スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | discrete phase increment | $1$ | uniform |
-| [1次元一様最近接 cosine-U(1) スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | continuous phase increment | $1$ | uniform |
-| [1次元一様第二近接 cosine-U(1) スピン系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | correlated phase increment / chirality | $2$ | uniform |
-| [1次元一様第二近接 cosine-U(1) スピン系 — chirality kinkと複数の空間記憶](/notes/xy-chain-chirality-memory) | chirality sector + phase | $2$ | uniform |
+### 4.1 model point — 各ノートがどの座標にいるか
 
-この表で重要なのは、模型数そのものではなく「どの座標を動かしたノートなのか」が見えることである。
+| role | ノート | $d$ | spatial | $R$ | interaction | symmetry / state space | local memory |
+| --- | --- | ---: | --- | --- | --- | --- | --- |
+| model | [1次元一様最近接 cosine-$Z_2$ スピン系 — 空間記憶と応答](/notes/ising-transfer-matrix) | 1 | uniform | $R=1$ | cosine | $Z_2$ | flip / wall |
+| model | [1次元周期最近接 cosine-$Z_2$ スピン系 — 構造波数](/notes/ising-r1-periodic) | 1 | periodic | $R=1$ | cosine | $Z_2$ | position-dependent wall weight |
+| model | [1次元周期最近接 cosine-$Z_2$ スピン系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | 1 | periodic + field | $R=1$ | cosine | $Z_2$ | wall + absolute-spin response |
+| model | [1次元一様第二近接 cosine-$Z_2$ スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | 1 | uniform | $R=2$ | cosine | $Z_2$ | interacting wall pattern |
+| model | [1次元一様有限範囲 cosine-$Z_2$ スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | 1 | uniform | $R=n$ | cosine | $Z_2$ | longer wall pattern |
+| model | [1次元一様最近接 cosine-$Z_q$ スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $Z_q$ | discrete phase increment |
+| model | [1次元一様最近接 cosine-$U(1)$ スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $U(1)$ | continuous phase increment |
+| model | [1次元一様第二近接 cosine-$U(1)$ スピン系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $U(1)$ | correlated phase increment |
+| model | [1次元一様第二近接 cosine-$U(1)$ スピン系 — chirality kinkと複数の空間記憶](/notes/xy-chain-chirality-memory) | 1 | uniform | $R=2$ | cosine | $U(1)$ | phase + chirality sector |
 
-例えば
+同じ行方向で symmetry を動かし、同じ列方向で $R$ や spatial organization を動かす、と読む。
 
-$$
-\text{Ising }R=1
-\longrightarrow
-\text{Ising }R=2
-$$
+### 4.2 coordinate bridge — 比較ノートはどの軸を横断するか
 
-は interaction range の変形、
+| role | 比較ノート | 固定する座標 | 動かす座標 | 接続する model point | 比較する量 |
+| --- | --- | --- | --- | --- | --- |
+| comparison | [1次元一様最近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ の空間記憶](/notes/ising-xy-nearest-neighbor-comparison) | $d=1$, uniform, $R=1$, cosine, classical | symmetry / state space | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | local increment, $\rho_m$, transfer spectrum, $\xi$, $\chi(k)$ |
+| comparison | [1次元一様第二近接 cosine スピン系 — $Z_2$・$U(1)$ を三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) | $d=1$, uniform, $R=2$, cosine, classical | symmetry / state space | $Z_2 \leftrightarrow U(1)$ | defect / texture, local transition, transfer spectral gap |
 
-$$
-\text{Ising }R=1
-\longrightarrow
-\text{clock }R=1
-\longrightarrow
-\text{XY }R=1
-$$
-
-は memory variable / symmetry の変形、
+比較ノートは新しい model point ではなく、
 
 $$
-\text{uniform Ising }R=1
-\longrightarrow
-\text{periodic Ising }R=1
+\boxed{
+\text{coordinate bridge}
+=
+\text{一つの軸だけを動かして複数の model point を読むノート}
+}
 $$
 
-は spatial organization の変形である。
+とみなす。
+
+### 4.3 現在埋まっている座標面
+
+現在もっとも密に埋まっているのは
+
+$$
+\boxed{
+d=1,\qquad
+\text{uniform},\qquad
+\text{cosine},\qquad
+\text{classical}
+}
+$$
+
+という断面である。
+
+この断面を $R$ と symmetry で並べると、
+
+| interaction range | $Z_2$ | $Z_q$ | $U(1)$ | 横方向の比較 |
+| --- | --- | --- | --- | --- |
+| $R=1$ | [model](/notes/ising-transfer-matrix) | [model](/notes/clock-chain-nearest-neighbor) | [model](/notes/xy-chain-nearest-neighbor) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-nearest-neighbor-comparison) |
+| $R=2$ | [model](/notes/ising-r2-transfer-matrix) | — | [model](/notes/xy-chain-second-neighbor) / [chirality](/notes/xy-chain-chirality-memory) | [$Z_2\leftrightarrow U(1)$](/notes/ising-xy-second-neighbor-comparison) |
+| $R=n$ | [model](/notes/ising-rn-transfer-matrix) | — | — | — |
+
+この表では空欄そのものが次の学習候補になる。例えば $R=2$ の $Z_q$ は、
+
+$$
+\boxed{
+(d=1,\ \text{uniform},\ R=2,\ \text{cosine},\ Z_q)
+}
+$$
+
+というまだ埋まっていない model point である。
+
+一方 spatial organization 軸は $Z_2$, $R=1$ で
+
+| spatial organization | model |
+| --- | --- |
+| uniform | [1次元一様最近接 cosine-$Z_2$](/notes/ising-transfer-matrix) |
+| periodic | [1次元周期最近接 cosine-$Z_2$](/notes/ising-r1-periodic) |
+| quasiperiodic | — |
+| random | — |
+
+となっている。
+
+したがって現在のノート群は、
+
+$$
+\boxed{
+\text{model point}
++
+\text{coordinate bridge}
++
+\text{empty coordinate}
+}
+$$
+
+の三種類で読むことができる。
+
+空いている座標を見れば「次にどの軸を一つ動かすか」が決まり、comparison がある場所では「その変形によって何が変わったか」を同じ物理量で追える。
 
 ---
 
-## 5. 比較ノートは座標間の辞書として置く
+## 5. 比較ノートは座標間の辞書として使う
 
-比較ノートは独立模型ではなく、二つ以上の座標点を同じ物理量で読むための辞書に限定する。
+比較ノートでは詳細導出を繰り返さず、個別模型ノートですでに得た量を共通座標へ写す。
 
-[1次元一様最近接 cosine スピン系 — Z2・Zq・U(1)の空間記憶](/notes/ising-xy-nearest-neighbor-comparison) は、
-
-$
-R=1,
-\qquad
-\text{uniform},
-\qquad
-\text{cosine family}
-$
-
-を固定して、
-
-$
-Z_2\to Z_q\to U(1)
-$
-
-と local state space だけを動かす。rare wall、finite-angle jump、phase diffusion、spectral folding、相関長の activated-to-diffusive crossover を同じ比較軸で読む。
-
-[1次元一様第二近接 cosine スピン系 — Z2・U(1)を三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) は、
+最近接 comparison なら、
 
 $$
-R=2,
-\qquad
-\text{uniform}
+\boxed{
+Z_2
+\to
+Z_q
+\to
+U(1)
+}
 $$
 
-を固定し、
+に対して
+
+$$
+\boxed{
+\phi_i
+\to
+\rho_m
+\to
+\lambda_m/\lambda_0
+\to
+\xi_m
+\to
+\chi(k)
+}
+$$
+
+という共通辞書を使う。
+
+第二近接 comparison なら、
 
 $$
 \boxed{
@@ -596,9 +653,21 @@ $$
 }
 $$
 
-という比較辞書を作る。
+という三つの information filter を対応させる。
 
-詳細導出は個別模型ノートへ置き、比較ノート側では同じ物理を異なる模型でどう読むかだけを残す。
+したがって比較ノートの役割は
+
+$$
+\boxed{
+\text{model A の式}
+\leftrightarrow
+\text{共通物理量}
+\leftrightarrow
+\text{model B の式}
+}
+$$
+
+を作ることであり、独立した模型を一つ増やすことではない。
 
 ---
 
