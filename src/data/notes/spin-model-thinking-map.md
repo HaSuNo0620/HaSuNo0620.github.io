@@ -1,40 +1,42 @@
 ---
-title: "スピン系をどう読むか — 記憶変数・相互作用範囲・空間構造・近似"
-summary: "Ising・clock・XYなどのスピン模型を、何を記憶するか、どこまで記憶するか、記憶則が空間のどこで変わるか、そして近似がどの情報を残すか、という共通軸で整理する。既存ノートの上位地図として、次に何を変えると何が新しく見えるかを示す。"
+title: "スピン系をどう読むか — 記憶変数・相互作用範囲・空間構造・情報フィルター"
+summary: "Ising・clock・XYなどの1次元スピン模型を、memory variable、interaction range、spatial organizationという三つの模型座標と、近似・表現が何を残すかというinformation filterに分けて整理する。既存ノート群の位置づけと、次に一軸だけ動かしたとき何が新しく現れるかを見通すための上位地図。"
 publishedAt: 2026-09-16T03:45:00+09:00
-updatedAt: 2026-09-16
+updatedAt: 2026-09-19
 area: "Physics"
-topics: ["statistical mechanics", "spin models", "transfer matrix", "coarse graining"]
+topics: ["statistical mechanics", "spin models", "transfer matrix", "coarse graining", "memory"]
 status: growing
 ---
 
-Ising、clock、XYを模型名ごとに並べるだけでは、どこが同じでどこが違うのかが見えにくい。相互作用範囲を伸ばしたり、結合を周期化したり、近似法を変えたりすると、なおさら個別の話に見えてしまう。
+Ising、clock、XYを模型名ごとに並べるだけでは、何が本質的に違うのかが見えにくい。相互作用範囲を伸ばす、結合を周期化する、近似法を変える、といった操作まで加わると、異なる種類の変更が同じ「別模型」として並んでしまう。
 
-今のところ、スピン系を読む軸は次の二層に分けるのが一番使いやすい。
-
-$$
-\boxed{
-\text{模型の構造}
-=
-(\text{何を記憶するか},\ \text{どこまで記憶するか},\ \text{記憶則の空間構造})
-}
-$$
-
-と
+今のスピン系ノート群では、模型そのものを
 
 $$
 \boxed{
-\text{近似・表現}
+\text{model coordinates}
 =
-\text{何を粗視化し、何を情報として残すか}
+(\text{memory variable},\ R,\ \text{spatial organization})
 }
 $$
 
-である。
+で置き、その模型をどう読むかを
 
-このノートは個々の模型を解くためのものではない。既存のスピン系ノートを同じ座標へ置き、**次に一つの軸だけを変えたとき何が新しく生まれるか**を見るための上位地図である。
+$$
+\boxed{
+\text{approximation / representation}
+=
+\text{information filter}
+}
+$$
 
-## 1. 第一軸：何を記憶するか
+として分ける。
+
+前者は「どんな系か」、後者は「その系から何を残して見るか」に対応する。
+
+---
+
+## 1. memory variable — 何を記憶するか
 
 最近接 Ising では
 
@@ -42,65 +44,83 @@ $$
 \tau_i=s_i s_{i+1}=\pm1
 $$
 
-と置くと、$\tau_i=-1$ はスピンの反転、すなわち domain wall を表す。
-
-元のスピン相関は
+を局所変数に取れる。$\tau_i=-1$ は domain wall / spin flip であり、
 
 $$
-s_0s_r=\prod_{j=0}^{r-1}\tau_j
+s_0s_r
+=
+\prod_{j=0}^{r-1}\tau_j
 $$
 
-なので、遠距離のスピン記憶は局所的な符号反転の列から作られる。
+だから、遠距離のスピン記憶は局所的な符号反転列の積として作られる。
 
-一方 XY では
+$$
+\boxed{
+\text{Ising}
+=
+\text{離散的な flip / wall 配置を記憶する系}
+}
+$$
+
+XY では
 
 $$
 \phi_i=\theta_{i+1}-\theta_i
 $$
 
-が局所変数であり、
+が対応する局所増分で、
 
 $$
 e^{i(\theta_r-\theta_0)}
-=\prod_{j=0}^{r-1}e^{i\phi_j}
+=
+\prod_{j=0}^{r-1}e^{i\phi_j}.
+$$
+
+したがって
+
+$$
+\boxed{
+\text{XY}
+=
+\text{連続的な phase increment を記憶する系}
+}
 $$
 
 となる。
 
-両者の違いは、遠距離相関の作り方そのものより、局所増分が
-
-$$
-\tau_i\in\{+1,-1\}
-$$
-
-という離散反転なのか、
-
-$$
-\phi_i\in S^1
-$$
-
-という連続回転なのかにある。
-
-したがって第一軸は
+両者に共通するのは
 
 $$
 \boxed{
-\text{spin symmetry}
-\longleftrightarrow
-\text{何を記憶するか}
+\text{局所増分の列}
+\longrightarrow
+\text{その累積・積が遠距離 memory を決める}
 }
 $$
 
-と読める。
+という構造である。
 
-Ising と XY の間には $q$-state clock model が入る。角度を
+### 離散二値と連続位相の間
+
+$q$-state clock model では
 
 $$
 \theta_i=\frac{2\pi n_i}{q},
-\qquad n_i=0,\ldots,q-1
+\qquad
+n_i\in\mathbb Z_q,
 $$
 
-と制限すれば、局所増分は有限個の回転になる。
+局所増分は
+
+$$
+\phi_i
+=
+\frac{2\pi a_i}{q},
+\qquad
+a_i\in\mathbb Z_q.
+$$
+
+よって
 
 $$
 \boxed{
@@ -112,117 +132,581 @@ U(1)\ \text{XY}
 }
 $$
 
-は、符号反転の記憶から連続位相増分の記憶へ移る軸として読める。
+は
 
-## 2. 第二軸：どこまで記憶するか
+$$
+\boxed{
+\{0,\pi\}
+\longrightarrow
+\left\{\frac{2\pi a}{q}\right\}
+\longrightarrow
+S^1
+}
+$$
 
-相互作用範囲 $R$ は、局所エネルギーがどれだけ長い増分列を見るかを決める。
+という **memory alphabet の細分化** として読める。
+
+ただし、有限 $q$ が XY にどれだけ近いかは $q$ だけでは決まらない。低温での thermal angular width は
+
+$$
+\sigma_T\sim K^{-1/2},
+\qquad K=\beta J,
+$$
+
+clock の角度刻みは
+
+$$
+\Delta\phi=\frac{2\pi}{q}
+$$
+
+なので、
+
+$$
+\boxed{
+\eta
+=
+\frac{\Delta\phi}{\sigma_T}
+\sim
+\frac{2\pi\sqrt K}{q}
+}
+$$
+
+が離散性を実際に解像できるかを決める。
+
+$$
+\eta\gg1
+\quad\Rightarrow\quad
+\text{rare discrete jump},
+$$
+
+$$
+\eta\ll1
+\quad\Rightarrow\quad
+\text{dense small-step phase diffusion}.
+$$
+
+したがって symmetry 軸は単なる状態数の増加ではなく、
+
+$$
+\boxed{
+\text{memory alphabet}
+\times
+\text{thermal resolution}
+}
+$$
+
+として読む方が物理が見えやすい。
+
+さらに Fourier 側では finite $q$ により
+
+$$
+m\sim m+q
+$$
+
+という harmonic folding が起こり、
+
+$$
+\boxed{
+\text{angular discretization}
+\longleftrightarrow
+\text{spectral aliasing}
+}
+$$
+
+が同じ有限-$q$性の二つの表現になる。
+
+[1次元クロック模型 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) は、この $Z_2\to Z_q\to U(1)$ 軸を実際に埋める位置にある。
+
+---
+
+## 2. interaction range (R) — どこまで記憶するか
+
+memory variable を固定して相互作用範囲だけを伸ばすと、局所エネルギーが読む増分列の長さが変わる。
 
 Ising では
 
 $$
 s_i s_{i+r}
-=\prod_{m=0}^{r-1}\tau_{i+m}
+=
+\prod_{m=0}^{r-1}\tau_{i+m}
 $$
 
-なので、一般の有限範囲模型
-
-$$
-H=-\sum_i\sum_{r=1}^{R}J_r s_i s_{i+r}
-$$
-
-は bond 変数で
+なので、
 
 $$
 H
-=-\sum_i\sum_{r=1}^{R}
-J_r\prod_{m=0}^{r-1}\tau_{i+m}
+=
+-\sum_i\sum_{r=1}^{R}
+J_r s_i s_{i+r}
+$$
+
+は
+
+$$
+\boxed{
+H
+=
+-\sum_i\sum_{r=1}^{R}
+J_r
+\prod_{m=0}^{r-1}\tau_{i+m}
+}
 $$
 
 となる。
 
-$R=1$ では各 $\tau_i$ は独立だが、$R=2$ では
+$R=1$ では
 
 $$
--J_2\tau_i\tau_{i+1}
+H=-J_1\sum_i\tau_i
 $$
 
-が現れ、隣接する wall 変数が相関する。さらに $R=3$ では三つの wall pattern を局所エネルギーが同時に読む。
+で wall 変数は独立。
+
+$R=2$ では
+
+$$
+H
+=
+-J_1\sum_i\tau_i
+-J_2\sum_i\tau_i\tau_{i+1},
+$$
+
+隣接する wall / flip 配置が相関する。
+
+$R=3$ では
+
+$$
+s_i s_{i+3}
+=
+\tau_i\tau_{i+1}\tau_{i+2}
+$$
+
+が入り、より長い wall pattern を局所エネルギーが区別する。
 
 XY でも
 
 $$
 \theta_{i+r}-\theta_i
-=\sum_{m=0}^{r-1}\phi_{i+m}
+=
+\sum_{m=0}^{r-1}\phi_{i+m}
 $$
 
-なので、距離 $r$ の結合は
+なので、
 
 $$
--J_r\cos\left(\sum_{m=0}^{r-1}\phi_{i+m}\right)
+-J_r
+\cos\left(
+\sum_{m=0}^{r-1}\phi_{i+m}
+\right)
 $$
 
-となる。
+が長さ $r$ の phase-increment pattern を読む。
 
 したがって
 
 $$
 \boxed{
 R
-\longleftrightarrow
-\text{局所エネルギーが保持する memory depth}
+=
+\text{memory depth}
 }
 $$
 
-と見られる。
+とみなせる。
 
-ここで重要なのは、第一軸と第二軸を分けることである。
+この分離によって
 
 $$
 \boxed{
-\text{Ising / XY の違い}
-=\text{何を記憶するか}
+\text{Ising / clock / XY の違い}
+=
+\text{何を記憶するか}
 }
 $$
+
+と
 
 $$
 \boxed{
 R\text{ の違い}
-=\text{どこまで記憶するか}
+=
+\text{どこまで記憶するか}
 }
 $$
 
-この分離によって、例えば $R=2$ を固定して Ising と XY を比べることと、Ising を固定して $R=1\to2$ を比べることが別の問いになる。
+を混ぜずに扱える。
 
-## 3. 第三軸：記憶則は空間のどこで変わるか
+---
 
-相互作用変数が同じでも、結合 $J_i$ の空間構造を変えると、同じ局所記憶則が場所ごとに異なる重みを持つ。
+## 3. spatial organization — 記憶則が空間のどこで変わるか
+
+memory variable と $R$ を固定したまま、結合の配置だけを変える方向がある。
 
 $$
-\boxed{
 J_i=J
-}
 $$
 
-なら一様、
+なら uniform、
 
 $$
-\boxed{
 J_{i+p}=J_i
-}
 $$
 
-なら周期的である。
+なら periodic、
 
-最近接 Ising の零外場では
+Fibonacci word に従えば quasiperiodic、
+
+確率的に選べば random bond になる。
+
+最近接 Ising の零外場なら
 
 $$
 H=-\sum_iJ_i\tau_i
 $$
 
-なので、周期 bond を入れても wall 同士は独立なままである。ただし wall を置くコストが位置依存になる。
+なので、$J_i$ を変えても wall 同士は独立なままである。変わるのは「どの位置で wall を作りやすいか」という空間規則である。
 
-この軸は
+$$
+\boxed{
+\text{spatial organization}
+=
+\text{memory rule が空間のどこでどう変わるか}
+}
+$$
+
+周期 bond Ising は
+
+$$
+\text{uniform}
+\longrightarrow
+\text{periodic}
+$$
+
+だけを動かした模型として読める。
+
+次の自然な延長は
+
+$$
+\boxed{
+\text{periodic}
+\longrightarrow
+\text{quasiperiodic}
+\longrightarrow
+\text{random}
+}
+$$
+
+である。
+
+最近接零外場なら
+
+$$
+C_i(r)
+=
+\prod_{n=0}^{r-1}
+\tanh(\beta J_{i+n})
+$$
+
+だから、
+
+$$
+\ln C_i(r)
+=
+\sum_{n=0}^{r-1}
+\ln\tanh(\beta J_{i+n})
+$$
+
+となり、Hamiltonian に入れた空間列が correlation の空間構造へ直接移る。
+
+この軸では
+
+$$
+\boxed{
+\text{Hamiltonian の spatial order}
+\longrightarrow
+\text{correlation の spatial order}
+}
+$$
+
+が中心問題になる。
+
+---
+
+## 4. 既存ノートを model coordinates に置く
+
+個別模型ノートは次の座標に置ける。
+
+| ノート | memory variable | $R$ | spatial organization |
+| --- | --- | --- | --- |
+| [1次元イジング模型 — 最近接相互作用と空間応答](/notes/ising-transfer-matrix) | flip / wall | $1$ | uniform |
+| [1次元イジング模型 — 周期的最近接結合と構造波数](/notes/ising-r1-periodic) | flip / wall | $1$ | periodic |
+| [1次元イジング模型 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | flip + absolute-spin response | $1$ | periodic + field |
+| [1次元イジング模型 — 第二近接相互作用と振動相関・有限波数応答](/notes/ising-r2-transfer-matrix) | interacting wall pattern | $2$ | uniform |
+| [1次元イジング模型 — 有限範囲相互作用と高次壁相互作用・有限記憶](/notes/ising-rn-transfer-matrix) | longer wall pattern | $n$ | uniform |
+| [1次元クロック模型 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | discrete phase increment | $1$ | uniform |
+| [1次元XY模型 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | continuous phase increment | $1$ | uniform |
+| [1次元XY模型 — 第二近接相互作用と螺旋的な空間記憶](/notes/xy-chain-second-neighbor) | correlated phase increment / chirality | $2$ | uniform |
+| [1次元XY模型 — 第二近接系のchirality kinkと複数の空間記憶](/notes/xy-chain-chirality-memory) | chirality sector + phase | $2$ | uniform |
+
+この表で重要なのは、模型数そのものではなく「どの座標を動かしたノートなのか」が見えることである。
+
+例えば
+
+$$
+\text{Ising }R=1
+\longrightarrow
+\text{Ising }R=2
+$$
+
+は interaction range の変形、
+
+$$
+\text{Ising }R=1
+\longrightarrow
+\text{clock }R=1
+\longrightarrow
+\text{XY }R=1
+$$
+
+は memory variable / symmetry の変形、
+
+$$
+\text{uniform Ising }R=1
+\longrightarrow
+\text{periodic Ising }R=1
+$$
+
+は spatial organization の変形である。
+
+---
+
+## 5. 比較ノートは座標間の辞書として置く
+
+比較ノートは独立模型ではなく、二つ以上の座標点を同じ物理量で読むための辞書に限定する。
+
+[1次元スピン模型 — 最近接Ising・XYの空間記憶](/notes/ising-xy-nearest-neighbor-comparison) は、
+
+$$
+R=1,
+\qquad
+\text{uniform}
+$$
+
+を固定して、memory variable の違いが相関喪失へどう現れるかを見る。
+
+[1次元スピン模型 — 第二近接Ising・XYを三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) は、
+
+$$
+R=2,
+\qquad
+\text{uniform}
+$$
+
+を固定し、
+
+$$
+\boxed{
+\text{defect / texture}
+\longleftrightarrow
+\text{local transition probability}
+\longleftrightarrow
+\text{transfer spectral gap}
+}
+$$
+
+という比較辞書を作る。
+
+詳細導出は個別模型ノートへ置き、比較ノート側では同じ物理を異なる模型でどう読むかだけを残す。
+
+---
+
+## 6. approximation / representation は information filter
+
+mean field、Bethe/cavity、transfer matrix/operator は model coordinates の第四軸ではない。
+
+同じ模型に対して、どの自由度を残して見るかが異なる。
+
+$$
+\boxed{
+\text{approximation / representation}
+=
+\text{information filter}
+}
+$$
+
+とみなす。
+
+### mean field / saddle point
+
+揺らぎを抑えて代表的な配置を残すため、
+
+$$
+\boxed{
+\text{秩序・texture・欠陥の形・barrier}
+}
+$$
+
+が見えやすい。
+
+第二近接 XY なら
+
+$$
+\phi\simeq\pm q_*
+$$
+
+という chirality sector、
+
+$$
+\phi_{\rm kink}(x)
+$$
+
+という kink profile、
+
+$$
+E_k
+$$
+
+という kink energy が自然に現れる。
+
+### Bethe / cavity
+
+局所条件付き確率を残すため、
+
+$$
+P(x_{i+1}|x_i)
+$$
+
+が中心量になる。
+
+Ising なら
+
+$$
+P(\tau_{i+1}|\tau_i),
+$$
+
+XY なら
+
+$$
+P(\phi_{i+1}|\phi_i)
+$$
+
+を読む。
+
+$$
+\boxed{
+\text{どの局所状態の次に何が来やすいか}
+}
+$$
+
+を見る表現である。
+
+### transfer matrix / transfer operator
+
+局所情報を spectrum へ集約し、長距離で残る mode を直接読む。
+
+$$
+T\psi_n=\lambda_n\psi_n,
+$$
+
+$$
+\boxed{
+\xi^{-1}
+=
+-\ln\left|
+\frac{\lambda_1}{\lambda_0}
+\right|
+}
+$$
+
+で相関長が出る。
+
+subleading eigenvalue が複素なら
+
+$$
+q_{\rm spec}=\arg\lambda_1
+$$
+
+から構造波数も得られる。
+
+したがって自然に見えるのは
+
+$$
+\boxed{
+\text{長距離 memory・相関長・構造波数}
+}
+$$
+
+である。
+
+三つの関係は
+
+$$
+\text{mean field}
+<
+\text{Bethe}
+<
+\text{exact}
+$$
+
+という単純な精度序列ではない。
+
+$$
+\boxed{
+\text{欠陥の形}
+\leftrightarrow
+\text{局所遷移頻度}
+\leftrightarrow
+\text{長距離 spectrum}
+}
+$$
+
+という異なる情報の切り出し方である。
+
+---
+
+## 7. 今どの軸まで埋まっているか
+
+memory-variable 軸は
+
+$$
+\boxed{
+Z_2
+\to
+Z_q
+\to
+U(1)
+}
+$$
+
+まで一度つながった。
+
+ここから得られたのは、Ising と XY の差を「離散か連続か」と言うだけでは足りず、
+
+$$
+\boxed{
+\text{memory alphabet}
++
+\text{thermal resolution}
++
+\text{harmonic resolution}
+}
+$$
+
+として読む必要がある、という見方である。
+
+interaction-range 軸も
+
+$$
+R=1
+\to
+R=2
+\to
+R=n
+$$
+
+まで Ising 側で進み、XY 側では $R=2$ まで接続している。
+
+現在もっとも薄いのは spatial organization 軸である。
 
 $$
 \boxed{
@@ -236,247 +720,103 @@ $$
 }
 $$
 
-と伸ばせる。
+のうち、periodic までは既存ノートがあるが、quasiperiodic / random はまだ空いている。
 
-したがって第三軸は
-
-$$
-\boxed{
-\text{spatial organization}
-=\text{memory rule が空間のどこでどう変わるか}
-}
-$$
-
-である。
-
-周期 bond Ising はこの軸だけを変えた例であり、第二近接 Ising は第二軸だけを変えた例になる。この違いを混ぜないことが重要である。
-
-## 4. 模型の座標を固定すると比較の意味が明確になる
-
-既存ノートは次のように置ける。
-
-| 模型 | 何を記憶するか | memory depth | spatial organization |
-| --- | --- | --- | --- |
-| [最近接 Ising](/notes/ising-transfer-matrix) | flip / wall | $R=1$ | uniform |
-| [周期 bond Ising](/notes/ising-r1-periodic) | flip / wall | $R=1$ | periodic |
-| [周期 bond + field Ising](/notes/ising-r1-periodic-field) | flip + absolute-spin response | $R=1$ | periodic + field |
-| [第二近接 Ising](/notes/ising-r2-transfer-matrix) | wall pattern | $R=2$ | uniform |
-| [有限範囲 Ising](/notes/ising-rn-transfer-matrix) | longer wall pattern | $R=n$ | uniform |
-| [最近接 XY](/notes/xy-chain-nearest-neighbor) | phase increment | $R=1$ | uniform |
-| [第二近接 XY](/notes/xy-chain-second-neighbor) | correlated phase increment / chirality | $R=2$ | uniform |
-
-この表から、比較は一つの座標だけを動かして行うのがよい。
-
-$$
-\text{Ising }R=1
-\longrightarrow
-\text{Ising }R=2
-$$
-
-では memory variable を固定して depth の効果を見る。
-
-$$
-\text{Ising }R=2
-\longleftrightarrow
-\text{XY }R=2
-$$
-
-では depth を固定して memory variable の違いを見る。
-
-$$
-\text{uniform Ising }R=1
-\longrightarrow
-\text{periodic Ising }R=1
-$$
-
-では variable と depth を固定し、spatial organization だけを変える。
-
-[第二近接 Ising–XY 比較](/notes/ising-xy-second-neighbor-comparison) は、このうち「同じ $R=2$ で何を記憶するかを変える」比較に対応する。
-
-## 5. 近似は第四の模型軸ではない
-
-mean field、Bethe/cavity、transfer matrix/operatorを、模型側の三軸と同列に置くと少し分かりにくい。
-
-近似・表現は模型を変えるのではなく、**その模型からどの情報を残して読むか**を決める。
+そのため次の一手としては、memory variable と $R$ を固定したまま
 
 $$
 \boxed{
-\text{approximation / representation}
-=\text{information filter}
-}
-$$
-
-と見る方が近い。
-
-### mean field / saddle point
-
-揺らぎを抑えて代表的な場配置を残すため、自然に見えるのは
-
-$$
-\boxed{
-\text{秩序・欠陥・texture・barrier}
-}
-$$
-
-である。
-
-第二近接 XY なら、二つの chirality sector と、それらをつなぐ kink profile、kink energy が見えやすい。
-
-### Bethe / cavity
-
-局所条件付き確率を残すので、中心量は
-
-$$
-P(x_{i+1}|x_i)
-$$
-
-になる。
-
-したがって自然に見えるのは
-
-$$
-\boxed{
-\text{局所遷移・switching probability・局所統計}
-}
-$$
-
-である。
-
-### transfer matrix / operator
-
-局所情報を spectrum へ集約するので、長距離で残る mode が直接見える。
-
-$$
-\boxed{
-\xi^{-1}
-=-\ln\left|\frac{\lambda_1}{\lambda_0}\right|
-}
-$$
-
-複素固有値なら、その位相から相関波数も得られる。
-
-したがって自然に見えるのは
-
-$$
-\boxed{
-\text{長距離memory・相関長・構造波数}
-}
-$$
-
-である。
-
-近似法の関係は
-
-$$
-\text{mean field}<\text{Bethe}<\text{exact}
-$$
-
-という精度の階段だけではない。
-
-$$
-\boxed{
-\text{どの自由度を残すか}
-\longrightarrow
-\text{何を本質として見られるか}
-}
-$$
-
-という違いである。
-
-## 6. 模型と近似を掛け合わせる
-
-スピン系を考えるときは、まず模型の座標
-
-$$
-\boxed{
-(\text{memory variable},\ R,\ \text{spatial organization})
-}
-$$
-
-を決め、そのあと
-
-$$
-\boxed{
-\text{何を知りたいか}
-\longrightarrow
-\text{どの近似・表現を使うか}
-}
-$$
-
-を決める。
-
-例えば第二近接 XY は
-
-$$
-(\phi_i,\ R=2,\ \text{uniform})
-$$
-
-という一つの模型である。
-
-これを saddle point で見れば chirality kink、Bethe/cavity で見れば $P(\phi'|\phi)$ と switching、transfer operator で見れば $\lambda_\chi$、$\xi_\chi$、spin correlation の tilted spectrum が中心になる。
-
-同じ模型でも、理論が残す情報が違えば、見えてくる「本質」も違う。
-
-## 7. 次に何を変えるべきか
-
-この地図では、新しい模型を追加すること自体が目的ではない。**一つの軸だけを動かし、何が新しく生まれたかを調べる**ことが中心になる。
-
-現在まだ薄い方向は次の通りである。
-
-第一軸では、Ising と XY の間に clock model がある。
-
-$$
-Z_2
-\to
-Z_q
-\to
-U(1)
-$$
-
-と変えたとき、離散的な flip memory がどのように連続的な phase diffusion へ移るかを見ることができる。
-
-第三軸では、周期 bond の先に quasiperiodic / random bond がある。
-
-$$
 \text{periodic}
 \to
 \text{quasiperiodic}
-\to
-\text{random}
+}
 $$
 
-と変えたとき、Hamiltonian の空間秩序が相関関数の空間秩序へどう移るかが問いになる。
+だけを動かすのが自然になる。
 
-さらに現在のノート群はほぼ静的な空間記憶
+Fibonacci bond Ising は、その最小例として
+
+$$
+\boxed{
+\text{指数減衰}
+\times
+\text{準周期 modulation}
+}
+$$
+
+がどのように相関へ現れるかを直接読める。
+
+---
+
+## 8. その先に残る二つの方向
+
+spatial organization の次には、模型座標そのものとは別に二つの拡張が残る。
+
+### spatial memory から temporal memory へ
+
+現在の中心量は
 
 $$
 C(r)
 $$
 
-を扱っている。将来的には
+だが、Glauber dynamics などを入れれば
 
 $$
 C(r,t)
 $$
 
-へ進めば、transfer spectrum が記述する spatial memory と、Markov generator が記述する temporal memory を比較できる。
+へ進める。
 
-次元を上げる方向もある。1次元では point defect だった domain wall が2次元では line defect になり、energy と entropy の競争が有限温度相転移を可能にする。
-
-ただしこれらは別々の新テーマではない。すべて
+そのとき
 
 $$
 \boxed{
-\text{どの記憶変数が、どこまで、どんな空間規則で結合し、
-どの情報フィルターでそれを見るか}
+\text{transfer spectrum}
+\longleftrightarrow
+\text{dynamical generator spectrum}
 }
 $$
 
-という同じ問いの変形である。
+として空間記憶と時間記憶を同じ spectral viewpoint で比較できる。
 
-## 現在の見取り図
+### 1D の point defect から 2D の line defect へ
 
-スピン系を模型名の一覧として見るより、今は次の形が使いやすい。
+1D Ising の domain wall は点だが、2D では線になる。
+
+$$
+E_{\rm wall}\sim\sigma\ell,
+$$
+
+$$
+S_{\rm wall}\sim s\ell
+$$
+
+なら
+
+$$
+F_{\rm wall}
+\sim
+(\sigma-Ts)\ell.
+$$
+
+1D で使ってきた
+
+$$
+E_{\rm defect}
+\longrightarrow
+\Delta F_{\rm defect}
+\longrightarrow
+p_{\rm defect}
+$$
+
+という考え方が、2D では defect entropy と競合して有限温度相転移へつながる。
+
+---
+
+## 得られた見方
+
+スピン系を個別模型の一覧として増やすより、
 
 $$
 \boxed{
@@ -494,4 +834,26 @@ $$
 }
 $$
 
-この二層を分けると、「新しい模型を解いた」のではなく、**どの構造を変えたことで、どの種類の記憶が新しく現れたのか**を追えるようになる。
+と置く方が、何を変えたことで新しい物理が現れたのかを追いやすい。
+
+新しい模型を追加するときの問いも
+
+$$
+\boxed{
+\text{どの軸を一つ動かしたのか}
+}
+$$
+
+に戻せる。
+
+現在は symmetry / memory-variable 軸が clock を介して一度閉じ、interaction-range 軸もかなり埋まった。次に最も情報量が大きい空白は spatial organization であり、
+
+$$
+\boxed{
+\text{periodic}
+\to
+\text{quasiperiodic}
+}
+$$
+
+が次の自然な変形になる。
