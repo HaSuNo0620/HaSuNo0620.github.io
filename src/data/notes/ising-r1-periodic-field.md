@@ -36,7 +36,7 @@ $$
 
 ![周期bondと周期外場](/figures/ising-r1-periodic-field/overview-periodic-field.svg)
 
-*周期bondと周期外場の相対配置が、一周期transfer matrixを通して熱力学へ入る。*
+*周期bondと周期外場の相対配置が、一周期転送行列を通して熱力学へ入る。*
 
 ## 系の座標
 
@@ -146,11 +146,11 @@ $$
 
 ![外場による非可換化](/figures/ising-r1-periodic-field/noncommuting-transfer.svg)
 
-*外場は局所transfer matrixの固有軸を位置ごとに回し、積の順序を物理量へ戻す。*
+*外場は局所転送行列の固有軸を位置ごとに回し、積の順序を物理量へ戻す。*
 
 ## 3. 非可換でも有限周期なら $2\times2$ の一周期問題に閉じる
 
-一周期の transfer matrix を
+一周期の 転送行列 を
 
 $$
 \boxed{
@@ -318,7 +318,7 @@ $$
 
 となる。
 
-## 7. 対称性が response-channel decoupling を作る
+## 7. 対称性が 応答-channel decoupling を作る
 
 零外場では
 
@@ -420,13 +420,13 @@ $$
 
 となる。
 
-最後の式が非対称性の役割を直接表している。$J_{AA}=J_{BB}$ では消える cross response が、差を入れた瞬間に立ち上がる。
+最後の式が非対称性の役割を直接表している。$J_{AA}=J_{BB}$ では消える cross 応答 が、差を入れた瞬間に立ち上がる。
 
 $$
 \boxed{
 J_{AA}-J_{BB}
 :\ 
-\text{response-channel decoupling を壊す対称性破れ}}
+\text{応答-channel decoupling を壊す対称性破れ}}
 $$
 
 と読める。
@@ -470,7 +470,7 @@ $$
 
 つまり固有応答は、一様modeと周期4 modeのどちらかではなく、その線形結合になる。
 
-## 10. response map は相図ではない
+## 10. 応答 map は相図ではない
 
 $$
 \bar J\equiv\frac{J_{AA}+J_{BB}}{2},
@@ -500,7 +500,7 @@ $$
 
 である。
 
-![AABB周期外場系の応答構造マップ](/figures/ising-r1-periodic-field/response-structure-map.svg)
+![AABB周期外場系の応答構造マップ](/figures/ising-r1-periodic-field/応答-structure-map.svg)
 
 *どのchannelが優勢か、どこで分離し、どこで混ざるかを示す応答構造マップ。有限温度相図ではない。*
 
@@ -518,7 +518,7 @@ $$
 
 を見る。
 
-一周期 transfer matrix の固有値を $\Lambda_+,\Lambda_-$ とすれば
+一周期 転送行列 の固有値を $\Lambda_+,\Lambda_-$ とすれば
 
 $$
 C^{\rm conn}(mp)
@@ -535,7 +535,7 @@ $$
 
 となる。
 
-bond積による単純な相関式は失われても、**transfer spectrum が空間記憶を運ぶ**という骨格は変わらない。
+bond積による単純な相関式は失われても、**転送スペクトル が空間記憶を運ぶ**という骨格は変わらない。
 
 ## 12. bond周期とfield周期の不一致は supercell を作る
 
@@ -562,9 +562,9 @@ $$
 \boxed{
 \text{periodic structure}
 \longrightarrow
-\text{mode-selective response}
+\text{mode-selective 応答}
 \longrightarrow
-\text{symmetry-breaking-induced mode mixing}}
+\text{対称性-breaking-induced mode mixing}}
 $$
 
 という連鎖が、この模型で一番見通しよく残る構造である。
