@@ -730,7 +730,83 @@ $$
 
 という違いは、局所位相増分のgapが本当に閉じているかどうかに現れる。
 
-## 12. 得られた見方
+
+## 12. 一様外場と周期外場は \(m=1\) 記憶を読む
+
+固定方向の外場を
+
+$
+H_h
+=
+-\sum_i h_i\cos\theta_i
+$
+
+として加える。
+
+零外場では回転対称性から \(\langle\cos\theta_i\rangle=0\) で、線形応答は
+
+$
+\delta\langle\cos\theta_i\rangle
+=
+\sum_j\chi_{ij}h_j
+$
+
+と書ける。
+
+一様外場 \(h_i=h\) は \(Q=0\) 成分を読み、
+
+$
+\boxed{
+m_x=\chi(0)h+O(h^3)
+}
+$
+
+となる。
+
+周期外場
+
+$
+h_i=h_Q\cos(Qi+\varphi)
+$
+
+に対しては
+
+$
+\boxed{
+\delta\langle\cos\theta_i\rangle
+=
+\chi(Q)h_Q\cos(Qi+\varphi)
++O(h_Q^3)
+}
+$
+
+である。
+
+ここで
+
+$
+\chi(Q)
+=
+\beta\sum_r
+e^{-iQr}
+\langle\cos\theta_r\cos\theta_0\rangle
+$
+
+なので、外場応答が読むのは主に \(m=1\) の角度記憶である。
+
+最近接一様鎖では自然な中心波数は \(Q=0\) だが、有限 \(q\) による違いは
+
+$
+\boxed{
+\rho_1^{(q)}
+=
+\frac{\Lambda_1^{(q)}}{\Lambda_0^{(q)}}
+}
+$
+
+を通じて応答幅と記憶長に残る。
+
+## 13. 得られた見方
 
 clock 模型をIsingとXYの間に置くと、対称性の違いは単なるスピン状態数の違いではなく、局所記憶の角度分解能の違いとして見える。
 
