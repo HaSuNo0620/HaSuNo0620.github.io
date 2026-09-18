@@ -41,6 +41,31 @@ $$
 
 とする。
 
+## 系の座標
+
+$$
+\boxed{
+(d=1,\ \text{uniform},\ R=2,\ U(1))
+}
+$$
+
+Hamiltonian は
+
+$$
+H
+=
+-J_1\sum_i\cos(\theta_{i+1}-\theta_i)
+-J_2\sum_i\cos(\theta_{i+2}-\theta_i),
+$$
+
+局所 memory variable は
+
+$$
+\phi_i=\theta_{i+1}-\theta_i.
+$$
+
+$R=1$ で独立だった phase increment が、$R=2$ で隣接 increment の相関と finite twist を持つようになる。
+
 ## 1. 第二近接は隣接する角度増分を直接結ぶ
 
 $$
