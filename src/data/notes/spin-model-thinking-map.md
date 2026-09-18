@@ -34,6 +34,36 @@ $$
 
 前者は「どんな系か」、後者は「その系から何を残して見るか」に対応する。
 
+個別ノートのタイトルもこの座標系に合わせる。従来の模型名は本文中の対応関係として残すが、タイトルでは
+
+$
+\boxed{
+Z_2\ (\text{Ising}),\qquad
+Z_q\ (\text{clock}),\qquad
+U(1)\ (\text{XY})
+}
+$
+
+のように symmetry coordinate を前面に出す。したがって基本形は
+
+$
+\boxed{
+\text{1次元}
++
+\text{spatial organization}
++
+\text{interaction range}
++
+\text{symmetry}
++
+\text{スピン系}
+-
+\text{固有の物理}
+}
+$
+
+となる。対称性だけでは一般には Hamiltonian を一意に指定しないため、本文冒頭で具体的な Hamiltonian と局所変数を必ず固定する。
+
 ---
 
 ## 1. memory variable — 何を記憶するか
@@ -215,7 +245,7 @@ $$
 
 が同じ有限-$q$性の二つの表現になる。
 
-[1次元一様最近接クロック系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) は、この $Z_2\to Z_q\to U(1)$ 軸を実際に埋める位置にある。
+[1次元一様最近接 Zq スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) は、この $Z_2\to Z_q\to U(1)$ 軸を実際に埋める位置にある。
 
 ---
 
@@ -438,15 +468,15 @@ $$
 
 | ノート | memory variable | $R$ | spatial organization |
 | --- | --- | --- | --- |
-| [1次元一様最近接イジング系 — 空間記憶と応答](/notes/ising-transfer-matrix) | flip / wall | $1$ | uniform |
-| [1次元周期最近接イジング系 — 構造波数](/notes/ising-r1-periodic) | flip / wall | $1$ | periodic |
-| [1次元周期最近接イジング系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | flip + absolute-spin response | $1$ | periodic + field |
-| [1次元一様第二近接イジング系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | interacting wall pattern | $2$ | uniform |
-| [1次元一様有限範囲イジング系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | longer wall pattern | $n$ | uniform |
-| [1次元一様最近接クロック系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | discrete phase increment | $1$ | uniform |
-| [1次元一様最近接XY系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | continuous phase increment | $1$ | uniform |
-| [1次元一様第二近接XY系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | correlated phase increment / chirality | $2$ | uniform |
-| [1次元一様第二近接XY系 — chirality kinkと複数の空間記憶](/notes/xy-chain-chirality-memory) | chirality sector + phase | $2$ | uniform |
+| [1次元一様最近接 Z2 スピン系 — 空間記憶と応答](/notes/ising-transfer-matrix) | flip / wall | $1$ | uniform |
+| [1次元周期最近接 Z2 スピン系 — 構造波数](/notes/ising-r1-periodic) | flip / wall | $1$ | periodic |
+| [1次元周期最近接 Z2 スピン系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | flip + absolute-spin response | $1$ | periodic + field |
+| [1次元一様第二近接 Z2 スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | interacting wall pattern | $2$ | uniform |
+| [1次元一様有限範囲 Z2 スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | longer wall pattern | $n$ | uniform |
+| [1次元一様最近接 Zq スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | discrete phase increment | $1$ | uniform |
+| [1次元一様最近接 U(1) スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | continuous phase increment | $1$ | uniform |
+| [1次元一様第二近接 U(1) スピン系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | correlated phase increment / chirality | $2$ | uniform |
+| [1次元一様第二近接 U(1) スピン系 — chirality kinkと複数の空間記憶](/notes/xy-chain-chirality-memory) | chirality sector + phase | $2$ | uniform |
 
 この表で重要なのは、模型数そのものではなく「どの座標を動かしたノートなのか」が見えることである。
 
@@ -484,7 +514,7 @@ $$
 
 比較ノートは独立模型ではなく、二つ以上の座標点を同じ物理量で読むための辞書に限定する。
 
-[1次元一様最近接スピン系 — Ising・XYの空間記憶](/notes/ising-xy-nearest-neighbor-comparison) は、
+[1次元一様最近接スピン系 — Z2・U(1)の空間記憶](/notes/ising-xy-nearest-neighbor-comparison) は、
 
 $$
 R=1,
@@ -494,7 +524,7 @@ $$
 
 を固定して、memory variable の違いが相関喪失へどう現れるかを見る。
 
-[1次元一様第二近接スピン系 — Ising・XYを三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) は、
+[1次元一様第二近接スピン系 — Z2・U(1)を三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) は、
 
 $$
 R=2,
@@ -664,7 +694,143 @@ $$
 
 ---
 
-## 7. 今どの軸まで埋まっているか
+## 7. 各ノートは同じ読み順を通る
+
+タイトルだけで座標を揃えても、ノートごとに議論の入口と出口が違うと比較しにくい。節数や固有の話題は揃えず、すべての個別模型ノートが次の spine を通るようにする。
+
+$
+\boxed{
+\text{具体的な違和感・問い}
+\to
+\text{系の座標と Hamiltonian}
+\to
+\text{局所 memory variable}
+\to
+\text{長距離 memory / transfer spectrum}
+\to
+\text{観測量・response}
+\to
+\text{隣接する座標との比較}
+\to
+\text{得られた見方}
+}
+$
+
+### 座標と Hamiltonian
+
+導入の直後に
+
+$
+(d,\ \text{spatial organization},\ R,\ \text{symmetry})
+$
+
+を明示し、その座標だけでは決まらない具体的 Hamiltonian も置く。
+
+例えば最近接 ferromagnetic clock / XY 系なら
+
+$
+H=-J\sum_i\cos(\theta_{i+1}-\theta_i)
+$
+
+まで書いて、何を固定した系なのかを曖昧にしない。
+
+### 局所 memory variable
+
+元の spin 変数をそのまま追うのではなく、その座標で自然な局所増分を先に探す。
+
+$
+Z_2:\quad \tau_i=s_i s_{i+1},
+$
+
+$
+Z_q,\ U(1):\quad \phi_i=\theta_{i+1}-\theta_i.
+$
+
+interaction range や spatial organization を変えたとき、最初に「この局所変数の独立性・遷移則・重みのどれが変わったか」を読む。
+
+### 長距離 memory
+
+局所則をそのまま終点にせず、
+
+$
+C(r),\qquad
+\lambda_n/\lambda_0,\qquad
+\xi,\qquad
+q_{\rm spec}
+$
+
+へつなぐ。
+
+$
+\boxed{
+\text{local rule}
+\longrightarrow
+\text{transfer object}
+\longrightarrow
+\text{long-distance memory}
+}
+$
+
+が各ノートの共通骨格になる。
+
+### 観測量・response
+
+長距離 memory が何として観測されるかを分ける。
+
+$
+\chi(q),\qquad
+S(q),\qquad
+q_\chi,\qquad
+Q_{\rm peak}
+$
+
+などは transfer spectrum と同じ量ではない。各ノートで「内部 spectrum」と「外から読む observable」を区別する。
+
+### 隣接する座標との比較
+
+最後に必ず、一つだけ座標を変えた隣の系と比較する。
+
+$
+R=1\leftrightarrow R=2,
+$
+
+$
+Z_2\leftrightarrow Z_q\leftrightarrow U(1),
+$
+
+$
+\text{uniform}\leftrightarrow\text{periodic}\leftrightarrow\text{quasiperiodic}
+$
+
+のように、一度に複数軸を動かさない。
+
+章末は generic な「まとめ」ではなく
+
+$
+\boxed{\text{得られた見方}}
+$
+
+または、その座標から自然に残る問いで閉じる。
+
+比較ノートは少し役割が異なり、
+
+$
+\boxed{
+\text{固定する座標}
+\to
+\text{比較する memory variable / filter}
+\to
+\text{共通量}
+\to
+\text{差が現れる量}
+}
+$
+
+の順にする。個別導出は繰り返さない。
+
+---
+
+## 8. 今どの軸まで埋まっているか
 
 memory-variable 軸は
 
@@ -748,7 +914,7 @@ $$
 
 ---
 
-## 8. その先に残る二つの方向
+## 9. その先に残る二つの方向
 
 spatial organization の次には、模型座標そのものとは別に二つの拡張が残る。
 
