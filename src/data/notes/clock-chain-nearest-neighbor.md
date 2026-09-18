@@ -42,7 +42,7 @@ $q=2$ではIsing、$q\to\infty$ではXYへ近づく。しかし、重要なの�
 
 $$
 \boxed{
-(d=1,\ \text{uniform},\ R=1,\ Z_q)
+(d=1,\ \text{uniform},\ R=1,\ \text{cosine},\ Z_q)
 }
 $$
 
