@@ -6,6 +6,14 @@ updatedAt: 2026-09-19
 area: "Physics"
 topics: ["statistical mechanics", "Ising model", "transfer matrix", "periodic modulation", "external field", "linear response"]
 status: growing
+system:
+  dimension: 1
+  spatial: periodic
+  range: R1
+  interaction: cosine
+  symmetry: [Z2]
+  mechanics: classical
+  role: model
 ---
 
 周期最近接鎖の零外場では、bond変数は独立で transfer matrices も可換だった。そのため自由エネルギーは単位胞内部の並び順を忘れ、相関だけが順序を記憶していた。
