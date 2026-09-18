@@ -161,9 +161,7 @@ $$
 とすると、対称分割した kernel は
 $$
 \boxed{
-T_{ab}
-=
-\exp\left[
+T_{ab} = \exp\left[
 \frac{\beta J_1}{2}
 (\cos\phi_a+\cos\phi_b)
 +
@@ -218,9 +216,7 @@ $$
 は
 $$
 \boxed{
-\mathcal T(\phi,\phi')
-=
-\exp\left[
+\mathcal T(\phi,\phi') = \exp\left[
 \frac{\beta J_1}{2}
 (\cos\phi+\cos\phi')
 +
@@ -245,9 +241,7 @@ $$
 ## 7. 長距離 memory は tilted spectrum で読む
 
 $$
-\left\langle e^{i(\theta_r-\theta_0)}\right\rangle
-=
-\left\langle
+\left\langle e^{i(\theta_r-\theta_0)}\right\rangle = \left\langle
 \prod_{j=0}^{r-1}e^{i\phi_j}
 \right\rangle
 $$
@@ -258,9 +252,7 @@ $$
 から
 $$
 \boxed{
-\xi^{-1}
-=
--\ln\left|\frac{\Lambda_\ast}{\Lambda_0}\right|,
+\xi^{-1} = -\ln\left|\frac{\Lambda_\ast}{\Lambda_0}\right|,
 \qquad
 q_{\rm corr}=\arg\Lambda_\ast
 }
@@ -299,9 +291,7 @@ $$
 continuous $U(1)$ の preferred twist $q_\ast$ と比べ、
 $$
 \boxed{
-\delta q_{\rm lock}
-=
-q_\ast^{(q)}-q_\ast
+\delta q_{\rm lock} = q_\ast^{(q)}-q_\ast
 }
 $$
 を angular discretization による locking error とみなせる。
