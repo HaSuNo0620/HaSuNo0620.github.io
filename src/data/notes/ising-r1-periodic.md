@@ -395,7 +395,57 @@ $$
 
 外場ゼロの周期鎖は、**inhomogeneous but commuting** という特別に透明な基準問題だったと分かる。
 
-## 9. 周期性は不均一性系列の最初の非自明な段階になる
+## 9. 一様外場と周期外場は単位胞の応答チャネルを読む
+
+外場を
+
+$
+H_h=-\sum_i h_i s_i
+$
+
+として加える。
+
+一様外場 \(h_i=h\) でも、bond が周期的なら単位胞内部の各サイト応答は一般に同一ではない。単位胞内の磁化ベクトルを \(\mathbf m\)、外場を \(\mathbf h\) とすれば、
+
+$
+\boxed{
+\delta\mathbf m(Q)
+=
+\boldsymbol\chi(Q)\mathbf h(Q)
+}
+$
+
+という行列応答になる。
+
+周期外場
+
+$
+h_i=h_Q\cos(Qi+\varphi)
+$
+
+は、単位胞の逆格子ベクトル \(G\) により
+
+$
+Q,\qquad Q+G,\qquad Q+2G,\ldots
+$
+
+のチャネルを混合しうる。
+
+したがって一様系の単一 \(\chi(Q)\) に対して、周期 bond 系では
+
+$
+\boxed{
+\chi(Q)
+\longrightarrow
+\boldsymbol\chi_{GG'}(Q)
+}
+$
+
+と読む方が自然である。
+
+この応答構造の詳細は [1次元周期最近接 cosine-\(Z_2\) スピン系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) で扱う。
+
+## 10. 周期性は不均一性系列の最初の非自明な段階になる
 
 最近接・零外場なら、さらに
 
