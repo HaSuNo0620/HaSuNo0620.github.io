@@ -1,5 +1,5 @@
 ---
-title: "1次元一様第二近接 Z2 スピン系 — 振動相関と有限波数応答"
+title: "1次元一様第二近接 cosine-Z2 スピン系 — 振動相関と有限波数応答"
 summary: "第二近接相互作用を加えた1次元Ising鎖を、相互作用するドメイン壁、4状態転送行列、Stephenson disorder line、解析的に求まる q_spec と q_chi、Lifshitz-like line、Fisher–Widom型クロスオーバーという構造で読む。"
 publishedAt: 2026-09-11T02:10:00+09:00
 updatedAt: 2026-09-19
