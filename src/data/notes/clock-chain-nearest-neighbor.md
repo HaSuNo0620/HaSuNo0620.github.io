@@ -6,6 +6,14 @@ updatedAt: 2026-09-19
 area: "Physics"
 topics: ["statistical mechanics", "clock model", "spin model", "transfer matrix", "phase diffusion", "correlation", "Fourier spectrum"]
 status: growing
+system:
+  dimension: 1
+  spatial: uniform
+  range: R1
+  interaction: cosine
+  symmetry: [Zq]
+  mechanics: classical
+  role: model
 ---
 
 Ising鎖では、隣接スピンの関係は「反転したか、していないか」という二値で記録できる。一方XY鎖では、隣接角度差は連続量であり、小さな位相増分の累積が遠距離の角度記憶を失わせる。
