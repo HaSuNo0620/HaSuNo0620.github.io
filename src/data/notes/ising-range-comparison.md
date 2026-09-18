@@ -45,8 +45,7 @@ $$
 共通 Hamiltonian は
 
 $$
-H_R
-=
+H_R =
 -\sum_i\sum_{r=1}^{R}
 J_r s_i s_{i+r},
 \qquad
@@ -69,8 +68,7 @@ $$
 
 $$
 \boxed{
-s_i s_{i+r}
-=
+s_i s_{i+r} =
 \prod_{m=0}^{r-1}\tau_{i+m}
 }
 $$
@@ -81,8 +79,7 @@ $$
 
 $$
 \boxed{
-H_R
-=
+H_R =
 -\sum_i
 \left[
 J_1\tau_i
@@ -140,8 +137,7 @@ $$
 
 $$
 \boxed{
-\sigma_i
-=
+\sigma_i =
 (s_{i-R+1},\ldots,s_i)
 }
 $$
@@ -199,8 +195,7 @@ $$
 
 $$
 \boxed{
-\text{転送状態の大きさ}
-=
+\text{転送状態の大きさ} =
 \text{局所 Boltzmann 重みを決めるために必要な空間履歴}
 }
 $$
@@ -228,8 +223,7 @@ $$
 最近接では非自明な固有値比は一つだけで、
 
 $$
-C(r)
-=
+C(r) =
 \left(
 \frac{\lambda_1}{\lambda_0}
 \right)^r
@@ -309,8 +303,7 @@ $$
 $q_{\rm spec}$ は長距離相関を支配する固有値の位相であり、$q_\chi$ は
 
 $$
-\chi(q)
-=
+\chi(q) =
 \beta
 \left[
 1+2\sum_{r=1}^{\infty}C(r)\cos(qr)
