@@ -6,6 +6,14 @@ updatedAt: 2026-09-19
 area: "Physics"
 topics: ["statistical mechanics", "Ising model", "transfer matrix", "correlation", "frustration", "information thermodynamics"]
 status: growing
+system:
+  dimension: 1
+  spatial: uniform
+  range: R2
+  interaction: cosine
+  symmetry: [Z2]
+  mechanics: classical
+  role: model
 ---
 
 最近接鎖では零外場のdomain wallが独立だった。第二近接まで伸ばすと
