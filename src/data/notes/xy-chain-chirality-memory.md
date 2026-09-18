@@ -22,7 +22,7 @@ $$
 C(r)\sim e^{-r/\xi}\cos(qr)
 $$
 
-と書くだけでは、どの記憶が失われているのかが混ざる。局所的に好まれる twist、実空間で観測される振動波数、Fourier 空間で最大になる波数は一般に同じではない。相関長も一つではなく、continuous phase fluctuation と chirality switching が別の記憶チャネルを持つ。
+と書くだけでは、どの記憶が失われているのかが混ざる。局所的に好まれる ねじれ、実空間で観測される振動波数、Fourier 空間で最大になる波数は一般に同じではない。相関長も一つではなく、continuous phase fluctuation と カイラリティ反転 が別の記憶チャネルを持つ。
 
 モデルは
 
@@ -65,19 +65,19 @@ H = -J_1\sum_i\cos(\theta_{i+1}-\theta_i)
 -J_2\sum_i\cos(\theta_{i+2}-\theta_i)
 $$
 
-のままで、ここでは同じ座標点の中に現れる複数の memory channel
+のままで、ここでは同じ座標点の中に現れる複数の 記憶 channel
 
 $$
 \text{phase},\qquad
-\text{chirality},\qquad
+\text{カイラリティ},\qquad
 \text{spin correlation}
 $$
 
 を分離して読む。
 
-## 螺旋側では chirality が二重化する
+## 螺旋側では カイラリティ が二重化する
 
-一様 twist $\phi_i=q$ のエネルギー密度は
+一様 ねじれ $\phi_i=q$ のエネルギー密度は
 
 $$
 e(q)=-J_1\cos q-J_2\cos2q
@@ -93,7 +93,7 @@ $$
 
 が選ばれ、$+q_\ast$ と $-q_\ast$ が縮退する。
 
-局所 chirality を
+局所 カイラリティ を
 
 $$
 \chi_i=\sin\phi_i
@@ -125,7 +125,7 @@ B=J_1\kappa,
 \phi_0^2=8\delta.
 $$
 
-chirality kink は
+カイラリティキンク は
 
 $$
 \boxed{
@@ -173,7 +173,7 @@ $$
 \xi_\chi\sim\exp\left(\frac{E_{\mathrm k}}{k_{\mathrm B}T}\right).
 $$
 
-一方、chirality を固定した sector 内では位相は Gaussian に拡散し、
+一方、カイラリティ を固定した sector 内では位相は Gaussian に拡散し、
 
 $$
 \xi_{\mathrm{ph}}
@@ -205,9 +205,9 @@ $$
 }
 $$
 
-と書ける。$\sigma=\pm1$ は chirality、$\eta$ は continuous phase noise である。
+と書ける。$\sigma=\pm1$ は カイラリティ、$\eta$ は continuous phase noise である。
 
-chirality flip rate を $\nu$ とすると
+カイラリティ flip rate を $\nu$ とすると
 
 $$
 \langle\sigma(0)\sigma(r)\rangle=e^{-2\nu r},
@@ -219,7 +219,7 @@ $$
 \boxed{\xi_\chi=\frac{1}{2\nu}}.
 $$
 
-phase diffusion を
+位相拡散 を
 
 $$
 \left\langle
@@ -263,7 +263,7 @@ $$
 
 が得られる。
 
-$q_\ast=\nu$ で oscillatory correlation が消える。この境界は局所 preferred twist $q_\ast$ が消えたことを意味しない。chirality switching が速くなり、長距離の位相蓄積が打ち消されただけである。
+$q_\ast=\nu$ で oscillatory correlation が消える。この境界は局所 選好ねじれ $q_\ast$ が消えたことを意味しない。カイラリティ反転 が速くなり、長距離の位相蓄積が打ち消されただけである。
 
 ## 構造因子の peak はさらに別の波数を持つ
 
@@ -316,7 +316,7 @@ $$
 
 では、$S(Q)$ はすでに $Q=0$ 最大なのに、$C(r)$ にはまだ振動が残る。
 
-## ordinary transfer operator は chirality memory を持つ
+## ordinary 転送作用素 は カイラリティ 記憶 を持つ
 
 $\phi$ を状態変数にすると、kernel は
 
@@ -356,9 +356,9 @@ $$
 }.
 $$
 
-chirality kink の希薄化は、transfer spectrum では even / odd splitting の指数的小ささとして見える。
+カイラリティキンク の希薄化は、転送スペクトル では even / odd splitting の指数的小ささとして見える。
 
-## spin memory は tilted spectrum に入る
+## spin 記憶 は tilted spectrum に入る
 
 spin correlation は
 
@@ -405,11 +405,11 @@ $$
 
 が同時に出る。
 
-ordinary transfer operator は実対称だが、tilted operator は非Hermitianなので複素固有値を持てる。実空間振動はこの eigenphase に対応する。
+ordinary 転送作用素 は実対称だが、tilted operator は非Hermitianなので複素固有値を持てる。実空間振動はこの eigenphase に対応する。
 
-## 数値走査では memory channel の分離が直接見える
+## 数値走査では 記憶 channel の分離が直接見える
 
-angle-grid 表現で同じ integral operator を離散化し、$\kappa=0.5$ で走査した。
+angle-grid 表現で同じ 積分作用素 を離散化し、$\kappa=0.5$ で走査した。
 
 このとき
 
@@ -432,7 +432,7 @@ $$
 \frac{\xi_\chi}{\xi_{\mathrm{spin}}}\simeq12.2.
 $$
 
-spin direction の記憶が失われても、右巻きか左巻きかという chirality memory はさらに遠くまで残りうる。
+spin direction の記憶が失われても、右巻きか左巻きかという カイラリティ 記憶 はさらに遠くまで残りうる。
 
 ## 同じ「波数」「相関長」に見えていたものを分ける
 
@@ -441,7 +441,7 @@ spin direction の記憶が失われても、右巻きか左巻きかという c
 $$
 \boxed{
 q_\ast
-=\text{local preferred twist}
+=\text{local 選好ねじれ}
 }
 $$
 
@@ -455,7 +455,7 @@ $$
 $$
 \boxed{
 Q_{\mathrm{peak}}
-=\text{structure/response peak position}
+=\text{structure/応答ピーク position}
 }
 $$
 
@@ -471,6 +471,6 @@ $$
 }
 $$
 
-も別の memory channel である。
+も別の 記憶 channel である。
 
-第二近接相互作用が作っているのは単なる finite-$q$ correlation ではない。continuous phase diffusion に discrete chirality switching が重なり、観測量ごとに異なる spectral object が支配する構造である。
+第二近接相互作用が作っているのは単なる finite-$q$ correlation ではない。continuous 位相拡散 に discrete カイラリティ反転 が重なり、観測量ごとに異なる spectral object が支配する構造である。
