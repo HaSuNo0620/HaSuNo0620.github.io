@@ -520,6 +520,7 @@ $$
 | model | [1次元一様第二近接 cosine-$Z_2$ スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | 1 | uniform | $R=2$ | cosine | $Z_2$ | interacting wall pattern |
 | model | [1次元一様有限範囲 cosine-$Z_2$ スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | 1 | uniform | $R=n$ | cosine | $Z_2$ | longer wall pattern |
 | model | [1次元一様最近接 cosine-$Z_q$ スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $Z_q$ | discrete phase increment |
+| model | [1次元一様第二近接 cosine-$Z_q$ スピン系 — 離散螺旋と角度記憶](/notes/clock-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $Z_q$ | locked discrete twist / chirality |
 | model | [1次元一様最近接 cosine-$U(1)$ スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $U(1)$ | continuous phase increment |
 | model | [1次元一様第二近接 cosine-$U(1)$ スピン系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $U(1)$ | correlated phase increment |
 | model | [1次元一様第二近接 cosine-$U(1)$ スピン系 — chirality kinkと複数の空間記憶](/notes/xy-chain-chirality-memory) | 1 | uniform | $R=2$ | cosine | $U(1)$ | phase + chirality sector |
@@ -531,7 +532,7 @@ $$
 | role | 比較ノート | 固定する座標 | 動かす座標 | 接続する model point | 比較する量 |
 | --- | --- | --- | --- | --- | --- |
 | comparison | [1次元一様最近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ の空間記憶](/notes/ising-xy-nearest-neighbor-comparison) | $d=1$, uniform, $R=1$, cosine, classical | symmetry / state space | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | local increment, $\rho_m$, transfer spectrum, $\xi$, $\chi(k)$ |
-| comparison | [1次元一様第二近接 cosine スピン系 — $Z_2$・$U(1)$ を三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) | $d=1$, uniform, $R=2$, cosine, classical | symmetry / state space | $Z_2 \leftrightarrow U(1)$ | defect / texture, local transition, transfer spectral gap |
+| comparison | [1次元一様第二近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ を三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) | $d=1$, uniform, $R=2$, cosine, classical | symmetry / state space | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | defect / texture, local transition, transfer spectrum, pitch locking |
 
 比較ノートは新しい model point ではなく、
 
@@ -565,18 +566,20 @@ $$
 | interaction range | $Z_2$ | $Z_q$ | $U(1)$ | 横方向の比較 |
 | --- | --- | --- | --- | --- |
 | $R=1$ | [model](/notes/ising-transfer-matrix) | [model](/notes/clock-chain-nearest-neighbor) | [model](/notes/xy-chain-nearest-neighbor) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-nearest-neighbor-comparison) |
-| $R=2$ | [model](/notes/ising-r2-transfer-matrix) | — | [model](/notes/xy-chain-second-neighbor) / [chirality](/notes/xy-chain-chirality-memory) | [$Z_2\leftrightarrow U(1)$](/notes/ising-xy-second-neighbor-comparison) |
+| $R=2$ | [model](/notes/ising-r2-transfer-matrix) | [model](/notes/clock-chain-second-neighbor) | [model](/notes/xy-chain-second-neighbor) / [chirality](/notes/xy-chain-chirality-memory) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-second-neighbor-comparison) |
 | $R=n$ | [model](/notes/ising-rn-transfer-matrix) | — | — | — |
 
-この表では空欄そのものが次の学習候補になる。例えば $R=2$ の $Z_q$ は、
+この表では空欄そのものが次の学習候補になる。今回 $R=2$ の $Z_q$ が埋まったことで、
 
-$$
+$
 \boxed{
-(d=1,\ \text{uniform},\ R=2,\ \text{cosine},\ Z_q)
+R=1, R=2
+\quad\text{では}quad
+Z_2\leftrightarrow Z_q\leftrightarrow U(1)
 }
-$$
+$
 
-というまだ埋まっていない model point である。
+という symmetry 軸が二段とも閉じた。次に残る明確な空白は $R=n$ 側の $Z_q/U(1)$、または spatial organization 側の quasiperiodic / random である。
 
 一方 spatial organization 軸は $Z_2$, $R=1$ で
 
@@ -641,19 +644,31 @@ $$
 
 という共通辞書を使う。
 
-第二近接 comparison なら、
+第二近接 comparison でも、
 
-$$
+$
 \boxed{
-\text{defect / texture}
+Z_2
+\to
+Z_q
+\to
+U(1)
+}
+$
+
+を横断しながら、
+
+$
+\boxed{
+\text{interacting wall / locked twist / helix}
 \longleftrightarrow
 \text{local transition probability}
 \longleftrightarrow
-\text{transfer spectral gap}
+\text{transfer spectrum}
 }
-$$
+$
 
-という三つの information filter を対応させる。
+という三つの information filter を対応させる。ここでは finite-$q$ 固有の pitch locking が、離散 defect と continuous texture の間を埋める。
 
 したがって比較ノートの役割は
 
