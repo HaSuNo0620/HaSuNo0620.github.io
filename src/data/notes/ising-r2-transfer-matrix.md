@@ -43,7 +43,7 @@ $$
 
 $$
 \boxed{
-(d=1,\ \text{uniform},\ R=2,\ Z_2)
+(d=1,\ \text{uniform},\ R=2,\ \text{cosine},\ Z_2)
 }
 $$
 
@@ -63,6 +63,15 @@ $$
 $$
 
 とすると、$R=1$ で独立だった wall が $R=2$ で相互作用する。ここで動かした軸は interaction range だけである。
+
+
+$Z_2$ では $\theta_i\in\{0,\pi\}$ と置けば
+
+$$
+\cos(\theta_i-\theta_j)=s_i s_j
+$$
+
+なので、標準 bilinear Ising 相互作用と cosine-$Z_2$ 表現は同値である。
 
 ## 1. 第二近接結合は domain wall 間相互作用になる
 
