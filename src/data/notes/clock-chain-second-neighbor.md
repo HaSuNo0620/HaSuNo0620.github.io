@@ -119,9 +119,9 @@ $$
 $$
 が 記憶-loss channel になる。
 
-## 4. 転送行列 は $q\times q$ の離散角度 kernel になる
+## 4. 転送行列 は $q\times q$ の離散角度核 になる
 
-transfer state を $\phi_a=2\pi a/q$ とすると、対称分割した kernel は
+転送状態 を $\phi_a=2\pi a/q$ とすると、対称分割した核 は
 $$
 \boxed{
 T_{ab} = \exp\left[
@@ -151,7 +151,7 @@ H=
 $$
 となる。
 
-これは第二近接 $Z_2$ 鎖の interacting-wall 表現そのものである。
+これは第二近接 $Z_2$ 鎖の 相互作用するドメイン壁の表現そのものである。
 
 ## 6. $q\to\infty$ では 連続転送作用素 へ移る
 
