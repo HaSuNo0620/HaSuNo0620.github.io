@@ -4,7 +4,7 @@ summary: "cosine 相互作用族 に属する1次元スピン系を、状態空�
 publishedAt: 2026-09-16T03:45:00+09:00
 updatedAt: 2026-09-19
 area: "Physics"
-topics: ["statistical mechanics", "spin models", "転送行列", "coarse graining", "memory"]
+topics: ["statistical mechanics", "spin models", "transfer matrix", "coarse graining", "memory"]
 status: growing
 ---
 
