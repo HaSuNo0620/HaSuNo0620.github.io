@@ -14,6 +14,15 @@ const notes = defineCollection({
     topics: z.array(z.string()).default([]).transform(curateTopics),
     status: z.enum(['seed', 'growing', 'evergreen']).default('growing'),
     draft: z.boolean().default(false),
+    system: z.object({
+      dimension: z.number().int().positive(),
+      spatial: z.enum(['uniform', 'periodic', 'quasiperiodic', 'random']),
+      range: z.enum(['R1', 'R2', 'Rn']),
+      interaction: z.string(),
+      symmetry: z.array(z.string()).min(1),
+      mechanics: z.enum(['classical', 'quantum']),
+      role: z.enum(['model', 'comparison']).default('model'),
+    }).optional(),
   }),
 });
 
