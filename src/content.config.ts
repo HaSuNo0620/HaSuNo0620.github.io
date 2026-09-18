@@ -17,7 +17,10 @@ const notes = defineCollection({
     system: z.object({
       dimension: z.number().int().positive(),
       spatial: z.enum(['uniform', 'periodic', 'quasiperiodic', 'random']),
-      range: z.enum(['R1', 'R2', 'Rn']),
+      range: z.union([
+        z.enum(['R1', 'R2', 'Rn']),
+        z.array(z.enum(['R1', 'R2', 'Rn'])).min(1),
+      ]),
       interaction: z.string(),
       symmetry: z.array(z.string()).min(1),
       mechanics: z.enum(['classical', 'quantum']),
