@@ -137,7 +137,7 @@ $$
 
 ## 2. 実空間の構造は wall → locked twist → continuous helix と変わる
 
-### \(Z_2\)
+### $Z_2$
 
 $$
 \tau_i=e^{i\phi_i}=\pm1
@@ -155,7 +155,7 @@ $$
 
 であり、第二近接相互作用は wall pattern を相互作用させる。
 
-### \(Z_q\)
+### $Z_q$
 
 $$
 \phi_i=\frac{2\pi a_i}{q}
@@ -165,18 +165,14 @@ $$
 
 $$
 \boxed{
-q_\ast^{(q)}
-=
-\frac{2\pi a_\ast}{q}
+q_\ast^{(q)} = \frac{2\pi a_\ast}{q}
 }
 $$
 
 は
 
 $$
-a_\ast
-=
-\operatorname*{arg\,min}_{a\in\mathbb Z_q}
+a_\ast = \operatorname*{arg\,min}_{a\in\mathbb Z_q}
 \left[
 -J_1\cos\frac{2\pi a}{q}
 -J_2\cos\frac{4\pi a}{q}
@@ -187,7 +183,7 @@ $$
 
 したがって preferred pitch は staircase 状にロックされる。
 
-### \(U(1)\)
+### $U(1)$
 
 連続角度では
 
@@ -267,9 +263,7 @@ $Z_q$ では特に
 
 $$
 \boxed{
-\delta q_{\rm lock}
-=
-q_\ast^{(q)}-q_\ast
+\delta q_{\rm lock} = q_\ast^{(q)}-q_\ast
 }
 $$
 
@@ -281,7 +275,7 @@ $$
 
 第二近接では $\phi_i$ は Markov chain になる。
 
-### \(Z_2\)
+### $Z_2$
 
 $$
 \boxed{
@@ -291,7 +285,7 @@ $$
 
 という 2-state transition である。
 
-### \(Z_q\)
+### $Z_q$
 
 $$
 \boxed{
@@ -303,7 +297,7 @@ $$
 
 という $q$-state transition になる。
 
-### \(U(1)\)
+### $U(1)$
 
 $$
 \boxed{
@@ -332,9 +326,7 @@ $$
 increment 表示で対称分割すると、
 
 $$
-T_{ab}
-=
-\exp\left[
+T_{ab} = \exp\left[
 \frac{\beta J_1}{2}
 (\cos\phi_a+\cos\phi_b)
 +
@@ -381,18 +373,14 @@ $$
 長距離相関を担う tilted transfer object の支配固有値を
 
 $$
-\Lambda_\ast
-=
-|\Lambda_\ast|e^{iq_{\rm corr}}
+\Lambda_\ast = |\Lambda_\ast|e^{iq_{\rm corr}}
 $$
 
 とすれば、
 
 $$
 \boxed{
-\xi^{-1}
-=
--\ln\left|
+\xi^{-1} = -\ln\left|
 \frac{\Lambda_\ast}{\Lambda_0}
 \right|
 }
@@ -402,9 +390,7 @@ $$
 
 $$
 \boxed{
-q_{\rm corr}
-=
-\arg\Lambda_\ast
+q_{\rm corr} = \arg\Lambda_\ast
 }
 $$
 
@@ -476,7 +462,7 @@ $$
 
 となる。
 
-## 9. finite-\(q\) は二つの意味で中間にいる
+## 9. finite-$q$ は二つの意味で中間にいる
 
 最近接 $R=1$ の $Z_q$ では finite-$q$ 性は主に
 
@@ -536,7 +522,7 @@ $$
 
 を有限状態 Markov chain でつなぐ位置にいる。
 
-## 11. \(q\to\infty\) で消えるものと残るもの
+## 11. $q\to\infty$ で消えるものと残るもの
 
 $q\to\infty$ では
 
