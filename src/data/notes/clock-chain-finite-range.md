@@ -58,8 +58,7 @@ $q=2$ では有限範囲 $Z_2$、$q\to\infty$ では有限範囲 $U(1)$ へつ�
 角度差は
 
 $$
-\theta_{i+r}-\theta_i
-=
+\theta_{i+r}-\theta_i =
 \sum_{m=0}^{r-1}\phi_{i+m}
 $$
 
@@ -100,8 +99,7 @@ $$
 
 $$
 \boxed{
-\boldsymbol a_i
-=
+\boldsymbol a_i =
 (a_{i-R+2},\ldots,a_i)
 \in
 \mathbb Z_q^{\,R-1}
@@ -144,8 +142,7 @@ $$
 
 $$
 \boxed{
-e_R(\phi)
-=
+e_R(\phi) =
 -\sum_{r=1}^{R}J_r\cos(r\phi)
 }
 $$
@@ -162,8 +159,7 @@ $$
 
 $$
 \boxed{
-a_\ast
-=
+a_\ast =
 \operatorname*{arg\,min}_{a\in\mathbb Z_q}
 \left[
 -\sum_{r=1}^{R}
@@ -199,16 +195,14 @@ $$
 転送行列の副次固有値を
 
 $$
-\Lambda_a
-=
+\Lambda_a =
 |\Lambda_a|e^{iq_a}
 $$
 
 と書けば、それぞれが
 
 $$
-\xi_a^{-1}
-=
+\xi_a^{-1} =
 -\ln\left|
 \frac{\Lambda_a}{\Lambda_0}
 \right|,
@@ -240,8 +234,7 @@ $$
 スピン相関は
 
 $$
-e^{i(\theta_r-\theta_0)}
-=
+e^{i(\theta_r-\theta_0)} =
 \prod_{j=0}^{r-1}e^{i\phi_j}
 $$
 
@@ -278,8 +271,7 @@ $$
 $$
 \cos\left(
 \sum_{m=0}^{r-1}\phi_{i+m}
-\right)
-=
+\right) =
 \prod_{m=0}^{r-1}\tau_{i+m}
 $$
 
@@ -287,8 +279,7 @@ $$
 
 $$
 \boxed{
-H
-=
+H =
 -\sum_i\sum_{r=1}^{R}
 J_r
 \prod_{m=0}^{r-1}\tau_{i+m}
@@ -329,8 +320,7 @@ $$
 
 $$
 \boxed{
-R
-=
+R =
 \text{離散位相履歴の深さ}
 }
 $$
@@ -341,8 +331,7 @@ $$
 
 $$
 \boxed{
-q
-=
+q =
 \text{各履歴要素の角度分解能}
 }
 $$
