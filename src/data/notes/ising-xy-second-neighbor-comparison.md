@@ -62,13 +62,7 @@ $$
 
 動かすのは
 
-$$
-\boxed{
-\text{state space / symmetry}
-}
-$$
-
-だけで、
+state space / symmetry だけで、
 
 $$
 Z_2
@@ -96,11 +90,7 @@ $$
 
 ## 1. 局所相対変数は三者で同じ形に統一できる
 
-$$
-\phi_i=\theta_{i+1}-\theta_i
-$$
-
-と置けば、
+$\phi_i=\theta_{i+1}-\theta_i$ と置けば、
 
 $$
 \boxed{
@@ -139,11 +129,7 @@ $$
 
 ### $Z_2$
 
-$$
-\tau_i=e^{i\phi_i}=\pm1
-$$
-
-とすれば
+$\tau_i=e^{i\phi_i}=\pm1$ とすれば
 
 $$
 \boxed{
@@ -157,11 +143,7 @@ $$
 
 ### $Z_q$
 
-$$
-\phi_i=\frac{2\pi a_i}{q}
-$$
-
-なので、一様 twist の候補も離散的である。
+$\phi_i=2\pi a_i/q$ なので、一様 twist の候補も離散的である。
 
 $$
 \boxed{
@@ -187,13 +169,7 @@ $$
 
 連続角度では
 
-$$
-\boxed{
-\cos q_\ast=-\frac{J_1}{4J_2}
-}
-$$
-
-により preferred twist が連続的に動く。
+preferred twist は $\cos q_\ast=-J_1/(4J_2)$ に従って連続的に動く。
 
 三者を並べると
 
@@ -213,11 +189,7 @@ $$
 
 非零 preferred twist があると、
 
-$$
-+q_\ast,\qquad -q_\ast
-$$
-
-という二つの向きが生じる。
+$+q_\ast$ と $-q_\ast$ という二つの向きが生じる。
 
 $Z_2$ では角度 alphabet が二値なので、独立な continuous chirality sector は持たない。
 
@@ -277,13 +249,7 @@ $$
 
 ### $Z_2$
 
-$$
-\boxed{
-P(\tau_{i+1}|\tau_i)
-}
-$$
-
-という 2-state transition である。
+2-state transition $P(\tau_{i+1}\mid\tau_i)$ である。
 
 ### $Z_q$
 
@@ -299,13 +265,7 @@ $$
 
 ### $U(1)$
 
-$$
-\boxed{
-P(\phi_{i+1}|\phi_i)
-}
-$$
-
-という continuous conditional density になる。
+continuous conditional density $P(\phi_{i+1}\mid\phi_i)$ になる。
 
 したがって
 
@@ -336,25 +296,9 @@ $$
 
 $Z_2$ では $2\times2$、
 
-$Z_q$ では
+$Z_q$ では $q\times q$ の有限行列、
 
-$$
-\boxed{
-q\times q
-}
-$$
-
-の有限行列、
-
-$U(1)$ では
-
-$$
-\boxed{
-\mathcal T(\phi,\phi')
-}
-$$
-
-という積分作用素になる。
+$U(1)$ では $\mathcal T(\phi,\phi')$ という積分作用素になる。
 
 $$
 \boxed{
@@ -372,11 +316,7 @@ $$
 
 長距離相関を担う tilted transfer object の支配固有値を
 
-$$
-\Lambda_\ast = |\Lambda_\ast|e^{iq_{\rm corr}}
-$$
-
-とすれば、
+$\Lambda_\ast=|\Lambda_\ast|e^{iq_{\rm corr}}$ とすれば、
 
 $$
 \boxed{
@@ -414,19 +354,7 @@ $$
 
 ## 8. 「構造波数」は三者で同じ名前でも同じ量ではない
 
-$Z_2$ では
-
-$$
-q_{\rm spec}
-$$
-
-が subleading eigenvalue の位相として現れ、
-
-$$
-q_\chi
-$$
-
-は response peak の位置である。
+$Z_2$ では $q_{\rm spec}$ が subleading eigenvalue の位相として現れ、$q_\chi$ は response peak の位置である。
 
 $Z_q$ では
 
@@ -524,19 +452,7 @@ $$
 
 ## 11. $q\to\infty$ で消えるものと残るもの
 
-$q\to\infty$ では
-
-$$
-\Delta\phi=\frac{2\pi}{q}\to0
-$$
-
-なので twist locking は消え、
-
-$$
-q_\ast^{(q)}
-\to
-q_\ast.
-$$
+$q\to\infty$ では $\Delta\phi=2\pi/q\to0$ なので twist locking は消え、$q_\ast^{(q)}\to q_\ast$ となる。
 
 一方、
 
