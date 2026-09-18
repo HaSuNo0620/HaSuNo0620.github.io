@@ -1,5 +1,5 @@
 ---
-title: "1次元スピン模型 — 第二近接Ising・XYを三つの解像度で見る"
+title: "1次元一様第二近接スピン系 — Ising・XYを三つの解像度で見る"
 summary: "第二近接Ising鎖とXY鎖を、平均場・saddle point、Bethe/cavity、厳密transfer spectrumという三つの解像度で比較する。個別模型の導出は各専用ノートに置き、このノートでは欠陥の形、局所遷移確率、長距離相関の固有値がどう対応するかだけを整理する。"
 publishedAt: 2026-09-13T22:45:00+09:00
 updatedAt: 2026-09-19
