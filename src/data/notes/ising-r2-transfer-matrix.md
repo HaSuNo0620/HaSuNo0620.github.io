@@ -16,7 +16,7 @@ system:
   role: model
 ---
 
-最近接鎖では零外場のdomain wallが独立だった。第二近接まで伸ばすと
+最近接鎖では零外場のドメイン壁が独立だった。第二近接まで伸ばすと
 
 $$
 H=-J_1\sum_i s_i s_{i+1}-J_2\sum_i s_i s_{i+2},
@@ -68,7 +68,7 @@ $$
 \tau_i=s_i s_{i+1}
 $$
 
-とすると、$R=1$ で独立だった wall が $R=2$ で相互作用する。ここで動かした軸は interaction range だけである。
+とすると、$R=1$ で独立だった wall が $R=2$ で相互作用する。ここで動かした軸は 相互作用範囲 だけである。
 
 
 $Z_2$ では $\theta_i\in\{0,\pi\}$ と置けば
@@ -79,7 +79,7 @@ $$
 
 なので、標準 bilinear Ising 相互作用と cosine-$Z_2$ 表現は同値である。
 
-## 1. 第二近接結合は domain wall 間相互作用になる
+## 1. 第二近接結合は ドメイン壁 間相互作用になる
 
 $$
 \tau_i=s_i s_{i+1}=\pm1
@@ -110,7 +110,7 @@ $$
 
 $$
 \boxed{
-\text{interacting walls}}
+\text{相互作用するドメイン壁s}}
 $$
 
 へ変わる。
@@ -154,7 +154,7 @@ $$
 
 ![R=2 の転送状態ネットワーク](/figures/ising-r2/transfer-state-network.svg)
 
-状態を $(++),(+-),(-+),(--)$ とすれば transfer matrix は4状態になる。これは単なる行列サイズの増大ではなく、**局所重みを決めるために1ステップ前の履歴が必要になった**ことを表している。
+状態を $(++),(+-),(-+),(--)$ とすれば 転送行列 は4状態になる。これは単なる行列サイズの増大ではなく、**局所重みを決めるために1ステップ前の履歴が必要になった**ことを表している。
 
 最大固有値は
 
@@ -258,7 +258,7 @@ $$
 
 となる。これが Stephenson disorder line である。
 
-## 4. finite-$q$ tail と finite-$q$ response は同時には現れない
+## 4. finite-$q$ tail と finite-$q$ 応答 は同時には現れない
 
 有限温度で熱力学的相転移はないが、相関と応答には二本の異なる crossover line がある。
 
@@ -274,7 +274,7 @@ $$
 
 中間領域では長距離tailはすでに振動しているのに、静的感受率の最大はまだ $q=0$ に残る。
 
-この3領域は相ではなく、**相関極とresponse peakの配置による構造分類**である。
+この3領域は相ではなく、**相関極と応答ピークの配置による構造分類**である。
 
 ## 5. disorder line 直後では最初の節が無限遠から入ってくる
 
@@ -363,9 +363,9 @@ $$
 
 を得る。
 
-finite-$q$ responseも数値走査で定義する必要はなく、transfer structureから解析的に閉じる。
+finite-$q$ 応答も数値走査で定義する必要はなく、transfer structureから解析的に閉じる。
 
-## 7. Lifshitz-like line は response peak の分岐条件である
+## 7. Lifshitz-like line は 応答ピーク の分岐条件である
 
 $q_\chi$ が0から有限値へ移る条件は
 
@@ -504,7 +504,7 @@ Isingではsubleading transfer eigenvalue、液体論ではleading OZ poleが長
 
 ## 12. 情報論的には thermal errors が correlated noise になる
 
-最近接鎖では $\tau_i$ は独立で、domain wallを thermal bit-flip と読めば空間方向の誤りはmemorylessだった。
+最近接鎖では $\tau_i$ は独立で、ドメイン壁を thermal bit-flip と読めば空間方向の誤りは記憶lessだった。
 
 第二近接では
 
@@ -516,7 +516,7 @@ $$
 
 ![情報熱力学的なチャネル解釈](/figures/ising-r2/information-channel.svg)
 
-熱的反転の並びそのものが1-step memoryを持つ。
+熱的反転の並びそのものが1-step 記憶を持つ。
 
 この見方では
 
@@ -532,4 +532,4 @@ $$
 
 は弱い外場で最も励起しやすい空間パターンに対応する。
 
-第二近接鎖は、**pole complexification** と **response-peak bifurcation** を同じ最小模型の中で分離して追える点に価値がある。
+第二近接鎖は、**pole complexification** と **応答-peak bifurcation** を同じ最小模型の中で分離して追える点に価値がある。
