@@ -14,8 +14,7 @@ Ising、clock、XY を別々の模型名として並べるだけでは、何を�
 
 $$
 \boxed{
-H
-=
+H =
 -\sum_i\sum_{r=1}^{R}
 J_{i,r}
 \cos(\theta_{i+r}-\theta_i)
@@ -26,8 +25,7 @@ $$
 
 $$
 \boxed{
-\text{模型座標}
-=
+\text{模型座標} =
 (\text{状態空間 / 対称性},\ R,\ \text{空間構造})
 }
 $$
@@ -162,8 +160,7 @@ $$
 $Z_2$ では
 
 $$
-s_i s_{i+r}
-=
+s_i s_{i+r} =
 \prod_{m=0}^{r-1}\tau_{i+m},
 $$
 
@@ -171,8 +168,7 @@ $$
 
 $$
 \boxed{
-H
-=
+H =
 -\sum_i\sum_{r=1}^{R}
 J_r
 \prod_{m=0}^{r-1}\tau_{i+m}
@@ -206,8 +202,7 @@ $$
 $Z_q$ と $U(1)$ でも
 
 $$
-\theta_{i+r}-\theta_i
-=
+\theta_{i+r}-\theta_i =
 \sum_{m=0}^{r-1}\phi_{i+m}
 $$
 
@@ -215,8 +210,7 @@ $$
 
 $$
 \boxed{
-H
-=
+H =
 -\sum_i\sum_{r=1}^{R}
 J_r
 \cos\left(
@@ -231,8 +225,7 @@ $$
 
 $$
 \boxed{
-R
-=
+R =
 \text{局所統計を閉じるために必要な空間履歴の深さ}
 }
 $$
@@ -259,8 +252,7 @@ $$
 
 $$
 \boxed{
-R
-=
+R =
 \text{履歴の深さ}
 }
 $$
@@ -269,8 +261,7 @@ $$
 
 $$
 \boxed{
-Z_2\to Z_q\to U(1)
-=
+Z_2\to Z_q\to U(1) =
 \text{履歴1要素あたりの分解能}
 }
 $$
@@ -329,8 +320,7 @@ $$
 
 $$
 \boxed{
-C_i(r)
-=
+C_i(r) =
 \prod_{n=0}^{r-1}
 \tanh(\beta J_{i+n})
 }
@@ -362,8 +352,7 @@ $$
 
 $$
 \boxed{
-\text{1模型座標}
-=
+\text{1模型座標} =
 \text{1個別ノート}
 }
 $$
@@ -440,8 +429,7 @@ $$
 
 $$
 \boxed{
-\text{比較ノート}
-=
+\text{比較ノート} =
 \text{一つの模型座標だけを動かす橋}
 }
 $$
@@ -533,8 +521,7 @@ $$
 
 $$
 \boxed{
-\delta O(Q)
-=
+\delta O(Q) =
 \chi(Q)h_Q
 }
 $$
@@ -545,8 +532,7 @@ $U(1)$ 系ではさらに
 
 $$
 \boxed{
-H_{\rm rot}
-=
+H_{\rm rot} =
 -h\sum_i
 \cos(\theta_i-Qi-\varphi)
 }
@@ -594,8 +580,7 @@ $$
 
 $$
 \boxed{
-\xi_a^{-1}
-=
+\xi_a^{-1} =
 -\ln\left|
 \frac{\lambda_a}{\lambda_0}
 \right|
@@ -635,8 +620,7 @@ $$
 Lifshitz 点近傍で格子 Hamiltonian を展開し、
 
 $$
-F[\phi]
-=
+F[\phi] =
 \int dx
 \left[
 \frac{B}{2}(\partial_x\phi)^2
@@ -718,8 +702,7 @@ $$
 最近接 $Z_2$ なら、
 
 $$
-C_i(r)
-=
+C_i(r) =
 \prod_{n=0}^{r-1}
 \tanh(\beta J_{i+n})
 $$
@@ -794,8 +777,7 @@ $$
 
 $$
 \boxed{
-R
-=
+R =
 \text{履歴の深さ}
 }
 $$
@@ -804,8 +786,7 @@ $$
 
 $$
 \boxed{
-Z_2\to Z_q\to U(1)
-=
+Z_2\to Z_q\to U(1) =
 \text{履歴の分解能}
 }
 $$
