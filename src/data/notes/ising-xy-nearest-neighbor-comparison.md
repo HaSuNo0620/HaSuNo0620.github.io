@@ -661,7 +661,7 @@ $$
 
 となる。
 
-![高調波ごとの記憶長](/figures/clock-r1/高調波-記憶-hierarchy.svg)
+![高調波ごとの記憶長](/figures/clock-r1/harmonic-memory-hierarchy.svg)
 
 *finite $q$ では低い 高調波 から $m^{-2}$ hierarchy が回復し、fine angular 記憶 ほど離散性を長く保持する。*
 
