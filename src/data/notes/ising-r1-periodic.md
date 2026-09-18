@@ -30,7 +30,7 @@ $$
 
 $$
 \boxed{
-(d=1,\ \text{periodic},\ R=1,\ Z_2)
+(d=1,\ \text{periodic},\ R=1,\ \text{cosine},\ Z_2)
 }
 $$
 
@@ -49,6 +49,15 @@ $$
 $$
 
 一様最近接 $Z_2$ 系から動かすのは spatial organization だけで、wall の独立性は保ったまま生成コストが位置依存になる。
+
+
+$Z_2$ では $\theta_i\in\{0,\pi\}$ と置けば
+
+$$
+\cos(\theta_i-\theta_j)=s_i s_j
+$$
+
+なので、標準 bilinear Ising 相互作用と cosine-$Z_2$ 表現は同値である。
 
 ## 1. 壁は独立なまま、生成コストだけが周期化する
 
