@@ -1,19 +1,19 @@
 ---
 title: "1次元一様最近接 cosine スピン系 — Z2・Zq・U(1)の空間記憶"
-summary: "1次元一様最近接 cosine スピン系を、Z2・Zq・U(1)という局所状態空間の違いだけを動かして比較する。局所位相増分、1-step retention、transfer spectrum、相関長、波数応答を共通言語にし、rare wallからfinite-angle jumpを経てphase diffusionへ移る構造を整理する。"
+summary: "1次元一様最近接 cosine スピン系を、Z2・Zq・U(1)という局所状態空間の違いだけを動かして比較する。局所位相増分、1-step retention、転送スペクトル、相関長、波数応答を共通言語にし、rare wallからfinite-angle jumpを経て位相拡散へ移る構造を整理する。"
 publishedAt: 2026-09-13T01:50:00+09:00
 updatedAt: 2026-09-19
 area: "Physics"
-topics: ["statistical mechanics", "spin model", "clock model", "Ising model", "XY model", "correlation", "transfer matrix", "memory", "nearest-neighbor", "linear response"]
+topics: ["statistical mechanics", "spin model", "clock model", "Ising model", "XY model", "correlation", "転送行列", "memory", "nearest-neighbor", "linear 応答"]
 status: growing
 system:
   dimension: 1
   spatial: uniform
   range: R1
   interaction: cosine
-  symmetry: [Z2, Zq, U(1)]
+  対称性: [Z2, Zq, U(1)]
   mechanics: classical
-  role: comparison
+  role: 比較
 ---
 
 Ising、clock、XYという名前を外すと、三者は同じ Hamiltonian で書ける。
@@ -83,7 +83,7 @@ U(1)
 }
 $$
 
-という state space / symmetry だけである。
+という 状態空間 / 対称性 だけである。
 
 比較する中心量は
 
@@ -93,7 +93,7 @@ $$
 \to
 \text{1-step retention}
 \to
-\text{transfer spectrum}
+\text{転送スペクトル}
 \to
 \xi
 \to
@@ -213,13 +213,13 @@ $$
 
 となる。
 
-三者の違いは、相関の形式ではなく $\rho_m$ を作る局所 state space にある。
+三者の違いは、相関の形式ではなく $\rho_m$ を作る局所 状態空間 にある。
 
 ---
 
 ## 3. 1-step retention は離散Fourier和から連続Fourier積分へ移る
 
-$Z_q$ では transfer matrix は circulant で、
+$Z_q$ では 転送行列 は circulant で、
 
 $$
 T_{ab} = \exp\left[
@@ -368,7 +368,7 @@ $$
 
 ---
 
-## 5. memory loss は rare wall から phase diffusion へ連続化する
+## 5. memory loss は rare wall から 位相拡散 へ連続化する
 
 $Z_2$ で非零増分は
 
@@ -452,7 +452,7 @@ $$
 $$
 \eta\ll1
 \quad\Rightarrow\quad
-\text{dense small-step phase diffusion}.
+\text{dense small-step 位相拡散}.
 $$
 
 したがって
@@ -466,7 +466,7 @@ Z_q:
 \text{finite-angle jump}
 \to
 U(1):
-\text{phase diffusion}
+\text{位相拡散}
 }
 $$
 
@@ -704,7 +704,7 @@ $$
 
 である。
 
-したがって三者とも、零外場の $m=1$ memory を読む spatial response は同じ denominator を持つ。
+したがって三者とも、零外場の $m=1$ memory を読む spatial 応答 は同じ denominator を持つ。
 
 $Z_2$ では scalar spin 自体が $m=1$ observable なので
 
@@ -754,7 +754,7 @@ $$
 
 である。
 
-したがって symmetry / state space の違いは、最終的には
+したがって 対称性 / 状態空間 の違いは、最終的には
 
 $$
 \rho_1(T)
@@ -764,7 +764,7 @@ $$
 \text{spatial filter width}
 $$
 
-を通じて response に伝わる。
+を通じて 応答 に伝わる。
 
 ---
 
@@ -796,7 +796,7 @@ $$
 
 $$
 \boxed{
-\text{local state space}
+\text{local 状態空間}
 }
 $$
 
@@ -810,7 +810,7 @@ $$
 \to
 \text{finite-angle jump}
 \to
-\text{phase diffusion}
+\text{位相拡散}
 }
 $$
 
@@ -828,7 +828,7 @@ $$
 
 となる。
 
-さらに response では三者とも
+さらに 応答 では三者とも
 
 $$
 \boxed{
@@ -858,7 +858,7 @@ $$
 
 $$
 \boxed{
-\text{同じ interaction family のもとで
+\text{同じ 相互作用族 のもとで
 局所角度分解能を連続化する操作}
 }
 $$
