@@ -24,6 +24,31 @@ $$
 
 ![相互作用範囲と壁相互作用・記憶長の対応](/figures/ising-rn/range-memory-map.svg)
 
+## 系の座標
+
+$$
+\boxed{
+(d=1,\ \text{uniform},\ R=n,\ Z_2)
+}
+$$
+
+有限範囲 Hamiltonian
+
+$$
+H
+=
+-\sum_i\sum_{r=1}^{R}
+J_r s_i s_{i+r}
+$$
+
+を、局所 wall 変数
+
+$$
+\tau_i=s_i s_{i+1}
+$$
+
+で読む。$R$ を伸ばすことは、局所エネルギーが読む wall pattern の長さを伸ばすことに対応する。
+
 ## 1. 距離 $n$ のスピン結合は連続する $n$ 個の wall の積になる
 
 $$
