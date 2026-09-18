@@ -117,15 +117,15 @@ $$
 
 $$
 \boxed{
-\text{independent local increment}
+\text{independent 局所増分}
 \longrightarrow
-\text{interacting local increment}
+\text{interacting 局所増分}
 }
 $$
 
 である。
 
-## 2. 実空間の構造は wall → locked twist → 連続らせん と変わる
+## 2. 実空間の構造は wall → ロックされたねじれ → 連続らせん と変わる
 
 ### $Z_2$
 
@@ -143,7 +143,7 @@ $$
 
 ### $Z_q$
 
-$\phi_i=2\pi a_i/q$ なので、一様 twist の候補も離散的である。
+$\phi_i=2\pi a_i/q$ なので、一様 ねじれ の候補も離散的である。
 
 $$
 \boxed{
@@ -185,13 +185,13 @@ $$
 
 となる。
 
-## 3. chirality の出方も 状態空間 に沿って連続化する
+## 3. カイラリティ の出方も 状態空間 に沿って連続化する
 
 非零 選好ねじれ があると、
 
 $+q_\ast$ と $-q_\ast$ という二つの向きが生じる。
 
-$Z_2$ では角度 alphabet が二値なので、独立な continuous chirality sector は持たない。
+$Z_2$ では角度 alphabet が二値なので、独立な continuous カイラリティセクター は持たない。
 
 $Z_q$ では
 
@@ -203,7 +203,7 @@ $$
 }
 $$
 
-という離散 chirality sector が現れる。
+という離散 カイラリティセクター が現れる。
 
 $U(1)$ ではその sector の内部に continuous phase fluctuation も残る。
 
@@ -213,23 +213,23 @@ $$
 \boxed{
 \text{壁配置}
 \to
-\text{discrete chirality + locked twist}
+\text{discrete カイラリティ + ロックされたねじれ}
 \to
-\text{continuous phase + chirality}
+\text{continuous phase + カイラリティ}
 }
 $$
 
 という階層になる。
 
-## 4. saddle point は「どの局所構造が選ばれるか」を見る
+## 4. 鞍点 は「どの局所構造が選ばれるか」を見る
 
-三者で saddle-point 的に見る量は異なる。
+三者で 鞍点 的に見る量は異なる。
 
-| 対称性 | saddle-point / energetic object |
+| 対称性 | 鞍点 / energetic object |
 | --- | --- |
-| $Z_2$ | wall cost / 壁配置 |
+| $Z_2$ | 壁生成コスト / 壁配置 |
 | $Z_q$ | locked 選好ねじれ $q_\ast^{(q)}$ |
-| $U(1)$ | continuous 選好ねじれ $q_\ast$ / chirality kink |
+| $U(1)$ | continuous 選好ねじれ $q_\ast$ / カイラリティキンク |
 
 $Z_q$ では特に
 
@@ -275,13 +275,13 @@ $$
 \to
 q\text{-state Markov}
 \to
-\text{continuous Markov kernel}
+\text{continuous マルコフ核}
 }
 $$
 
 と連続化する。
 
-## 6. transfer object も 2×2 → q×q → integral operator になる
+## 6. 転送対象 も 2×2 → q×q → 積分作用素 になる
 
 increment 表示で対称分割すると、
 
@@ -306,15 +306,15 @@ $$
 \to
 q\times q
 \to
-\text{integral operator}
+\text{積分作用素}
 }
 $$
 
-は state-space continuum limit の transfer-space 表現である。
+は state-space 連続極限 の transfer-space 表現である。
 
-## 7. 長距離 memory は三者とも spectrum の大きさと位相で読める
+## 7. 長距離 記憶 は三者とも spectrum の大きさと位相で読める
 
-長距離相関を担う tilted transfer object の支配固有値を
+長距離相関を担う tilted 転送対象 の支配固有値を
 
 $\Lambda_\ast=|\Lambda_\ast|e^{iq_{\rm corr}}$ とすれば、
 
@@ -342,11 +342,11 @@ $$
 \boxed{
 |\Lambda_\ast|
 \longrightarrow
-\text{memory length},
+\text{記憶長},
 \qquad
 \arg\Lambda_\ast
 \longrightarrow
-\text{memory phase}
+\text{記憶 phase}
 }
 $$
 
@@ -432,10 +432,10 @@ $$
 
 | 解像度 | $Z_2$ | $Z_q$ | $U(1)$ |
 | --- | --- | --- | --- |
-| energetic / saddle point | wall cost / 壁配置 | locked twist $q_\ast^{(q)}$ | continuous $q_\ast$ / chirality kink |
+| energetic / 鞍点 | 壁生成コスト / 壁配置 | ロックされたねじれ $q_\ast^{(q)}$ | continuous $q_\ast$ / カイラリティキンク |
 | 局所遷移 | $P(\tau'|\tau)$ | $P(a'|a)$ | $P(\phi'|\phi)$ |
-| transfer object | $2\times2$ | $q\times q$ | integral operator |
-| long-distance memory | $(\xi,q_{\rm spec})$ | $(\xi,q_{\rm corr})$ | $(\xi,q_{\rm corr})$ |
+| 転送対象 | $2\times2$ | $q\times q$ | 積分作用素 |
+| 長距離記憶 | $(\xi,q_{\rm spec})$ | $(\xi,q_{\rm corr})$ | $(\xi,q_{\rm corr})$ |
 | 応答 | $q_\chi$ | $Q_{\rm peak}$ | $Q_{\rm peak}$ |
 
 この表で $Z_q$ は単なる「中間モデル」ではなく、
@@ -452,21 +452,21 @@ $$
 
 ## 11. $q\to\infty$ で消えるものと残るもの
 
-$q\to\infty$ では $\Delta\phi=2\pi/q\to0$ なので twist locking は消え、$q_\ast^{(q)}\to q_\ast$ となる。
+$q\to\infty$ では $\Delta\phi=2\pi/q\to0$ なので ねじれロッキング は消え、$q_\ast^{(q)}\to q_\ast$ となる。
 
 一方、
 
 $$
 \text{選好ねじれ},
 \qquad
-\text{chirality},
+\text{カイラリティ},
 \qquad
 \text{correlated increments}
 $$
 
 そのものは残る。
 
-つまり continuum limit で消えるのは
+つまり 連続極限 で消えるのは
 
 $$
 \boxed{
@@ -516,7 +516,7 @@ q\text{-state transition}
 }
 $$
 
-となり、transfer object も
+となり、転送対象 も
 
 $$
 \boxed{
@@ -524,10 +524,10 @@ $$
 \to
 q\times q
 \to
-\text{integral operator}
+\text{積分作用素}
 }
 $$
 
 へ連続化する。
 
-したがって $R=2$ に $Z_q$ を入れることで、$Z_2$ と $U(1)$ の差を「離散か連続か」で終わらせず、**角度分解能が 壁配置 を locked twist へ、さらに 連続らせん へどう変形するか**として追えるようになる。
+したがって $R=2$ に $Z_q$ を入れることで、$Z_2$ と $U(1)$ の差を「離散か連続か」で終わらせず、**角度分解能が 壁配置 を ロックされたねじれ へ、さらに 連続らせん へどう変形するか**として追えるようになる。
