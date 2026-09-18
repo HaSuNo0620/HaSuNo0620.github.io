@@ -473,7 +473,7 @@ $$
 \longrightarrow
 \text{位相拡散}
 \longrightarrow
-\text{高調波-dependent 相関長s}}
+\text{高調波ごとの相関長}}
 $$
 
 という一本の構造がある。
