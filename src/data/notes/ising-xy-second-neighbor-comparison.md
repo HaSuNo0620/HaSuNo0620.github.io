@@ -34,6 +34,38 @@ $$
 
 とする。
 
+## 比較座標
+
+$$
+\boxed{
+d=1,\qquad
+\text{uniform},\qquad
+R=2
+}
+$$
+
+を固定し、
+
+$$
+\boxed{
+Z_2
+\longleftrightarrow
+U(1)
+}
+$$
+
+を比較する。模型そのものの導出ではなく、
+
+$$
+\text{defect / texture}
+\leftrightarrow
+\text{local transition probability}
+\leftrightarrow
+\text{transfer spectrum}
+$$
+
+という information filter 間の対応を読む。
+
 ## 1. 共通骨格は局所相対変数の相互作用化にある
 
 Isingでは
