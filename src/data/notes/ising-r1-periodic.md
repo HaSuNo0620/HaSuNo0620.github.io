@@ -28,7 +28,7 @@ $$
 
 とすれば、Hamiltonian 自体に単位胞 $p$ が入る。
 
-ここで変わるのは interaction range ではなく spatial homogeneity である。この違いは、有限波数構造の起源を第二近接系と比較するとかなり明瞭になる。
+ここで変わるのは 相互作用範囲 ではなく spatial homogeneity である。この違いは、有限波数構造の起源を第二近接系と比較するとかなり明瞭になる。
 
 ![一様R=1と周期的不均一R=1](/figures/ising-r1-periodic/overview-uniform-periodic.svg)
 
@@ -50,13 +50,13 @@ H=-\sum_i J_i s_i s_{i+1},
 J_{i+p}=J_i,
 $$
 
-局所 memory variable は
+局所 記憶変数 は
 
 $$
 \tau_i=s_i s_{i+1}.
 $$
 
-一様最近接 $Z_2$ 系から動かすのは spatial organization だけで、wall の独立性は保ったまま生成コストが位置依存になる。
+一様最近接 $Z_2$ 系から動かすのは 空間構造 だけで、wall の独立性は保ったまま生成コストが位置依存になる。
 
 
 $Z_2$ では $\theta_i\in\{0,\pi\}$ と置けば
@@ -81,7 +81,7 @@ $$
 
 であり、異なる $\tau_i$ 同士の積は現れない。
 
-したがって周期的不均一性はdomain wall同士を相互作用させず、壁を置く場所ごとのコストだけを変える。
+したがって周期的不均一性はドメイン壁同士を相互作用させず、壁を置く場所ごとのコストだけを変える。
 
 強磁性的な $J_i>0$ なら
 
@@ -124,7 +124,7 @@ $$
 \lambda_i^{(-)}=2\sinh(\beta J_i).
 $$
 
-一周期の transfer matrix
+一周期の 転送行列
 
 $$
 \mathcal T_p=T_1T_2\cdots T_p
@@ -375,7 +375,7 @@ $$
 H=-\sum_iJ_i s_i s_{i+1}-\sum_i h_i s_i
 $$
 
-で、局所 transfer matrix は
+で、局所 転送行列 は
 
 $$
 T_i(s_i,s_{i+1})
