@@ -60,7 +60,7 @@ $$
 
 ## 2. 選好ねじれ は有限個の角度へロックされる
 
-一様 twist $\phi_i=\phi$ なら
+一様 ねじれ $\phi_i=\phi$ なら
 $$
 \boxed{
 e(\phi)=-J_1\cos\phi-J_2\cos2\phi
@@ -97,9 +97,9 @@ $$
 }
 $$
 
-## 3. finite-$q$ では chirality も離散化される
+## 3. finite-$q$ では カイラリティ も離散化される
 
-$e(\phi)=e(-\phi)$ なので、非零 twist が選ばれると
+$e(\phi)=e(-\phi)$ なので、非零 ねじれ が選ばれると
 $$
 \boxed{
 +q_\ast^{(q)},\qquad -q_\ast^{(q)}
@@ -107,17 +107,17 @@ $$
 $$
 が縮退する。
 
-局所 chirality は $\kappa_i^{\rm ch}=\sin\phi_i$ で読める。
+局所 カイラリティ は $\kappa_i^{\rm ch}=\sin\phi_i$ で読める。
 
 $Z_q$ では
 $$
 \boxed{
-\text{chirality switching}
+\text{カイラリティ反転}
 +
 \text{discrete angular jumps}
 }
 $$
-が memory-loss channel になる。
+が 記憶-loss channel になる。
 
 ## 4. 転送行列 は $q\times q$ の離散角度 kernel になる
 
@@ -138,7 +138,7 @@ $$
 
 有限状態 マルコフ連鎖 $P(a_{i+1}\mid a_i)$ が自然な局所記述になる。
 
-## 5. $q=2$ では interacting wall を回収する
+## 5. $q=2$ では 相互作用するドメイン壁 を回収する
 
 $q=2$ では $\tau_i=e^{i\phi_i}=\pm1$ で、$\cos\phi_i=\tau_i$、$\cos(\phi_i+\phi_{i+1})=\tau_i\tau_{i+1}$ である。
 したがって
@@ -175,12 +175,12 @@ $$
 \to
 q\times q
 \to
-\text{integral operator}
+\text{積分作用素}
 }
 $$
-という transfer object の連続化が起こる。
+という 転送対象 の連続化が起こる。
 
-## 7. 長距離 memory は tilted spectrum で読む
+## 7. 長距離 記憶 は tilted spectrum で読む
 
 $$
 \left\langle e^{i(\theta_r-\theta_0)}\right\rangle = \left\langle
@@ -201,7 +201,7 @@ q_{\rm corr}=\arg\Lambda_\ast
 $$
 を得る。
 
-## 8. 選好ねじれ・correlation wavevector・応答 peak は別の量である
+## 8. 選好ねじれ・相関波数・応答 peak は別の量である
 
 $$
 \boxed{
@@ -213,14 +213,14 @@ $$
 はそれぞれ
 
 - local energetic preference
-- long-distance memory の位相
+- 長距離記憶 の位相
 - 全距離相関を積分した 応答 peak
 
 を表し、原理的に一致する必要はない。
 
 これは $Z_2$ の $q_{\rm spec}\neq q_\chi$ と、$U(1)$ の $q_\ast\neq q_{\rm corr}\neq Q_{\rm peak}$ の中間に位置する。
 
-## 9. finite-$q$ 固有の量は twist-locking error である
+## 9. finite-$q$ 固有の量は ねじれ-locking error である
 
 continuous $U(1)$ の 選好ねじれ $q_\ast$ と比べ、
 $$
@@ -230,7 +230,7 @@ $$
 $$
 を angular discretization による locking error とみなせる。
 
-最近接 $R=1$ では finite $q$ 性は主に thermal angular resolution と spectral aliasing に現れた。
+最近接 $R=1$ では finite $q$ 性は主に thermal 角度分解能 と spectral aliasing に現れた。
 
 第二近接ではさらに
 $$
@@ -251,7 +251,7 @@ $$
 \to
 \text{locked 離散ねじれs}
 \to
-\text{continuous correlated twists}
+\text{continuous correlated ねじれs}
 }
 $$
 
@@ -266,14 +266,14 @@ P(\phi'|\phi)
 }
 $$
 
-transfer object では
+転送対象 では
 $$
 \boxed{
 2\times2
 \to
 q\times q
 \to
-\text{integral operator}
+\text{積分作用素}
 }
 $$
 
@@ -299,4 +299,4 @@ $$
 $$
 という空間記憶の連続化として読める。
 
-$R=1$ の finite-$q$ 性が angular resolution と spectral folding に現れたのに対し、$R=2$ では preferred pitch 自体が離散角へロックされる。有限 $q$ は単なる補間ではなく、**構造波数そのものが角度分解能によって量子化される領域**になる。
+$R=1$ の finite-$q$ 性が 角度分解能 と スペクトルの折り畳み に現れたのに対し、$R=2$ では preferred pitch 自体が離散角へロックされる。有限 $q$ は単なる補間ではなく、**構造波数そのものが角度分解能によって量子化される領域**になる。
