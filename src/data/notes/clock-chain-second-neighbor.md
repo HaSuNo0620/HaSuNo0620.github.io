@@ -51,9 +51,9 @@ $$
 したがって
 $$
 \boxed{
-R=1:\ \text{independent discrete increments}
+R=1:\ \text{独立な離散増分}
 \quad\to\quad
-R=2:\ \text{correlated discrete increments}
+R=2:\ \text{相関した離散増分}
 }
 $$
 である。
@@ -114,7 +114,7 @@ $$
 \boxed{
 \text{カイラリティ反転}
 +
-\text{discrete angular jumps}
+\text{離散角ジャンプ}
 }
 $$
 が 記憶-loss channel になる。
@@ -153,7 +153,7 @@ $$
 
 これは第二近接 $Z_2$ 鎖の interacting-wall 表現そのものである。
 
-## 6. $q\to\infty$ では continuous 転送作用素 へ移る
+## 6. $q\to\infty$ では 連続転送作用素 へ移る
 
 $q$ を増やすと $\Delta\phi=2\pi/q\to0$ なので、離散行列 $T_{ab}$ は
 $$
@@ -180,7 +180,7 @@ q\times q
 $$
 という 転送対象 の連続化が起こる。
 
-## 7. 長距離 記憶 は tilted spectrum で読む
+## 7. 長距離 記憶 は 傾斜転送スペクトル で読む
 
 $$
 \left\langle e^{i(\theta_r-\theta_0)}\right\rangle = \left\langle
@@ -212,7 +212,7 @@ Q_{\rm peak}
 $$
 はそれぞれ
 
-- local energetic preference
+- 局所的なエネルギー選好
 - 長距離記憶 の位相
 - 全距離相関を積分した 応答 peak
 
@@ -222,7 +222,7 @@ $$
 
 ## 9. finite-$q$ 固有の量は ねじれ-locking error である
 
-continuous $U(1)$ の 選好ねじれ $q_\ast$ と比べ、
+連続 $U(1)$ の 選好ねじれ $q_\ast$ と比べ、
 $$
 \boxed{
 \delta q_{\rm lock} = q_\ast^{(q)}-q_\ast
@@ -249,9 +249,9 @@ $$
 \boxed{
 \text{相互作用する壁}
 \to
-\text{locked 離散ねじれs}
+\text{ロックされた離散ねじれ}
 \to
-\text{continuous correlated ねじれs}
+\text{連続的に相関したねじれ}
 }
 $$
 
@@ -299,4 +299,4 @@ $$
 $$
 という空間記憶の連続化として読める。
 
-$R=1$ の finite-$q$ 性が 角度分解能 と スペクトルの折り畳み に現れたのに対し、$R=2$ では preferred pitch 自体が離散角へロックされる。有限 $q$ は単なる補間ではなく、**構造波数そのものが角度分解能によって量子化される領域**になる。
+$R=1$ の finite-$q$ 性が 角度分解能 と スペクトルの折り畳み に現れたのに対し、$R=2$ では 選好ピッチ 自体が離散角へロックされる。有限 $q$ は単なる補間ではなく、**構造波数そのものが角度分解能によって量子化される領域**になる。
