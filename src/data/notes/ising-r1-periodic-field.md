@@ -49,9 +49,7 @@ $$
 周期 bond に周期外場を重ね、
 
 $$
-H
-=
--\sum_i J_i s_i s_{i+1}
+H = -\sum_i J_i s_i s_{i+1}
 -\sum_i h_i s_i,
 $$
 
