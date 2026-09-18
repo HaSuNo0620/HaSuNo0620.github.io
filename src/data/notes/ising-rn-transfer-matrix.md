@@ -305,3 +305,77 @@ $$
 相互作用範囲を伸ばすことは、単に結合項を増やす操作ではない。**どこまで過去を保持しなければ局所統計が閉じないか**を増やす操作としても読める。
 
 第三近接は、その一般構造が高次wall相互作用とモード競合として初めて明示的に現れる基準例になっている。
+
+
+## 8. 一様外場と周期外場は複数モードの重なりを読む
+
+外場を
+
+$$
+H_h=-\sum_i h_i s_i
+$$
+
+として加える。零外場まわりでは
+
+$$
+\delta\langle s_i\rangle
+=
+\sum_j\chi_{ij}h_j,
+\qquad
+\chi_{ij}
+=
+\beta\langle s_i s_j\rangle.
+$$
+
+一様外場 \(h_i=h\) は
+
+$$
+\boxed{
+m=\chi(0)h+O(h^3)
+}
+$$
+
+として \(q=0\) 成分を読む。
+
+周期外場
+
+$$
+h_i=h_q\cos(qi+\varphi)
+$$
+
+に対しては
+
+$$
+\boxed{
+\delta\langle s_i\rangle
+=
+\chi(q)h_q\cos(qi+\varphi)
++O(h_q^3)
+}
+$$
+
+となる。
+
+有限範囲では
+
+$$
+C(r)
+\sim
+\sum_a A_a\rho_a^r\cos(q_a r+\phi_a)
+$$
+
+なので、\(\chi(q)\) は単一モードではなく複数の転送モードを全距離で重ねた量になる。
+
+したがって
+
+$$
+\boxed{
+\text{転送スペクトルの候補 }q_a
+\longrightarrow
+\chi(q)
+\longrightarrow
+q_\chi
+}
+$$
+
+という順に、内部モードと外場応答を区別して読む必要がある。
