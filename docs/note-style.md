@@ -56,3 +56,12 @@
 ## 目安
 
 一つの節を読んだとき、教師が順番を案内している感じではなく、ノートを書いた人の思考の断面が見える状態を目指す。
+
+
+## 用語
+
+- 日本語で定訳が定着している専門語は日本語を優先する。
+- 英語を残すのは、固有名、記号との対応を保ちたい語、訳語が分野内で揺れる語に限る。
+- 初出で対応関係が有用な場合は「転送行列 (transfer matrix)」のように英語を併記してよいが、以降は日本語を使う。
+- 例：state space → 状態空間、symmetry → 対称性、interaction range → 相互作用範囲、spatial organization → 空間構造、transfer matrix → 転送行列、transfer spectrum → 転送スペクトル、response → 応答、Markov chain → マルコフ連鎖、phase diffusion → 位相拡散。
+- chirality は「カイラリティ」のように日本語表記へ寄せる。tilted operator など訳語が十分に定着していない語は、無理に意訳せず英語または日英併記を許す。
