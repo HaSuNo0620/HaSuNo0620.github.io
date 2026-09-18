@@ -26,6 +26,30 @@ $$
 
 *相互作用距離はどちらも最近接だけで、周期系では bond の重みだけが空間変調される。*
 
+## 系の座標
+
+$$
+\boxed{
+(d=1,\ \text{periodic},\ R=1,\ Z_2)
+}
+$$
+
+Hamiltonian は
+
+$$
+H=-\sum_i J_i s_i s_{i+1},
+\qquad
+J_{i+p}=J_i,
+$$
+
+局所 memory variable は
+
+$$
+\tau_i=s_i s_{i+1}.
+$$
+
+一様最近接 $Z_2$ 系から動かすのは spatial organization だけで、wall の独立性は保ったまま生成コストが位置依存になる。
+
 ## 1. 壁は独立なまま、生成コストだけが周期化する
 
 $$
