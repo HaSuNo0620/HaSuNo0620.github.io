@@ -1,17 +1,17 @@
 ---
 title: "1次元一様第二近接 cosine-Zq スピン系 — 離散螺旋と角度記憶"
-summary: "第二近接相互作用を持つ1次元Zq cosineスピン鎖を、離散位相増分の相互作用、preferred twistの格子ロッキング、有限個のchirality sector、transfer matrix、相関波数と記憶長という構造で読む。Z2のinteracting wallとU(1)のcontinuous helixの間を埋める。"
+summary: "第二近接相互作用を持つ1次元Zq cosineスピン鎖を、離散位相増分の相互作用、選好ねじれの格子ロッキング、有限個のchirality sector、転送行列、相関波数と記憶長という構造で読む。Z2のinteracting wallとU(1)の連続らせんの間を埋める。"
 publishedAt: 2026-09-19T02:10:00+09:00
 updatedAt: 2026-09-19
 area: "Physics"
-topics: ["statistical mechanics", "clock model", "spin model", "second-neighbor interaction", "chirality", "transfer matrix", "frustration"]
+topics: ["statistical mechanics", "clock model", "spin model", "second-neighbor interaction", "chirality", "転送行列", "frustration"]
 status: growing
 system:
   dimension: 1
   spatial: uniform
   range: R2
   interaction: cosine
-  symmetry: [Zq]
+  対称性: [Zq]
   mechanics: classical
   role: model
 ---
@@ -58,7 +58,7 @@ R=2:\ \text{correlated discrete increments}
 $$
 である。
 
-## 2. preferred twist は有限個の角度へロックされる
+## 2. 選好ねじれ は有限個の角度へロックされる
 
 一様 twist $\phi_i=\phi$ なら
 $$
@@ -91,9 +91,9 @@ $U(1)$ では $\cos q_\ast=-J_1/(4J_2)$ と連続的に動けるが、有限 $q$
 
 $$
 \boxed{
-\text{continuous helix}
+\text{連続らせん}
 \longrightarrow
-\text{discrete twist locking}
+\text{離散ねじれ locking}
 }
 $$
 
@@ -119,7 +119,7 @@ $$
 $$
 が memory-loss channel になる。
 
-## 4. transfer matrix は $q\times q$ の離散角度 kernel になる
+## 4. 転送行列 は $q\times q$ の離散角度 kernel になる
 
 transfer state を $\phi_a=2\pi a/q$ とすると、対称分割した kernel は
 $$
@@ -136,7 +136,7 @@ $$
 
 最近接 $Z_q$ の circulant matrix と異なり、一般には単純な離散 Fourier 対角化では閉じない。
 
-有限状態 Markov chain $P(a_{i+1}\mid a_i)$ が自然な局所記述になる。
+有限状態 マルコフ連鎖 $P(a_{i+1}\mid a_i)$ が自然な局所記述になる。
 
 ## 5. $q=2$ では interacting wall を回収する
 
@@ -153,7 +153,7 @@ $$
 
 これは第二近接 $Z_2$ 鎖の interacting-wall 表現そのものである。
 
-## 6. $q\to\infty$ では continuous transfer operator へ移る
+## 6. $q\to\infty$ では continuous 転送作用素 へ移る
 
 $q$ を増やすと $\Delta\phi=2\pi/q\to0$ なので、離散行列 $T_{ab}$ は
 $$
@@ -187,7 +187,7 @@ $$
 \prod_{j=0}^{r-1}e^{i\phi_j}
 \right\rangle
 $$
-なので、位相因子を組み込んだ tilted transfer matrix の支配固有値
+なので、位相因子を組み込んだ tilted 転送行列 の支配固有値
 $$
 \Lambda_\ast=|\Lambda_\ast|e^{iq_{\rm corr}}
 $$
@@ -201,7 +201,7 @@ q_{\rm corr}=\arg\Lambda_\ast
 $$
 を得る。
 
-## 8. preferred twist・correlation wavevector・response peak は別の量である
+## 8. 選好ねじれ・correlation wavevector・応答 peak は別の量である
 
 $$
 \boxed{
@@ -214,7 +214,7 @@ $$
 
 - local energetic preference
 - long-distance memory の位相
-- 全距離相関を積分した response peak
+- 全距離相関を積分した 応答 peak
 
 を表し、原理的に一致する必要はない。
 
@@ -222,7 +222,7 @@ $$
 
 ## 9. finite-$q$ 固有の量は twist-locking error である
 
-continuous $U(1)$ の preferred twist $q_\ast$ と比べ、
+continuous $U(1)$ の 選好ねじれ $q_\ast$ と比べ、
 $$
 \boxed{
 \delta q_{\rm lock} = q_\ast^{(q)}-q_\ast
@@ -247,9 +247,9 @@ $$
 実空間では
 $$
 \boxed{
-\text{interacting walls}
+\text{相互作用する壁}
 \to
-\text{locked discrete twists}
+\text{locked 離散ねじれs}
 \to
 \text{continuous correlated twists}
 }
@@ -290,11 +290,11 @@ $$
 は
 $$
 \boxed{
-\text{wall pattern}
+\text{壁配置}
 \to
-\text{discrete twist locking}
+\text{離散ねじれ locking}
 \to
-\text{continuous helix}
+\text{連続らせん}
 }
 $$
 という空間記憶の連続化として読める。
