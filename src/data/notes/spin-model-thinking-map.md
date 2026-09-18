@@ -1,64 +1,40 @@
 ---
-title: "スピン系をどう読むか — 記憶変数・相互作用範囲・空間構造・情報フィルター"
-summary: "cosine 相互作用族に属する1次元スピン系を、状態空間 / 対称性、相互作用範囲、空間構造という三つの座標で整理する。Z2・Zq・U(1)を同一Hamiltonian族として比較し、近似・表現は情報フィルターとして分離する。"
+title: "スピン系をどう読むか — 状態空間・相互作用範囲・空間構造"
+summary: "1次元 classical cosine スピン系を、状態空間 / 対称性、相互作用範囲 R、空間構造という模型座標で整理する。各模型座標には個別ノートを1本だけ置き、比較ノートは一つの軸だけを動かす橋として扱う。現在は一様系の R×対称性平面が閉じている。"
 publishedAt: 2026-09-16T03:45:00+09:00
 updatedAt: 2026-09-19
 area: "Physics"
-topics: ["statistical mechanics", "spin models", "transfer matrix", "coarse graining", "memory"]
+topics: ["statistical mechanics", "spin models", "transfer matrix", "memory", "linear response"]
 status: growing
 ---
 
-Ising、clock、XYは別々の模型名として学ぶことが多い。しかし最近接相互作用を角度差で書けば、三者は同じ cosine 相互作用族に置ける。
+Ising、clock、XY を別々の模型名として並べるだけでは、何を変えたことで物理が変わったのかが見えにくい。
+
+現在のノート群では、1次元 classical cosine 系を
 
 $$
 \boxed{
-H = -\sum_i\sum_{r=1}^{R}
-J_{i,r}\cos(\theta_{i+r}-\theta_i)
+H
+=
+-\sum_i\sum_{r=1}^{R}
+J_{i,r}
+\cos(\theta_{i+r}-\theta_i)
 }
 $$
 
-違うのは、まず局所状態空間である。
+という共通形に置き、
 
 $$
 \boxed{
-\theta_i\in
-Z_2,\qquad
-Z_q,\qquad
-U(1)
+\text{模型座標}
+=
+(\text{状態空間 / 対称性},\ R,\ \text{空間構造})
 }
 $$
 
-$Z_2$ では $\theta_i\in\{0,\pi\}$ と取れば
+で整理する。
 
-$$
-\cos(\theta_i-\theta_j)=s_i s_j
-$$
-
-なので、標準 bilinear Ising 相互作用は cosine-$Z_2$ の特殊例として厳密に含まれる。
-
-今のスピン系ノート群では、模型そのものを
-
-$$
-\boxed{
-\text{模型座標} = (\text{状態空間 / 対称性},\ R,\ \text{空間構造})
-\qquad
-[\text{cosine family fixed}]
-}
-$$
-
-で置き、その模型をどう読むかを
-
-$$
-\boxed{
-\text{approximation / representation} = \text{情報フィルター}
-}
-$$
-
-として分ける。
-
-前者は「どんな系か」、後者は「その系から何を残して見るか」に対応する。
-
-個別ノートでは 相互作用族 をタイトルにも明示する。現在の基準系列はすべて
+相互作用族は当面 cosine に固定する。
 
 $$
 \boxed{
@@ -66,237 +42,138 @@ V(\Delta\theta)=-J\cos\Delta\theta
 }
 $$
 
-を基本とする cosine family なので、タイトルは
+したがって、今見ている違いは「別の相互作用関数」ではなく、同じ相互作用族の中で
 
-$$
-\boxed{
-\text{1次元}
-+
-\text{空間構造}
-+
-\text{相互作用範囲}
-+
-\text{cosine-対称性}
-+
-\text{スピン系}
--
-\text{固有の物理}
-}
-$$
+- 局所状態が何を取りうるか
+- どこまで離れた自由度を結ぶか
+- 結合が空間のどこでどう変化するか
 
-とする。
-
-したがって
-
-$$
-\boxed{
-\text{cosine-}Z_2
-\longrightarrow
-\text{cosine-}Z_q
-\longrightarrow
-\text{cosine-}U(1)
-}
-$$
-
-が同一 相互作用族 内の 対称性 / 状態空間軸になる。
-
-Ising、clock、XYという名前は本文中で既存文献との対応を示す呼称として残す。別の interaction form、例えば $\cos2\phi$ や多体項を加えた場合は、対称性 が同じでもこの cosine 基準系列とは別の 相互作用族 として扱う。
+を分けて動かしたものである。
 
 ---
 
-## 1. 記憶変数 — 何を記憶するか
+## 1. 状態空間 / 対称性 — 何を記憶できるか
 
-最近接 Ising では
-
-$$
-\tau_i=s_i s_{i+1}=\pm1
-$$
-
-を局所変数に取れる。$\tau_i=-1$ は ドメイン壁 / spin flip であり、
-
-$$
-s_0s_r = \prod_{j=0}^{r-1}\tau_j
-$$
-
-だから、遠距離のスピン記憶は局所的な符号反転列の積として作られる。
+局所状態空間は
 
 $$
 \boxed{
-\text{Ising} = \text{離散的な 反転 / ドメイン壁配置を記憶する系}
-}
-$$
-
-XY では
-
-$$
-\phi_i=\theta_{i+1}-\theta_i
-$$
-
-が対応する局所増分で、
-
-$$
-e^{i(\theta_r-\theta_0)} = \prod_{j=0}^{r-1}e^{i\phi_j}.
-$$
-
-したがって
-
-$$
-\boxed{
-\text{XY} = \text{連続的な 位相増分 を記憶する系}
-}
-$$
-
-となる。
-
-両者に共通するのは
-
-$$
-\boxed{
-\text{局所増分の列}
+Z_2
 \longrightarrow
-\text{その累積・積が遠距離 記憶 を決める}
+Z_q
+\longrightarrow
+U(1)
 }
 $$
 
-という構造である。
+と並べる。
 
-### 離散二値と連続位相の間
-
-$q$ 状態 clock 模型 では
+具体的には
 
 $$
-\theta_i=\frac{2\pi n_i}{q},
+\theta_i\in
+\begin{cases}
+\{0,\pi\}, & Z_2,\\[4pt]
+\left\{\dfrac{2\pi n}{q}\right\}, & Z_q,\\[8pt]
+S^1, & U(1).
+\end{cases}
+$$
+
+$Z_2$ では
+
+$$
+\cos(\theta_i-\theta_j)=s_is_j,
 \qquad
-n_i\in\mathbb Z_q,
+s_i=\pm1,
 $$
 
-局所増分は
+なので標準 Ising 相互作用を cosine-$Z_2$ として厳密に含められる。
+
+局所増分で見ると、
 
 $$
-\phi_i = \frac{2\pi a_i}{q},
-\qquad
-a_i\in\mathbb Z_q.
+Z_2:\quad
+\tau_i=s_is_{i+1}=\pm1,
 $$
 
-よって
+$$
+Z_q,\ U(1):\quad
+\phi_i=\theta_{i+1}-\theta_i.
+$$
+
+したがって状態空間軸は、
 
 $$
 \boxed{
-Z_2\ \text{Ising}
-\longrightarrow
-Z_q\ \text{clock}
-\longrightarrow
-U(1)\ \text{XY}
+\text{二値の反転記憶}
+\to
+\text{有限角度の増分記憶}
+\to
+\text{連続位相増分の記憶}
 }
 $$
 
-は
+という変化として読める。
+
+最近接では特に、
 
 $$
-\boxed{
 \{0,\pi\}
-\longrightarrow
+\to
 \left\{\frac{2\pi a}{q}\right\}
-\longrightarrow
+\to
 S^1
-}
 $$
 
-という **記憶アルファベット の細分化** として読める。
+という**記憶アルファベットの細分化**がそのまま転送スペクトルの細分化につながる。
 
-ただし、有限 $q$ が XY にどれだけ近いかは $q$ だけでは決まらない。低温での thermal angular width は
-
-$$
-\sigma_T\sim K^{-1/2},
-\qquad K=\beta J,
-$$
-
-clock の角度刻みは
+有限 $q$ と $U(1)$ の差は、単に状態数の大小ではない。角度刻み
 
 $$
 \Delta\phi=\frac{2\pi}{q}
 $$
 
-なので、
+と熱揺らぎ幅
+
+$$
+\sigma_T\sim K^{-1/2},
+\qquad
+K=\beta J
+$$
+
+の比
 
 $$
 \boxed{
-\eta = \frac{\Delta\phi}{\sigma_T}
+\eta
 \sim
 \frac{2\pi\sqrt K}{q}
 }
 $$
 
-が離散性を実際に解像できるかを決める。
-
-$$
-\eta\gg1
-\quad\Rightarrow\quad
-\text{稀な離散ジャンプ},
-$$
-
-$$
-\eta\ll1
-\quad\Rightarrow\quad
-\text{dense small-step 位相拡散}.
-$$
-
-したがって 対称性 軸は単なる状態数の増加ではなく、
-
-$$
-\boxed{
-\text{記憶アルファベット}
-\times
-\text{thermal resolution}
-}
-$$
-
-として読む方が物理が見えやすい。
-
-さらに Fourier 側では finite $q$ により
-
-$$
-m\sim m+q
-$$
-
-という 高調波 folding が起こり、
-
-$$
-\boxed{
-\text{angular discretization}
-\longleftrightarrow
-\text{spectral aliasing}
-}
-$$
-
-が同じ有限-$q$性の二つの表現になる。
-
-[1次元一様最近接 cosine-Zq スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) は、この $Z_2\to Z_q\to U(1)$ 軸を実際に埋める位置にある。
+によって、離散ジャンプとして見えるか、連続的な位相拡散として見えるかが変わる。
 
 ---
 
-## 2. 相互作用範囲 (R) — どこまで記憶するか
+## 2. 相互作用範囲 \(R\) — どこまで履歴を読むか
 
-記憶変数 を固定して相互作用範囲だけを伸ばすと、局所エネルギーが読む増分列の長さが変わる。
+相互作用範囲を変えても、局所状態空間そのものは変わらない。
 
-Ising では
-
-$$
-s_i s_{i+r} = \prod_{m=0}^{r-1}\tau_{i+m}
-$$
-
-なので、
+$Z_2$ では
 
 $$
-H = -\sum_i\sum_{r=1}^{R}
-J_r s_i s_{i+r}
+s_i s_{i+r}
+=
+\prod_{m=0}^{r-1}\tau_{i+m},
 $$
 
-は
+なので
 
 $$
 \boxed{
-H = -\sum_i\sum_{r=1}^{R}
+H
+=
+-\sum_i\sum_{r=1}^{R}
 J_r
 \prod_{m=0}^{r-1}\tau_{i+m}
 }
@@ -304,63 +181,87 @@ $$
 
 となる。
 
-$R=1$ では
+したがって
 
 $$
-H=-J_1\sum_i\tau_i
+R=1:
+\quad
+\text{独立なドメイン壁},
 $$
 
-で ドメイン壁変数は独立。
-
-$R=2$ では
-
 $$
-H = -J_1\sum_i\tau_i
--J_2\sum_i\tau_i\tau_{i+1},
+R=2:
+\quad
+\text{相互作用するドメイン壁},
 $$
 
-隣接する ドメイン壁 / 反転配置が相関する。
-
-$R=3$ では
-
 $$
-s_i s_{i+3} = \tau_i\tau_{i+1}\tau_{i+2}
+R=n:
+\quad
+\text{高次ドメイン壁相互作用}
 $$
 
-が入り、より長い 壁配置 を局所エネルギーが区別する。
+へ進む。
 
-XY でも
+$Z_q$ と $U(1)$ でも
 
 $$
-\theta_{i+r}-\theta_i = \sum_{m=0}^{r-1}\phi_{i+m}
+\theta_{i+r}-\theta_i
+=
+\sum_{m=0}^{r-1}\phi_{i+m}
 $$
 
 なので、
 
 $$
--J_r
+\boxed{
+H
+=
+-\sum_i\sum_{r=1}^{R}
+J_r
 \cos\left(
 \sum_{m=0}^{r-1}\phi_{i+m}
 \right)
-$$
-
-が長さ $r$ の 位相増分パターン を読む。
-
-したがって
-
-$$
-\boxed{
-R = \text{記憶 depth}
 }
 $$
 
-とみなせる。
+となる。
 
-この分離によって
+ここから
 
 $$
 \boxed{
-\text{Ising / clock / XY の違い} = \text{何を記憶するか}
+R
+=
+\text{局所統計を閉じるために必要な空間履歴の深さ}
+}
+$$
+
+という見方が出る。
+
+増分表示では、有限範囲 $R$ に対して直前の $R-1$ 個の増分を保持すればよい。
+
+したがって履歴空間は
+
+$$
+\boxed{
+\{0,\pi\}^{R-1}
+\to
+\mathbb Z_q^{\,R-1}
+\to
+(S^1)^{R-1}
+}
+$$
+
+となる。
+
+この形にすると、
+
+$$
+\boxed{
+R
+=
+\text{履歴の深さ}
 }
 $$
 
@@ -368,741 +269,564 @@ $$
 
 $$
 \boxed{
-R\text{ の違い} = \text{どこまで記憶するか}
+Z_2\to Z_q\to U(1)
+=
+\text{履歴1要素あたりの分解能}
 }
 $$
 
-を混ぜずに扱える。
+を明確に分けられる。
 
 ---
 
-## 3. 空間構造 — 記憶則が空間のどこで変わるか
+## 3. 空間構造 — 記憶則がどこで変わるか
 
-記憶変数 と $R$ を固定したまま、結合の配置だけを変える方向がある。
+相互作用範囲と状態空間を固定したまま、結合の位置依存性を変える方向が空間構造軸である。
+
+最近接なら
+
+$$
+H=-\sum_iJ_i\,V(x_i,x_{i+1})
+$$
+
+として、
 
 $$
 J_i=J
 $$
 
-なら uniform、
+なら一様、
 
 $$
 J_{i+p}=J_i
 $$
 
-なら periodic、
+なら周期、
 
-Fibonacci word に従えば quasiperiodic、
+Fibonacci 列などに従えば準周期、
 
-確率的に選べば random bond になる。
+確率変数ならランダムとなる。
 
-最近接 Ising の零外場なら
+例えば最近接 $Z_2$ では
 
 $$
 H=-\sum_iJ_i\tau_i
 $$
 
-なので、$J_i$ を変えても ドメイン壁同士は独立なままである。変わるのは「どの位置で wall を作りやすいか」という空間規則である。
+なので、周期化してもドメイン壁同士は独立なままである。
+
+変わるのは
 
 $$
 \boxed{
-\text{空間構造} = \text{記憶則 が空間のどこでどう変わるか}
-}
-$$
-
-周期 bond Ising は
-
-$$
-\text{uniform}
-\longrightarrow
-\text{periodic}
-$$
-
-だけを動かした模型として読める。
-
-次の自然な延長は
-
-$$
-\boxed{
-\text{periodic}
-\longrightarrow
-\text{quasiperiodic}
-\longrightarrow
-\text{random}
+\text{壁を作りやすい場所の空間規則}
 }
 $$
 
 である。
 
-最近接零外場なら
+零外場では
 
 $$
-C_i(r) = \prod_{n=0}^{r-1}
+\boxed{
+C_i(r)
+=
+\prod_{n=0}^{r-1}
 \tanh(\beta J_{i+n})
+}
 $$
 
-だから、
-
-$$
-\ln C_i(r) = \sum_{n=0}^{r-1}
-\ln\tanh(\beta J_{i+n})
-$$
-
-となり、Hamiltonian に入れた空間列が correlation の空間構造へ直接移る。
+なので、Hamiltonian に入れた空間列が相関の空間構造へ直接写る。
 
 この軸では
 
 $$
 \boxed{
-\text{Hamiltonian の空間秩序}
-\longrightarrow
-\text{相関の空間秩序}
+\text{一様}
+\to
+\text{周期}
+\to
+\text{準周期}
+\to
+\text{ランダム}
 }
 $$
 
-が中心問題になる。
+を順に動かす。
 
 ---
 
-## 4. 既存ノートを座標点と座標間の橋として置く
+## 4. 一つの模型座標には一つの個別ノートだけを置く
 
-現在のノート群は、個別模型ノートを **模型点**、比較ノートを **座標間の橋** として分けると構造が見えやすい。
-
-### 4.1 模型点 — 各ノートがどの座標にいるか
-
-| 役割 | ノート | $d$ | 空間構造 | $R$ | 相互作用 | 対称性 / 状態空間 | 局所記憶 |
-| --- | --- | ---: | --- | --- | --- | --- | --- |
-| 模型 | [1次元一様最近接 cosine-$Z_2$ スピン系 — 空間記憶と応答](/notes/ising-transfer-matrix) | 1 | uniform | $R=1$ | cosine | $Z_2$ | 反転 / ドメイン壁 |
-| 模型 | [1次元周期最近接 cosine-$Z_2$ スピン系 — 構造波数](/notes/ising-r1-periodic) | 1 | periodic | $R=1$ | cosine | $Z_2$ | 位置依存のドメイン壁重み |
-| 模型 | [1次元一様第二近接 cosine-$Z_2$ スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | 1 | uniform | $R=2$ | cosine | $Z_2$ | 相互作用する壁配置 |
-| 模型 | [1次元一様有限範囲 cosine-$Z_2$ スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | 1 | uniform | $R=n$ | cosine | $Z_2$ | 高次ドメイン壁配置 |
-| 模型 | [1次元一様有限範囲 cosine-$Z_q$ スピン系 — 離散位相履歴と有限記憶](/notes/clock-chain-finite-range) | 1 | uniform | $R=n$ | cosine | $Z_q$ | 離散位相履歴 |
-| 模型 | [1次元一様有限範囲 cosine-$U(1)$ スピン系 — 連続位相履歴と複数モード](/notes/xy-chain-finite-range) | 1 | uniform | $R=n$ | cosine | $U(1)$ | 連続位相履歴 |
-| 模型 | [1次元一様最近接 cosine-$Z_q$ スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $Z_q$ | 離散位相増分 |
-| 模型 | [1次元一様第二近接 cosine-$Z_q$ スピン系 — 離散螺旋と角度記憶](/notes/clock-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $Z_q$ | ロックされた離散ねじれ / カイラリティ |
-| 模型 | [1次元一様最近接 cosine-$U(1)$ スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $U(1)$ | 連続位相増分 |
-| 模型 | [1次元一様第二近接 cosine-$U(1)$ スピン系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $U(1)$ | correlated 位相増分 |
-
-同じ行方向で 対称性 を動かし、同じ列方向で $R$ や 空間構造 を動かす、と読む。
-
-### 4.2 座標間の橋 — 比較ノートはどの軸を横断するか
-
-| role | 比較ノート | 固定する座標 | 動かす座標 | 接続する 模型点 | 比較する量 |
-| --- | --- | --- | --- | --- | --- |
-| 比較 | [1次元一様最近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ と記憶の連続化](/notes/ising-xy-nearest-neighbor-comparison) | $d=1$, uniform, $R=1$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | 局所増分, $\rho_m$, 転送スペクトル, $\xi$, $\chi(k)$ |
-| 比較 | [1次元一様第二近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ を三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) | $d=1$, uniform, $R=2$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | 欠陥 / テクスチャ, 局所遷移, 転送スペクトル, ピッチロッキング |
-| 比較 | [1次元一様 cosine-$Z_2$ スピン系 — 相互作用範囲と空間記憶](/notes/ising-range-comparison) | $d=1$, uniform, cosine, $Z_2$, classical | 相互作用範囲 $R$ | $R=1 \leftrightarrow R=2 \leftrightarrow R=n$ | ドメイン壁相互作用, 局所記憶次数, 転送状態, 相関スペクトル, $q_\chi$ |
-| 比較 | [1次元一様有限範囲 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ と有限履歴](/notes/finite-range-symmetry-comparison) | $d=1$, uniform, $R=n$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | 履歴アルファベット, 履歴空間, 転送対象, 複数相関モード |
-
-比較ノートは新しい 模型点 ではなく、
+現在は
 
 $$
 \boxed{
-\text{座標間の橋} = \text{一つの軸だけを動かして複数の 模型点 を読むノート}
+\text{1模型座標}
+=
+\text{1個別ノート}
 }
 $$
 
-とみなす。
+を原則にしている。
 
-### 4.3 現在埋まっている座標面
-
-現在もっとも密に埋まっているのは
+同じ
 
 $$
-\boxed{
-d=1,\qquad
-\text{uniform},\qquad
-\text{cosine},\qquad
-\text{classical}
-}
+(d,\ \text{空間構造},\ R,\ \text{相互作用族},\ \text{状態空間})
 $$
 
-という断面である。
+を持つ内容を、外場、カイラリティ、構造因子などの話題ごとに別ノートへ分けない。
 
-この断面を $R$ と 対称性 で並べると、
+それらは同じ模型の異なる観測・表現なので、**一つの個別ノート内の節としてまとめる**。
 
-| 相互作用範囲 | $Z_2$ | $Z_q$ | $U(1)$ | 横方向の比較 |
+現在の個別模型は次のようになる。
+
+| 空間構造 | $R$ | $Z_2$ | $Z_q$ | $U(1)$ |
+| --- | --- | --- | --- | --- |
+| 一様 | $1$ | [模型](/notes/ising-transfer-matrix) | [模型](/notes/clock-chain-nearest-neighbor) | [模型](/notes/xy-chain-nearest-neighbor) |
+| 一様 | $2$ | [模型](/notes/ising-r2-transfer-matrix) | [模型](/notes/clock-chain-second-neighbor) | [模型](/notes/xy-chain-second-neighbor) |
+| 一様 | $n$ | [模型](/notes/ising-rn-transfer-matrix) | [模型](/notes/clock-chain-finite-range) | [模型](/notes/xy-chain-finite-range) |
+| 周期 | $1$ | [模型](/notes/ising-r1-periodic) | — | — |
+
+このうち周期 $R=1,Z_2$ では、零外場の構造波数と周期外場応答を同じ個別ノートに統合している。
+
+一様 $R=2,U(1)$ でも、螺旋記憶、カイラリティキンク、複数の記憶長、一様・周期・回転外場への応答を同じ個別ノートに統合している。
+
+---
+
+## 5. \(R\times\) 状態空間の基準平面は閉じた
+
+一様・classical・cosine を固定した断面では、
+
+| 相互作用範囲 | $Z_2$ | $Z_q$ | $U(1)$ | 比較 |
 | --- | --- | --- | --- | --- |
 | $R=1$ | [模型](/notes/ising-transfer-matrix) | [模型](/notes/clock-chain-nearest-neighbor) | [模型](/notes/xy-chain-nearest-neighbor) | [比較](/notes/ising-xy-nearest-neighbor-comparison) |
 | $R=2$ | [模型](/notes/ising-r2-transfer-matrix) | [模型](/notes/clock-chain-second-neighbor) | [模型](/notes/xy-chain-second-neighbor) | [比較](/notes/ising-xy-second-neighbor-comparison) |
 | $R=n$ | [模型](/notes/ising-rn-transfer-matrix) | [模型](/notes/clock-chain-finite-range) | [模型](/notes/xy-chain-finite-range) | [比較](/notes/finite-range-symmetry-comparison) |
-| **縦方向の比較** | [比較](/notes/ising-range-comparison) | — | — | — |
+| **\(R\) 比較** | [比較](/notes/ising-range-comparison) | — | — | — |
 
-今回 $R=n$ の $Z_q$ と $U(1)$ まで埋まったことで、
+したがって
 
 $$
 \boxed{
-R=1, R=2, R=n
-\quad\text{のすべてで}\quad
-Z_2\leftrightarrow Z_q\leftrightarrow U(1)
+(R=1,\ R=2,\ R=n)
+\times
+(Z_2,\ Z_q,\ U(1))
 }
 $$
 
-となり、$R\times$ 対称性の基準平面は閉じた。以後この平面は、新しい模型点を増やす場所というより、空間構造や相互作用族を動かしたときの基準面として使える。
+の基準平面は埋まった。
 
-一方 空間構造 軸は $Z_2$, $R=1$ で
-
-| 空間構造 | 模型 |
-| --- | --- |
-| uniform | [1次元一様最近接 cosine-$Z_2$](/notes/ising-transfer-matrix) |
-| periodic | [1次元周期最近接 cosine-$Z_2$](/notes/ising-r1-periodic) |
-| quasiperiodic | — |
-| random | — |
-
-となっている。
-
-したがって現在のノート群は、
+ここで見えている共通構造は、
 
 $$
 \boxed{
-\text{模型点}
-+
-\text{座標間の橋}
-+
-\text{empty coordinate}
-}
-$$
-
-の三種類で読むことができる。
-
-空いている座標を見れば「次にどの軸を一つ動かすか」が決まり、比較 がある場所では「その変形によって何が変わったか」を同じ物理量で追える。
-
----
-
-## 5. 比較ノートは座標間の辞書として使う
-
-比較ノートでは詳細導出を繰り返さず、個別模型ノートですでに得た量を共通座標へ写す。
-
-最近接 比較 なら、
-
-$$
-\boxed{
-Z_2
-\to
-Z_q
-\to
-U(1)
-}
-$$
-
-に対して
-
-$$
-\boxed{
-\phi_i
-\to
-\rho_m
-\to
-\lambda_m/\lambda_0
-\to
-\xi_m
-\to
-\chi(k)
-}
-$$
-
-という共通辞書を使う。
-
-第二近接 比較 でも、
-
-$$
-\boxed{
-Z_2
-\to
-Z_q
-\to
-U(1)
-}
-$$
-
-を横断しながら、
-
-$$
-\boxed{
-\text{相互作用するドメイン壁 / ロックされたねじれ / らせん}
-\longleftrightarrow
-\text{局所遷移確率}
-\longleftrightarrow
-\text{転送スペクトル}
-}
-$$
-
-という三つの 情報フィルター を対応させる。ここでは finite-$q$ 固有の ピッチロッキング が、離散欠陥と連続テクスチャ の間を埋める。
-
-したがって比較ノートの役割は
-
-$$
-\boxed{
-\text{模型Aの式}
-\leftrightarrow
-\text{共通物理量}
-\leftrightarrow
-\text{模型Bの式}
-}
-$$
-
-を作ることであり、独立した模型を一つ増やすことではない。
-
----
-
-## 6. approximation / representation は 情報フィルター
-
-平均場、Bethe/cavity、転送行列 / 転送作用素 は 模型座標 の第四軸ではない。
-
-同じ模型に対して、どの自由度を残して見るかが異なる。
-
-$$
-\boxed{
-\text{approximation / representation} = \text{情報フィルター}
-}
-$$
-
-とみなす。
-
-### 平均場 / 鞍点
-
-揺らぎを抑えて代表的な配置を残すため、
-
-$$
-\boxed{
-\text{秩序・texture・欠陥の形・barrier}
-}
-$$
-
-が見えやすい。
-
-第二近接 XY なら
-
-$$
-\phi\simeq\pm q_*
-$$
-
-という カイラリティセクター、
-
-$$
-\phi_{\rm kink}(x)
-$$
-
-という kink profile、
-
-$$
-E_k
-$$
-
-という kink energy が自然に現れる。
-
-### Bethe / cavity
-
-局所条件付き確率を残すため、
-
-$$
-P(x_{i+1}|x_i)
-$$
-
-が中心量になる。
-
-Ising なら
-
-$$
-P(\tau_{i+1}|\tau_i),
-$$
-
-XY なら
-
-$$
-P(\phi_{i+1}|\phi_i)
-$$
-
-を読む。
-
-$$
-\boxed{
-\text{どの局所状態の次に何が来やすいか}
-}
-$$
-
-を見る表現である。
-
-### 転送行列 / 転送作用素
-
-局所情報を スペクトルへ集約し、長距離で残る mode を直接読む。
-
-$$
-T\psi_n=\lambda_n\psi_n,
-$$
-
-$$
-\boxed{
-\xi^{-1} = -\ln\left|
-\frac{\lambda_1}{\lambda_0}
-\right|
-}
-$$
-
-で相関長が出る。
-
-subleading eigenvalue が複素なら
-
-$$
-q_{\rm spec}=\arg\lambda_1
-$$
-
-から構造波数も得られる。
-
-したがって自然に見えるのは
-
-$$
-\boxed{
-\text{長距離 記憶・相関長・構造波数}
+\text{履歴の深さ}
+\times
+\text{履歴の分解能}
 }
 $$
 
 である。
 
-三つの関係は
-
-$$
-\text{平均場}
-<
-\text{Bethe}
-<
-\text{exact}
-$$
-
-という単純な精度序列ではない。
-
-$$
-\boxed{
-\text{欠陥の形}
-\leftrightarrow
-\text{局所遷移頻度}
-\leftrightarrow
-\text{長距離スペクトル}
-}
-$$
-
-という異なる情報の切り出し方である。
+この平面は今後、新しい模型点を増やす場所というより、空間構造や相互作用族を動かしたときの**基準面**として使う。
 
 ---
 
-## 7. 各ノートは同じ読み順を通る
+## 6. 比較ノートは模型点を増やさず、軸を横断する
 
-タイトルだけで座標を揃えても、ノートごとに議論の入口と出口が違うと比較しにくい。節数や固有の話題は揃えず、すべての個別模型ノートが次の spine を通るようにする。
+比較ノートは独立した模型ではない。
 
 $$
 \boxed{
-\text{具体的な違和感・問い}
-\to
-\text{系の座標と Hamiltonian}
-\to
-\text{局所 記憶変数}
-\to
-\text{長距離 記憶 / 転送スペクトル}
-\to
-\text{観測量・応答}
-\to
-\text{隣接する座標との比較}
-\to
-\text{得られた見方}
+\text{比較ノート}
+=
+\text{一つの模型座標だけを動かす橋}
 }
 $$
 
-### 座標と Hamiltonian
+とする。
 
-導入の直後に
+現在は、
 
-$$
-(d,\ \text{空間構造},\ R,\ \text{相互作用族},\ \text{状態空間 / 対称性})
-$$
+- $R=1$ 固定で $Z_2\leftrightarrow Z_q\leftrightarrow U(1)$
+- $R=2$ 固定で $Z_2\leftrightarrow Z_q\leftrightarrow U(1)$
+- $R=n$ 固定で $Z_2\leftrightarrow Z_q\leftrightarrow U(1)$
+- $Z_2$ 固定で $R=1\leftrightarrow R=2\leftrightarrow R=n$
 
-を明示し、その座標だけでは決まらない具体的 Hamiltonian も置く。
+の比較がある。
 
-現在の基準系列なら
-
-$$
-H=-J\sum_i\cos(\theta_{i+1}-\theta_i)
-$$
-
-まで書き、さらに $\theta_i$ の取りうる集合を $Z_2$、$Z_q$、$U(1)$ のどれかとして明示する。これで 対称性 だけでは一意でない Hamiltonian の曖昧さを消す。
-
-### 局所 記憶変数
-
-元の spin 変数をそのまま追うのではなく、その座標で自然な局所増分を先に探す。
-
-$$
-Z_2:\quad \tau_i=s_i s_{i+1},
-$$
-
-$$
-Z_q,\ U(1):\quad \phi_i=\theta_{i+1}-\theta_i.
-$$
-
-相互作用範囲 や 空間構造 を変えたとき、最初に「この局所変数の独立性・遷移則・重みのどれが変わったか」を読む。
-
-### 長距離 記憶
-
-局所則をそのまま終点にせず、
-
-$$
-C(r),\qquad
-\lambda_n/\lambda_0,\qquad
-\xi,\qquad
-q_{\rm spec}
-$$
-
-へつなぐ。
+比較ノートでは個別導出を繰り返さず、
 
 $$
 \boxed{
-\text{局所則}
-\longrightarrow
-\text{転送対象}
-\longrightarrow
-\text{長距離記憶}
-}
-$$
-
-が各ノートの共通骨格になる。
-
-### 観測量・応答
-
-長距離 記憶 が何として観測されるかを分ける。
-
-$$
-\chi(q),\qquad
-S(q),\qquad
-q_\chi,\qquad
-Q_{\rm peak}
-$$
-
-などは 転送スペクトル と同じ量ではない。各ノートで「内部スペクトル」と「外から読む 観測量」を区別する。
-
-### 隣接する座標との比較
-
-最後に必ず、一つだけ座標を変えた隣の系と比較する。
-
-$$
-R=1\leftrightarrow R=2,
-$$
-
-$$
-Z_2\leftrightarrow Z_q\leftrightarrow U(1),
-$$
-
-$$
-\text{uniform}\leftrightarrow\text{periodic}\leftrightarrow\text{quasiperiodic}
-$$
-
-のように、一度に複数軸を動かさない。
-
-章末は 一般的な「まとめ」ではなく
-
-$$
-\boxed{\text{得られた見方}}
-$$
-
-または、その座標から自然に残る問いで閉じる。
-
-比較ノートは少し役割が異なり、
-
-$$
-\boxed{
-\text{固定する座標}
-\to
-\text{比較する 記憶変数 / 情報フィルター}
-\to
+\text{模型A}
+\leftrightarrow
 \text{共通量}
-\to
-\text{差が現れる量}
+\leftrightarrow
+\text{模型B}
 }
 $$
 
-の順にする。個別導出は繰り返さない。
+という辞書を作る。
+
+共通して追う量は、
+
+$$
+\text{局所増分},
+\qquad
+\text{履歴次数},
+\qquad
+\text{転送対象},
+\qquad
+\xi,
+\qquad
+q_{\rm corr},
+\qquad
+\chi(Q)
+$$
+
+などである。
 
 ---
 
-## 8. 今どの軸まで埋まっているか
+## 7. 各個別ノートは応答まで通す
 
-記憶-variable 軸は
+個別ノートでは、内部構造だけで終わらず、外からどう読めるかまでつなぐ。
+
+共通 spine は
 
 $$
 \boxed{
-Z_2
+\text{Hamiltonian}
 \to
-Z_q
+\text{局所記憶変数}
 \to
-U(1)
+\text{転送スペクトル / 長距離記憶}
+\to
+\text{一様外場}
+\to
+\text{周期外場}
+\to
+\text{応答波数}
 }
 $$
 
-まで一度つながった。
+である。
 
-ここから得られたのは、Ising と XY の差を「離散か連続か」と言うだけでは足りず、
+一様外場は
+
+$$
+Q=0
+$$
+
+を読む。
+
+周期外場
+
+$$
+h_i=h_Q\cos(Qi+\varphi)
+$$
+
+は
 
 $$
 \boxed{
-\text{記憶アルファベット}
+\delta O(Q)
+=
+\chi(Q)h_Q
+}
+$$
+
+として波数依存応答を読む。
+
+$U(1)$ 系ではさらに
+
+$$
+\boxed{
+H_{\rm rot}
+=
+-h\sum_i
+\cos(\theta_i-Qi-\varphi)
+}
+$$
+
+という回転外場を使い、螺旋波数やカイラリティへ位相整合できる。
+
+したがって、
+
+$$
+\boxed{
+\text{内部の記憶}
+\longrightarrow
+\text{外場で観測される応答}
+}
+$$
+
+までを一つの模型ノートの中で閉じる。
+
+---
+
+## 8. 実際に使っている近似・表現
+
+模型座標とは別に、同じ模型をどう読むかという表現がある。
+
+ただし、現在のノート群で実際に使っているものだけを区別する。
+
+### 転送行列 / 転送作用素
+
+これはほぼ全系列の共通言語になっている。
+
+離散状態では
+
+$$
+T\psi_a=\lambda_a\psi_a,
+$$
+
+連続状態では
+
+$$
+\mathcal T\psi_a=\lambda_a\psi_a.
+$$
+
+固有値の絶対値から
+
+$$
+\boxed{
+\xi_a^{-1}
+=
+-\ln\left|
+\frac{\lambda_a}{\lambda_0}
+\right|
+}
+$$
+
+が出る。
+
+複素位相を持つ傾斜スペクトルでは
+
+$$
+\boxed{
+q_a=\arg\lambda_a
+}
+$$
+
+が長距離相関の空間位相になる。
+
+したがって転送法は、
+
+$$
+\boxed{
+\text{局所統計}
+\to
+\text{長距離記憶}
+\to
+\text{応答}
+}
+$$
+
+をつなぐ主たる表現である。
+
+### 長波長展開 + 鞍点
+
+これは現在、[一様第二近接 cosine-$U(1)$ 系](/notes/xy-chain-second-neighbor) で実際に使っている。
+
+Lifshitz 点近傍で格子 Hamiltonian を展開し、
+
+$$
+F[\phi]
+=
+\int dx
+\left[
+\frac{B}{2}(\partial_x\phi)^2
 +
-\text{thermal resolution}
-+
-\text{高調波 resolution}
-}
+V(\phi)
+\right]
 $$
 
-として読む必要がある、という見方である。
+という連続場を導く。
 
-相互作用範囲軸も
+その極値を Euler--Lagrange 方程式で求めることで、
 
 $$
-R=1
-\to
-R=2
-\to
-R=n
+\phi_{\rm kink}(x)
 $$
 
-まで $Z_2$、$Z_q$、$U(1)$ の三列すべてで接続した。したがって現在もっとも薄いのは空間構造軸である。
+や kink energy を得る。
+
+これは独立に仮定した平均場模型ではなく、
 
 $$
 \boxed{
-\text{uniform}
+\text{格子模型}
 \to
-\text{periodic}
+\text{小振幅・長波長展開}
 \to
-\text{quasiperiodic}
-\to
-\text{random}
+\text{鞍点}
 }
 $$
 
-のうち、periodic までは既存ノートがあるが、quasiperiodic / random はまだ空いている。
+という近似である。
 
-そのため次の一手としては、記憶変数 と $R$ を固定したまま
+したがって「平均場」というより、**Landau--Ginzburg 型の有効場を鞍点で読む**と表現する方が正確である。
+
+### Bethe / cavity はまだ使っていない
+
+Bethe / cavity は局所条件付き確率を扱う自然な候補ではあるが、現在の個別ノートでは実際には導入していない。
+
+したがって現段階の上位構造には含めない。
+
+必要になった時点で、
+
+$$
+P(x_{i+1}\mid x_i,\ldots)
+$$
+
+を転送法とは別の近似として導入する。
+
+---
+
+## 9. 現在もっとも空いているのは空間構造軸
+
+$R\times$ 状態空間の一様平面は閉じた。
+
+一方、空間構造軸はまだ
 
 $$
 \boxed{
-\text{periodic}
+\text{一様}
 \to
-\text{quasiperiodic}
+\text{周期}
 }
 $$
 
-だけを動かすのが自然になる。
+までしか進んでいない。
 
-Fibonacci bond Ising は、その最小例として
+次に自然なのは
+
+$$
+\boxed{
+\text{周期}
+\to
+\text{準周期}
+}
+$$
+
+である。
+
+最近接 $Z_2$ なら、
+
+$$
+C_i(r)
+=
+\prod_{n=0}^{r-1}
+\tanh(\beta J_{i+n})
+$$
+
+という厳密な積構造を保ったまま、有限単位胞だけを失わせられる。
+
+Fibonacci bond を使えば、
 
 $$
 \boxed{
 \text{指数減衰}
 \times
-\text{準周期 modulation}
+\text{準周期変調}
 }
 $$
 
-がどのように相関へ現れるかを直接読める。
+が相関へどう現れるかを直接追える。
 
----
-
-## 9. その先に残る二つの方向
-
-空間構造 の次には、模型座標そのものとは別に二つの拡張が残る。
-
-### 空間記憶 から 時間記憶 へ
-
-現在の中心量は
-
-$$
-C(r)
-$$
-
-だが、Glauber dynamics などを入れれば
-
-$$
-C(r,t)
-$$
-
-へ進める。
-
-そのとき
+その次に random bond へ進めば、
 
 $$
 \boxed{
-\text{転送スペクトル}
-\longleftrightarrow
-\text{時間発展生成子のスペクトル}
+\text{一様}
+\to
+\text{周期}
+\to
+\text{準周期}
+\to
+\text{ランダム}
 }
 $$
 
-として空間記憶と時間記憶を同じ spectral viewpoint で比較できる。
-
-### 1D の point defect から 2D の line defect へ
-
-1D Ising の ドメイン壁 は点だが、2D では線になる。
-
-$$
-E_{\rm wall}\sim\sigma\ell,
-$$
-
-$$
-S_{\rm wall}\sim s\ell
-$$
-
-なら
-
-$$
-F_{\rm wall}
-\sim
-(\sigma-Ts)\ell.
-$$
-
-1D で使ってきた
-
-$$
-E_{\rm defect}
-\longrightarrow
-\Delta F_{\rm defect}
-\longrightarrow
-p_{\rm defect}
-$$
-
-という考え方が、2D では defect entropy と競合して有限温度相転移へつながる。
+という空間構造軸がつながる。
 
 ---
 
 ## 得られた見方
 
-スピン系を個別模型の一覧として増やすより、
+現在の基準系列は
 
 $$
 \boxed{
-\begin{array}{c}
-\text{模型座標}\\[1mm]
-(\text{状態空間 / 対称性},\ R,\ \text{空間構造})
-\quad [\text{cosine family fixed}]
-\end{array}
-}
-\quad\times\quad
-\boxed{
-\begin{array}{c}
-\text{情報フィルター}\\[1mm]
-\text{平均場 / Bethe / transfer / \cdots}
-\end{array}
+\text{cosine family fixed}
 }
 $$
 
-と置く方が、何を変えたことで新しい物理が現れたのかを追いやすい。
-
-新しい模型を追加するときの問いも
+のもとで、
 
 $$
 \boxed{
-\text{どの軸を一つ動かしたのか}
+\text{状態空間 / 対称性}
+\times
+\text{相互作用範囲}
+\times
+\text{空間構造}
 }
 $$
 
-に戻せる。
+という模型座標で整理できる。
 
-現在は 対称性 / 記憶-variable 軸が clock を介して一度閉じ、interaction-range 軸もかなり埋まった。次に最も情報量が大きい空白は 空間構造 であり、
+このうち一様系の
+
+$$
+\boxed{
+R\times(Z_2,Z_q,U(1))
+}
+$$
+
+平面はすでに閉じた。
+
+そこから得られた中心像は、
+
+$$
+\boxed{
+R
+=
+\text{履歴の深さ}
+}
+$$
+
+と
+
+$$
+\boxed{
+Z_2\to Z_q\to U(1)
+=
+\text{履歴の分解能}
+}
+$$
+
+である。
+
+さらに各模型は、
+
+$$
+\boxed{
+\text{内部記憶}
+\to
+\text{転送スペクトル}
+\to
+\text{一様・周期外場応答}
+}
+$$
+
+まで一つの個別ノート内で閉じる。
+
+次に動かすべき座標は空間構造であり、
 
 $$
 \boxed{
@@ -1112,4 +836,4 @@ $$
 }
 $$
 
-が次の自然な変形になる。
+が現在もっとも自然な延長になる。
