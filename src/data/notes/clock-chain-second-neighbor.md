@@ -16,11 +16,7 @@ system:
   role: model
 ---
 
-最近接の $Z_q$ 鎖では局所位相増分
-$$
-\phi_i=\theta_{i+1}-\theta_i
-$$
-は独立だった。第二近接相互作用を加えると、
+最近接の $Z_q$ 鎖では局所位相増分 $\phi_i=\theta_{i+1}-\theta_i$ は独立だった。第二近接相互作用を加えると、
 $$
 \boxed{
 H=
@@ -28,10 +24,7 @@ H=
 -J_2\sum_i\cos(\theta_{i+2}-\theta_i)
 }
 $$
-となり、離散増分どうしが相互作用する。ここで
-$$
-\theta_i=\frac{2\pi n_i}{q},\qquad n_i\in\mathbb Z_q.
-$$
+となり、離散増分どうしが相互作用する。ここで $\theta_i=2\pi n_i/q$、$n_i\in\mathbb Z_q$ である。
 
 ## 系の座標
 
@@ -45,14 +38,7 @@ $q=2$ で第二近接 $Z_2$、$q\to\infty$ で第二近接 $U(1)$ へつなが�
 
 ## 1. 第二近接相互作用は離散位相増分を相互作用させる
 
-$$
-\phi_i=\frac{2\pi a_i}{q}
-$$
-とおけば
-$$
-\theta_{i+2}-\theta_i=\phi_i+\phi_{i+1}
-$$
-なので
+$\phi_i=2\pi a_i/q$ とおけば $\theta_{i+2}-\theta_i=\phi_i+\phi_{i+1}$ なので
 $$
 \boxed{
 H=
@@ -82,11 +68,7 @@ e(\phi)=-J_1\cos\phi-J_2\cos2\phi
 $$
 である。
 
-ただし $Z_q$ では
-$$
-\phi=\phi_a=\frac{2\pi a}{q}
-$$
-しか許されないので、
+ただし $Z_q$ では $\phi=\phi_a=2\pi a/q$ しか許されないので、
 $$
 \boxed{
 a_\ast=
@@ -105,15 +87,7 @@ q_\ast^{(q)}=\frac{2\pi a_\ast}{q}
 $$
 が決まる。
 
-$U(1)$ では
-$$
-\cos q_\ast=-\frac{J_1}{4J_2}
-$$
-と連続的に動けるが、有限 $q$ では
-$$
-0\to\frac{2\pi}{q}\to\frac{4\pi}{q}\to\cdots
-$$
-と staircase 状にロックされる。
+$U(1)$ では $\cos q_\ast=-J_1/(4J_2)$ と連続的に動けるが、有限 $q$ では $0\to2\pi/q\to4\pi/q\to\cdots$ と staircase 状にロックされる。
 
 $$
 \boxed{
@@ -125,10 +99,7 @@ $$
 
 ## 3. finite-$q$ では chirality も離散化される
 
-$$
-e(\phi)=e(-\phi)
-$$
-なので、非零 twist が選ばれると
+$e(\phi)=e(-\phi)$ なので、非零 twist が選ばれると
 $$
 \boxed{
 +q_\ast^{(q)},\qquad -q_\ast^{(q)}
@@ -136,11 +107,7 @@ $$
 $$
 が縮退する。
 
-局所 chirality は
-$$
-\kappa_i^{\rm ch}=\sin\phi_i
-$$
-で読める。
+局所 chirality は $\kappa_i^{\rm ch}=\sin\phi_i$ で読める。
 
 $Z_q$ では
 $$
@@ -154,11 +121,7 @@ $$
 
 ## 4. transfer matrix は $q\times q$ の離散角度 kernel になる
 
-transfer state を
-$$
-\phi_a=\frac{2\pi a}{q}
-$$
-とすると、対称分割した kernel は
+transfer state を $\phi_a=2\pi a/q$ とすると、対称分割した kernel は
 $$
 \boxed{
 T_{ab} = \exp\left[
@@ -173,24 +136,11 @@ $$
 
 最近接 $Z_q$ の circulant matrix と異なり、一般には単純な離散 Fourier 対角化では閉じない。
 
-$$
-\boxed{
-P(a_{i+1}|a_i)
-}
-$$
-という有限状態 Markov chain が自然な局所記述になる。
+有限状態 Markov chain $P(a_{i+1}\mid a_i)$ が自然な局所記述になる。
 
 ## 5. $q=2$ では interacting wall を回収する
 
-$q=2$ では
-$$
-\tau_i=e^{i\phi_i}=\pm1
-$$
-で、
-$$
-\cos\phi_i=\tau_i,\qquad
-\cos(\phi_i+\phi_{i+1})=\tau_i\tau_{i+1}.
-$$
+$q=2$ では $\tau_i=e^{i\phi_i}=\pm1$ で、$\cos\phi_i=\tau_i$、$\cos(\phi_i+\phi_{i+1})=\tau_i\tau_{i+1}$ である。
 したがって
 $$
 \boxed{
@@ -205,15 +155,7 @@ $$
 
 ## 6. $q\to\infty$ では continuous transfer operator へ移る
 
-$q$ を増やすと
-$$
-\Delta\phi=\frac{2\pi}{q}\to0
-$$
-なので、
-$$
-T_{ab}
-$$
-は
+$q$ を増やすと $\Delta\phi=2\pi/q\to0$ なので、離散行列 $T_{ab}$ は
 $$
 \boxed{
 \mathcal T(\phi,\phi') = \exp\left[
@@ -276,15 +218,7 @@ $$
 
 を表し、原理的に一致する必要はない。
 
-これは $Z_2$ の
-$$
-q_{\rm spec}\neq q_\chi
-$$
-と、$U(1)$ の
-$$
-q_\ast\neq q_{\rm corr}\neq Q_{\rm peak}
-$$
-の中間に位置する。
+これは $Z_2$ の $q_{\rm spec}\neq q_\chi$ と、$U(1)$ の $q_\ast\neq q_{\rm corr}\neq Q_{\rm peak}$ の中間に位置する。
 
 ## 9. finite-$q$ 固有の量は twist-locking error である
 
