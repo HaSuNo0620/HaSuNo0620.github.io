@@ -61,9 +61,7 @@ $$
 対象は一様第二近接 $U(1)$ 系の螺旋側である。Hamiltonian 自体は
 
 $$
-H
-=
--J_1\sum_i\cos(\theta_{i+1}-\theta_i)
+H = -J_1\sum_i\cos(\theta_{i+1}-\theta_i)
 -J_2\sum_i\cos(\theta_{i+2}-\theta_i)
 $$
 
@@ -323,9 +321,7 @@ $$
 $\phi$ を状態変数にすると、kernel は
 
 $$
-\mathcal T(\phi,\phi')
-=
-\exp\left[
+\mathcal T(\phi,\phi') = \exp\left[
 \frac{\beta J_1}{2}(\cos\phi+\cos\phi')
 +\beta J_2\cos(\phi+\phi')
 \right].
@@ -367,9 +363,7 @@ chirality kink の希薄化は、transfer spectrum では even / odd splitting �
 spin correlation は
 
 $$
-C_+(r)
-=
-\left\langle
+C_+(r) = \left\langle
 \prod_{j=0}^{r-1}e^{i\phi_j}
 \right\rangle
 $$
