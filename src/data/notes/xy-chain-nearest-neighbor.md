@@ -35,6 +35,28 @@ $$
 
 $J>0$ は隣接角度差を小さくするが、XYでは各bondが**少しずつ**ずれることを許す。この小さな誤差の累積が、局所整列と長距離秩序を分ける。
 
+## 系の座標
+
+$$
+\boxed{
+(d=1,\ \text{uniform},\ R=1,\ U(1))
+}
+$$
+
+Hamiltonian は
+
+$$
+H=-J\sum_i\cos(\theta_{i+1}-\theta_i),
+$$
+
+局所 memory variable は
+
+$$
+\phi_i=\theta_{i+1}-\theta_i.
+$$
+
+最近接零外場では $\phi_i$ が独立で、その累積が遠距離の phase memory を決める。
+
 ## 1. 自然な局所変数は角度差である
 
 開鎖で
