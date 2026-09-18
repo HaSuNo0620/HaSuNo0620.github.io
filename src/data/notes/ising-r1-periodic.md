@@ -1,8 +1,8 @@
 ---
-title: "1次元イジング模型 — 周期的最近接結合と構造波数"
+title: "1次元周期最近接イジング系 — 構造波数"
 summary: "最近接相互作用の範囲は変えず、結合定数だけを周期的に変調した1次元Ising鎖を読む。独立だが非一様なドメイン壁、可換な転送行列、指数包絡と単位胞変調に分かれる相関、構造由来の波数基底を通して、一様な第二近接系の相互作用競合との違いを整理する。"
 publishedAt: 2026-09-12T01:34:00+09:00
-updatedAt: 2026-09-14
+updatedAt: 2026-09-19
 area: "Physics"
 topics: ["statistical mechanics", "Ising model", "transfer matrix", "correlation", "periodic modulation", "inhomogeneous systems"]
 status: growing
