@@ -481,16 +481,14 @@ $$
 固定方向の外場
 
 $$
-H_h
-=
+H_h =
 -\sum_i h_i\cos\theta_i
 $$
 
 に対する線形応答はスピン相関を通じて決まり、
 
 $$
-\delta\langle\cos\theta_i\rangle
-=
+\delta\langle\cos\theta_i\rangle =
 \sum_j\chi^{\rm spin}_{ij}h_j
 $$
 
@@ -506,8 +504,7 @@ $$
 
 $$
 \boxed{
-\delta\langle\cos\theta_i\rangle
-=
+\delta\langle\cos\theta_i\rangle =
 \chi^{\rm spin}(Q)h_Q\cos(Qi+\varphi)
 +O(h_Q^3)
 }
@@ -518,8 +515,7 @@ $$
 一方、回転外場
 
 $$
-H_{\rm rot}
-=
+H_{\rm rot} =
 -h\sum_i\cos(\theta_i-Qi-\varphi)
 $$
 
