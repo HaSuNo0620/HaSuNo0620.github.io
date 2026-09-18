@@ -28,7 +28,7 @@ $$
 
 $$
 \boxed{
-(d=1,\ \text{uniform},\ R=n,\ Z_2)
+(d=1,\ \text{uniform},\ R=n,\ \text{cosine},\ Z_2)
 }
 $$
 
