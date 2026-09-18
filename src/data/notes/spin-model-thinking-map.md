@@ -1,6 +1,6 @@
 ---
 title: "スピン系をどう読むか — 記憶変数・相互作用範囲・空間構造・情報フィルター"
-summary: "cosine 相互作用族 に属する1次元スピン系を、状態空間 / 対称性、相互作用範囲、空間構造という三つの座標で整理する。Z2・Zq・U(1)を同一Hamiltonian族として比較し、近似・表現は情報フィルターとして分離する。"
+summary: "cosine 相互作用族に属する1次元スピン系を、状態空間 / 対称性、相互作用範囲、空間構造という三つの座標で整理する。Z2・Zq・U(1)を同一Hamiltonian族として比較し、近似・表現は情報フィルターとして分離する。"
 publishedAt: 2026-09-16T03:45:00+09:00
 updatedAt: 2026-09-19
 area: "Physics"
@@ -8,7 +8,7 @@ topics: ["statistical mechanics", "spin models", "transfer matrix", "coarse grai
 status: growing
 ---
 
-Ising、clock、XYは別々の模型名として学ぶことが多い。しかし最近接相互作用を角度差で書けば、三者は同じ cosine 相互作用族 に置ける。
+Ising、clock、XYは別々の模型名として学ぶことが多い。しかし最近接相互作用を角度差で書けば、三者は同じ cosine 相互作用族に置ける。
 
 $$
 \boxed{
@@ -98,7 +98,7 @@ $$
 }
 $$
 
-が同一 相互作用族 内の 対称性 / state-space 軸になる。
+が同一 相互作用族 内の 対称性 / 状態空間軸になる。
 
 Ising、clock、XYという名前は本文中で既存文献との対応を示す呼称として残す。別の interaction form、例えば $\cos2\phi$ や多体項を加えた場合は、対称性 が同じでもこの cosine 基準系列とは別の 相互作用族 として扱う。
 
@@ -232,7 +232,7 @@ $$
 $$
 \eta\gg1
 \quad\Rightarrow\quad
-\text{rare discrete jump},
+\text{稀な離散ジャンプ},
 $$
 
 $$
@@ -454,9 +454,9 @@ $$
 
 $$
 \boxed{
-\text{Hamiltonian の spatial order}
+\text{Hamiltonian の空間秩序}
 \longrightarrow
-\text{correlation の spatial order}
+\text{相関の空間秩序}
 }
 $$
 
@@ -470,18 +470,18 @@ $$
 
 ### 4.1 模型点 — 各ノートがどの座標にいるか
 
-| role | ノート | $d$ | spatial | $R$ | interaction | 対称性 / 状態空間 | 局所記憶 |
+| 役割 | ノート | $d$ | 空間構造 | $R$ | 相互作用 | 対称性 / 状態空間 | 局所記憶 |
 | --- | --- | ---: | --- | --- | --- | --- | --- |
-| model | [1次元一様最近接 cosine-$Z_2$ スピン系 — 空間記憶と応答](/notes/ising-transfer-matrix) | 1 | uniform | $R=1$ | cosine | $Z_2$ | flip / wall |
-| model | [1次元周期最近接 cosine-$Z_2$ スピン系 — 構造波数](/notes/ising-r1-periodic) | 1 | periodic | $R=1$ | cosine | $Z_2$ | position-dependent wall weight |
-| model | [1次元周期最近接 cosine-$Z_2$ スピン系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | 1 | periodic + field | $R=1$ | cosine | $Z_2$ | wall + absolute-spin 応答 |
-| model | [1次元一様第二近接 cosine-$Z_2$ スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | 1 | uniform | $R=2$ | cosine | $Z_2$ | interacting 壁配置 |
-| model | [1次元一様有限範囲 cosine-$Z_2$ スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | 1 | uniform | $R=n$ | cosine | $Z_2$ | longer 壁配置 |
-| model | [1次元一様最近接 cosine-$Z_q$ スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $Z_q$ | discrete 位相増分 |
-| model | [1次元一様第二近接 cosine-$Z_q$ スピン系 — 離散螺旋と角度記憶](/notes/clock-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $Z_q$ | locked 離散ねじれ / カイラリティ |
-| model | [1次元一様最近接 cosine-$U(1)$ スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $U(1)$ | continuous 位相増分 |
-| model | [1次元一様第二近接 cosine-$U(1)$ スピン系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $U(1)$ | correlated 位相増分 |
-| model | [1次元一様第二近接 cosine-$U(1)$ スピン系 — カイラリティキンクと複数の空間記憶](/notes/xy-chain-カイラリティ-記憶) | 1 | uniform | $R=2$ | cosine | $U(1)$ | phase + カイラリティセクター |
+| 模型 | [1次元一様最近接 cosine-$Z_2$ スピン系 — 空間記憶と応答](/notes/ising-transfer-matrix) | 1 | uniform | $R=1$ | cosine | $Z_2$ | flip / wall |
+| 模型 | [1次元周期最近接 cosine-$Z_2$ スピン系 — 構造波数](/notes/ising-r1-periodic) | 1 | periodic | $R=1$ | cosine | $Z_2$ | position-dependent wall weight |
+| 模型 | [1次元周期最近接 cosine-$Z_2$ スピン系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | 1 | periodic + field | $R=1$ | cosine | $Z_2$ | wall + absolute-spin 応答 |
+| 模型 | [1次元一様第二近接 cosine-$Z_2$ スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | 1 | uniform | $R=2$ | cosine | $Z_2$ | interacting 壁配置 |
+| 模型 | [1次元一様有限範囲 cosine-$Z_2$ スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | 1 | uniform | $R=n$ | cosine | $Z_2$ | longer 壁配置 |
+| 模型 | [1次元一様最近接 cosine-$Z_q$ スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $Z_q$ | 離散位相増分 |
+| 模型 | [1次元一様第二近接 cosine-$Z_q$ スピン系 — 離散螺旋と角度記憶](/notes/clock-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $Z_q$ | locked 離散ねじれ / カイラリティ |
+| 模型 | [1次元一様最近接 cosine-$U(1)$ スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $U(1)$ | 連続位相増分 |
+| 模型 | [1次元一様第二近接 cosine-$U(1)$ スピン系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $U(1)$ | correlated 位相増分 |
+| 模型 | [1次元一様第二近接 cosine-$U(1)$ スピン系 — カイラリティキンクと複数の空間記憶](/notes/xy-chain-chirality-memory) | 1 | uniform | $R=2$ | cosine | $U(1)$ | 位相 + カイラリティセクター |
 
 同じ行方向で 対称性 を動かし、同じ列方向で $R$ や 空間構造 を動かす、と読む。
 
@@ -489,8 +489,8 @@ $$
 
 | role | 比較ノート | 固定する座標 | 動かす座標 | 接続する 模型点 | 比較する量 |
 | --- | --- | --- | --- | --- | --- |
-| 比較 | [1次元一様最近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ の空間記憶](/notes/ising-xy-nearest-neighbor-比較) | $d=1$, uniform, $R=1$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | 局所増分, $\rho_m$, 転送スペクトル, $\xi$, $\chi(k)$ |
-| 比較 | [1次元一様第二近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ を三つの解像度で見る](/notes/ising-xy-second-neighbor-比較) | $d=1$, uniform, $R=2$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | defect / texture, 局所遷移, 転送スペクトル, pitch locking |
+| 比較 | [1次元一様最近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ の空間記憶](/notes/ising-xy-nearest-neighbor-comparison) | $d=1$, uniform, $R=1$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | 局所増分, $\rho_m$, 転送スペクトル, $\xi$, $\chi(k)$ |
+| 比較 | [1次元一様第二近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ を三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) | $d=1$, uniform, $R=2$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | 欠陥 / テクスチャ, 局所遷移, 転送スペクトル, ピッチロッキング |
 
 比較ノートは新しい 模型点 ではなく、
 
@@ -521,8 +521,8 @@ $$
 
 | 相互作用範囲 | $Z_2$ | $Z_q$ | $U(1)$ | 横方向の比較 |
 | --- | --- | --- | --- | --- |
-| $R=1$ | [model](/notes/ising-transfer-matrix) | [model](/notes/clock-chain-nearest-neighbor) | [model](/notes/xy-chain-nearest-neighbor) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-nearest-neighbor-比較) |
-| $R=2$ | [model](/notes/ising-r2-transfer-matrix) | [model](/notes/clock-chain-second-neighbor) | [model](/notes/xy-chain-second-neighbor) / [カイラリティ](/notes/xy-chain-カイラリティ-記憶) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-second-neighbor-比較) |
+| $R=1$ | [model](/notes/ising-transfer-matrix) | [model](/notes/clock-chain-nearest-neighbor) | [model](/notes/xy-chain-nearest-neighbor) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-nearest-neighbor-comparison) |
+| $R=2$ | [model](/notes/ising-r2-transfer-matrix) | [model](/notes/clock-chain-second-neighbor) | [model](/notes/xy-chain-second-neighbor) / [カイラリティ](/notes/xy-chain-chirality-memory) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-second-neighbor-comparison) |
 | $R=n$ | [model](/notes/ising-rn-transfer-matrix) | — | — | — |
 
 この表では空欄そのものが次の学習候補になる。今回 $R=2$ の $Z_q$ が埋まったことで、
@@ -530,7 +530,7 @@ $$
 $$
 \boxed{
 R=1, R=2
-\quad\text{では}quad
+\quad\text{では}\quad
 Z_2\leftrightarrow Z_q\leftrightarrow U(1)
 }
 $$
@@ -539,7 +539,7 @@ $$
 
 一方 空間構造 軸は $Z_2$, $R=1$ で
 
-| 空間構造 | model |
+| 空間構造 | 模型 |
 | --- | --- |
 | uniform | [1次元一様最近接 cosine-$Z_2$](/notes/ising-transfer-matrix) |
 | periodic | [1次元周期最近接 cosine-$Z_2$](/notes/ising-r1-periodic) |
@@ -618,23 +618,23 @@ $$
 \boxed{
 \text{相互作用するドメイン壁 / ロックされたねじれ / らせん}
 \longleftrightarrow
-\text{局所遷移 probability}
+\text{局所遷移確率}
 \longleftrightarrow
 \text{転送スペクトル}
 }
 $$
 
-という三つの 情報フィルター を対応させる。ここでは finite-$q$ 固有の pitch locking が、離散 defect と continuous texture の間を埋める。
+という三つの 情報フィルター を対応させる。ここでは finite-$q$ 固有の ピッチロッキング が、離散欠陥と連続テクスチャ の間を埋める。
 
 したがって比較ノートの役割は
 
 $$
 \boxed{
-\text{model A の式}
+\text{模型Aの式}
 \leftrightarrow
 \text{共通物理量}
 \leftrightarrow
-\text{model B の式}
+\text{模型Bの式}
 }
 $$
 
@@ -722,7 +722,7 @@ $$
 
 ### 転送行列 / 転送作用素
 
-局所情報を spectrum へ集約し、長距離で残る mode を直接読む。
+局所情報を スペクトルへ集約し、長距離で残る mode を直接読む。
 
 $$
 T\psi_n=\lambda_n\psi_n,
@@ -774,7 +774,7 @@ $$
 \leftrightarrow
 \text{局所遷移頻度}
 \leftrightarrow
-\text{長距離 spectrum}
+\text{長距離スペクトル}
 }
 $$
 
@@ -872,7 +872,7 @@ q_\chi,\qquad
 Q_{\rm peak}
 $$
 
-などは 転送スペクトル と同じ量ではない。各ノートで「内部 spectrum」と「外から読む observable」を区別する。
+などは 転送スペクトル と同じ量ではない。各ノートで「内部スペクトル」と「外から読む 観測量」を区別する。
 
 ### 隣接する座標との比較
 
@@ -892,7 +892,7 @@ $$
 
 のように、一度に複数軸を動かさない。
 
-章末は generic な「まとめ」ではなく
+章末は 一般的な「まとめ」ではなく
 
 $$
 \boxed{\text{得られた見方}}
@@ -906,7 +906,7 @@ $$
 \boxed{
 \text{固定する座標}
 \to
-\text{比較する 記憶変数 / filter}
+\text{比較する 記憶変数 / 情報フィルター}
 \to
 \text{共通量}
 \to
@@ -1006,7 +1006,7 @@ $$
 
 空間構造 の次には、模型座標そのものとは別に二つの拡張が残る。
 
-### spatial 記憶 から temporal 記憶 へ
+### 空間記憶 から 時間記憶 へ
 
 現在の中心量は
 
@@ -1028,7 +1028,7 @@ $$
 \boxed{
 \text{転送スペクトル}
 \longleftrightarrow
-\text{dynamical generator spectrum}
+\text{時間発展生成子のスペクトル}
 }
 $$
 
