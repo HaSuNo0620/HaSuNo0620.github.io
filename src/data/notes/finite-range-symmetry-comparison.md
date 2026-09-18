@@ -65,8 +65,7 @@ $$
 とすると、
 
 $$
-\theta_{i+r}-\theta_i
-=
+\theta_{i+r}-\theta_i =
 \sum_{m=0}^{r-1}\phi_{i+m}.
 $$
 
@@ -157,8 +156,7 @@ $$
 として、
 
 $$
-s_i s_{i+r}
-=
+s_i s_{i+r} =
 \prod_{m=0}^{r-1}\tau_{i+m}.
 $$
 
@@ -166,8 +164,7 @@ $$
 
 $$
 \boxed{
-H
-=
+H =
 -\sum_i\sum_{r=1}^{R}
 J_r
 \prod_{m=0}^{r-1}\tau_{i+m}
@@ -231,8 +228,7 @@ $$
 一様ねじれのエネルギー
 
 $$
-e_R(\phi)
-=
+e_R(\phi) =
 -\sum_{r=1}^{R}J_r\cos(r\phi)
 $$
 
@@ -260,8 +256,7 @@ $$
 
 $$
 \boxed{
-\boldsymbol\phi_i
-=
+\boldsymbol\phi_i =
 (\phi_{i-R+2},\ldots,\phi_i)
 \in
 (S^1)^{R-1}
@@ -332,8 +327,7 @@ $$
 
 $$
 \boxed{
-e_R(q)
-=
+e_R(q) =
 -\sum_{r=1}^{R}
 J_r\cos(rq)
 }
@@ -390,8 +384,7 @@ $R=2$ では一組の非零ねじれが主要な構造だった。
 一般の有限 $R$ では
 
 $$
-e_R(q)
-=
+e_R(q) =
 -\sum_{r=1}^{R}J_r\cos(rq)
 $$
 
@@ -424,16 +417,14 @@ $$
 転送対象の副次固有値を
 
 $$
-\Lambda_a
-=
+\Lambda_a =
 |\Lambda_a|e^{iq_a}
 $$
 
 とすれば、
 
 $$
-\xi_a^{-1}
-=
+\xi_a^{-1} =
 -\ln\left|
 \frac{\Lambda_a}{\Lambda_0}
 \right|
@@ -554,12 +545,10 @@ $$
 
 $$
 \boxed{
-R
-=
+R =
 \text{履歴の深さ},
 \qquad
-Z_2\to Z_q\to U(1)
-=
+Z_2\to Z_q\to U(1) =
 \text{履歴の分解能}
 }
 $$
