@@ -10,29 +10,29 @@ status: growing
 
 Ising、clock、XYは別々の模型名として学ぶことが多い。しかし最近接相互作用を角度差で書けば、三者は同じ cosine interaction family に置ける。
 
-$
+$$
 \boxed{
 H = -\sum_i\sum_{r=1}^{R}
 J_{i,r}\cos(\theta_{i+r}-\theta_i)
 }
-$
+$$
 
 違うのは、まず局所状態空間である。
 
-$
+$$
 \boxed{
 \theta_i\in
 Z_2,\qquad
 Z_q,\qquad
 U(1)
 }
-$
+$$
 
 $Z_2$ では $\theta_i\in\{0,\pi\}$ と取れば
 
-$
+$$
 \cos(\theta_i-\theta_j)=s_i s_j
-$
+$$
 
 なので、標準 bilinear Ising 相互作用は cosine-$Z_2$ の特殊例として厳密に含まれる。
 
@@ -60,15 +60,15 @@ $$
 
 個別ノートでは interaction family をタイトルにも明示する。現在の基準系列はすべて
 
-$
+$$
 \boxed{
 V(\Delta\theta)=-J\cos\Delta\theta
 }
-$
+$$
 
 を基本とする cosine family なので、タイトルは
 
-$
+$$
 \boxed{
 \text{1次元}
 +
@@ -82,13 +82,13 @@ $
 -
 \text{固有の物理}
 }
-$
+$$
 
 とする。
 
 したがって
 
-$
+$$
 \boxed{
 \text{cosine-}Z_2
 \longrightarrow
@@ -96,7 +96,7 @@ $
 \longrightarrow
 \text{cosine-}U(1)
 }
-$
+$$
 
 が同一 interaction family 内の symmetry / state-space 軸になる。
 
@@ -527,13 +527,13 @@ $$
 
 この表では空欄そのものが次の学習候補になる。今回 $R=2$ の $Z_q$ が埋まったことで、
 
-$
+$$
 \boxed{
 R=1, R=2
 \quad\text{では}quad
 Z_2\leftrightarrow Z_q\leftrightarrow U(1)
 }
-$
+$$
 
 という symmetry 軸が二段とも閉じた。次に残る明確な空白は $R=n$ 側の $Z_q/U(1)$、または spatial organization 側の quasiperiodic / random である。
 
@@ -602,7 +602,7 @@ $$
 
 第二近接 comparison でも、
 
-$
+$$
 \boxed{
 Z_2
 \to
@@ -610,11 +610,11 @@ Z_q
 \to
 U(1)
 }
-$
+$$
 
 を横断しながら、
 
-$
+$$
 \boxed{
 \text{interacting wall / locked twist / helix}
 \longleftrightarrow
@@ -622,7 +622,7 @@ $
 \longleftrightarrow
 \text{transfer spectrum}
 }
-$
+$$
 
 という三つの information filter を対応させる。ここでは finite-$q$ 固有の pitch locking が、離散 defect と continuous texture の間を埋める。
 
@@ -786,7 +786,7 @@ $$
 
 タイトルだけで座標を揃えても、ノートごとに議論の入口と出口が違うと比較しにくい。節数や固有の話題は揃えず、すべての個別模型ノートが次の spine を通るようにする。
 
-$
+$$
 \boxed{
 \text{具体的な違和感・問い}
 \to
@@ -802,23 +802,23 @@ $
 \to
 \text{得られた見方}
 }
-$
+$$
 
 ### 座標と Hamiltonian
 
 導入の直後に
 
-$
+$$
 (d,\ \text{spatial organization},\ R,\ \text{interaction family},\ \text{state space / symmetry})
-$
+$$
 
 を明示し、その座標だけでは決まらない具体的 Hamiltonian も置く。
 
 現在の基準系列なら
 
-$
+$$
 H=-J\sum_i\cos(\theta_{i+1}-\theta_i)
-$
+$$
 
 まで書き、さらに $\theta_i$ の取りうる集合を $Z_2$、$Z_q$、$U(1)$ のどれかとして明示する。これで symmetry だけでは一意でない Hamiltonian の曖昧さを消す。
 
@@ -826,13 +826,13 @@ $
 
 元の spin 変数をそのまま追うのではなく、その座標で自然な局所増分を先に探す。
 
-$
+$$
 Z_2:\quad \tau_i=s_i s_{i+1},
-$
+$$
 
-$
+$$
 Z_q,\ U(1):\quad \phi_i=\theta_{i+1}-\theta_i.
-$
+$$
 
 interaction range や spatial organization を変えたとき、最初に「この局所変数の独立性・遷移則・重みのどれが変わったか」を読む。
 
@@ -840,16 +840,16 @@ interaction range や spatial organization を変えたとき、最初に「こ�
 
 局所則をそのまま終点にせず、
 
-$
+$$
 C(r),\qquad
 \lambda_n/\lambda_0,\qquad
 \xi,\qquad
 q_{\rm spec}
-$
+$$
 
 へつなぐ。
 
-$
+$$
 \boxed{
 \text{local rule}
 \longrightarrow
@@ -857,7 +857,7 @@ $
 \longrightarrow
 \text{long-distance memory}
 }
-$
+$$
 
 が各ノートの共通骨格になる。
 
@@ -865,12 +865,12 @@ $
 
 長距離 memory が何として観測されるかを分ける。
 
-$
+$$
 \chi(q),\qquad
 S(q),\qquad
 q_\chi,\qquad
 Q_{\rm peak}
-$
+$$
 
 などは transfer spectrum と同じ量ではない。各ノートで「内部 spectrum」と「外から読む observable」を区別する。
 
@@ -878,31 +878,31 @@ $
 
 最後に必ず、一つだけ座標を変えた隣の系と比較する。
 
-$
+$$
 R=1\leftrightarrow R=2,
-$
+$$
 
-$
+$$
 Z_2\leftrightarrow Z_q\leftrightarrow U(1),
-$
+$$
 
-$
+$$
 \text{uniform}\leftrightarrow\text{periodic}\leftrightarrow\text{quasiperiodic}
-$
+$$
 
 のように、一度に複数軸を動かさない。
 
 章末は generic な「まとめ」ではなく
 
-$
+$$
 \boxed{\text{得られた見方}}
-$
+$$
 
 または、その座標から自然に残る問いで閉じる。
 
 比較ノートは少し役割が異なり、
 
-$
+$$
 \boxed{
 \text{固定する座標}
 \to
@@ -912,7 +912,7 @@ $
 \to
 \text{差が現れる量}
 }
-$
+$$
 
 の順にする。個別導出は繰り返さない。
 
