@@ -1,8 +1,8 @@
 ---
-title: "1次元XY模型 — 位相拡散と角度記憶"
+title: "1次元一様最近接XY系 — 位相拡散と角度記憶"
 summary: "最近接古典XY鎖を、局所的には整列しているのに遠距離では向きを失う系として読む。独立な角度差、空間方向の位相拡散、修正Bessel関数が現れる理由、harmonicごとの記憶長、compactnessとwindingを通して、連続対称性を持つ1次元系の相関喪失機構を整理する。"
 publishedAt: 2026-09-12T03:10:00+09:00
-updatedAt: 2026-09-14
+updatedAt: 2026-09-19
 area: "Physics"
 topics: ["statistical mechanics", "XY model", "phase diffusion", "transfer operator", "correlation", "Bessel function", "compact field"]
 status: growing
