@@ -1,5 +1,5 @@
 ---
-title: "1次元スピン模型 — 最近接Ising・XYの空間記憶"
+title: "1次元一様最近接スピン系 — Ising・XYの空間記憶"
 summary: "1次元最近接Ising鎖とXY鎖を、空間記憶の失われ方・transfer spectrum・空間変調外場への応答という共通軸で比較する。domain wallとphase diffusionの違いが、相関長とqξフィルタの温度発達の違いへどうつながるかを整理する。"
 publishedAt: 2026-09-13T01:50:00+09:00
 updatedAt: 2026-09-19
