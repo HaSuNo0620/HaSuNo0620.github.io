@@ -6,6 +6,14 @@ updatedAt: 2026-09-19
 area: "Physics"
 topics: ["statistical mechanics", "Ising model", "transfer matrix", "domain wall", "finite memory", "correlation"]
 status: growing
+system:
+  dimension: 1
+  spatial: uniform
+  range: Rn
+  interaction: cosine
+  symmetry: [Z2]
+  mechanics: classical
+  role: model
 ---
 
 最近接ではdomain wallは独立、第二近接ではwall同士が相互作用した。相互作用範囲をさらに伸ばすと、この対応はそのまま高次化する。
