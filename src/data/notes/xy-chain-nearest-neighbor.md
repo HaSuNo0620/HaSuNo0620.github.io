@@ -57,13 +57,13 @@ $$
 H=-J\sum_i\cos(\theta_{i+1}-\theta_i),
 $$
 
-局所 memory variable は
+局所 記憶変数 は
 
 $$
 \phi_i=\theta_{i+1}-\theta_i.
 $$
 
-最近接零外場では $\phi_i$ が独立で、その累積が遠距離の phase memory を決める。
+最近接零外場では $\phi_i$ が独立で、その累積が遠距離の phase 記憶 を決める。
 
 ## 1. 自然な局所変数は角度差である
 
@@ -144,7 +144,7 @@ $$
 p(\phi)=\frac{e^{K\cos\phi}}{2\pi I_0(K)}}.
 $$
 
-修正Bessel関数は解法上の特殊関数というより、**円周上のBoltzmann重みを角度harmonicへ分解した係数**として現れている。
+修正Bessel関数は解法上の特殊関数というより、**円周上のBoltzmann重みを角度高調波へ分解した係数**として現れている。
 
 ## 3. 低温では角度が空間方向にrandom walkする
 
@@ -189,7 +189,7 @@ $$
 
 と分散が距離に比例する。
 
-各bondはよく整列しているのに、角度誤差は空間方向へ蓄積する。長距離物理は **phase diffusion in space** として読める。
+各bondはよく整列しているのに、角度誤差は空間方向へ蓄積する。長距離物理は **位相拡散 in space** として読める。
 
 ## 4. 位相拡散は指数相関を作る
 
@@ -263,7 +263,7 @@ $$
 
 $I_m/I_0$ は、1 bond進んだときに $m$ 次の角度情報がどれだけ残るかを表している。
 
-## 6. 角度情報には harmonic ごとの記憶長がある
+## 6. 角度情報には 高調波 ごとの記憶長がある
 
 $$
 \xi_m^{-1}
@@ -295,11 +295,11 @@ $$
 \boxed{\xi_m\propto m^{-2}}
 $$
 
-は、phase diffusionが細かい角度情報ほど早く消すことを表している。
+は、位相拡散が細かい角度情報ほど早く消すことを表している。
 
-## 7. transfer spectrum はこの記憶階層そのものである
+## 7. 転送スペクトル はこの記憶階層そのものである
 
-transfer kernel
+転送核
 
 $$
 T(\theta,\theta')
@@ -379,7 +379,7 @@ $$
 \boxed{m\leftrightarrow m\pm1}
 $$
 
-が結合する。零外場で独立だった harmonic sector を外場が混ぜる。
+が結合する。零外場で独立だった 高調波 sector を外場が混ぜる。
 
 線形応答では
 
@@ -402,7 +402,7 @@ $$
 
 となる。
 
-外場は、phase diffusionによって作られた空間記憶を波数ごとにprobeしている。
+外場は、位相拡散によって作られた空間記憶を波数ごとにprobeしている。
 
 ## 9. compactness は局所拡散の上に winding sector を重ねる
 
@@ -431,7 +431,7 @@ $$
 
 というglobal constraintが入る。
 
-開鎖で見えた局所phase diffusionに、周期境界ではwinding sectorが重なる。
+開鎖で見えた局所位相拡散に、周期境界ではwinding sectorが重なる。
 
 ## 10. この模型で残る像
 
@@ -439,22 +439,22 @@ $$
 
 $$
 \boxed{
-\text{independent phase increments}
+\text{independent 位相増分s}
 \longrightarrow
-\text{phase diffusion}
+\text{位相拡散}
 \longrightarrow
-\text{harmonic-dependent memory lengths}}
+\text{高調波-dependent 記憶長s}}
 $$
 
 という一本の構造がある。
 
-修正Bessel関数、transfer spectrum、指数相関は別々の話ではなく
+修正Bessel関数、転送スペクトル、指数相関は別々の話ではなく
 
 $$
 \boxed{
-\text{phase diffusion}
+\text{位相拡散}
 \longleftrightarrow
-\text{Fourier harmonic}
+\text{Fourier 高調波}
 \longleftrightarrow
 I_m(K)/I_0(K)
 \longleftrightarrow
