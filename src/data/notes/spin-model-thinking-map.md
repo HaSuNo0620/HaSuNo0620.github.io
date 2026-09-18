@@ -489,8 +489,9 @@ $$
 
 | role | 比較ノート | 固定する座標 | 動かす座標 | 接続する 模型点 | 比較する量 |
 | --- | --- | --- | --- | --- | --- |
-| 比較 | [1次元一様最近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ の空間記憶](/notes/ising-xy-nearest-neighbor-comparison) | $d=1$, uniform, $R=1$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | 局所増分, $\rho_m$, 転送スペクトル, $\xi$, $\chi(k)$ |
+| 比較 | [1次元一様最近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ と記憶の連続化](/notes/ising-xy-nearest-neighbor-comparison) | $d=1$, uniform, $R=1$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | 局所増分, $\rho_m$, 転送スペクトル, $\xi$, $\chi(k)$ |
 | 比較 | [1次元一様第二近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ を三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) | $d=1$, uniform, $R=2$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | 欠陥 / テクスチャ, 局所遷移, 転送スペクトル, ピッチロッキング |
+| 比較 | [1次元一様 cosine-$Z_2$ スピン系 — 相互作用範囲と空間記憶](/notes/ising-range-comparison) | $d=1$, uniform, cosine, $Z_2$, classical | 相互作用範囲 $R$ | $R=1 \leftrightarrow R=2 \leftrightarrow R=n$ | ドメイン壁相互作用, 局所記憶次数, 転送状態, 相関スペクトル, $q_\chi$ |
 
 比較ノートは新しい 模型点 ではなく、
 
@@ -524,6 +525,7 @@ $$
 | $R=1$ | [模型](/notes/ising-transfer-matrix) | [模型](/notes/clock-chain-nearest-neighbor) | [模型](/notes/xy-chain-nearest-neighbor) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-nearest-neighbor-comparison) |
 | $R=2$ | [模型](/notes/ising-r2-transfer-matrix) | [模型](/notes/clock-chain-second-neighbor) | [模型](/notes/xy-chain-second-neighbor) / [カイラリティ](/notes/xy-chain-chirality-memory) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-second-neighbor-comparison) |
 | $R=n$ | [模型](/notes/ising-rn-transfer-matrix) | — | — | — |
+| **縦方向の比較** | [$R=1\leftrightarrow R=2\leftrightarrow R=n$](/notes/ising-range-comparison) | — | — | — |
 
 この表では空欄そのものが次の学習候補になる。今回 $R=2$ の $Z_q$ が埋まったことで、
 
