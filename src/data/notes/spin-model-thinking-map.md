@@ -1,6 +1,6 @@
 ---
 title: "スピン系をどう読むか — 記憶変数・相互作用範囲・空間構造・情報フィルター"
-summary: "Ising・clock・XYなどの1次元スピン模型を、memory variable、interaction range、spatial organizationという三つの模型座標と、近似・表現が何を残すかというinformation filterに分けて整理する。既存ノート群の位置づけと、次に一軸だけ動かしたとき何が新しく現れるかを見通すための上位地図。"
+summary: "cosine interaction family に属する1次元スピン系を、state space / symmetry、interaction range、spatial organizationという三つの座標で整理する。Z2・Zq・U(1)を同一Hamiltonian族として比較し、近似・表現はinformation filterとして分離する。"
 publishedAt: 2026-09-16T03:45:00+09:00
 updatedAt: 2026-09-19
 area: "Physics"
@@ -8,7 +8,35 @@ topics: ["statistical mechanics", "spin models", "transfer matrix", "coarse grai
 status: growing
 ---
 
-Ising、clock、XYを模型名ごとに並べるだけでは、何が本質的に違うのかが見えにくい。相互作用範囲を伸ばす、結合を周期化する、近似法を変える、といった操作まで加わると、異なる種類の変更が同じ「別模型」として並んでしまう。
+Ising、clock、XYは別々の模型名として学ぶことが多い。しかし最近接相互作用を角度差で書けば、三者は同じ cosine interaction family に置ける。
+
+$
+\boxed{
+H
+=
+-\sum_i\sum_{r=1}^{R}
+J_{i,r}\cos(\theta_{i+r}-\theta_i)
+}
+$
+
+違うのは、まず局所状態空間である。
+
+$
+\boxed{
+\theta_i\in
+Z_2,\qquad
+Z_q,\qquad
+U(1)
+}
+$
+
+$Z_2$ では $\theta_i\in\{0,\pi\}$ と取れば
+
+$
+\cos(\theta_i-\theta_j)=s_i s_j
+$
+
+なので、標準 bilinear Ising 相互作用は cosine-$Z_2$ の特殊例として厳密に含まれる。
 
 今のスピン系ノート群では、模型そのものを
 
@@ -16,7 +44,9 @@ $$
 \boxed{
 \text{model coordinates}
 =
-(\text{memory variable},\ R,\ \text{spatial organization})
+(\text{state space / symmetry},\ R,\ \text{spatial organization})
+\qquad
+[\text{cosine family fixed}]
 }
 $$
 
@@ -34,17 +64,15 @@ $$
 
 前者は「どんな系か」、後者は「その系から何を残して見るか」に対応する。
 
-個別ノートのタイトルもこの座標系に合わせる。従来の模型名は本文中の対応関係として残すが、タイトルでは
+個別ノートでは interaction family をタイトルにも明示する。現在の基準系列はすべて
 
 $
 \boxed{
-Z_2\ (\text{Ising}),\qquad
-Z_q\ (\text{clock}),\qquad
-U(1)\ (\text{XY})
+V(\Delta\theta)=-J\cos\Delta\theta
 }
 $
 
-のように symmetry coordinate を前面に出す。したがって基本形は
+を基本とする cosine family なので、タイトルは
 
 $
 \boxed{
@@ -54,7 +82,7 @@ $
 +
 \text{interaction range}
 +
-\text{symmetry}
+\text{cosine-symmetry}
 +
 \text{スピン系}
 -
@@ -62,7 +90,23 @@ $
 }
 $
 
-となる。対称性だけでは一般には Hamiltonian を一意に指定しないため、本文冒頭で具体的な Hamiltonian と局所変数を必ず固定する。
+とする。
+
+したがって
+
+$
+\boxed{
+\text{cosine-}Z_2
+\longrightarrow
+\text{cosine-}Z_q
+\longrightarrow
+\text{cosine-}U(1)
+}
+$
+
+が同一 interaction family 内の symmetry / state-space 軸になる。
+
+Ising、clock、XYという名前は本文中で既存文献との対応を示す呼称として残す。別の interaction form、例えば $\cos2\phi$ や多体項を加えた場合は、symmetry が同じでもこの cosine 基準系列とは別の interaction family として扱う。
 
 ---
 
@@ -245,7 +289,7 @@ $$
 
 が同じ有限-$q$性の二つの表現になる。
 
-[1次元一様最近接 Zq スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) は、この $Z_2\to Z_q\to U(1)$ 軸を実際に埋める位置にある。
+[1次元一様最近接 cosine-Zq スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) は、この $Z_2\to Z_q\to U(1)$ 軸を実際に埋める位置にある。
 
 ---
 
@@ -468,15 +512,15 @@ $$
 
 | ノート | memory variable | $R$ | spatial organization |
 | --- | --- | --- | --- |
-| [1次元一様最近接 Z2 スピン系 — 空間記憶と応答](/notes/ising-transfer-matrix) | flip / wall | $1$ | uniform |
-| [1次元周期最近接 Z2 スピン系 — 構造波数](/notes/ising-r1-periodic) | flip / wall | $1$ | periodic |
-| [1次元周期最近接 Z2 スピン系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | flip + absolute-spin response | $1$ | periodic + field |
-| [1次元一様第二近接 Z2 スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | interacting wall pattern | $2$ | uniform |
-| [1次元一様有限範囲 Z2 スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | longer wall pattern | $n$ | uniform |
-| [1次元一様最近接 Zq スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | discrete phase increment | $1$ | uniform |
-| [1次元一様最近接 U(1) スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | continuous phase increment | $1$ | uniform |
-| [1次元一様第二近接 U(1) スピン系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | correlated phase increment / chirality | $2$ | uniform |
-| [1次元一様第二近接 U(1) スピン系 — chirality kinkと複数の空間記憶](/notes/xy-chain-chirality-memory) | chirality sector + phase | $2$ | uniform |
+| [1次元一様最近接 cosine-Z2 スピン系 — 空間記憶と応答](/notes/ising-transfer-matrix) | flip / wall | $1$ | uniform |
+| [1次元周期最近接 cosine-Z2 スピン系 — 構造波数](/notes/ising-r1-periodic) | flip / wall | $1$ | periodic |
+| [1次元周期最近接 cosine-Z2 スピン系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | flip + absolute-spin response | $1$ | periodic + field |
+| [1次元一様第二近接 cosine-Z2 スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | interacting wall pattern | $2$ | uniform |
+| [1次元一様有限範囲 cosine-Z2 スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | longer wall pattern | $n$ | uniform |
+| [1次元一様最近接 cosine-Zq スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | discrete phase increment | $1$ | uniform |
+| [1次元一様最近接 cosine-U(1) スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | continuous phase increment | $1$ | uniform |
+| [1次元一様第二近接 cosine-U(1) スピン系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | correlated phase increment / chirality | $2$ | uniform |
+| [1次元一様第二近接 cosine-U(1) スピン系 — chirality kinkと複数の空間記憶](/notes/xy-chain-chirality-memory) | chirality sector + phase | $2$ | uniform |
 
 この表で重要なのは、模型数そのものではなく「どの座標を動かしたノートなのか」が見えることである。
 
@@ -514,7 +558,7 @@ $$
 
 比較ノートは独立模型ではなく、二つ以上の座標点を同じ物理量で読むための辞書に限定する。
 
-[1次元一様最近接スピン系 — Z2・U(1)の空間記憶](/notes/ising-xy-nearest-neighbor-comparison) は、
+[1次元一様最近接 cosine スピン系 — Z2・U(1)の空間記憶](/notes/ising-xy-nearest-neighbor-comparison) は、
 
 $$
 R=1,
@@ -524,7 +568,7 @@ $$
 
 を固定して、memory variable の違いが相関喪失へどう現れるかを見る。
 
-[1次元一様第二近接スピン系 — Z2・U(1)を三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) は、
+[1次元一様第二近接 cosine スピン系 — Z2・U(1)を三つの解像度で見る](/notes/ising-xy-second-neighbor-comparison) は、
 
 $$
 R=2,
@@ -721,18 +765,18 @@ $
 導入の直後に
 
 $
-(d,\ \text{spatial organization},\ R,\ \text{symmetry})
+(d,\ \text{spatial organization},\ R,\ \text{interaction family},\ \text{state space / symmetry})
 $
 
 を明示し、その座標だけでは決まらない具体的 Hamiltonian も置く。
 
-例えば最近接 ferromagnetic clock / XY 系なら
+現在の基準系列なら
 
 $
 H=-J\sum_i\cos(\theta_{i+1}-\theta_i)
 $
 
-まで書いて、何を固定した系なのかを曖昧にしない。
+まで書き、さらに $\theta_i$ の取りうる集合を $Z_2$、$Z_q$、$U(1)$ のどれかとして明示する。これで symmetry だけでは一意でない Hamiltonian の曖昧さを消す。
 
 ### 局所 memory variable
 
@@ -988,7 +1032,8 @@ $$
 \boxed{
 \begin{array}{c}
 \text{model coordinates}\\[1mm]
-(\text{memory variable},\ R,\ \text{spatial organization})
+(\text{state space / symmetry},\ R,\ \text{spatial organization})
+\quad [\text{cosine family fixed}]
 \end{array}
 }
 \quad\times\quad
