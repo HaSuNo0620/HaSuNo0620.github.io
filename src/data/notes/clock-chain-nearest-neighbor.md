@@ -44,7 +44,7 @@ $$
 
 と書く。
 
-$q=2$ではIsing、$q\to\infty$ではXYへ近づく。しかし、重要なのは単に局所状態数が増えることではない。局所角度差の離散性が弱まり、長距離記憶を担うtransfer spectrumの構造そのものが変わる。
+$q=2$ではIsing、$q\to\infty$ではXYへ近づく。しかし、重要なのは単に局所状態数が増えることではない。局所角度差の離散性が弱まり、長距離記憶を担う転送スペクトルの構造そのものが変わる。
 
 ## 系の座標
 
@@ -62,13 +62,13 @@ H=-J\sum_i\cos(\theta_{i+1}-\theta_i),
 \theta_i=\frac{2\pi n_i}{q},
 $$
 
-局所 memory variable は
+局所 記憶変数 は
 
 $$
 \phi_i=\theta_{i+1}-\theta_i = \frac{2\pi a_i}{q}.
 $$
 
-$Z_2$ と $U(1)$ の間で動かすのは symmetry / memory alphabet だけである。
+$Z_2$ と $U(1)$ の間で動かすのは 対称性 / 記憶アルファベット だけである。
 
 ## 1. 局所記憶変数は離散化された位相増分である
 
@@ -104,7 +104,7 @@ $$
 
 $$
 \begin{array}{c|c}
-\text{model} & \text{allowed phase increment}\\
+\text{model} & \text{allowed 位相増分}\\
 \hline
 Z_2 & \{0,\pi\}\\[1mm]
 Z_q & \left\{\dfrac{2\pi a}{q}\right\}_{a=0}^{q-1}\\[3mm]
@@ -112,7 +112,7 @@ U(1) & [0,2\pi)
 \end{array}
 $$
 
-Isingのdomain wall変数
+Isingのドメイン壁変数
 
 $$
 \tau_i=s_i s_{i+1}=\pm1
@@ -140,13 +140,13 @@ $$
 \boxed{
 \text{two-state increment}
 \to
-\text{discrete phase increment}
+\text{discrete 位相増分}
 \to
-\text{continuous phase increment}
+\text{continuous 位相増分}
 }
 $$
 
-というmemory alphabetの連続化として読める。
+という記憶アルファベットの連続化として読める。
 
 ## 2. 遠距離の角度記憶は局所増分の積で決まる
 
@@ -208,9 +208,9 @@ $$
 
 となる。
 
-## 3. transfer spectrumは離散Fourier spectrumになる
+## 3. 転送スペクトルは離散Fourier spectrumになる
 
-1 bondのtransfer matrixは
+1 bondの転送行列は
 
 $$
 T_{ab} = \exp\left[
@@ -256,7 +256,7 @@ $$
 \Lambda_{q-m}^{(q)}=\Lambda_m^{(q)}
 $$
 
-なので、独立なmemory sectorは有限個しかない。
+なので、独立な記憶 sectorは有限個しかない。
 
 $$
 \boxed{
@@ -268,9 +268,9 @@ $$
 
 という同一視が起きている。
 
-## 4. $q=2$ではIsingの単一memory modeを回収する
+## 4. $q=2$ではIsingの単一記憶モードを回収する
 
-$q=2$では角度差は$0$または$\pi$だけで、transfer matrixは
+$q=2$では角度差は$0$または$\pi$だけで、転送行列は
 
 $$
 T=
@@ -306,9 +306,9 @@ $$
 
 であり、最近接Ising鎖の結果そのものを回収する。
 
-$q=2$では非自明なsectorが$m=1$の一つしかない。そのため最近接Isingの長距離memoryは単一指数で完全に閉じる。
+$q=2$では非自明なsectorが$m=1$の一つしかない。そのため最近接Isingの長距離記憶は単一指数で完全に閉じる。
 
-## 5. $q\to\infty$ではXYの無限harmonic hierarchyへつながる
+## 5. $q\to\infty$ではXYの無限高調波階層へつながる
 
 $q$を大きくすると離散和は円周上の積分へ近づき、
 
@@ -337,15 +337,15 @@ $$
 }
 $$
 
-となり、最近接XY鎖のmemory spectrumへつながる。
+となり、最近接XY鎖の記憶スペクトルへつながる。
 
-有限$q$では有限個だったmemory sectorが、$q\to\infty$で
+有限$q$では有限個だった記憶 sectorが、$q\to\infty$で
 
 $$
 m=1,2,3,\ldots
 $$
 
-という無限のharmonic hierarchyになる。
+という無限の高調波階層になる。
 
 ## 6. clock spectrumはXY spectrumを折り畳んだものとして書ける
 
@@ -408,15 +408,15 @@ $$
 \boxed{
 \text{finite angular discretization}
 \longleftrightarrow
-\text{harmonic-space aliasing}
+\text{高調波-space aliasing}
 }
 $$
 
 という対応がある。
 
-![有限$q$のmemory spectrumとXY極限](/figures/clock-r1/memory-spectrum-folding.svg)
+![有限$q$の記憶スペクトルとXY極限](/figures/clock-r1/記憶-spectrum-folding.svg)
 
-*$K=20$における$\rho_m^{(q)}$。有限$q$では独立sectorが$m\le q/2$までに折り畳まれる。$q$を増やすと低いharmonicからXYの無限spectrumへ収束し、細かい角度情報ほど有限$q$性を長く残す。*
+*$K=20$における$\rho_m^{(q)}$。有限$q$では独立sectorが$m\le q/2$までに折り畳まれる。$q$を増やすと低い高調波からXYの無限spectrumへ収束し、細かい角度情報ほど有限$q$性を長く残す。*
 
 ## 7. 低温では局所位相増分に二つの見え方が現れる
 
@@ -453,7 +453,7 @@ K\cos\phi
 K-\frac K2\phi^2
 $$
 
-なので、局所角度揺らぎのthermal widthは
+なので、局所角度揺らぎの熱揺らぎ幅は
 
 $$
 \boxed{
@@ -463,7 +463,7 @@ $$
 
 である。
 
-clock角の刻みとthermal widthの比を
+clock角の刻みと熱揺らぎ幅の比を
 
 $$
 \boxed{
@@ -504,11 +504,11 @@ $$
 \boxed{
 \text{rare discrete jumps}
 \longrightarrow
-\text{dense small-step phase diffusion}
+\text{dense small-step 位相拡散}
 }
 $$
 
-というcross-overの実体は、thermal widthの中にいくつの局所角度状態が解像されるかにある。
+というcross-overの実体は、熱揺らぎ幅の中にいくつの局所角度状態が解像されるかにある。
 
 ## 8. 相関長はactivated型からdiffusive型へ変わる
 
@@ -570,7 +570,7 @@ $$
 
 である。
 
-有限$q$のactivated memoryと、XYのdiffusive memoryは低温漸近形そのものが異なる。
+有限$q$のactivated 記憶と、XYのdiffusive 記憶は低温漸近形そのものが異なる。
 
 ## 9. cross-over変数は$q/\sqrt K$になる
 
@@ -618,9 +618,9 @@ $$
 
 ![相関長のclockからXYへのcross-over](/figures/clock-r1/correlation-length-crossover.svg)
 
-*$\xi_q/\xi_{XY}$を$q/\sqrt K$で整理したもの。異なる温度の曲線が同じ領域で急速にXY値へ近づき、局所角度刻み$2\pi/q$とthermal width$K^{-1/2}$の競合がcross-overを支配することが見える。*
+*$\xi_q/\xi_{XY}$を$q/\sqrt K$で整理したもの。異なる温度の曲線が同じ領域で急速にXY値へ近づき、局所角度刻み$2\pi/q$と熱揺らぎ幅$K^{-1/2}$の競合がcross-overを支配することが見える。*
 
-## 10. 高いharmonicほど遅くXY化する
+## 10. 高い高調波ほど遅くXY化する
 
 XY低温では
 
@@ -674,22 +674,22 @@ $$
 
 となる。
 
-$m$が大きいほど$q-2m$が小さくなるため、高いharmonicほどfinite-$q$ foldingの影響を強く受ける。
+$m$が大きいほど$q-2m$が小さくなるため、高い高調波ほどfinite-$q$ foldingの影響を強く受ける。
 
 $$
 \boxed{
-\text{coarse angular memory}
+\text{coarse angular 記憶}
 \text{ が先にXY化し、}
-\text{fine angular memory}
+\text{fine angular 記憶}
 \text{ は後まで離散性を残す}
 }
 $$
 
 という階層が現れる。
 
-![harmonicごとのmemory length](/figures/clock-r1/harmonic-memory-hierarchy.svg)
+![高調波ごとの記憶長](/figures/clock-r1/高調波-記憶-hierarchy.svg)
 
-*$K=20$での$\xi_m/\xi_1$。$q$が大きくなるにつれてXY低温則$\xi_m/\xi_1\simeq m^{-2}$が低いharmonicから回復する。有限$q$ではNyquist境界$m\sim q/2$へ近づくほどfoldingの影響が強くなる。*
+*$K=20$での$\xi_m/\xi_1$。$q$が大きくなるにつれてXY低温則$\xi_m/\xi_1\simeq m^{-2}$が低い高調波から回復する。有限$q$ではNyquist境界$m\sim q/2$へ近づくほどfoldingの影響が強くなる。*
 
 ## 11. $q\to\infty$と$T\to0$は同じ極限ではない
 
@@ -732,7 +732,7 @@ $$
 
 ## 12. 得られた見方
 
-clock modelをIsingとXYの間に置くと、対称性の違いは単なるスピン状態数の違いではなく、局所memoryの角度分解能の違いとして見える。
+clock modelをIsingとXYの間に置くと、対称性の違いは単なるスピン状態数の違いではなく、局所記憶の角度分解能の違いとして見える。
 
 $$
 \boxed{
@@ -748,11 +748,11 @@ $$
 
 $$
 \boxed{
-\text{one nontrivial memory mode}
+\text{one nontrivial 記憶モード}
 \to
-\text{finite harmonic memory spectrum}
+\text{finite 高調波 記憶スペクトル}
 \to
-\text{infinite harmonic hierarchy}
+\text{infinite 高調波階層}
 }
 $$
 
@@ -781,10 +781,10 @@ $$
 \boxed{
 \text{angular discretization}
 \longleftrightarrow
-\text{spectral folding}
+\text{スペクトルの折り畳み}
 }
 $$
 
 は同じ有限-$q$性を二つの表示で見たものになる。
 
-$q$を増やしたときに起きるのは、flip memoryがただ滑らかになることではない。thermal widthの中へ利用可能な局所状態が増え、sparse jump processがdense phase diffusionへ変わり、それと同時に有限個へ折り畳まれていたmemory spectrumがXYの無限harmonic hierarchyへ展開されていく。
+$q$を増やしたときに起きるのは、flip 記憶がただ滑らかになることではない。熱揺らぎ幅の中へ利用可能な局所状態が増え、sparse jump processがdense 位相拡散へ変わり、それと同時に有限個へ折り畳まれていた記憶スペクトルがXYの無限高調波階層へ展開されていく。
