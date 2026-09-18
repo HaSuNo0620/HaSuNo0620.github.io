@@ -28,7 +28,7 @@ $$
 
 $$
 \boxed{
-\text{independent 位相増分s}
+\text{independent 位相増分}
 \longrightarrow
 \text{相互作用する位相増分}}
 $$
