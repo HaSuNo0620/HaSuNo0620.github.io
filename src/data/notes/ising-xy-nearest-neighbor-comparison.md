@@ -1,5 +1,5 @@
 ---
-title: "1次元一様最近接 cosine スピン系 — Z2・Zq・U(1)と記憶の連続化"
+title: "1次元一様最近接 cosine スピン系 — Z2・Zq・U(1)と相関の連続化"
 summary: "1次元一様最近接 cosine スピン系を、Z2・Zq・U(1)という局所状態空間の違いだけを動かして比較する。局所位相増分、1-step retention、転送スペクトル、相関長、波数応答を共通言語にし、稀なドメイン壁からfinite-angle jumpを経て位相拡散へ移る構造を整理する。"
 publishedAt: 2026-09-13T01:50:00+09:00
 updatedAt: 2026-09-19
@@ -163,11 +163,11 @@ S^1
 }
 $$
 
-は、局所 記憶アルファベット の細分化として読める。
+は、局所 局所状態の集合 の細分化として読める。
 
 ---
 
-## 2. 遠距離記憶も同じ積に統一できる
+## 2. 遠距離相関も同じ積に統一できる
 
 距離 $r$ の角度差は
 
@@ -304,7 +304,7 @@ $$
 }
 $$
 
-が同じ 1-step 記憶 の $Z_2\to Z_q\to U(1)$ 変形である。
+が同じ 1-step 履歴 の $Z_2\to Z_q\to U(1)$ 変形である。
 
 ---
 
@@ -362,13 +362,13 @@ $$
 
 という対応になる。
 
-![有限$q$の記憶スペクトルとU(1)極限](/figures/clock-r1/memory-spectrum-folding.svg)
+![有限$q$の相関スペクトルとU(1)極限](/figures/clock-r1/memory-spectrum-folding.svg)
 
 *$K=20$。低い 高調波 は比較的小さい $q$ でも早く $U(1)$ スペクトル へ近づく一方、$m\sim q/2$ の細かい角度情報には finite-$q$ の折り畳み が残る。*
 
 ---
 
-## 5. 記憶喪失 は 稀なドメイン壁 から 位相拡散 へ連続化する
+## 5. 相関減衰 は 稀なドメイン壁 から 位相拡散 へ連続化する
 
 $Z_2$ で非零増分は
 
@@ -388,7 +388,7 @@ $$
 p_{\rm wall}\sim e^{-2K}
 $$
 
-なので、記憶喪失 は 疎な局在ドメイン壁 によって起こる。
+なので、相関減衰 は 疎な局在ドメイン壁 によって起こる。
 
 $Z_q$ では最小非零増分が
 
@@ -543,12 +543,12 @@ $$
 $$
 \boxed{
 \text{finite }q:
-\text{activated 記憶}
+\text{活性化型相関}
 \qquad
 \longrightarrow
 \qquad
 q=\infty:
-\text{diffusive 記憶}
+\text{拡散型相関}
 }
 $$
 
@@ -615,7 +615,7 @@ $$
 
 ---
 
-## 8. 高調波 記憶 は (Z_2) の1本から (U(1)) の無限階層へ開く
+## 8. 高調波 相関 は (Z_2) の1本から (U(1)) の無限階層へ開く
 
 $Z_2$ では非自明な 高調波セクター は実質
 
@@ -661,16 +661,16 @@ $$
 
 となる。
 
-![高調波ごとの記憶長](/figures/clock-r1/harmonic-memory-hierarchy.svg)
+![高調波ごとの相関長](/figures/clock-r1/harmonic-memory-hierarchy.svg)
 
-*finite $q$ では低い 高調波 から $m^{-2}$ hierarchy が回復し、fine angular 記憶 ほど離散性を長く保持する。*
+*finite $q$ では低い 高調波 から $m^{-2}$ hierarchy が回復し、高角度分解能の相関 ほど離散性を長く保持する。*
 
 したがって
 
 $$
 \boxed{
 Z_2:
-\text{one nontrivial 記憶モード}
+\text{one nontrivial 相関モード}
 \to
 Z_q:
 \text{finite 高調波 spectrum}
@@ -704,7 +704,7 @@ $$
 
 である。
 
-したがって三者とも、零外場の $m=1$ 記憶 を読む 空間応答 は同じ denominator を持つ。
+したがって三者とも、零外場の $m=1$ 相関 を読む 空間応答 は同じ denominator を持つ。
 
 $Z_2$ では スカラー・スピン 自体が $m=1$ 観測量 なので
 
@@ -865,4 +865,4 @@ $$
 
 として読める。
 
-その連続化は、実空間では defect から diffusion への変化、Fourier 空間では スペクトルの折り畳み の解除、長距離では activated から diffusive 記憶 への変化として同時に現れる。
+その連続化は、実空間では defect から diffusion への変化、Fourier 空間では スペクトルの折り畳み の解除、長距離では activated から 拡散型相関 への変化として同時に現れる。
