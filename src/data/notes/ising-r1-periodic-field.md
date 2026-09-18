@@ -500,7 +500,7 @@ $$
 
 である。
 
-![AABB周期外場系の応答構造マップ](/figures/ising-r1-periodic-field/応答-structure-map.svg)
+![AABB周期外場系の応答構造マップ](/figures/ising-r1-periodic-field/response-structure-map.svg)
 
 *どのchannelが優勢か、どこで分離し、どこで混ざるかを示す応答構造マップ。有限温度相図ではない。*
 
