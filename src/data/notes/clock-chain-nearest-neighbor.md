@@ -2,7 +2,7 @@
 title: "1次元clock模型 — 離散位相増分と角度記憶"
 summary: "1次元最近接clock鎖を、Isingの離散的な反転記憶とXYの連続的な位相増分記憶の間を埋める模型として読む。有限qの離散位相増分、transfer spectrum、XY spectrumのaliasing、rare jumpからphase diffusionへのcross-overを通して、Z2→Zq→U(1)で何が連続的に変わるかを整理する。"
 publishedAt: 2026-09-17T10:20:00+09:00
-updatedAt: 2026-09-17
+updatedAt: 2026-09-18
 area: "Physics"
 topics: ["statistical mechanics", "clock model", "spin model", "transfer matrix", "phase diffusion", "correlation", "Fourier spectrum"]
 status: growing
@@ -386,15 +386,19 @@ $$
 
 を一つのsectorへ重ね合わせたものになっている。
 
-$$
+$
 \boxed{
 \text{finite angular discretization}
 \longleftrightarrow
 \text{harmonic-space aliasing}
 }
-$$
+$
 
 という対応がある。
+
+![有限$q$のmemory spectrumとXY極限](/figures/clock-r1/memory-spectrum-folding.svg)
+
+*$K=20$における$\rho_m^{(q)}$。有限$q$では独立sectorが$m\le q/2$までに折り畳まれる。$q$を増やすと低いharmonicからXYの無限spectrumへ収束し、細かい角度情報ほど有限$q$性を長く残す。*
 
 ## 7. 低温では局所位相増分に二つの見え方が現れる
 
@@ -594,6 +598,10 @@ $$
 
 これは$q$の大きさ単独ではXYらしさが決まらないことを意味する。同じ$q$でも低温へ行けば再び角度刻みが見える。
 
+![相関長のclockからXYへのcross-over](/figures/clock-r1/correlation-length-crossover.svg)
+
+*$\xi_q/\xi_{XY}$を$q/\sqrt K$で整理したもの。異なる温度の曲線が同じ領域で急速にXY値へ近づき、局所角度刻み$2\pi/q$とthermal width$K^{-1/2}$の競合がcross-overを支配することが見える。*
+
 ## 10. 高いharmonicほど遅くXY化する
 
 XY低温では
@@ -660,6 +668,10 @@ $$
 $$
 
 という階層が現れる。
+
+![harmonicごとのmemory length](/figures/clock-r1/harmonic-memory-hierarchy.svg)
+
+*$K=20$での$\xi_m/\xi_1$。$q$が大きくなるにつれてXY低温則$\xi_m/\xi_1\simeq m^{-2}$が低いharmonicから回復する。有限$q$ではNyquist境界$m\sim q/2$へ近づくほどfoldingの影響が強くなる。*
 
 ## 11. $q\to\infty$と$T\to0$は同じ極限ではない
 
