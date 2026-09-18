@@ -1,0 +1,378 @@
+---
+title: "1次元一様第二近接 cosine-Zq スピン系 — 離散螺旋と角度記憶"
+summary: "第二近接相互作用を持つ1次元Zq cosineスピン鎖を、離散位相増分の相互作用、preferred twistの格子ロッキング、有限個のchirality sector、transfer matrix、相関波数と記憶長という構造で読む。Z2のinteracting wallとU(1)のcontinuous helixの間を埋める。"
+publishedAt: 2026-09-19T02:10:00+09:00
+updatedAt: 2026-09-19
+area: "Physics"
+topics: ["statistical mechanics", "clock model", "spin model", "second-neighbor interaction", "chirality", "transfer matrix", "frustration"]
+status: growing
+system:
+  dimension: 1
+  spatial: uniform
+  range: R2
+  interaction: cosine
+  symmetry: [Zq]
+  mechanics: classical
+  role: model
+---
+
+最近接の $Z_q$ 鎖では局所位相増分
+$$
+\phi_i=\theta_{i+1}-\theta_i
+$$
+は独立だった。第二近接相互作用を加えると、
+$$
+\boxed{
+H=
+-J_1\sum_i\cos(\theta_{i+1}-\theta_i)
+-J_2\sum_i\cos(\theta_{i+2}-\theta_i)
+}
+$$
+となり、離散増分どうしが相互作用する。ここで
+$$
+\theta_i=\frac{2\pi n_i}{q},\qquad n_i\in\mathbb Z_q.
+$$
+
+## 系の座標
+
+$$
+\boxed{
+(d=1,\ \text{uniform},\ R=2,\ \text{cosine},\ Z_q)
+}
+$$
+
+$q=2$ で第二近接 $Z_2$、$q\to\infty$ で第二近接 $U(1)$ へつながる。
+
+## 1. 第二近接相互作用は離散位相増分を相互作用させる
+
+$$
+\phi_i=\frac{2\pi a_i}{q}
+$$
+とおけば
+$$
+\theta_{i+2}-\theta_i=\phi_i+\phi_{i+1}
+$$
+なので
+$$
+\boxed{
+H=
+-J_1\sum_i\cos\phi_i
+-J_2\sum_i\cos(\phi_i+\phi_{i+1})
+}
+$$
+となる。
+
+したがって
+$$
+\boxed{
+R=1:\ \text{independent discrete increments}
+\quad\to\quad
+R=2:\ \text{correlated discrete increments}
+}
+$$
+である。
+
+## 2. preferred twist は有限個の角度へロックされる
+
+一様 twist $\phi_i=\phi$ なら
+$$
+\boxed{
+e(\phi)=-J_1\cos\phi-J_2\cos2\phi
+}
+$$
+である。
+
+ただし $Z_q$ では
+$$
+\phi=\phi_a=\frac{2\pi a}{q}
+$$
+しか許されないので、
+$$
+\boxed{
+a_\ast=
+\operatorname*{arg\,min}_{a\in\mathbb Z_q}
+\left[
+-J_1\cos\frac{2\pi a}{q}
+-J_2\cos\frac{4\pi a}{q}
+\right]
+}
+$$
+から
+$$
+\boxed{
+q_\ast^{(q)}=\frac{2\pi a_\ast}{q}
+}
+$$
+が決まる。
+
+$U(1)$ では
+$$
+\cos q_\ast=-\frac{J_1}{4J_2}
+$$
+と連続的に動けるが、有限 $q$ では
+$$
+0\to\frac{2\pi}{q}\to\frac{4\pi}{q}\to\cdots
+$$
+と staircase 状にロックされる。
+
+$$
+\boxed{
+\text{continuous helix}
+\longrightarrow
+\text{discrete twist locking}
+}
+$$
+
+## 3. finite-$q$ では chirality も離散化される
+
+$$
+e(\phi)=e(-\phi)
+$$
+なので、非零 twist が選ばれると
+$$
+\boxed{
++q_\ast^{(q)},\qquad -q_\ast^{(q)}
+}
+$$
+が縮退する。
+
+局所 chirality は
+$$
+\kappa_i^{\rm ch}=\sin\phi_i
+$$
+で読める。
+
+$Z_q$ では
+$$
+\boxed{
+\text{chirality switching}
++
+\text{discrete angular jumps}
+}
+$$
+が memory-loss channel になる。
+
+## 4. transfer matrix は $q\times q$ の離散角度 kernel になる
+
+transfer state を
+$$
+\phi_a=\frac{2\pi a}{q}
+$$
+とすると、対称分割した kernel は
+$$
+\boxed{
+T_{ab}
+=
+\exp\left[
+\frac{\beta J_1}{2}
+(\cos\phi_a+\cos\phi_b)
++
+\beta J_2\cos(\phi_a+\phi_b)
+\right]
+}
+$$
+である。
+
+最近接 $Z_q$ の circulant matrix と異なり、一般には単純な離散 Fourier 対角化では閉じない。
+
+$$
+\boxed{
+P(a_{i+1}|a_i)
+}
+$$
+という有限状態 Markov chain が自然な局所記述になる。
+
+## 5. $q=2$ では interacting wall を回収する
+
+$q=2$ では
+$$
+\tau_i=e^{i\phi_i}=\pm1
+$$
+で、
+$$
+\cos\phi_i=\tau_i,\qquad
+\cos(\phi_i+\phi_{i+1})=\tau_i\tau_{i+1}.
+$$
+したがって
+$$
+\boxed{
+H=
+-J_1\sum_i\tau_i
+-J_2\sum_i\tau_i\tau_{i+1}
+}
+$$
+となる。
+
+これは第二近接 $Z_2$ 鎖の interacting-wall 表現そのものである。
+
+## 6. $q\to\infty$ では continuous transfer operator へ移る
+
+$q$ を増やすと
+$$
+\Delta\phi=\frac{2\pi}{q}\to0
+$$
+なので、
+$$
+T_{ab}
+$$
+は
+$$
+\boxed{
+\mathcal T(\phi,\phi')
+=
+\exp\left[
+\frac{\beta J_1}{2}
+(\cos\phi+\cos\phi')
++
+\beta J_2\cos(\phi+\phi')
+\right]
+}
+$$
+へ近づく。
+
+したがって
+$$
+\boxed{
+2\times2
+\to
+q\times q
+\to
+\text{integral operator}
+}
+$$
+という transfer object の連続化が起こる。
+
+## 7. 長距離 memory は tilted spectrum で読む
+
+$$
+\left\langle e^{i(\theta_r-\theta_0)}\right\rangle
+=
+\left\langle
+\prod_{j=0}^{r-1}e^{i\phi_j}
+\right\rangle
+$$
+なので、位相因子を組み込んだ tilted transfer matrix の支配固有値
+$$
+\Lambda_\ast=|\Lambda_\ast|e^{iq_{\rm corr}}
+$$
+から
+$$
+\boxed{
+\xi^{-1}
+=
+-\ln\left|\frac{\Lambda_\ast}{\Lambda_0}\right|,
+\qquad
+q_{\rm corr}=\arg\Lambda_\ast
+}
+$$
+を得る。
+
+## 8. preferred twist・correlation wavevector・response peak は別の量である
+
+$$
+\boxed{
+q_\ast^{(q)},\qquad
+q_{\rm corr},\qquad
+Q_{\rm peak}
+}
+$$
+はそれぞれ
+
+- local energetic preference
+- long-distance memory の位相
+- 全距離相関を積分した response peak
+
+を表し、原理的に一致する必要はない。
+
+これは $Z_2$ の
+$$
+q_{\rm spec}\neq q_\chi
+$$
+と、$U(1)$ の
+$$
+q_\ast\neq q_{\rm corr}\neq Q_{\rm peak}
+$$
+の中間に位置する。
+
+## 9. finite-$q$ 固有の量は twist-locking error である
+
+continuous $U(1)$ の preferred twist $q_\ast$ と比べ、
+$$
+\boxed{
+\delta q_{\rm lock}
+=
+q_\ast^{(q)}-q_\ast
+}
+$$
+を angular discretization による locking error とみなせる。
+
+最近接 $R=1$ では finite $q$ 性は主に thermal angular resolution と spectral aliasing に現れた。
+
+第二近接ではさらに
+$$
+\boxed{
+\text{spectral discretization}
++
+\text{energetic pitch locking}
+}
+$$
+が現れる。
+
+## 10. $Z_2\to Z_q\to U(1)$ で何が連続化されるか
+
+実空間では
+$$
+\boxed{
+\text{interacting walls}
+\to
+\text{locked discrete twists}
+\to
+\text{continuous correlated twists}
+}
+$$
+
+局所遷移では
+$$
+\boxed{
+P(\tau'|\tau)
+\to
+P(a'|a)
+\to
+P(\phi'|\phi)
+}
+$$
+
+transfer object では
+$$
+\boxed{
+2\times2
+\to
+q\times q
+\to
+\text{integral operator}
+}
+$$
+
+となる。
+
+## 得られた見方
+
+第二近接 cosine 系では
+$$
+\boxed{
+Z_2\to Z_q\to U(1)
+}
+$$
+は
+$$
+\boxed{
+\text{wall pattern}
+\to
+\text{discrete twist locking}
+\to
+\text{continuous helix}
+}
+$$
+という空間記憶の連続化として読める。
+
+$R=1$ の finite-$q$ 性が angular resolution と spectral folding に現れたのに対し、$R=2$ では preferred pitch 自体が離散角へロックされる。有限 $q$ は単なる補間ではなく、**構造波数そのものが角度分解能によって量子化される領域**になる。
