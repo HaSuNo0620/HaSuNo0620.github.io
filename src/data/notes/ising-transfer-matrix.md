@@ -161,9 +161,9 @@ $$
 
 $$
 \boxed{
-\text{interacting spins}
+\text{相互作用するスピン}
 \longrightarrow
-\text{independent domain-wall variables}
+\text{独立なドメイン壁変数}
 }
 $$
 
@@ -206,7 +206,7 @@ $$
 =-hs_1\sum_i\prod_{k=1}^{i-1}\tau_k
 $$
 
-となるので、wall表示は外場に対しては非局所的になる。表示の良し悪しではなく、**何を局所化する変数なのか**が違う。
+となるので、ドメイン壁表示は外場に対しては非局所的になる。表示の良し悪しではなく、**何を局所化する変数なのか**が違う。
 
 ## 3. 相関は壁数の偶奇を読む
 
@@ -387,7 +387,7 @@ $q^{-1}$ は外場が変化する長さ、$\xi$ は系が内部で相関を保�
 
 という対応になる。
 
-最近接 Ising 鎖は、空間 Fourier mode に対する単純な **wave-vector filter** として読める。
+最近接 Ising 鎖は、空間 Fourier mode に対する単純な **波数フィルター** として読める。
 
 ## 7. 空間振動外場は相関長を直接 probe する
 
@@ -406,7 +406,7 @@ $$
 
 となる。
 
-![空間振動外場と磁化応答](/figures/ising-r1/spatial-field-応答.svg)
+![空間振動外場と磁化応答](/figures/ising-r1/spatial-field-response.svg)
 
 *$\beta J=1.2$、$h_q/J=0.05$。長波長では応答が大きく、短波長では強く抑制される。*
 
@@ -527,7 +527,7 @@ $$
 \boxed{
 \text{independent ドメイン壁s}
 \longrightarrow
-\text{interacting ドメイン壁s}
+\text{相互作用するドメイン壁}
 }
 $$
 
@@ -555,13 +555,13 @@ $$
 
 と書ける。
 
-スピン表示では相互作用範囲が伸びるほど transfer state が過去のスピンを多く保持し、wall表示では局所多体結合が増える。
+スピン表示では相互作用範囲が伸びるほど 転送状態 が過去のスピンを多く保持し、ドメイン壁表示では局所多体結合が増える。
 
 $$
 \boxed{
 \text{相互作用範囲}
 \longleftrightarrow
-\text{finite spatial 記憶}
+\text{有限の空間記憶}
 }
 $$
 
