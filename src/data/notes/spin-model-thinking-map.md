@@ -112,7 +112,7 @@ $$
 \tau_i=s_i s_{i+1}=\pm1
 $$
 
-を局所変数に取れる。$\tau_i=-1$ は domain wall / spin flip であり、
+を局所変数に取れる。$\tau_i=-1$ は ドメイン壁 / spin flip であり、
 
 $$
 s_0s_r = \prod_{j=0}^{r-1}\tau_j
@@ -142,7 +142,7 @@ $$
 
 $$
 \boxed{
-\text{XY} = \text{連続的な phase increment を記憶する系}
+\text{XY} = \text{連続的な 位相増分 を記憶する系}
 }
 $$
 
@@ -154,7 +154,7 @@ $$
 \boxed{
 \text{局所増分の列}
 \longrightarrow
-\text{その累積・積が遠距離 memory を決める}
+\text{その累積・積が遠距離 記憶 を決める}
 }
 $$
 
@@ -202,7 +202,7 @@ S^1
 }
 $$
 
-という **memory alphabet の細分化** として読める。
+という **記憶アルファベット の細分化** として読める。
 
 ただし、有限 $q$ が XY にどれだけ近いかは $q$ だけでは決まらない。低温での thermal angular width は
 
@@ -245,7 +245,7 @@ $$
 
 $$
 \boxed{
-\text{memory alphabet}
+\text{記憶アルファベット}
 \times
 \text{thermal resolution}
 }
@@ -259,7 +259,7 @@ $$
 m\sim m+q
 $$
 
-という harmonic folding が起こり、
+という 高調波 folding が起こり、
 
 $$
 \boxed{
@@ -350,7 +350,7 @@ $$
 
 $$
 \boxed{
-R = \text{memory depth}
+R = \text{記憶 depth}
 }
 $$
 
@@ -406,7 +406,7 @@ $$
 
 $$
 \boxed{
-\text{空間構造} = \text{memory rule が空間のどこでどう変わるか}
+\text{空間構造} = \text{記憶則 が空間のどこでどう変わるか}
 }
 $$
 
@@ -477,11 +477,11 @@ $$
 | model | [1次元周期最近接 cosine-$Z_2$ スピン系 — 周期外場と応答モード](/notes/ising-r1-periodic-field) | 1 | periodic + field | $R=1$ | cosine | $Z_2$ | wall + absolute-spin 応答 |
 | model | [1次元一様第二近接 cosine-$Z_2$ スピン系 — 振動相関と有限波数応答](/notes/ising-r2-transfer-matrix) | 1 | uniform | $R=2$ | cosine | $Z_2$ | interacting 壁配置 |
 | model | [1次元一様有限範囲 cosine-$Z_2$ スピン系 — 高次壁相互作用と有限記憶](/notes/ising-rn-transfer-matrix) | 1 | uniform | $R=n$ | cosine | $Z_2$ | longer 壁配置 |
-| model | [1次元一様最近接 cosine-$Z_q$ スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $Z_q$ | discrete phase increment |
-| model | [1次元一様第二近接 cosine-$Z_q$ スピン系 — 離散螺旋と角度記憶](/notes/clock-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $Z_q$ | locked 離散ねじれ / chirality |
-| model | [1次元一様最近接 cosine-$U(1)$ スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $U(1)$ | continuous phase increment |
-| model | [1次元一様第二近接 cosine-$U(1)$ スピン系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $U(1)$ | correlated phase increment |
-| model | [1次元一様第二近接 cosine-$U(1)$ スピン系 — chirality kinkと複数の空間記憶](/notes/xy-chain-chirality-memory) | 1 | uniform | $R=2$ | cosine | $U(1)$ | phase + chirality sector |
+| model | [1次元一様最近接 cosine-$Z_q$ スピン系 — 離散位相増分と角度記憶](/notes/clock-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $Z_q$ | discrete 位相増分 |
+| model | [1次元一様第二近接 cosine-$Z_q$ スピン系 — 離散螺旋と角度記憶](/notes/clock-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $Z_q$ | locked 離散ねじれ / カイラリティ |
+| model | [1次元一様最近接 cosine-$U(1)$ スピン系 — 位相拡散と角度記憶](/notes/xy-chain-nearest-neighbor) | 1 | uniform | $R=1$ | cosine | $U(1)$ | continuous 位相増分 |
+| model | [1次元一様第二近接 cosine-$U(1)$ スピン系 — 螺旋的空間記憶](/notes/xy-chain-second-neighbor) | 1 | uniform | $R=2$ | cosine | $U(1)$ | correlated 位相増分 |
+| model | [1次元一様第二近接 cosine-$U(1)$ スピン系 — カイラリティキンクと複数の空間記憶](/notes/xy-chain-カイラリティ-記憶) | 1 | uniform | $R=2$ | cosine | $U(1)$ | phase + カイラリティセクター |
 
 同じ行方向で 対称性 を動かし、同じ列方向で $R$ や 空間構造 を動かす、と読む。
 
@@ -489,7 +489,7 @@ $$
 
 | role | 比較ノート | 固定する座標 | 動かす座標 | 接続する 模型点 | 比較する量 |
 | --- | --- | --- | --- | --- | --- |
-| 比較 | [1次元一様最近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ の空間記憶](/notes/ising-xy-nearest-neighbor-比較) | $d=1$, uniform, $R=1$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | local increment, $\rho_m$, 転送スペクトル, $\xi$, $\chi(k)$ |
+| 比較 | [1次元一様最近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ の空間記憶](/notes/ising-xy-nearest-neighbor-比較) | $d=1$, uniform, $R=1$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | 局所増分, $\rho_m$, 転送スペクトル, $\xi$, $\chi(k)$ |
 | 比較 | [1次元一様第二近接 cosine スピン系 — $Z_2$・$Z_q$・$U(1)$ を三つの解像度で見る](/notes/ising-xy-second-neighbor-比較) | $d=1$, uniform, $R=2$, cosine, classical | 対称性 / 状態空間 | $Z_2 \leftrightarrow Z_q \leftrightarrow U(1)$ | defect / texture, 局所遷移, 転送スペクトル, pitch locking |
 
 比較ノートは新しい 模型点 ではなく、
@@ -522,7 +522,7 @@ $$
 | 相互作用範囲 | $Z_2$ | $Z_q$ | $U(1)$ | 横方向の比較 |
 | --- | --- | --- | --- | --- |
 | $R=1$ | [model](/notes/ising-transfer-matrix) | [model](/notes/clock-chain-nearest-neighbor) | [model](/notes/xy-chain-nearest-neighbor) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-nearest-neighbor-比較) |
-| $R=2$ | [model](/notes/ising-r2-transfer-matrix) | [model](/notes/clock-chain-second-neighbor) | [model](/notes/xy-chain-second-neighbor) / [chirality](/notes/xy-chain-chirality-memory) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-second-neighbor-比較) |
+| $R=2$ | [model](/notes/ising-r2-transfer-matrix) | [model](/notes/clock-chain-second-neighbor) | [model](/notes/xy-chain-second-neighbor) / [カイラリティ](/notes/xy-chain-カイラリティ-記憶) | [$Z_2\leftrightarrow Z_q\leftrightarrow U(1)$](/notes/ising-xy-second-neighbor-比較) |
 | $R=n$ | [model](/notes/ising-rn-transfer-matrix) | — | — | — |
 
 この表では空欄そのものが次の学習候補になる。今回 $R=2$ の $Z_q$ が埋まったことで、
@@ -616,7 +616,7 @@ $$
 
 $$
 \boxed{
-\text{interacting wall / locked twist / helix}
+\text{相互作用するドメイン壁 / ロックされたねじれ / らせん}
 \longleftrightarrow
 \text{局所遷移 probability}
 \longleftrightarrow
@@ -656,7 +656,7 @@ $$
 
 とみなす。
 
-### mean field / saddle point
+### mean field / 鞍点
 
 揺らぎを抑えて代表的な配置を残すため、
 
@@ -674,7 +674,7 @@ $$
 \phi\simeq\pm q_*
 $$
 
-という chirality sector、
+という カイラリティセクター、
 
 $$
 \phi_{\rm kink}(x)
@@ -750,7 +750,7 @@ $$
 
 $$
 \boxed{
-\text{長距離 memory・相関長・構造波数}
+\text{長距離 記憶・相関長・構造波数}
 }
 $$
 
@@ -794,7 +794,7 @@ $$
 \to
 \text{局所 記憶変数}
 \to
-\text{長距離 memory / 転送スペクトル}
+\text{長距離 記憶 / 転送スペクトル}
 \to
 \text{観測量・応答}
 \to
@@ -836,7 +836,7 @@ $$
 
 相互作用範囲 や 空間構造 を変えたとき、最初に「この局所変数の独立性・遷移則・重みのどれが変わったか」を読む。
 
-### 長距離 memory
+### 長距離 記憶
 
 局所則をそのまま終点にせず、
 
@@ -851,11 +851,11 @@ $$
 
 $$
 \boxed{
-\text{local rule}
+\text{局所則}
 \longrightarrow
-\text{transfer object}
+\text{転送対象}
 \longrightarrow
-\text{long-distance memory}
+\text{長距離記憶}
 }
 $$
 
@@ -863,7 +863,7 @@ $$
 
 ### 観測量・応答
 
-長距離 memory が何として観測されるかを分ける。
+長距離 記憶 が何として観測されるかを分ける。
 
 $$
 \chi(q),\qquad
@@ -920,7 +920,7 @@ $$
 
 ## 8. 今どの軸まで埋まっているか
 
-memory-variable 軸は
+記憶-variable 軸は
 
 $$
 \boxed{
@@ -938,11 +938,11 @@ $$
 
 $$
 \boxed{
-\text{memory alphabet}
+\text{記憶アルファベット}
 +
 \text{thermal resolution}
 +
-\text{harmonic resolution}
+\text{高調波 resolution}
 }
 $$
 
@@ -1006,7 +1006,7 @@ $$
 
 空間構造 の次には、模型座標そのものとは別に二つの拡張が残る。
 
-### spatial memory から temporal memory へ
+### spatial 記憶 から temporal 記憶 へ
 
 現在の中心量は
 
@@ -1036,7 +1036,7 @@ $$
 
 ### 1D の point defect から 2D の line defect へ
 
-1D Ising の domain wall は点だが、2D では線になる。
+1D Ising の ドメイン壁 は点だが、2D では線になる。
 
 $$
 E_{\rm wall}\sim\sigma\ell,
@@ -1101,7 +1101,7 @@ $$
 
 に戻せる。
 
-現在は 対称性 / memory-variable 軸が clock を介して一度閉じ、interaction-range 軸もかなり埋まった。次に最も情報量が大きい空白は 空間構造 であり、
+現在は 対称性 / 記憶-variable 軸が clock を介して一度閉じ、interaction-range 軸もかなり埋まった。次に最も情報量が大きい空白は 空間構造 であり、
 
 $$
 \boxed{
