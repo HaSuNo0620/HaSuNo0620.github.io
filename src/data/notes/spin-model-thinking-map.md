@@ -10,7 +10,7 @@ status: growing
 
 Ising、clock、XY を別々の模型名として並べるだけでは、何を変えたことで物理が変わったのかが見えにくい。
 
-Ising 系だけを相互作用範囲と空間構造の方向から辿る場合は、[1次元 Ising 系の地図](/notes/ising-model-map) を入口にする。
+Ising 系だけを相互作用範囲と空間構造の方向から辿る場合は、[Ising 専用ページ](/notes/ising/) を入口にする。
 
 現在のノート群では、1次元 classical cosine 系を
 
