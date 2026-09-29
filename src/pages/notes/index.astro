@@ -48,6 +48,25 @@ const mechanicsLabel: Record<string, string> = {
     </p>
   </section>
 
+  <section class="system-hubs" aria-label="スピン系の入口">
+    <div>
+      <p class="section-label">spin systems</p>
+      <p class="system-hubs-copy">模型ごとの系列を辿る場合は、専用ページから入れます。</p>
+    </div>
+    <div class="system-hub-links">
+      <a href="/notes/ising/">
+        <span>Z2</span>
+        <strong>Ising</strong>
+        <small>R と空間構造で辿る →</small>
+      </a>
+      <a href="/notes/spin-model-thinking-map/">
+        <span>map</span>
+        <strong>Spin systems</strong>
+        <small>状態空間 × R × 空間構造 →</small>
+      </a>
+    </div>
+  </section>
+
   <section class="system-controls" aria-label="スピン系ノートの絞り込みと並べ替え">
     <div class="system-controls-head">
       <div>
@@ -272,6 +291,47 @@ const mechanicsLabel: Record<string, string> = {
     text-underline-offset: 4px;
   }
 
+  .system-hubs {
+    margin: 2.5rem 0 1rem;
+    display: grid;
+    grid-template-columns: minmax(180px, .7fr) minmax(0, 2fr);
+    gap: 1rem 1.5rem;
+    align-items: start;
+  }
+
+  .system-hubs-copy {
+    margin: .25rem 0 0;
+    color: var(--muted);
+    font-size: .88rem;
+    line-height: 1.6;
+  }
+
+  .system-hub-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .7rem;
+  }
+
+  .system-hub-links a {
+    display: grid;
+    gap: .18rem;
+    padding: .9rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .system-hub-links a:hover {
+    border-color: var(--accent);
+  }
+
+  .system-hub-links span,
+  .system-hub-links small {
+    color: var(--muted);
+    font-size: .74rem;
+  }
+
   .system-controls {
     margin: 2.5rem 0 2rem;
     padding: 1.1rem 1.2rem 1.2rem;
@@ -361,6 +421,11 @@ const mechanicsLabel: Record<string, string> = {
   }
 
   @media (max-width: 620px) {
+    .system-hubs,
+    .system-hub-links {
+      grid-template-columns: 1fr;
+    }
+
     .system-sort {
       grid-column: auto;
     }
