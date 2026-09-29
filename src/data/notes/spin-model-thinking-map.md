@@ -2,13 +2,15 @@
 title: "スピン系をどう読むか — 状態空間・相互作用範囲・空間構造"
 summary: "1次元 classical cosine スピン系を、状態空間 / 対称性、相互作用範囲 R、空間構造という模型座標で整理する。各模型座標には個別ノートを1本だけ置き、比較ノートは一つの軸だけを動かす橋として扱う。現在は一様系の R×対称性平面が閉じている。"
 publishedAt: 2026-09-16T03:45:00+09:00
-updatedAt: 2026-09-19
+updatedAt: 2026-09-29
 area: "Physics"
 topics: ["statistical mechanics", "spin models", "transfer matrix", "memory", "linear response"]
 status: growing
 ---
 
 Ising、clock、XY を別々の模型名として並べるだけでは、何を変えたことで物理が変わったのかが見えにくい。
+
+Ising 系だけを相互作用範囲と空間構造の方向から辿る場合は、[1次元 Ising 系の地図](/notes/ising-model-map) を入口にする。
 
 現在のノート群では、1次元 classical cosine 系を
 
