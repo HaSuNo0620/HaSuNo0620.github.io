@@ -1,0 +1,398 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const notes = (await getCollection('notes', ({ data }) => !data.draft));
+const byId = new Map(notes.map((note) => [note.id, note]));
+
+const pick = (ids: string[]) => ids.flatMap((id) => {
+  const note = byId.get(id);
+  return note ? [note] : [];
+});
+
+const rangeNotes = pick([
+  'ising-transfer-matrix',
+  'ising-r2-transfer-matrix',
+  'ising-rn-transfer-matrix',
+]);
+
+const spatialNotes = pick([
+  'ising-r1-periodic',
+]);
+
+const comparisonNotes = pick([
+  'ising-range-comparison',
+  'ising-xy-nearest-neighbor-comparison',
+  'ising-xy-second-neighbor-comparison',
+  'finite-range-symmetry-comparison',
+]);
+
+const rangeLabel: Record<string, string> = {
+  R1: 'R = 1 / 最近接',
+  R2: 'R = 2 / 第二近接',
+  Rn: 'R = n / 有限範囲',
+};
+
+const coordinate = (note: typeof notes[number]) => {
+  const system = note.data.system;
+  if (!system) return '';
+  const ranges = Array.isArray(system.range) ? system.range : [system.range];
+  return ranges.map((value) => rangeLabel[value] ?? value).join(' · ');
+};
+---
+
+<BaseLayout
+  title="Ising"
+  description="1次元 Ising 系を、相互作用範囲と空間構造から辿る専用ページ。"
+>
+  <section class="ising-hero">
+    <p class="section-label">spin systems / Z2</p>
+    <div class="ising-title-row">
+      <div>
+        <h1>Ising</h1>
+        <p class="ising-lead">
+          二値の反転情報を固定し、<strong>どこまで履歴を読むか</strong>と
+          <strong>その規則が空間のどこで変わるか</strong>で系列を辿る。
+        </p>
+      </div>
+      <a class="map-link" href="/notes/spin-model-thinking-map/">spin map ↗</a>
+    </div>
+  </section>
+
+  <section class="axis-strip" aria-label="Ising 系の整理軸">
+    <div>
+      <span class="axis-kicker">memory variable</span>
+      <strong>flip / domain wall</strong>
+      <small>τᵢ = sᵢsᵢ₊₁ = ±1</small>
+    </div>
+    <div>
+      <span class="axis-kicker">range</span>
+      <strong>R = 1 → 2 → n</strong>
+      <small>空間履歴の深さ</small>
+    </div>
+    <div>
+      <span class="axis-kicker">spatial rule</span>
+      <strong>uniform → periodic</strong>
+      <small>次は quasiperiodic / random</small>
+    </div>
+  </section>
+
+  <section class="ising-section">
+    <div class="section-head">
+      <div>
+        <p class="section-label">interaction range</p>
+        <h2>相互作用範囲を伸ばす</h2>
+      </div>
+      <a href="/notes/ising-range-comparison/">R の比較を読む →</a>
+    </div>
+
+    <div class="model-flow">
+      {rangeNotes.map((note, index) => (
+        <>
+          <a class="model-card" href={`/notes/${note.id}/`}>
+            <span class="model-coordinate">{coordinate(note)}</span>
+            <strong>{note.data.title}</strong>
+            <p>{note.data.summary}</p>
+          </a>
+          {index < rangeNotes.length - 1 && <span class="flow-arrow" aria-hidden="true">→</span>}
+        </>
+      ))}
+    </div>
+
+    <p class="section-note">
+      wall という局所変数は同じまま、独立な wall から相互作用する wall、
+      さらに長い wall pattern へと、局所 Boltzmann 重みが読む履歴だけが深くなる。
+    </p>
+  </section>
+
+  <section class="ising-section">
+    <div class="section-head">
+      <div>
+        <p class="section-label">spatial organization</p>
+        <h2>記憶則の空間構造を変える</h2>
+      </div>
+    </div>
+
+    <div class="spatial-track">
+      <div class="spatial-node active">
+        <span>uniform</span>
+        <strong>一様な生成則</strong>
+      </div>
+      <span class="track-arrow">→</span>
+      {spatialNotes.map((note) => (
+        <a class="spatial-node active" href={`/notes/${note.id}/`}>
+          <span>periodic</span>
+          <strong>周期的な生成則</strong>
+          <small>{note.data.title}</small>
+        </a>
+      ))}
+      <span class="track-arrow">→</span>
+      <div class="spatial-node future">
+        <span>quasiperiodic</span>
+        <strong>未展開</strong>
+      </div>
+      <span class="track-arrow">→</span>
+      <div class="spatial-node future">
+        <span>random</span>
+        <strong>未展開</strong>
+      </div>
+    </div>
+
+    <p class="section-note">
+      ここでは R を増やさない。wall の相互作用ではなく、wall を作りやすい場所の規則だけを変える。
+    </p>
+  </section>
+
+  <section class="ising-section">
+    <div class="section-head">
+      <div>
+        <p class="section-label">cross sections</p>
+        <h2>Ising から外へ比較する</h2>
+      </div>
+    </div>
+
+    <div class="comparison-grid">
+      {comparisonNotes.map((note) => (
+        <a class="comparison-card" href={`/notes/${note.id}/`}>
+          <strong>{note.data.title}</strong>
+          <p>{note.data.summary}</p>
+          <span>比較ノート ↗</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="ising-next">
+    <p class="section-label">next coordinate</p>
+    <h2>次に動かすなら空間構造</h2>
+    <p>
+      一様系では <strong>R = 1 → 2 → n</strong> がすでにつながっている。
+      次の候補は、周期の先で <strong>quasiperiodic</strong> を導入し、
+      Hamiltonian に入れた非周期秩序が相関へどう残るかを見る方向になる。
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .ising-hero {
+    padding: 2.4rem 0 1.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ising-title-row,
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    align-items: end;
+  }
+
+  .ising-hero h1 {
+    margin: .15rem 0 .65rem;
+    font-size: clamp(2.4rem, 8vw, 5rem);
+    line-height: .95;
+  }
+
+  .ising-lead {
+    max-width: 46rem;
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .map-link,
+  .section-head > a {
+    flex: none;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: .88rem;
+  }
+
+  .axis-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .axis-strip > div {
+    display: grid;
+    gap: .22rem;
+    padding: 1rem 1.1rem;
+    border-right: 1px solid var(--line);
+  }
+
+  .axis-strip > div:last-child {
+    border-right: 0;
+  }
+
+  .axis-kicker,
+  .model-coordinate,
+  .spatial-node > span {
+    color: var(--muted);
+    font-size: .72rem;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+
+  .axis-strip small,
+  .spatial-node small {
+    color: var(--muted);
+  }
+
+  .ising-section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section-head {
+    margin-bottom: 1.4rem;
+  }
+
+  .section-head h2,
+  .ising-next h2 {
+    margin: .2rem 0 0;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+  }
+
+  .model-flow {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: .75rem;
+    align-items: stretch;
+  }
+
+  .model-card,
+  .comparison-card,
+  .spatial-node {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .model-card {
+    display: grid;
+    align-content: start;
+    gap: .55rem;
+    padding: 1.1rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+
+  .model-card:hover,
+  .comparison-card:hover,
+  a.spatial-node:hover {
+    border-color: var(--accent);
+  }
+
+  .model-card p,
+  .comparison-card p,
+  .section-note,
+  .ising-next p {
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .model-card p,
+  .comparison-card p {
+    margin: 0;
+    font-size: .88rem;
+  }
+
+  .flow-arrow,
+  .track-arrow {
+    align-self: center;
+    color: var(--muted);
+  }
+
+  .section-note {
+    margin: 1rem 0 0;
+    font-size: .9rem;
+  }
+
+  .spatial-track {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    gap: .65rem;
+    align-items: center;
+  }
+
+  .spatial-node {
+    min-height: 6.2rem;
+    display: grid;
+    align-content: center;
+    gap: .3rem;
+    padding: .9rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+
+  .spatial-node.future {
+    border-style: dashed;
+    color: var(--muted);
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .8rem;
+  }
+
+  .comparison-card {
+    display: grid;
+    gap: .55rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+
+  .comparison-card > span {
+    color: var(--accent);
+    font-size: .8rem;
+  }
+
+  .ising-next {
+    margin: 3rem 0 1rem;
+    padding: 1.35rem 1.4rem;
+    border-left: 3px solid var(--accent);
+    background: color-mix(in srgb, var(--paper) 92%, var(--accent));
+  }
+
+  .ising-next p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 760px) {
+    .ising-title-row,
+    .section-head {
+      align-items: start;
+      flex-direction: column;
+    }
+
+    .axis-strip {
+      grid-template-columns: 1fr;
+    }
+
+    .axis-strip > div {
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .axis-strip > div:last-child {
+      border-bottom: 0;
+    }
+
+    .model-flow,
+    .spatial-track {
+      grid-template-columns: 1fr;
+    }
+
+    .flow-arrow,
+    .track-arrow {
+      justify-self: center;
+      transform: rotate(90deg);
+    }
+
+    .comparison-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
