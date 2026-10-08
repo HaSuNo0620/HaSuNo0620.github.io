@@ -150,7 +150,7 @@ def apply_equation(image,c,t):
     if not tex:
         return image
     p=(t-c["start"])/max(.01,c["end"]-c["start"])
-    fade=max(0.,min(1.,(p-.12)/.16,(1-p)/.12))
+    fade=max(0.,min(1.,(p-.015)/.08,(1-p)/.10))
     if fade<=0:
         return image
     art=equation_art(tex).copy()
