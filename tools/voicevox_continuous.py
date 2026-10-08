@@ -50,10 +50,10 @@ def two_lines(draw,text,font,width):
     if buffer:result.append(buffer)
     return result[:2]
 
-def render(t,cues):
-    idx,c=cue_at(t,cues)
+def render_scene(t,cues,show_subtitle=True,forced_idx=None):
+    idx,c=cue_at(t,cues) if forced_idx is None else (forced_idx,cues[forced_idx])
     motion=c["motion"]
-    p=ease((t-c["start"])/max(.01,c["end"]-c["start"]))
+    p=ease((t-c["start"])/max(.01,c["end"]-c["start"])) if forced_idx is None else 1.0
     image=Image.new("RGB",(W,H),"#0e1724")
     d=ImageDraw.Draw(image)
     f=ImageFont.truetype(FONT,25)
@@ -114,12 +114,30 @@ def render(t,cues):
     label="矢印 = スピンの向き  θ"
     d.text((35,12),label,font=fs,fill="#e0e9f5")
     # Fade the label? Keep it readable throughout; context is more important.
-    subtitle=c.get("subtitle","")
-    d.rounded_rectangle((38,H-100,W-38,H-22),radius=14,fill="#07101a")
-    for n,line in enumerate(two_lines(d,subtitle,f,W-108)):
-        tw=d.textbbox((0,0),line,font=f)[2]
-        d.text(((W-tw)/2,H-94+34*n),line,font=f,fill="#ffffff")
+    if show_subtitle:
+        draw_subtitle(image,c.get("subtitle",""))
     return image
+
+def draw_subtitle(image,text):
+    d=ImageDraw.Draw(image)
+    font=ImageFont.truetype(FONT,25)
+    d.rounded_rectangle((38,H-107,W-38,H-18),radius=14,fill="#07101a")
+    lines=two_lines(d,text,font,W-108)
+    for n,line in enumerate(lines):
+        tw=d.textbbox((0,0),line,font=font)[2]
+        d.text(((W-tw)/2,H-100+36*n),line,font=font,fill="#ffffff")
+
+def render(t,cues):
+    idx,c=cue_at(t,cues)
+    current=render_scene(t,cues,show_subtitle=False)
+    if idx>0:
+        blend_seconds=min(0.9,max(0.15,(c["end"]-c["start"])*0.22))
+        elapsed=t-c["start"]
+        if elapsed<blend_seconds:
+            previous=render_scene(c["start"],cues,show_subtitle=False,forced_idx=idx-1)
+            current=Image.blend(previous,current,ease(elapsed/blend_seconds))
+    draw_subtitle(current,c.get("subtitle",""))
+    return current
 
 def main():
     ap=argparse.ArgumentParser()
