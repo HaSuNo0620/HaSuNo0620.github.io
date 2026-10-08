@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   render:
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[voicevox-video]'))
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[voicevox-video]') && github.event.issue.user.login == github.repository_owner)
     runs-on: ubuntu-latest
     timeout-minutes: 55
     steps:
