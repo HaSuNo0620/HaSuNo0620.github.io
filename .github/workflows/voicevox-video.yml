@@ -28,7 +28,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
-          python -m pip install --disable-pip-version-check pillow requests
+          python -m pip install --disable-pip-version-check pillow requests numpy
       - name: Extract video job safely
         env:
           EVENT_NAME: ${{ github.event_name }}
@@ -59,6 +59,7 @@ jobs:
           path: |
             video_output/finished.mp4
             video_output/voice_*.wav
+            video_output/subtitles.srt
             video_job.json
           if-no-files-found: warn
           retention-days: 7
