@@ -124,8 +124,8 @@ def render_continuous(job, scenes, speaker, out):
         ms=round(t*1000)
         h,rem=divmod(ms,3600000);m,rem=divmod(rem,60000);s,ms=divmod(rem,1000)
         return f"{h:02}:{m:02}:{s:02},{ms:03}"
-    (out/"subtitles.srt").write_text("\\n".join(
-        f"{i+1}\\n{stamp(c['start'])} --> {stamp(c['end'])}\\n{c['subtitle']}\\n"
+    (out/"subtitles.srt").write_text("\n".join(
+        f"{i+1}\n{stamp(c['start'])} --> {stamp(c['end'])}\n{c['subtitle']}\n"
         for i,c in enumerate(cues)),encoding="utf-8")
     silent=out/"silent.mp4"
     subprocess.run(["python","tools/voicevox_continuous.py","--timeline",
