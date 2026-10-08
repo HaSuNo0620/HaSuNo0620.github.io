@@ -11,7 +11,8 @@
     {
       "motion": "phase_field_intro",
       "narration": "隣り合うスピンは、互いに同じ方向を向こうとします。",
-      "reading": "となりあうスピンは、たがいにおなじほうこうをむこうとします。"
+      "reading": "となりあうスピンは、たがいにおなじほうこうをむこうとします。",
+      "equation": "H=-J\\sum_{\\langle i,j\\rangle}\\cos(\\theta_i-\\theta_j)"
     },
     {
       "motion": "phase_smooth_lowT",
@@ -21,12 +22,14 @@
     {
       "motion": "phase_smooth_lowT",
       "narration": "二次元では、この揺らぎにより通常の長距離秩序は保たれません。",
-      "reading": "にじげんでは、このゆらぎにより、つうじょうのちょうきょりちつじょはたもたれません。"
+      "reading": "にじげんでは、このゆらぎにより、つうじょうのちょうきょりちつじょはたもたれません。",
+      "equation": "H_{\\mathrm{sw}}\\simeq\\frac{J}{2}\\int|\\nabla\\theta|^2\\,d^2r"
     },
     {
       "motion": "phase_smooth_lowT",
       "narration": "それでも低温では、相関が距離のべき乗でゆっくり減衰します。",
-      "reading": "それでもていおんでは、そうかんがきょりのべきじょうでゆっくりげんすいします。"
+      "reading": "それでもていおんでは、そうかんがきょりのべきじょうでゆっくりげんすいします。",
+      "equation": "C(r)\\sim r^{-\\eta(T)}"
     },
     {
       "motion": "zoom_to_vortex",
@@ -36,7 +39,8 @@
     {
       "motion": "vortex_with_streamlines",
       "narration": "閉じた経路に沿って角度が二π変化すると、巻き数はプラス一です。",
-      "reading": "とじたけいろにそってかくどがにパイへんかすると、まきすうはプラスいちです。"
+      "reading": "とじたけいろにそってかくどがにパイへんかすると、まきすうはプラスいちです。",
+      "equation": "m=\\frac{1}{2\\pi}\\oint\\nabla\\theta\\cdot d\\ell"
     },
     {
       "motion": "vortex_antivortex_pair",
@@ -51,7 +55,8 @@
     {
       "motion": "vortex_antivortex_pair",
       "narration": "渦を一つ孤立させるエネルギーは、系の大きさの対数に比例します。",
-      "reading": "うずをひとつこりつさせるエネルギーは、けいのおおきさのたいすうにひれいします。"
+      "reading": "うずをひとつこりつさせるエネルギーは、けいのおおきさのたいすうにひれいします。",
+      "equation": "E_v\\simeq\\pi Jm^2\\ln(L/a)"
     },
     {
       "motion": "pair_unbinding",
@@ -61,7 +66,8 @@
     {
       "motion": "pair_unbinding",
       "narration": "エネルギーとエントロピーの競合が、渦対の解離を引き起こします。",
-      "reading": "エネルギーとエントロピーのきょうごうが、うずついのかいりをひきおこします。"
+      "reading": "エネルギーとエントロピーのきょうごうが、うずついのかいりをひきおこします。",
+      "equation": "F_v\\simeq(\\pi J-2k_BT)\\ln(L/a)+\\mu"
     },
     {
       "motion": "pair_unbinding",
@@ -76,7 +82,8 @@
     {
       "motion": "correlation_compare",
       "narration": "転移点では相関の指数が四分の一となり、特徴的な臨界性が現れます。",
-      "reading": "てんいてんではそうかんのしすうがよんぶんのいちとなり、とくちょうてきなりんかいせいがあらわれます。"
+      "reading": "てんいてんではそうかんのしすうがよんぶんのいちとなり、とくちょうてきなりんかいせいがあらわれます。",
+      "equation": "\\eta(T_{\\mathrm{BKT}})=\\frac14"
     }
   ]
 }
