@@ -79,6 +79,41 @@ def wrap(draw,text,font,maxw):
     if cur:lines.append(cur)
     return lines or [""]
 
+def phase_legend(im):
+    # Color is a periodic encoding of the planar spin angle.
+    d=ImageDraw.Draw(im)
+    cx,cy,rr=1110,115,55
+    for deg in range(360):
+        ang=math.radians(deg)
+        color=tuple(int(v) for v in rgb_phase(np.array([[ang]]))[0,0])
+        x0=cx+rr*math.cos(ang); y0=cy+rr*math.sin(ang)
+        x1=cx+(rr+12)*math.cos(ang); y1=cy+(rr+12)*math.sin(ang)
+        d.line((x0,y0,x1,y1),fill=color,width=3)
+    d.ellipse((cx-rr+13,cy-rr+13,cx+rr-13,cy+rr-13),fill="#091626")
+    f=ImageFont.truetype(FONT,24)
+    d.text((cx-18,cy-16),"θ",font=f,fill="#ffffff")
+    d.text((cx-103,cy+83),"色 = スピン角",font=f,fill="#ffffff")
+
+def local_orientation(im,theta,kind):
+    # Show how the smooth color field comes from actual local spin directions.
+    # Sparse glyphs throughout the opening, concentrated in a focus region later.
+    layer=Image.new("RGBA",(W,H),(0,0,0,0))
+    d=ImageDraw.Draw(layer)
+    if kind in ("phase_field_intro","phase_smooth_lowT"):
+        positions=[(xx,yy) for yy in range(105,515,66) for xx in range(85,1040,67)]
+        opacity=220
+    else:
+        positions=[(xx,yy) for yy in range(150,520,43) for xx in range(300,930,43)]
+        opacity=155
+    for xx,yy in positions:
+        ix=min(SW-1,int(xx/W*SW));iy=min(SH-1,int(yy/H*SH))
+        a=float(theta[iy,ix]); length=12
+        vx=math.cos(a)*length;vy=math.sin(a)*length
+        d.line((xx-vx,yy-vy,xx+vx,yy+vy),fill=(255,255,255,opacity),width=3)
+        d.line((xx+vx,yy+vy,xx+vx-5*math.cos(a-.5),yy+vy-5*math.sin(a-.5)),fill=(255,255,255,opacity),width=2)
+        d.line((xx+vx,yy+vy,xx+vx-5*math.cos(a+.5),yy+vy-5*math.sin(a+.5)),fill=(255,255,255,opacity),width=2)
+    return Image.alpha_composite(im.convert("RGBA"),layer).convert("RGB")
+
 def subtitle(draw,txt):
     if not txt:return
     font=ImageFont.truetype(FONT,34)
@@ -96,6 +131,8 @@ def frame(kind,txt,progress):
     theta=field(kind,progress)
     field_cache=theta
     im=Image.fromarray(rgb_phase(theta),"RGB").resize((W,H),Image.Resampling.BILINEAR)
+    im=local_orientation(im,theta,kind)
+    phase_legend(im)
     d=ImageDraw.Draw(im)
     centerline(d,kind,progress)
     if kind=="vortex_with_streamlines":
