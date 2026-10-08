@@ -3,38 +3,39 @@
   "scenes": [
     {
       "motion": "phase_field_intro",
-      "subtitle": "各点の色は、スピンが向く角度を表しています。",
-      "narration": "二次元エックスワイ模型では、各点の色が、スピンの向く角度を表しています。"
+      "subtitle": "矢印が表すのは、各スピンの向きです。",
+      "narration": "まず、この矢印を見てください。ひとつひとつが、二次元エックスワイ模型のスピンの向きを表しています。"
     },
     {
       "motion": "phase_smooth_lowT",
-      "subtitle": "低温では、位相は緩やかに揺らぎます。",
+      "subtitle": "低温では、隣り合うスピンの向きが緩やかにつながります。",
       "narration": "低温でも位相は揺らぎますが、隣り合うスピンの向きは緩やかにつながっています。"
     },
     {
       "motion": "zoom_to_vortex",
-      "subtitle": "渦の周囲では、位相が一周します。",
+      "subtitle": "渦では、中心を一周すると向きも一回転します。",
       "narration": "渦の周りを一周すると、スピンの向きも一回転します。"
     },
     {
       "motion": "vortex_with_streamlines",
-      "subtitle": "配向線から、巻き付きが見えてきます。",
+      "subtitle": "渦の周囲の巻き付きが、トポロジカルな特徴です。",
       "narration": "白い線は、局所的なスピンの向きを表しています。"
     },
     {
       "motion": "vortex_antivortex_pair",
-      "subtitle": "渦と反渦は、互いに逆向きに巻き付きます。",
+      "subtitle": "渦と反渦は、反対向きに巻き付いています。",
       "narration": "渦と反渦は、それぞれ逆向きの巻き付きを持っています。"
     },
     {
       "motion": "pair_unbinding",
-      "subtitle": "温度上昇により、渦対の解離が起こります。",
+      "subtitle": "温度が上がると、渦と反渦の対が解離します。",
       "narration": "転移では渦と反渦の対が解離し、自由な渦が現れるようになります。"
     },
     {
       "motion": "correlation_compare",
-      "subtitle": "相関は代数減衰から指数減衰へ。",
+      "subtitle": "相関の減衰も、代数的な形から指数的な形へ変わります。",
       "narration": "低温相では相関が代数的に減衰し、高温相では指数関数的に減衰します。"
     }
-  ]
+  ],
+  "renderer": "continuous"
 }
