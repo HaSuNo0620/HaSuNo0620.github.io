@@ -112,7 +112,7 @@ def render_continuous(job, scenes, speaker, out):
             samples.append(inp.readframes(frames))
         duration=frames/rate
         cues.append({"start":start/rate,"end":(start+frames)/rate,
-                     "motion":scene["motion"],"subtitle":subtitle_text})
+                     "motion":scene["motion"],"subtitle":subtitle_text,"equation":scene.get("equation")})
         start+=frames
     duration=start/rate
     master=out/"narration.wav"
