@@ -8,6 +8,8 @@ not flow trajectories or Monte Carlo output.
 import argparse
 import json
 import math
+from functools import lru_cache
+from io import BytesIO
 import subprocess
 from pathlib import Path
 
@@ -127,6 +129,36 @@ def draw_subtitle(image,text):
         tw=d.textbbox((0,0),line,font=font)[2]
         d.text(((W-tw)/2,H-100+36*n),line,font=font,fill="#ffffff")
 
+@lru_cache(maxsize=24)
+def equation_art(tex):
+    """Matplotlib mathtext renders TeX-like formulas without a LaTeX install."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    fig=plt.figure(figsize=(9,1.1),dpi=130,facecolor="#10273a")
+    fig.text(.5,.52,"$"+tex+"$",ha="center",va="center",color="white",fontsize=23)
+    buf=BytesIO()
+    fig.savefig(buf,format="png",transparent=False,pad_inches=.04)
+    plt.close(fig)
+    buf.seek(0)
+    art=Image.open(buf).convert("RGBA")
+    art.thumbnail((780,104))
+    return art.copy()
+
+def apply_equation(image,c,t):
+    tex=c.get("equation")
+    if not tex:
+        return image
+    p=(t-c["start"])/max(.01,c["end"]-c["start"])
+    fade=max(0.,min(1.,(p-.12)/.16,(1-p)/.12))
+    if fade<=0:
+        return image
+    art=equation_art(tex).copy()
+    art.putalpha(art.getchannel("A").point(lambda x:round(x*fade)))
+    image=image.convert("RGBA")
+    image.alpha_composite(art,((W-art.width)//2,34))
+    return image.convert("RGB")
+
 def render(t,cues):
     idx,c=cue_at(t,cues)
     current=render_scene(t,cues,show_subtitle=False)
@@ -136,6 +168,7 @@ def render(t,cues):
         if elapsed<blend_seconds:
             previous=render_scene(c["start"],cues,show_subtitle=False,forced_idx=idx-1)
             current=Image.blend(previous,current,ease(elapsed/blend_seconds))
+    current=apply_equation(current,c,t)
     draw_subtitle(current,c.get("subtitle",""))
     return current
 
