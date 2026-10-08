@@ -116,7 +116,7 @@ def main():
             make_slide(scene, i, len(scenes), png)
         print(f"Synthesizing scene {i+1}/{len(scenes)}", flush=True)
         synthesize(narration, speaker, wav)
-        seconds = probe_duration(wav) + 0.6
+        seconds = probe_duration(wav) + 0.04
         if scene.get("motion", "").startswith(("phase_", "zoom_", "vortex_", "pair_", "correlation_")):
             subprocess.run(["python", "tools/voicevox_phase_video.py",
                             "--motion", scene["motion"], "--subtitle", scene.get("subtitle", narration),
