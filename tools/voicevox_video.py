@@ -114,7 +114,10 @@ def main():
         print(f"Synthesizing scene {i+1}/{len(scenes)}", flush=True)
         synthesize(narration, speaker, wav)
         seconds = probe_duration(wav) + 0.6
-        subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-loop", "1", "-framerate", "24", "-i", str(png), "-i", str(wav), "-vf", "format=yuv420p", "-c:v", "libx264", "-preset", "veryfast", "-tune", "stillimage", "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-t", str(seconds), "-movflags", "+faststart", str(mp4)], check=True)
+        if scene.get("motion"):
+            subprocess.run(["python", "tools/voicevox_motion.py", "--image", str(png), "--audio", str(wav), "--output", str(mp4), "--motion", str(scene["motion"]), "--duration", str(seconds)], check=True)
+        else:
+            subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-loop", "1", "-framerate", "24", "-i", str(png), "-i", str(wav), "-vf", "format=yuv420p", "-c:v", "libx264", "-preset", "veryfast", "-tune", "stillimage", "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-t", str(seconds), "-movflags", "+faststart", str(mp4)], check=True)
         segs.append(mp4)
     list_path = out / "concat.txt"
     list_path.write_text("".join("file '" + p.name + "'\n" for p in segs), encoding="utf-8")
