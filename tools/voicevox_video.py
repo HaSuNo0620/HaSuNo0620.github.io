@@ -86,6 +86,58 @@ def probe_duration(wav_path):
     s = subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", str(wav_path)], text=True)
     return float(s.strip())
 
+def render_continuous(job, scenes, speaker, out):
+    """Single PCM timeline for narration, visual cues and subtitles."""
+    import wave
+    rate=48000
+    samples=[]
+    cues=[]
+    start=0
+    for i,scene in enumerate(scenes):
+        narration=str(scene.get("narration",""))
+        if not narration or len(narration)>240:
+            raise ValueError(f"Invalid narration in scene {i}")
+        raw=out/f"voice_{i:02d}.wav"
+        pcm=out/f"pcm_{i:02d}.wav"
+        print(f"Synthesizing narration {i+1}/{len(scenes)}",flush=True)
+        synthesize(narration,speaker,raw)
+        subprocess.run(["ffmpeg","-hide_banner","-loglevel","error","-y",
+                        "-i",str(raw),"-ar",str(rate),"-ac","1",
+                        "-c:a","pcm_s16le",str(pcm)],check=True)
+        with wave.open(str(pcm),"rb") as inp:
+            if inp.getframerate()!=rate or inp.getnchannels()!=1 or inp.getsampwidth()!=2:
+                raise RuntimeError("Unexpected PCM format")
+            frames=inp.getnframes()
+            samples.append(inp.readframes(frames))
+        duration=frames/rate
+        cues.append({"start":start/rate,"end":(start+frames)/rate,
+                     "motion":scene["motion"],"subtitle":scene.get("subtitle",narration)})
+        start+=frames
+    duration=start/rate
+    master=out/"narration.wav"
+    with wave.open(str(master),"wb") as wav:
+        wav.setnchannels(1);wav.setsampwidth(2);wav.setframerate(rate)
+        for part in samples:wav.writeframes(part)
+    timeline={"duration":duration,"cues":cues}
+    (out/"timeline.json").write_text(json.dumps(timeline,ensure_ascii=False,indent=2),encoding="utf-8")
+    def stamp(t):
+        ms=round(t*1000)
+        h,rem=divmod(ms,3600000);m,rem=divmod(rem,60000);s,ms=divmod(rem,1000)
+        return f"{h:02}:{m:02}:{s:02},{ms:03}"
+    (out/"subtitles.srt").write_text("\\n".join(
+        f"{i+1}\\n{stamp(c['start'])} --> {stamp(c['end'])}\\n{c['subtitle']}\\n"
+        for i,c in enumerate(cues)),encoding="utf-8")
+    silent=out/"silent.mp4"
+    subprocess.run(["python","tools/voicevox_continuous.py","--timeline",
+                    str(out/"timeline.json"),"--output",str(silent)],check=True)
+    subprocess.run(["ffmpeg","-hide_banner","-loglevel","error","-y",
+                    "-i",str(silent),"-i",str(master),
+                    "-map","0:v:0","-map","1:a:0","-c:v","copy",
+                    "-c:a","aac","-b:a","160k",
+                    "-t",str(duration),"-movflags","+faststart",
+                    str(out/"finished.mp4")],check=True)
+    print(f"Created continuous narration video {duration:.2f}s",flush=True)
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--job", required=True)
@@ -100,6 +152,9 @@ def main():
         raise ValueError("Speaker id out of range")
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
+    if job.get('renderer') == 'continuous':
+        render_continuous(job,scenes,speaker,out)
+        return
     segs = []
     srt_rows = []
     srt_start = 0.0
