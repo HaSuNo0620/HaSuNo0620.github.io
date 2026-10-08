@@ -28,7 +28,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
-          python -m pip install --disable-pip-version-check pillow requests numpy
+          python -m pip install --disable-pip-version-check pillow requests numpy matplotlib
       - name: Extract video job safely
         env:
           EVENT_NAME: ${{ github.event_name }}
