@@ -1,0 +1,64 @@
+name: VOICEVOX narrated video
+
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      job_file:
+        description: 'Existing JSON job path (manual runs)'
+        required: false
+        default: 'video_jobs/bkt-demo.json'
+
+permissions:
+  contents: read
+  issues: read
+
+jobs:
+  render:
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[voicevox-video]'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install renderer requirements
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk
+          python -m pip install --disable-pip-version-check pillow requests
+      - name: Extract video job safely
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          JOB_FILE: ${{ inputs.job_file }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          if os.environ["EVENT_NAME"] == "issues":
+              payload=json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text())
+              body=payload["issue"].get("body") or ""
+              # The issue body is JSON only; never evaluate user-provided text as shell.
+              data=json.loads(body)
+          else:
+              selected=Path(os.environ["JOB_FILE"])
+              if selected.is_absolute() or ".." in selected.parts or selected.suffix!=".json":
+                  raise ValueError("Invalid job path")
+              data=json.loads(selected.read_text(encoding="utf-8"))
+          Path("video_job.json").write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+          PY
+      - name: Render narrated video
+        run: python tools/voicevox_video.py --job video_job.json --output video_output
+      - name: Save completed MP4 and voice tracks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: voicevox-video-${{ github.run_number }}
+          path: |
+            video_output/finished.mp4
+            video_output/voice_*.wav
+            video_job.json
+          if-no-files-found: warn
+          retention-days: 7
