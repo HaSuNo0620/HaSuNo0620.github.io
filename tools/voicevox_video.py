@@ -100,7 +100,9 @@ def main():
         raise ValueError("Speaker id out of range")
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
-    segs = []\n    srt_rows = []\n    srt_start = 0.0
+    segs = []
+    srt_rows = []
+    srt_start = 0.0
     for i, scene in enumerate(scenes):
         title = str(scene.get("title", ""))
         caption = str(scene.get("caption", ""))
