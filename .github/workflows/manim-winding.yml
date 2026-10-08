@@ -1,0 +1,39 @@
+name: Manim winding number demo
+on:
+  workflow_dispatch:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: read
+
+jobs:
+  render:
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[manim-winding]') && github.event.issue.user.login == github.repository_owner)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Manim and Japanese fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk libcairo2-dev libpango1.0-dev pkg-config
+          python -m pip install --disable-pip-version-check "manim>=0.19,<0.21" requests
+      - name: Render synchronized winding explanation
+        run: |
+          python tools/manim_winding.py --output video_output \
+            --narration "渦の周囲を一周すると位相角が二パイだけ変化します。その変化を二パイで割ると、巻き数プラス一が得られます。" \
+            --reading "うずのしゅういをいっしゅうすると、いそうかくがにパイだけへんかします。そのへんかをにパイでわると、まきすうプラスいちがえられます。"
+      - name: Upload video
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: winding-manim-${{ github.run_number }}
+          path: |
+            video_output/finished.mp4
+            video_output/narration.wav
+          retention-days: 7
