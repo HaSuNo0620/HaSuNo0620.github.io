@@ -94,7 +94,8 @@ def render_continuous(job, scenes, speaker, out):
     cues=[]
     start=0
     for i,scene in enumerate(scenes):
-        narration=str(scene.get("narration",""))
+        narration=str(scene.get("reading",scene.get("narration","")))
+        subtitle_text=str(scene.get("narration",""))
         if not narration or len(narration)>240:
             raise ValueError(f"Invalid narration in scene {i}")
         raw=out/f"voice_{i:02d}.wav"
@@ -111,7 +112,7 @@ def render_continuous(job, scenes, speaker, out):
             samples.append(inp.readframes(frames))
         duration=frames/rate
         cues.append({"start":start/rate,"end":(start+frames)/rate,
-                     "motion":scene["motion"],"subtitle":narration})
+                     "motion":scene["motion"],"subtitle":subtitle_text})
         start+=frames
     duration=start/rate
     master=out/"narration.wav"
