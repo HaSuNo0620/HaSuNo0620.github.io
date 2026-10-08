@@ -83,7 +83,7 @@
       "motion": "correlation_compare",
       "narration": "転移点では相関の指数が四分の一となり、特徴的な臨界性が現れます。",
       "reading": "てんいてんではそうかんのしすうがよんぶんのいちとなり、とくちょうてきなりんかいせいがあらわれます。",
-      "equation": "\\eta(T_{\\mathrm{BKT}})=\\frac14"
+      "equation": "\\eta(T_{\\mathrm{BKT}})=\\frac{1}{4}"
     }
   ]
 }
