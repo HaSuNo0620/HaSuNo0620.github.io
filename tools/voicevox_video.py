@@ -110,7 +110,8 @@ def main():
         png = out / f"slide_{i:02d}.png"
         wav = out / f"voice_{i:02d}.wav"
         mp4 = out / f"segment_{i:02d}.mp4"
-        if not scene.get("motion", "").startswith(("phase_", "zoom_", "vortex_", "pair_", "correlation_")):\n            make_slide(scene, i, len(scenes), png)
+        if not scene.get("motion", "").startswith(("phase_", "zoom_", "vortex_", "pair_", "correlation_")):
+            make_slide(scene, i, len(scenes), png)
         print(f"Synthesizing scene {i+1}/{len(scenes)}", flush=True)
         synthesize(narration, speaker, wav)
         seconds = probe_duration(wav) + 0.6
