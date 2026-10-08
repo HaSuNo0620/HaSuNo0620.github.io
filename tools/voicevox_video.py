@@ -126,10 +126,11 @@ def main():
             ms = round(t*1000)
             h,rem=divmod(ms,3600000);m,rem=divmod(rem,60000);s,milli=divmod(rem,1000)
             return f"{h:02}:{m:02}:{s:02},{milli:03}"
-        srt_rows.append(f"{i+1}\\n{stamp(srt_start)} --> {stamp(srt_start+seconds)}\\n{scene.get('subtitle', narration)}\\n")
+        srt_rows.append(f"{i+1}\n{stamp(srt_start)} --> {stamp(srt_start+seconds)}\n{scene.get('subtitle', narration)}\n")
         srt_start+=seconds
         segs.append(mp4)
-    (out / "subtitles.srt").write_text("\\n".join(srt_rows),encoding="utf-8")\n    list_path = out / "concat.txt"
+    (out / "subtitles.srt").write_text("\n".join(srt_rows),encoding="utf-8")
+    list_path = out / "concat.txt"
     list_path.write_text("".join("file '" + p.name + "'\n" for p in segs), encoding="utf-8")
     subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(list_path), "-c", "copy", "-movflags", "+faststart", str(out / "finished.mp4")], check=True)
     print(f"Created {out / 'finished.mp4'}", flush=True)
