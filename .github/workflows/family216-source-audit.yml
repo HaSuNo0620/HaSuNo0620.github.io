@@ -1,0 +1,41 @@
+name: Family 216 source audit
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: read
+jobs:
+  extract:
+    if: github.event_name == 'workflow_dispatch' || (startsWith(github.event.issue.title, '[family216-audit]') && github.event.issue.user.login == github.repository_owner)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install extraction tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Fetch and extract original papers
+        run: |
+          mkdir -p audit216
+          cat > /tmp/papers.txt <<'PAPERS'
+          The-critical-logarithmic-correction-for-the-planar-XY-model-October-5-2026
+          Critical-Center-Magnetization-in-the-Planar-XY-Model-October-5-2026
+          The-Critical-Spin-Field-of-the-Planar-XY-Model-October-5-2026
+          Essential-Singularity-of-the-Correlation-Length-in-the-Planar-XY-Model-October-5-2026
+          The-critical-correlation-exponent-of-the-planar-XY-model-September-24-2026
+          BKT-universality-for-height-and-planar-spin-fields-September-24-2026
+          PAPERS
+          while IFS= read -r paper; do
+            echo "Fetching $paper"
+            curl --fail --location --retry 3 --silent --show-error "https://raw.githubusercontent.com/openai/math/main/preprints/$paper/paper.pdf" -o "audit216/$paper.pdf"
+            pdfinfo "audit216/$paper.pdf" | grep Pages
+            pdftotext -layout "audit216/$paper.pdf" "audit216/$paper.txt"
+          done < /tmp/papers.txt
+      - name: Upload extracted source texts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: family216-audit-${{ github.run_number }}
+          path: audit216/*.txt
+          retention-days: 7
