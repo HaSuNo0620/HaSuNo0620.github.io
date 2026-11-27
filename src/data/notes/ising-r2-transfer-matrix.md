@@ -1,9 +1,13 @@
 ---
-title: "1次元一様第二近接 cosine-Z2 スピン系 — 振動相関と有限波数応答"
-summary: "第二近接相互作用を加えた1次元Ising鎖を、相互作用するドメイン壁、4状態転送行列、Stephenson disorder line、解析的に求まる q_spec と q_chi、Lifshitz-like line、Fisher–Widom型クロスオーバーという構造で読む。"
+title: "第二近接Ising鎖の振動相関と感受率ピーク"
+summary: "競合相互作用を持つIsing鎖の転送行列を対角化し、相関の複素化と感受率ピークの分岐を区別する。"
 publishedAt: 2026-09-11T02:10:00+09:00
-updatedAt: 2026-09-19
+updatedAt: 2026-11-28
 area: "Physics"
+field: statistical-physics
+kind: model
+prerequisites: ["finite-range-symmetry-comparison", "ising-transfer-matrix"]
+related: ["clock-chain-second-neighbor", "xy-chain-second-neighbor"]
 topics: ["statistical mechanics", "Ising model", "transfer matrix", "correlation", "frustration", "information thermodynamics"]
 status: growing
 system:
@@ -16,580 +20,200 @@ system:
   role: model
 ---
 
-最近接鎖では零外場のドメイン壁が独立だった。第二近接まで伸ばすと
+第二近接相互作用を持つIsing鎖では、長距離相関が振動し始める条件と、静的感受率が有限波数で最大になる条件が異なる。有限温度におけるこの二つの境界を、転送行列から求める。
+
+## 競合相互作用とドメイン壁
+
+零外場で
 
 $$
-H=-J_1\sum_i s_i s_{i+1}-J_2\sum_i s_i s_{i+2},
-\qquad s_i=\pm1
+H=-J_1\sum_i s_i s_{i+1}-J_2\sum_i s_i s_{i+2},\qquad s_i=\pm1
 $$
 
-となり、その独立性が最小の形で壊れる。
+とする。$J_1>0$、$J_2=-\kappa J_1$、$\kappa\ge0$ とし、$K_i=\beta J_i$、$t=k_{\mathrm B}T/J_1$ と書く。
 
-以下では $J_1>0$、とくに競合する $J_2<0$ を考え、
+![最近接と第二近接の比較](/figures/ising-r2/overview-r1-r2.svg)
 
-$$
-\beta\equiv\frac{1}{k_{\mathrm B}T},
-\qquad
-K_1=\beta J_1,
-\qquad
-K_2=\beta J_2,
-$$
+結合変数 $\tau_i=s_i s_{i+1}$ を用いると
 
 $$
-\kappa\equiv-\frac{J_2}{J_1}>0,
-\qquad
-t\equiv\frac{k_{\mathrm B}T}{J_1}
+H=-J_1\sum_i\tau_i-J_2\sum_i\tau_i\tau_{i+1}.
 $$
 
-とする。
+最近接鎖で独立だったドメイン壁が相互作用する。有限周期鎖では $\prod_i\tau_i=1$ の制約がある。以下の相関は熱力学極限で考える。
 
-第二近接の新しさは「行列が4×4になる」ことではなく、**欠陥列そのものが空間相関を持ち、減衰長と構造波数が別々の情報になること**にある。
+![スピン列とドメイン壁](/figures/ising-r2/domain-wall-map.svg)
 
-![R=1 と R=2 の物理的な違い](/figures/ising-r2/overview-r1-r2.svg)
+![競合する相互作用](/figures/ising-r2/frustration-competition.svg)
 
-## 系の座標
+基底状態のエネルギーは、隣接結合変数の対称な局所エネルギーを最小化すれば求まる。強磁性状態のエネルギー密度は $-J_1-J_2$、周期4状態 $++--$ では $J_2$ である。他の候補である反強磁性状態は $J_1-J_2$ なので、$\kappa=1/2$ で基底状態が切り替わる。この点では縮退があり、周期4状態と強磁性状態だけに限らない。
 
-$$
-\boxed{
-(d=1,\ \text{uniform},\ R=2,\ \text{cosine},\ Z_2)
-}
-$$
+## 転送行列の対称性
 
-Hamiltonian は
+スピン対 $(a,b)$ を転送状態にすると、
 
 $$
-H = -J_1\sum_i s_i s_{i+1}
--J_2\sum_i s_i s_{i+2},
+T_{(a,b),(b',c)}=\delta_{b,b'}e^{K_1bc+K_2ac}.
 $$
 
-局所変数を
+![転送状態ネットワーク](/figures/ising-r2/transfer-state-network.svg)
+
+全スピン反転と可換するため、偶・奇の各二次元部分空間に分解できる。状態の順序を $(++),(+-),(-+),(--)$ とし、それぞれ反転で対応する状態を組に取ると、各ブロックは
 
 $$
-\tau_i=s_i s_{i+1}
+T_\pm=\begin{pmatrix}
+e^{K_1+K_2}&e^{-K_1-K_2}\\
+\pm e^{K_1-K_2}&\pm e^{-K_1+K_2}
+\end{pmatrix}
 $$
 
-とすると、$R=1$ で独立だったドメイン壁 が $R=2$ で相互作用する。ここで動かした軸は 相互作用範囲 だけである。
-
-
-$Z_2$ では $\theta_i\in\{0,\pi\}$ と置けば
+となる。偶ブロックの最大固有値は
 
 $$
-\cos(\theta_i-\theta_j)=s_i s_j
+\lambda_0=e^{K_2}\cosh K_1+
+\sqrt{e^{2K_2}\sinh^2 K_1+e^{-2K_2}}.
 $$
 
-なので、標準 bilinear Ising 相互作用と cosine-$Z_2$ 表現は同値である。
-
-## 1. 第二近接結合は ドメイン壁 間相互作用になる
+自由エネルギー密度は $f=-\beta^{-1}\ln\lambda_0$ である。スピン演算子は反転に対して奇なので、二点スピン相関には奇ブロックの固有値
 
 $$
-\tau_i=s_i s_{i+1}=\pm1
+\lambda_\pm^{(-)}=e^{K_2}\sinh K_1
+\pm\sqrt{e^{2K_2}\cosh^2K_1-e^{-2K_2}}
 $$
 
-とおけば
+が寄与する。有限温度では最大固有値は単純であり、自由エネルギーに相転移に対応する非解析性は生じない。
+
+## 長距離相関の振動
+
+奇ブロックの判別式
 
 $$
-s_i s_{i+2}=\tau_i\tau_{i+1}
+\Delta_-=e^{2K_2}\cosh^2K_1-e^{-2K_2}
 $$
 
-なので
+が負になると、固有値は複素共役対となる。
+
+![固有値の複素化](/figures/ising-r2/spectrum-complexification.svg)
+
+相関は $\rho^r[A\cos(q_{\rm spec}r)+B\sin(q_{\rm spec}r)]$ の形になり、
 
 $$
-\boxed{
-H=-J_1\sum_i\tau_i-J_2\sum_i\tau_i\tau_{i+1}}
+\rho=|\lambda_+^{(-)}|/\lambda_0,\qquad
+\xi^{-1}=-\ln\rho,
 $$
 
-となる。
-
-最近接鎖の
-
 $$
-\text{independent walls}
-$$
-
-が
-
-$$
-\boxed{
-\text{相互作用するドメイン壁s}}
-$$
-
-へ変わる。
-
-![スピン列とドメイン壁変数の対応](/figures/ising-r2/domain-wall-map.svg)
-
-$J_1>0$ は隣接スピンを揃え、$J_2<0$ は2サイト離れたスピンを反対にしたがる。この競合が有限波数構造の源になる。
-
-![最近接強磁性と第二近接反強磁性の競合](/figures/ising-r2/frustration-competition.svg)
-
-$T=0$ では強磁性状態
-
-$$
-e_{\rm F}=-J_1-J_2
-$$
-
-と周期4状態 $++--$ の
-
-$$
-e_{++--}=J_2
-$$
-
-が
-
-$$
-\boxed{\kappa=\frac12}
-$$
-
-で競合する。これは零温度の基底状態境界であり、有限温度のdisorder lineとは別である。
-
-## 2. transfer state は2スピンの履歴を持つ
-
-新しいスピン $c=s_{i+1}$ を加えるとき、局所重みには $(a,b)=(s_{i-1},s_i)$ が必要になる。
-
-$$
-\boxed{
-T_{(a,b),(b',c)}
-=\delta_{b,b'}
-\exp(K_1bc+K_2ac)}
-$$
-
-![R=2 の転送状態ネットワーク](/figures/ising-r2/transfer-state-network.svg)
-
-状態を $(++),(+-),(-+),(--)$ とすれば 転送行列 は4状態になる。これは単なる行列サイズの増大ではなく、**局所重みを決めるために1ステップ前の履歴が必要になった**ことを表している。
-
-最大固有値は
-
-$$
-\boxed{
-\lambda_0
-=e^{K_2}\cosh K_1
-+\sqrt{e^{2K_2}\sinh^2K_1+e^{-2K_2}}}
-$$
-
-で、自由エネルギーは $f=-\beta^{-1}\ln\lambda_0$ となる。
-
-二点スピン相関を担う奇セクターの固有値は
-
-$$
-\boxed{
-\lambda_\pm^{(-)}
-=e^{K_2}\sinh K_1
-\pm\sqrt{e^{2K_2}\cosh^2K_1-e^{-2K_2}}}
-$$
-
-である。
-
-## 3. subleading eigenvalue の位相が構造波数になる
-
-奇セクターの判別式
-
-$$
-\Delta_-
-=e^{2K_2}\cosh^2K_1-e^{-2K_2}
-$$
-
-は負になりうる。
-
-![相関を担う転送固有値の複素化](/figures/ising-r2/spectrum-complexification.svg)
-
-$\Delta_-<0$ では
-
-$$
-\lambda_\pm^{(-)}=u\pm iv
-$$
-
-となるため、長距離相関は
-
-$$
-\boxed{
-C(r)\sim\rho^r\cos(q_{\rm spec}r+\phi)}
-$$
-
-となる。
-
-構造波数は数値fitではなく固有値の偏角から
-
-$$
-\boxed{
-q_{\rm spec}
-=\arg\lambda_+^{(-)}
-=\tan^{-1}\left[
+q_{\rm spec}=\arctan
 \frac{\sqrt{e^{-2K_2}-e^{2K_2}\cosh^2K_1}}
-{e^{K_2}\sinh K_1}
-\right]}
+{e^{K_2}\sinh K_1}.
 $$
 
-と直接得られる。
-
-一方、減衰長は
+判別式がゼロになる条件から、Stephensonのdisorder lineは
 
 $$
-\boxed{
-\xi^{-1}
-=-\ln\rho,
-\qquad
-\rho=\left|\frac{\lambda_+^{(-)}}{\lambda_0}\right|}
-$$
-
-である。
-
-つまりスペクトルの
-
-$$
-|\lambda|\longrightarrow\xi,
-\qquad
-\arg\lambda\longrightarrow q_{\rm spec}
-$$
-
-という二つの情報が分離する。
-
-複素化境界は
-
-$$
-e^{2K_2}\cosh K_1=1
-$$
-
-から
-
-$$
-\boxed{
-\kappa_{\rm d}(t)
-=\frac{t}{2}\ln\cosh\left(\frac1t\right)}
-$$
-
-となる。これが Stephenson disorder line である。
-
-## 4. finite-$q$ tail と finite-$q$ 応答 は同時には現れない
-
-有限温度で熱力学的相転移はないが、相関と応答には二本の異なる crossover line がある。
-
-![R=2 Ising鎖の相関構造マップ](/figures/ising-r2/correlation-structure-map.svg)
-
-$$
-(q_{\rm spec},q_\chi) = \begin{cases}
-(0,0), & \kappa<\kappa_{\rm d}(t),\\
-(>0,0), & \kappa_{\rm d}(t)<\kappa<\kappa_{\rm L}(t),\\
-(>0,>0), & \kappa>\kappa_{\rm L}(t).
-\end{cases}
-$$
-
-中間領域では長距離tailはすでに振動しているのに、静的感受率の最大はまだ $q=0$ に残る。
-
-この3領域は相ではなく、**相関極と応答ピークの配置による構造分類**である。
-
-## 5. disorder line 直後では最初の節が無限遠から入ってくる
-
-正規化固有値を
-
-$$
-\mu_\pm=\frac{\lambda_\pm^{(-)}}{\lambda_0},
-\qquad
-a=\mu_++\mu_-,
-\qquad
-b=\mu_+\mu_-
-$$
-
-とおくと
-
-$$
-\boxed{
-C(r+2)=aC(r+1)-bC(r)}
-$$
-
-で相関が閉じる。
-
-![3領域の実空間相関](/figures/ising-r2/three-regimes-correlation.svg)
-
-複素化直後は $q_{\rm spec}$ が小さいため、最初のゼロ点
-
-$$
-r_0\simeq\frac{\pi/2-\phi}{q_{\rm spec}}
-$$
-
-は非常に遠い。
-
-近距離構造が不連続に変わるのではなく、**最初の節が無限遠から近づいてくる**と見るとdisorder lineの意味が分かりやすい。
-
-## 6. $q_\chi$ は全距離相関の Fourier 最大である
-
-静的感受率は
-
-$$
-\chi(q)
-=\beta\left[1+2\sum_{r=1}^\infty C(r)\cos(qr)\right].
-$$
-
-![実空間の相関と波数空間の応答](/figures/ising-r2/real-fourier-map.svg)
-
-$q_{\rm spec}$ は長距離tailを支配する複素極の位相、$q_\chi$ は全距離相関を積分した応答の最大位置である。同じ $C(r)$ から出るが同じ量ではない。
-
-生成関数
-
-$$
-G(z)=\sum_{r=0}^\infty C(r)z^r
-$$
-
-は recurrence から
-
-$$
-\boxed{
-G(z)=\frac{1+[C(1)-a]z}{1-az+bz^2}}
+\kappa_{\rm d}(t)=\frac{t}{2}\ln\cosh(1/t)
 $$
 
 となる。
 
-$$
-S(q)=\beta^{-1}\chi(q)=G(e^{iq})+G(e^{-iq})-1
-$$
+重根では一般に $(A+Br)\rho^r$ の形を許す。複素化直後の振動周期は発散するが、有限距離の相関は連続的に変化する。
 
-とし、$x=\cos q$ と置けば
+## 相関の漸化式と構造因子
 
-$$
-\boxed{S(x)=\frac{N(x)}{D(x)}}
-$$
-
-という1次/2次の有理関数に落ちる。
-
-したがって内部極値は
+正規化固有値を $\mu_\pm=\lambda_\pm^{(-)}/\lambda_0$ とし、
 
 $$
-N'(x)D(x)-N(x)D'(x)=0
+a=\mu_++\mu_-,\qquad b=\mu_+\mu_-
 $$
 
-という $x$ の二次方程式で決まり、物理的な根 $x_\ast\in[-1,1]$ から
+と書く。Cayley–Hamiltonの定理から
 
 $$
-\boxed{q_\chi=\arccos x_\ast}
+C(r+2)=aC(r+1)-bC(r),\qquad C(0)=1.
 $$
 
-を得る。
+初期値 $c=C(1)$ は $c=\partial_{K_1}\ln\lambda_0$（$K_2$ を固定）であり、$c=\sinh K_1/\sqrt{\sinh^2K_1+e^{-4K_2}}$ となる。
 
-finite-$q$ 応答も数値走査で定義する必要はなく、transfer structureから解析的に閉じる。
+![三領域の実空間相関](/figures/ising-r2/three-regimes-correlation.svg)
 
-## 7. Lifshitz-like line は 応答ピーク の分岐条件である
-
-$q_\chi$ が0から有限値へ移る条件は
+生成関数は
 
 $$
-\left.\frac{\partial^2\chi}{\partial q^2}\right|_{q=0}=0.
+G(z)=\frac{1+(c-a)z}{1-az+bz^2}.
 $$
 
-整理すると
+格子間隔を1とし、構造因子を $S(Q)=\sum_{r\in\mathbb Z}C(r)e^{-iQr}$ と定義する。$x=\cos Q$ とすれば
 
 $$
-\boxed{
+S(Q)=G(e^{iQ})+G(e^{-iQ})-1=\frac{N(x)}{D(x)},
+$$
+
+$$
+\begin{aligned}
+N(x)&=1-b^2-2a(c-a)-2a^2+2[c(1+b)-ab]x\\
+&=1-b^2-2ac+2[c(1+b)-ab]x,\\
+D(x)&=(1-b)^2+a^2-2a(1+b)x+4bx^2.
+\end{aligned}
+$$
+
+従って最大位置は $N'D-ND'=0$ の実根のうち $[-1,1]$ に入るものと、両端点を比較して決定できる。
+
+![実空間相関と波数応答](/figures/ising-r2/real-fourier-map.svg)
+
+線形感受率は $\chi(Q)=\beta S(Q)$ なので、その最大波数 $q_\chi$ は相関の全距離の寄与から決まる。長距離を支配する固有値の偏角だけでは決まらない。
+
+## 感受率ピークの分岐
+
+$Q=0$ の極大が分岐する条件は $\partial_Q^2 S(0)=0$、すなわち $N'(1)D(1)-N(1)D'(1)=0$ である。上の係数を代入して整理すると
+
+$$
 (\sinh^4K_1-1)e^{8K_2}
-+(\sinh^2K_1+2)e^{4K_2}
--1=0}
++(\sinh^2K_1+2)e^{4K_2}-1=0.
 $$
 
-となる。
-
-これから
+物理的な正根を取れば
 
 $$
-\boxed{
-\kappa_{\rm L}(t)
-=\frac{t}{4}
-\ln\left[
-\frac{
-\sinh^2(1/t)+2
-+\sinh(1/t)\sqrt{5\sinh^2(1/t)+4}}
-{2}
-\right]}
+\kappa_{\rm L}(t)=\frac{t}{4}\ln
+\frac{\sinh^2(1/t)+2+\sinh(1/t)\sqrt{5\sinh^2(1/t)+4}}{2}.
 $$
 
-を得る。
+これは有限温度の相転移線ではなく、応答ピークの分岐を表すLifshitz型の境界である。
 
-$t=1$ では
+![三領域の感受率](/figures/ising-r2/three-regimes-susceptibility.svg)
 
-$$
-\kappa_{\rm d}\simeq0.2169,
-\qquad
-\kappa_{\rm L}\simeq0.3224.
-$$
+$t=1$ では $\kappa_{\rm d}\simeq0.2169$、$\kappa_{\rm L}\simeq0.3224$ となる。両境界の間では実空間相関が振動するにもかかわらず、感受率の最大は零波数に残る。
 
-![3領域の波数依存感受率](/figures/ising-r2/three-regimes-susceptibility.svg)
+![相関構造マップ](/figures/ising-r2/correlation-structure-map.svg)
 
-## 8. 二本の crossover line の間隔は有限温度で生まれる
+低温では二つの境界が $\kappa=1/2$ に近づき、その差は
 
 $$
-\Delta\kappa(t)
-=\kappa_{\rm L}(t)-\kappa_{\rm d}(t)
+\kappa_{\rm L}-\kappa_{\rm d}\sim\frac{t}{4}\ln\frac{1+\sqrt5}{2}.
 $$
 
-とする。
+高温では $\kappa_{\rm d}\to0$、$\kappa_{\rm L}\to1/4$ となる。これは相互作用比を一定にして高温展開した場合にも、$S(Q)$ の先頭補正が $2K_1\cos Q+2K_2\cos2Q$ になることから理解できる。
 
-低温では
+![相関波数の競合強度依存性](/figures/ising-r2/qstar-kappa.svg)
 
-$$
-\boxed{
-\Delta\kappa(t)
-\sim\frac{\ln\varphi}{4}t,
-\qquad
-\varphi=\frac{1+\sqrt5}{2}}
-$$
+![相関長の競合強度依存性](/figures/ising-r2/correlation-length-kappa.svg)
 
-で、$T=0$ では両線とも $\kappa=1/2$ へ収束する。
+## 外場応答と他の系との関係
 
-一方、高温では
+位置依存外場 $-\sum_i h_i s_i$ に対して、$h_i=h_Q\cos(Qi+\varphi)$ なら
 
 $$
-\boxed{\Delta\kappa(t)\to\frac14}
+\langle s_i\rangle=\chi(Q)h_Q\cos(Qi+\varphi)+O(h_Q^3)
 $$
 
-となる。
+となる。$q_\chi$ は線形領域で同じ外場振幅に対する磁化振幅を最大にする波数である。
 
-複素極が生じる条件と、有限波数応答が最大になる条件が同じではないことが、この幅として定量化される。
+液体論のFisher–Widom線も、密度相関の長距離漸近形を支配する特異点が変わる現象である。ただし、一般の液体では実軸型の極と複素極の減衰率の競合によって支配極が交代しうる。ここでの二つの実固有値の合体と複素化とは同一の機構ではない。また液体の次元に応じて代数的な減衰因子も加わる。
 
-## 9. $q_{\rm spec}>0$ でも $q_\chi=0$ に残れる
+![転送固有値と液体の相関極の比較](/figures/ising-r2/ising-liquid-correspondence.svg)
 
-振動相関
+情報論的にはドメイン壁が相関した反転過程を構成する。零外場の二点同時確率は最近接鎖と同じく $[1+s_0s_rC(r)]/4$ なので、二点相互情報量は遠距離で $C(r)^2/2$ に近づく。ただし反転過程の多点統計は二点相関だけでは決まらない。
 
-$$
-C(r)\sim A\rho^r\cos(q_{\rm spec}r+\phi)
-$$
+![相関した反転過程](/figures/ising-r2/information-channel.svg)
 
-は Fourier 空間で $\pm q_{\rm spec}$ を中心とする有限幅の寄与を作る。
-
-$q_{\rm spec}$ が小さい、あるいは $\xi$ が短いと、この二つが強く重なり、極はfinite-$q$化していても合成ピークは $q=0$ に残る。
-
-したがって
-
-$$
-\boxed{
-q_{\rm spec}>0\ \not\Rightarrow\ q_\chi>0}
-$$
-
-である。
-
-この区別は、長距離漸近を支配するmodeと、弱い外場で最も励起しやすいmodeが別の問いであることを示している。
-
-## 10. Stephenson disorder line は Fisher–Widom 型の pole crossover と同型である
-
-液体論の Fisher–Widom line でも、pair correlation の長距離形が
-
-$$
-h(r)\sim e^{-\alpha r}
-$$
-
-から
-
-$$
-h(r)\sim e^{-\alpha r}\cos(qr-\theta)
-$$
-
-へ変わる。
-
-![Ising の転送スペクトルと液体論の pole 構造の対応](/figures/ising-r2/ising-liquid-correspondence.svg)
-
-Isingではsubleading transfer eigenvalue、液体論ではleading OZ poleが長距離相関を決める。軸上の支配modeが複素対へ移るというスペクトル機構が共通している。
-
-ここでは
-
-- Stephenson disorder line：長距離相関を担う固有値の実→複素化
-- Lifshitz-like line：$\chi(q)$ 最大の $q=0\to q>0$ 移動
-- $T=0,\kappa=1/2$：基底状態の競合点
-
-を分けておく必要がある。有限温度のcritical lineは存在しない。
-
-## 11. 競合は相関を消すだけでなく、その空間位相を変える
-
-![支配波数の競合強度依存](/figures/ising-r2/qstar-kappa.svg)
-
-![相関長の競合強度依存](/figures/ising-r2/correlation-length-kappa.svg)
-
-競合を強めると、強磁性的な相関長はいったん短くなるが、その後はfinite-$q$ modeの相関長が伸びる。
-
-第二近接反強磁性は単なる相関破壊ではなく、**どの空間位相が最も遠くまで相関を保つかを組み替える**。
-
-## 12. 情報論的には thermal errors が correlated noise になる
-
-最近接鎖では $\tau_i$ は独立で、ドメイン壁を thermal bit-flip と読めば空間方向の誤りは独立だった。
-
-第二近接では
-
-$$
-P(\tau_{i+1}|\tau_i)\neq P(\tau_{i+1})
-$$
-
-となる。
-
-![情報熱力学的なチャネル解釈](/figures/ising-r2/information-channel.svg)
-
-熱的反転の並びそのものが1-step 履歴を持つ。
-
-この見方では
-
-$$
-q_{\rm spec}
-$$
-
-は最も遠くまで残る相関の空間位相、
-
-$$
-q_\chi
-$$
-
-は弱い外場で最も励起しやすい空間パターンに対応する。
-
-第二近接鎖は、**pole complexification** と **応答-peak bifurcation** を同じ最小模型の中で分離して追える点に価値がある。
-
-
-## 13. 一様外場と周期外場は同じ \(\chi(q)\) を読む
-
-外場を
-
-$$
-H_h=-\sum_i h_i s_i
-$$
-
-として加える。零外場まわりの線形応答は
-
-$$
-\delta\langle s_i\rangle =
-\sum_j\chi_{ij}h_j,
-\qquad
-\chi_{ij} =
-\beta\langle s_i s_j\rangle
-$$
-
-である。
-
-一様外場 \(h_i=h\) は \(q=0\) 成分だけを励起し、
-
-$$
-\boxed{
-m=\chi(0)h+O(h^3)
-}
-$$
-
-となる。
-
-一方、
-
-$$
-h_i=h_q\cos(qi+\varphi)
-$$
-
-という周期外場なら、
-
-$$
-\boxed{
-\delta\langle s_i\rangle =
-\chi(q)h_q\cos(qi+\varphi)
-+O(h_q^3)
-}
-$$
-
-である。
-
-したがって、この模型で導入した \(q_\chi\) は抽象的な Fourier 最大ではなく、**どの周期外場に最も強く応答するか**を直接表す。
-
-$$
-\boxed{
-q_\chi =
-\operatorname*{arg\,max}_q \chi(q)
-}
-$$
-
-Stephenson disorder line では長距離相関の位相が変わり、Lifshitz-like line では外場応答の最適波数が変わる。この二つを分けることが、第二近接模型の応答を読む上で重要になる。
+[第二近接XY鎖](/notes/xy-chain-second-neighbor/)では、角度の連続自由度とカイラリティ反転によっても相関波数と応答ピークの分離が生じる。
