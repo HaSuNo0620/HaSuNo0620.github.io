@@ -1,9 +1,13 @@
 ---
-title: "1次元一様第二近接 cosine-Zq スピン系 — 離散螺旋と角度相関"
-summary: "第二近接相互作用を持つ1次元Zq cosineスピン鎖を、離散位相増分の相互作用、選好ねじれの格子ロッキング、有限個のchirality sector、転送行列、相関波数と相関長という構造で読む。Z2のinteracting wallとU(1)の連続らせんの間を埋める。"
+title: "第二近接Clock鎖の基底状態と離散角度相関"
+summary: "競合相互作用を持つClock鎖の基底状態を二つの隣接増分のエネルギーから厳密に求め、離散化と螺旋構造の関係を調べる。"
 publishedAt: 2026-09-19T02:10:00+09:00
-updatedAt: 2026-09-19
+updatedAt: 2026-11-28
 area: "Physics"
+field: statistical-physics
+kind: model
+prerequisites: ["finite-range-symmetry-comparison"]
+related: ["clock-chain-nearest-neighbor", "ising-r2-transfer-matrix", "xy-chain-second-neighbor"]
 topics: ["statistical mechanics", "clock model", "spin model", "second-neighbor interaction", "chirality", "transfer matrix", "frustration"]
 status: growing
 system:
@@ -16,348 +20,134 @@ system:
   role: model
 ---
 
-最近接の $Z_q$ 鎖では局所位相増分 $\phi_i=\theta_{i+1}-\theta_i$ は独立だった。第二近接相互作用を加えると、
-$$
-\boxed{
-H=
--J_1\sum_i\cos(\theta_{i+1}-\theta_i)
--J_2\sum_i\cos(\theta_{i+2}-\theta_i)
-}
-$$
-となり、離散増分どうしが相互作用する。ここで $\theta_i=2\pi n_i/q$、$n_i\in\mathbb Z_q$ である。
+連続角度の第二近接XY鎖では、強磁性の最近接結合と反強磁性の第二近接結合が競合すると、一様な螺旋が基底状態になる。角度を有限個に制限したClock鎖では、螺旋の角度を離散化するだけで基底状態が求まるとは限らない。隣接する角度差が異なる配置も含めてエネルギーを最小化する必要がある。
 
-## 系の座標
+## 増分表示と基底状態
+
+状態数を $q\ge2$、角度を $\theta_i=2\pi n_i/q$ とし、$J_1>0$、$J_2=-\kappa J_1$、$\kappa\ge0$ とする。零外場のHamiltonianは
 
 $$
-\boxed{
-(d=1,\ \text{uniform},\ R=2,\ \text{cosine},\ Z_q)
-}
+H=-J_1\sum_i\cos\phi_i+\kappa J_1\sum_i\cos(\phi_i+\phi_{i+1}),
+\quad \phi_i=\theta_{i+1}-\theta_i.
 $$
 
-$q=2$ で第二近接 $Z_2$、$q\to\infty$ で第二近接 $U(1)$ へつながる。
+角度差も $\phi_a=2\pi a/q$ のいずれかである。周期鎖では増分の総和が $2\pi$ の整数倍になる。
 
-## 1. 第二近接相互作用は離散位相増分を相互作用させる
-
-$\phi_i=2\pi a_i/q$ とおけば $\theta_{i+2}-\theta_i=\phi_i+\phi_{i+1}$ なので
-$$
-\boxed{
-H=
--J_1\sum_i\cos\phi_i
--J_2\sum_i\cos(\phi_i+\phi_{i+1})
-}
-$$
-となる。
-
-したがって
-$$
-\boxed{
-R=1:\ \text{独立な離散増分}
-\quad\to\quad
-R=2:\ \text{相関した離散増分}
-}
-$$
-である。
-
-## 2. 選好ねじれ は有限個の角度へロックされる
-
-一様 ねじれ $\phi_i=\phi$ なら
-$$
-\boxed{
-e(\phi)=-J_1\cos\phi-J_2\cos2\phi
-}
-$$
-である。
-
-ただし $Z_q$ では $\phi=\phi_a=2\pi a/q$ しか許されないので、
-$$
-\boxed{
-a_\ast=
-\operatorname*{arg\,min}_{a\in\mathbb Z_q}
-\left[
--J_1\cos\frac{2\pi a}{q}
--J_2\cos\frac{4\pi a}{q}
-\right]
-}
-$$
-から
-$$
-\boxed{
-q_\ast^{(q)}=\frac{2\pi a_\ast}{q}
-}
-$$
-が決まる。
-
-$U(1)$ では $\cos q_\ast=-J_1/(4J_2)$ と連続的に動けるが、有限 $q$ では $0\to2\pi/q\to4\pi/q\to\cdots$ と staircase 状にロックされる。
+隣接増分のエネルギーを対称に分割して
 
 $$
-\boxed{
-\text{連続らせん}
-\longrightarrow
-\text{離散ねじれ locking}
-}
+E_{ab}=J_1\left[-\frac{\cos\phi_a+\cos\phi_b}{2}
++\kappa\cos(\phi_a+\phi_b)\right]
 $$
 
-## 3. finite-$q$ では カイラリティ も離散化される
+と定義する。すると $H=\sum_i E_{a_i a_{i+1}}$ である。任意の配置について $H/N\ge\min_{a,b}E_{ab}$ が成立する。ここで $E_{ab}=E_{ba}$ なので、最小値を与える増分対 $(a,b)$ を交互に繰り返すと全ての結合が下限を達成する。必要に応じて増分の周期を有限回繰り返せば元のスピン角度も周期的になる。
 
-$e(\phi)=e(-\phi)$ なので、非零 ねじれ が選ばれると
-$$
-\boxed{
-+q_\ast^{(q)},\qquad -q_\ast^{(q)}
-}
-$$
-が縮退する。
-
-局所 カイラリティ は $\kappa_i^{\rm ch}=\sin\phi_i$ で読める。
-
-$Z_q$ では
-$$
-\boxed{
-\text{カイラリティ反転}
-+
-\text{離散角ジャンプ}
-}
-$$
-が 相関減衰機構 になる。
-
-## 4. 転送行列 は $q\times q$ の離散角度核 になる
-
-転送状態 を $\phi_a=2\pi a/q$ とすると、対称分割した核 は
-$$
-\boxed{
-T_{ab} = \exp\left[
-\frac{\beta J_1}{2}
-(\cos\phi_a+\cos\phi_b)
-+
-\beta J_2\cos(\phi_a+\phi_b)
-\right]
-}
-$$
-である。
-
-最近接 $Z_q$ の circulant matrix と異なり、一般には単純な離散 Fourier 対角化では閉じない。
-
-有限状態 マルコフ連鎖 $P(a_{i+1}\mid a_i)$ が自然な局所記述になる。
-
-## 5. $q=2$ では 相互作用するドメイン壁 を回収する
-
-$q=2$ では $\tau_i=e^{i\phi_i}=\pm1$ で、$\cos\phi_i=\tau_i$、$\cos(\phi_i+\phi_{i+1})=\tau_i\tau_{i+1}$ である。
-したがって
-$$
-\boxed{
-H=
--J_1\sum_i\tau_i
--J_2\sum_i\tau_i\tau_{i+1}
-}
-$$
-となる。
-
-これは第二近接 $Z_2$ 鎖の 相互作用するドメイン壁の表現そのものである。
-
-## 6. $q\to\infty$ では 連続転送作用素 へ移る
-
-$q$ を増やすと $\Delta\phi=2\pi/q\to0$ なので、離散行列 $T_{ab}$ は
-$$
-\boxed{
-\mathcal T(\phi,\phi') = \exp\left[
-\frac{\beta J_1}{2}
-(\cos\phi+\cos\phi')
-+
-\beta J_2\cos(\phi+\phi')
-\right]
-}
-$$
-へ近づく。
-
-したがって
-$$
-\boxed{
-2\times2
-\to
-q\times q
-\to
-\text{積分作用素}
-}
-$$
-という 転送対象 の連続化が起こる。
-
-## 7. 長距離 相関 は 傾斜転送スペクトル で読む
+従って熱力学極限の基底エネルギーは厳密に
 
 $$
-\left\langle e^{i(\theta_r-\theta_0)}\right\rangle = \left\langle
-\prod_{j=0}^{r-1}e^{i\phi_j}
-\right\rangle
-$$
-なので、位相因子を組み込んだ tilted 転送行列 の支配固有値
-$$
-\Lambda_\ast=|\Lambda_\ast|e^{iq_{\rm corr}}
-$$
-から
-$$
-\boxed{
-\xi^{-1} = -\ln\left|\frac{\Lambda_\ast}{\Lambda_0}\right|,
-\qquad
-q_{\rm corr}=\arg\Lambda_\ast
-}
-$$
-を得る。
-
-## 8. 選好ねじれ・相関波数・応答 peak は別の量である
-
-$$
-\boxed{
-q_\ast^{(q)},\qquad
-q_{\rm corr},\qquad
-Q_{\rm peak}
-}
-$$
-はそれぞれ
-
-- 局所的なエネルギー選好
-- 長距離相関 の位相
-- 全距離相関を積分した 応答 peak
-
-を表し、原理的に一致する必要はない。
-
-これは $Z_2$ の $q_{\rm spec}\neq q_\chi$ と、$U(1)$ の $q_\ast\neq q_{\rm corr}\neq Q_{\rm peak}$ の中間に位置する。
-
-## 9. finite-$q$ 固有の量は ねじれ-locking error である
-
-連続 $U(1)$ の 選好ねじれ $q_\ast$ と比べ、
-$$
-\boxed{
-\delta q_{\rm lock} = q_\ast^{(q)}-q_\ast
-}
-$$
-を angular discretization による locking error とみなせる。
-
-最近接 $R=1$ では finite $q$ 性は主に thermal 角度分解能 と spectral aliasing に現れた。
-
-第二近接ではさらに
-$$
-\boxed{
-\text{spectral discretization}
-+
-\text{energetic pitch locking}
-}
-$$
-が現れる。
-
-## 10. $Z_2\to Z_q\to U(1)$ で何が連続化されるか
-
-実空間では
-$$
-\boxed{
-\text{相互作用する壁}
-\to
-\text{ロックされた離散ねじれ}
-\to
-\text{連続的に相関したねじれ}
-}
+e_0=\min_{a,b\in\mathbb Z_q} E_{ab}
 $$
 
-局所遷移では
-$$
-\boxed{
-P(\tau'|\tau)
-\to
-P(a'|a)
-\to
-P(\phi'|\phi)
-}
-$$
+である。この模型では一般の有限範囲模型に必要な最小平均重み閉路探索が、対称な二体エネルギーの最小化へ簡約される。縮退点では、最小エネルギーの辺だけを連ねた他の配置も基底状態となりうる。
 
-転送対象 では
-$$
-\boxed{
-2\times2
-\to
-q\times q
-\to
-\text{積分作用素}
-}
-$$
+## 一様螺旋と交互増分
 
-となる。
-
-
-## 11. 一様外場と周期外場は \(Q_{\rm peak}\) を直接選別する
-
-固定方向の外場を
+$a=b$ に限定した場合のエネルギーは
 
 $$
-H_h =
--\sum_i h_i\cos\theta_i
+e(\phi_a)=-J_1\cos\phi_a+\kappa J_1\cos2\phi_a.
 $$
 
-として加える。
+これを最小化する角度は一様螺旋の候補にすぎない。$a\ne b$ が全体の最小値を与える場合、角度差は交互に変化する。
 
-一様外場 \(h_i=h\) は \(Q=0\) 成分を励起し、
+例えば $q=2$ では、角度差は $0,\pi$ の二つである。候補のエネルギーは
 
-$$
-m_x=\chi(0)h+O(h^3)
-$$
+| 増分対 | $E_{ab}/J_1$ |
+| --- | ---: |
+| $(0,0)$ | $-1+\kappa$ |
+| $(0,\pi)$ | $-\kappa$ |
+| $(\pi,\pi)$ | $1+\kappa$ |
 
-となる。
+となる。$\kappa>1/2$ では交互増分が選ばれ、元のスピン配置は $++--$ の周期4状態となる。一様螺旋だけを比較するとこの基底状態を見落とす。
 
-一方、
+有限 $q$ での基底状態境界は、各 $E_{ab}/J_1$ が $\kappa$ の一次関数であることを利用して求められる。候補の直線の下包絡を構成すれば、数値的な温度外挿を行わずに基底状態の切り替わりを決定できる。
 
-$$
-h_i=h_Q\cos(Qi+\varphi)
-$$
+増分対の和を $\Phi=\phi_a+\phi_b$ とすると、スピンの複素表示 $u_i=e^{i\theta_i}$ は $u_{i+2}=e^{i\Phi}u_i$ を満たす。従って交互増分状態のFourier成分は $\Phi/2$ と $\Phi/2+\pi$（波数は $2\pi$ を法とする）に現れうる。平均ねじれだけでは周期構造の全情報を表せない。
 
-なら線形応答は
+![一様ねじれ制約による基底エネルギーの誤差](/figures/clock-r2/uniform-twist-error.svg)
 
-$$
-\boxed{
-\delta\langle\cos\theta_i\rangle =
-\chi(Q)h_Q\cos(Qi+\varphi)
-+O(h_Q^3)
-}
-$$
+*16状態Clock鎖の増分対を全列挙して得た厳密な基底エネルギーと、一様ねじれに限定した最小値との差。正の領域では一様ねじれだけでは真の基底状態を得られない。*
 
-である。
+## 連続角度極限
 
-したがって
+XY鎖の一様螺旋の最適角度は
 
 $$
-\boxed{
-Q_{\rm peak} =
-\operatorname*{arg\,max}_Q\chi(Q)
-}
+\varphi_*=
+\begin{cases}
+0 & \kappa\le1/4,\\
+\arccos(1/(4\kappa)) & \kappa>1/4.
+\end{cases}
 $$
 
-は、どの周期外場に最も強く応答するかを表す。
-
-さらに角度方向まで回転する外場
+有限Clock鎖はXY鎖の配置を制限した模型なので $e_0^{(q)}\ge e_0^{XY}$ である。一方、$\varphi_*$ に最も近い離散角を選んだ一様螺旋は変分上界を与える。$e'(\varphi_*)=0$ と角度刻み $2\pi/q$ を使えば、固定した有限の $\kappa$ に対し
 
 $$
-H_{\rm rot} =
--h\sum_i
-\cos(\theta_i-Qi-\varphi)
+0\le e_0^{(q)}-e_0^{XY}=O(J_1q^{-2})
 $$
 
-を使えば、螺旋配置そのものへ位相整合できる。
+が従う。基底エネルギーの収束は保証されるが、有限 $q$ で常に一様螺旋が選ばれることを意味しない。
 
-有限 \(q\) では \(q_\ast^{(q)}\) が角度格子へロックされるため、局所選好ねじれ、長距離相関波数、周期外場への最大応答波数を分けて追う必要がある。
+一様螺旋に限定した角度のずれは離散化誤差として定義できる。しかし交互増分状態では、二つの増分と対応する周期構造を別々に記述する必要がある。
 
-## 得られた見方
+## 有限温度の転送行列
 
-第二近接 cosine 系では
-$$
-\boxed{
-Z_2\to Z_q\to U(1)
-}
-$$
-は
-$$
-\boxed{
-\text{壁配置}
-\to
-\text{離散ねじれ locking}
-\to
-\text{連続らせん}
-}
-$$
-という空間相関の連続化として読める。
+増分空間の転送行列は
 
-$R=1$ の finite-$q$ 性が 角度分解能 と スペクトルの折り畳み に現れたのに対し、$R=2$ では 選好ピッチ 自体が離散角へロックされる。有限 $q$ は単なる補間ではなく、**構造波数そのものが角度分解能によって量子化される領域**になる。
+$$
+T_{ab}=e^{-\beta E_{ab}},\qquad \beta=(k_{\mathrm B}T)^{-1}
+$$
+
+である。実対称かつ全要素が正なので、最大固有値 $\lambda_0$ は単純であり、正の固有ベクトル $v$ を $\sum_a v_a^2=1$ と規格化できる。計数測度での自由エネルギー密度は $-\beta^{-1}\ln\lambda_0$ である。
+
+熱力学極限の増分の定常分布と条件付き確率は
+
+$$
+P(a)=v_a^2,\qquad P(b\mid a)=\frac{T_{ab}v_b}{\lambda_0v_a}
+$$
+
+となる。$q=2$ では相互作用するドメイン壁の模型を回収する。$q\to\infty$ では $T/q$ が規格化円周測度を用いたXY鎖の積分作用素の離散近似となる。
+
+## スピン相関とカイラリティ
+
+対角行列 $(D_m)_{aa}=e^{im\phi_a}$ を導入する。距離 $r$ のスピン相関は
+
+$$
+C_m(r)=\frac{v^{\mathsf T}D_m(TD_m)^{r-1}v}{\lambda_0^{r-1}},
+\qquad r\ge1.
+$$
+
+従って長距離相関の指数減衰と振動は、傾斜転送行列 $TD_m$ の寄与する固有値から決まる。固有値 $z$ が支配的なら $\xi^{-1}=-\ln|z/\lambda_0|$、相関波数は $\arg z$ である。縮退や振幅の消失には注意が必要である。
+
+局所カイラリティを $\chi_a=\sin\phi_a$ と定めると、その相関は通常の転送行列 $T$ で計算できる。
+
+$$
+\langle\chi_0\chi_r\rangle
+=\lambda_0^{-r}v^{\mathsf T}D_\chi T^rD_\chi v,
+\qquad (D_\chi)_{aa}=\sin\phi_a.
+$$
+
+反転 $\phi\mapsto-\phi$ に対して奇の観測量なので、偶の最大固有ベクトルから奇セクターへの行列要素が相関を決める。有限温度では反転対称性が保たれ、平均カイラリティはゼロとなる。一様螺旋の正負が異なる状態になるのは $\phi\ne0,\pi$ の場合であり、交互増分ではカイラリティの局所分布や周期性も調べる必要がある。
+
+## 外場応答
+
+固定方向の外場 $-\sum_i h_i\cos\theta_i$ に対する線形感受率は、$q>2$ で
+
+$$
+\chi_{xx}(Q)=\frac{\beta}{2}\left[1+2\sum_{r\ge1}
+\operatorname{Re}C_1(r)\cos(Qr)\right]
+$$
+
+となる。$q=2$ では前係数は $\beta$ である。奇数 $q$ では非線形磁化の二次項が一般に許される。
+
+回転外場 $-h\sum_i\cos(\theta_i-Qi)$ は螺旋配置に位相整合できるが、最大応答波数は基底状態のねじれや相関の固有値位相だけからは決まらない。感受率は全距離の相関を含むためである。基底状態、長距離相関、応答の区別は[第二近接Ising鎖](/notes/ising-r2-transfer-matrix/)と[第二近接XY鎖](/notes/xy-chain-second-neighbor/)にも共通する。

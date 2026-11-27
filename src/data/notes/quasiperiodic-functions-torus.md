@@ -1,239 +1,103 @@
 ---
-title: "準周期関数 — 複数周期の重ね合わせから高次元トーラスへ"
-summary: "具体例 f(x)=cos x+cos(sqrt(2)x) を出発点に、周期が存在しない理由と、それでも規則性が失われない理由を考える。準周期性を高次元トーラス上の直線運動として理解する。"
+title: "準周期関数とトーラス上の直線軌道"
+summary: "周波数加群、トーラス軌道の稠密性、一様近似周期を区別し、準周期性を数学的に定式化する。"
 publishedAt: 2026-09-12T02:46:00+09:00
-updatedAt: 2026-09-14
+updatedAt: 2026-11-28
 area: "Mathematics"
+field: quasicrystals
+kind: theory
 topics: ["quasiperiodicity", "Fourier analysis", "torus", "dynamical systems", "quasicrystals"]
 status: growing
 ---
 
-[前のノート](/notes/quasicrystal-order-without-periodicity/)では、周期性を失っても秩序は残りうると整理した。
+$f(x)=\cos x+\cos(\sqrt2 x)$ は二つの周期関数の和だが、全体としては周期を持たない。その非周期性は、二つの位相を独立な座標とすることで、トーラス上の直線運動として記述できる。
 
-「**非周期なのに規則的**」という状態を最小の式にすると、
+![周期関数と準周期関数の位相軌道](/figures/quasicrystals/quasiperiodic-signal-phase.svg)
 
-$$
-\boxed{
-f(x)=\cos x+\cos(\sqrt2\,x)
-}
-$$
+## 周期が存在する条件
 
-くらいまで単純化できる。乱数も欠陥もない。それでも周期関数ではない。
-
-![周期関数と準周期関数、対応する位相軌道](/figures/quasicrystals/quasiperiodic-signal-phase.svg)
-
-*上段では有理数比 $1:2$ の重ね合わせは繰り返すが、無理数比 $1:\sqrt2$ は同じ形へ厳密には戻らない。下段では、その違いを二つの位相を座標にした空間で見ている。*
-
-## 1. 周期条件は二つの位相の同時帰還になる
-
-$f(x)$ に周期 $T$ があるなら
+異なる実周波数の有限和
 
 $$
-f(x+T)=f(x)
+f(x)=\sum_{j=1}^{M}c_j e^{ik_jx},\qquad c_j\ne0
 $$
 
-が全ての $x$ で成り立つ必要がある。
-
-二つの cosine が同時に元の位相へ戻るには
+を考える。$T$ が周期なら
 
 $$
-T=2\pi m,
-\qquad
-\sqrt2\,T=2\pi n,
-\qquad
-m,n\in\mathbb Z
+\sum_j c_j(e^{ik_jT}-1)e^{ik_jx}=0
 $$
 
-でなければならない。
+が全ての $x$ で成立する。異なる指数関数の線形独立性から $k_jT\in2\pi\mathbb Z$ が全成分について必要であり、逆にこの条件は十分である。
 
-両式を割ると
+従って非零周波数が一つの基本周波数の整数倍に収まる場合に限り、非定数の有限和は周期を持つ。冒頭の例では $T=2\pi m$、$\sqrt2 T=2\pi n$ を同時に満たす非零の $T$ は存在しない。
 
-$$
-\sqrt2=\frac nm
-$$
+周波数が有理独立であることは、二つ以上の周波数を持つ有限和が非周期的であるための十分条件だが、必要条件ではない。例えば $\{1,\sqrt2,1+\sqrt2\}$ には整数関係があるものの、対応する三成分の和には周期がない。
 
-となるが、$\sqrt2$ は無理数なので不可能である。
+## トーラスによる表示
 
-有限な周期 $T$ は存在しない。非周期性は複雑な式から出ているのではなく、**二つの単純な周期運動が互いに整合しない**ことから生じている。
-
-## 2. 有理数比なら軌道は閉じる
-
-比較として
+$\mathbb T^D=\mathbb R^D/(2\pi\mathbb Z)^D$ 上の連続関数 $F$ に対して
 
 $$
-g(x)=\cos x+\cos(2x)
+f(x)=F(\boldsymbol\theta_0+x\boldsymbol\omega)
 $$
 
-を考える。
+と定義する。以下ではこのような有限次元トーラス表示を持つ関数を準周期関数と呼ぶ。周期関数も特殊例として含める。
 
-こちらでは第1成分が1周する間に第2成分は2周するので、$T=2\pi$ で両方が同時に元へ戻る。
-
-一般に
+軌道の閉包は、整数関係 $\mathbf n\cdot\boldsymbol\omega=0$ によって定まる部分トーラスの平行移動である。Kroneckerの定理によれば、連続時間の軌道がトーラス全体で稠密になるための必要十分条件は
 
 $$
-f(x)=\sum_{j=1}^{D}A_j\cos(\omega_jx+\phi_j)
+\mathbf n\cdot\boldsymbol\omega\ne0
+\quad(\mathbf n\in\mathbb Z^D\setminus\{0\})
 $$
 
-で、全ての周波数が一つの共通周期に整合するなら周期関数になる。
+である。離散時間の写像では条件が異なり、位相の進みが $2\pi$ の整数倍になる場合も除く必要がある。
 
-逆に、周波数の間に
+軌道が稠密でも、観測関数 $F$ が一部の座標だけに依存すれば $f$ は周期的になりうる。軌道の性質と観測関数の周期性を区別する必要がある。
 
-$$
-\sum_{j=1}^{D}n_j\omega_j=0,
-\qquad n_j\in\mathbb Z
-$$
+## 一様な近似周期
 
-という非自明な整数関係がないとき、共通周期は作れない。この性質を rationally independent と呼ぶ。
-
-用語より、**どの有限距離だけ進んでも、全ての位相を同時に元へ戻せない**という意味の方が重要である。
-
-## 3. 二つの位相はトーラス上の座標になる
-
-$\cos x+\cos(\sqrt2 x)$ に対して
+冒頭の例で整数 $m,n$ を選び $T=2\pi m$ とすると、
 
 $$
-\theta_1=x,
-\qquad
-\theta_2=\sqrt2\,x
+\sup_x|f(x+T)-f(x)|
+\le 2\pi|m\sqrt2-n|.
 $$
 
-と置く。
+有理近似により右辺を任意に小さくできる。これは特定の位置で波形が偶然一致することとは異なる。
 
-すると
+一般に連続な $F$ はコンパクトなトーラス上で一様連続である。従って位相移動 $T\boldsymbol\omega$ が原点に十分近ければ、全ての $x$ について $|f(x+T)-f(x)|$ が小さくなる。さらに軌道閉包のコンパクト性から、任意の精度の再帰時刻は相対稠密である。実際、原点近傍の軌道による平行移動で閉包を覆い、有限部分被覆を選ぶと、任意の長い時刻に対して有界な補正で再帰できる。
 
-$$
-f(x)=F(\theta_1,\theta_2),
-\qquad
-F(\theta_1,\theta_2)=\cos\theta_1+\cos\theta_2
-$$
+この性質はBohr概周期性の定義を満たす。有限次元トーラス表示を持たない概周期関数もあるため、概周期性はより広い概念である。
 
-である。
+## 周波数加群
 
-$\theta_1$ も $\theta_2$ も角度なので、$2\pi$ 進めば同じ状態へ戻る。各座標を円として閉じると、二つの円を独立に持つ **2次元トーラス** が現れる。
+トーラス上のFourier係数を $F_{\mathbf n}$ とする。絶対収束する場合は
 
 $$
-\mathbb T^2
-=\mathbb R^2/(2\pi\mathbb Z)^2
+f(x)=\sum_{\mathbf n\in\mathbb Z^D}
+F_{\mathbf n}e^{i\mathbf n\cdot\boldsymbol\theta_0}
+e^{i(\mathbf n\cdot\boldsymbol\omega)x}
 $$
 
-$x$ を増やすことは、この空間で
+と書ける。連続性だけでは通常のFourier級数の点ごとの収束を保証しないが、多次元Fejér和による一様近似は可能である。
+
+許容周波数は整数加群
 
 $$
-(\theta_1,\theta_2)
-=(x,\sqrt2\,x)
+\mathcal M=\{\mathbf n\cdot\boldsymbol\omega:
+\mathbf n\in\mathbb Z^D\}
 $$
 
-と進むことに対応する。
+に属する。有理独立な基底ならその階数は $D$ である。ただし実際の非零Fourier成分が生成する部分加群は、許容加群より小さくなりうる。
 
-比が $1:2$ なら軌道は有限距離で閉じる。比が $1:\sqrt2$ なら閉じず、長く進むとトーラス上のどの場所にもいくらでも近づく。この性質を軌道が稠密であるという。
+例えば $\cos x+\cos(\sqrt2 x)+\cos[(1+\sqrt2)x]$ の周波数加群の階数は3ではなく2である。周波数の個数と独立な整数基底の個数は異なる。
 
-1次元で見えていた「戻ってこない波形」は、高次元では単純な直線運動になる。
+この整数構造は、離散点集合の回折にも現れる。ただし点集合は連続なトーラス関数そのものではないため、次の[Fibonacci点列](/notes/fibonacci-cut-and-project/)では選択窓を用いて格子点を採用する別の構成を導入する。
 
-$$
-\boxed{
-\text{1D quasiperiodicity}
-=\text{periodic geometry in higher dimension}
-+\text{irrational direction}
-}
-$$
+## 参考文献
 
-## 4. 再帰は厳密反復ではなく再接近になる
+- H. Bohr, *Almost Periodic Functions*.
+- M. Baake and U. Grimm, *Aperiodic Order, Vol. 1: A Mathematical Invitation*, Cambridge University Press (2013).
 
-厳密な周期はないが、波形を見ると似た形は何度も現れる。
-
-無理数は有理数でいくらでもよく近似できる。例えば
-
-$$
-\sqrt2\simeq\frac{99}{70}
-$$
-
-なら、ある長い距離を進んだとき二つの位相は同時にほぼ整数周だけ進む。
-
-そのため
-
-$$
-f(x+T)\simeq f(x)
-$$
-
-となる大きな $T$ は何度も現れる。しかし等号にはならない。
-
-周期関数では同じ構造が厳密に反復する。準周期関数では、**同じ状態へ厳密には戻らないが、任意に近く再接近する**。
-
-この意味では、準周期性は「周期が壊れた状態」というより、**複数の周期的自由度が高次元ではそのまま残っている状態**と見た方が自然である。
-
-## 5. Fourier 空間では有限 rank の波数集合になる
-
-トーラス上の $F(\boldsymbol\theta)$ は各角度方向に周期的なので、通常の Fourier 級数で展開できる。
-
-$$
-F(\boldsymbol\theta)
-=\sum_{\mathbf n\in\mathbb Z^D}
-F_{\mathbf n}e^{i\mathbf n\cdot\boldsymbol\theta}
-$$
-
-ここで $\boldsymbol\theta=x\boldsymbol\omega$ を代入すると
-
-$$
-f(x)
-=\sum_{\mathbf n\in\mathbb Z^D}
-F_{\mathbf n}e^{i(\mathbf n\cdot\boldsymbol\omega)x}
-$$
-
-となる。
-
-1次元で現れる波数は
-
-$$
-\boxed{
-k_{\mathbf n}=\sum_{j=1}^{D}n_j\omega_j}
-$$
-
-である。
-
-周期関数なら独立な基本波数は1個で、全ての peak はその整数倍に並ぶ。準周期関数では1次元でも複数の独立な基本波数が必要になる。
-
-この「1次元なのに複数の整数 index が必要」という構造が、準結晶の Fourier module へつながる。
-
-## 6. 準周期は一般の非周期よりかなり狭い
-
-周期を持たない関数が全て準周期というわけではない。
-
-準周期関数には、有限個の独立な基本周波数
-
-$$
-\omega_1,\ldots,\omega_D
-$$
-
-があり、高次元トーラス上の周期関数として表せる、という強い構造がある。
-
-概念的には
-
-$$
-\text{periodic}
-\subset
-\text{quasiperiodic}
-\subset
-\text{almost periodic}
-$$
-
-という位置づけになる。
-
-almost periodic はさらに広く、有限個の基本周波数だけには限られない。ランダム関数や一般の非周期関数が自動的にここへ入るわけでもない。
-
-準結晶で欲しいのは単なる非周期性ではなく、**有限 rank の周波数構造を持つ非周期秩序**である。
-
-## 7. いま置いている像
-
-$$
-\boxed{
-\text{準周期性}
-=\text{高次元では周期的}
-+\text{低次元からは無理数方向に見ている}
-}
-$$
-
-という像が今のところ一番使いやすい。
-
-1次元では「いつ同じ形へ戻るか」という不整合に見えていたものが、2次元では**軌道の傾きが周期格子と整合しない**という幾何学に置き換わる。
-
-この考え方を離散点集合へ移すと、cut-and-project 法と Fibonacci chain が現れる。
+書誌と定理の原典照合は公開前に行う。

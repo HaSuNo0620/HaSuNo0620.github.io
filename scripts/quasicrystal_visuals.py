@@ -89,7 +89,7 @@ def quasiperiodic_signal_phase() -> None:
         n = 700
         for i in range(n):
             xx = 8 * math.pi * i / (n - 1)
-            yy = math.cos(xx) + 0.55 * math.cos(alpha * xx)
+            yy = math.cos(xx) + math.cos(alpha * xx)
             sx = x0 + w * i / (n - 1)
             sy = y0 + h / 2 - scale * yy
             pts.append((sx, sy))
@@ -120,7 +120,7 @@ def quasiperiodic_signal_phase() -> None:
             sx = left + a * size
             sy = top + (1 - b) * size
             pts.append((sx, sy))
-        d = "M " + " L ".join(f"{a:.2f},{b:.2f}" for a, b in pts)
+        d = " ".join(f"{'M' if i == 0 or abs(a-pts[i-1][0])>size/2 or abs(b-pts[i-1][1])>size/2 else 'L'} {a:.2f},{b:.2f}" for i,(a,b) in enumerate(pts))
         p.append(f'<path class="{cls}" d="{d}"/>')
         p.append(f'<text class="math" x="{left+size/2}" y="490" text-anchor="middle">θ₁ / 2π</text>')
     save("quasiperiodic-signal-phase.svg", p, 510)
@@ -141,8 +141,8 @@ def cut_and_project() -> None:
             y = cy - scale * j
             pts.append((i, j, x, y))
             p.append(f'<circle class="linefill" cx="{x}" cy="{y}" r="5"/>')
-    strip = 0.62
-    for s in (-strip, strip):
+    strip = (1 + tau) / norm / 2
+    for s in (0, 2 * strip):
         x1 = cx + scale * (-7 * ux + s * vx)
         y1 = cy - scale * (-7 * uy + s * vy)
         x2 = cx + scale * (7 * ux + s * vx)
@@ -156,7 +156,7 @@ def cut_and_project() -> None:
     for i, j, x, y in pts:
         par = i * ux + j * uy
         perp = i * vx + j * vy
-        if abs(perp) < strip:
+        if 0 <= perp < 2 * strip:
             p.append(f'<circle class="accentfill" cx="{x}" cy="{y}" r="8"/>')
             qx = cx + scale * par * ux
             qy = cy - scale * par * uy
@@ -171,40 +171,37 @@ def cut_and_project() -> None:
 
 
 def diffraction_fourier_module() -> None:
-    p: list[str] = []
-    panels = [(55, "周期：基本波数 1個"), (405, "準周期：独立基本波数 2個")]
-    for left, title in panels:
-        p.append(f'<text class="panel" x="{left+145}" y="34" text-anchor="middle">{title}</text>')
-        p.append(f'<line class="axis" x1="{left}" y1="365" x2="{left+290}" y2="365"/>')
-        p.append(f'<line class="axis" x1="{left}" y1="70" x2="{left}" y2="365"/>')
-    for m in range(-5, 6):
-        x = 200 + 26 * m
-        amp = math.exp(-0.055 * m * m)
-        y = 365 - 260 * amp
-        p.append(f'<line class="primary" x1="{x}" y1="365" x2="{x}" y2="{y:.1f}"/>')
-        p.append(f'<circle class="accentfill" cx="{x}" cy="{y:.1f}" r="5"/>')
+    p = []
     tau = (1 + math.sqrt(5)) / 2
-    vals = []
-    for m in range(-8, 9):
-        for n in range(-8, 9):
-            if m == 0 and n == 0:
+    D = math.sqrt(1 + tau*tau)
+    w = (1 + tau)/D
+    for left, title in [(65, "周期格子"), (415, "Fibonacci点列")]:
+        p.append(f'<text class="panel" x="{left+140}" y="30" text-anchor="middle">{title}</text>')
+        p.append(f'<line class="axis" x1="{left}" y1="355" x2="{left+280}" y2="355"/>')
+        p.append(f'<line class="axis" x1="{left}" y1="60" x2="{left}" y2="355"/>')
+        for j in [-4,-2,0,2,4]:
+            x = left + 140 + 35*j
+            p.append(f'<text class="small" x="{x}" y="385" text-anchor="middle">{j}</text>')
+        for j in [0,0.5,1]:
+            y = 355 - 275*j
+            p.append(f'<line class="guide" x1="{left}" x2="{left+280}" y1="{y}" y2="{y}"/>')
+            if left == 65:
+                p.append(f'<text class="small" x="{left-10}" y="{y+5}" text-anchor="end">{j:g}</text>')
+        p.append(f'<text class="math" x="{left+140}" y="419" text-anchor="middle">k</text>')
+    for m in range(-4,5):
+        x=205+35*m
+        p.append(f'<line class="primary" x1="{x}" x2="{x}" y1="355" y2="80"/>')
+    for m in range(-20,21):
+        for n in range(-20,21):
+            k=(m+tau*n)/D
+            u=(-tau*m+n)/D
+            if abs(k)>4:
                 continue
-            k = m + n / tau
-            kp = -m / tau + n
-            amp = (math.sin(math.pi * 0.36 * kp) / (math.pi * 0.36 * kp) if abs(kp) > 1e-9 else 1.0) ** 2
-            amp *= math.exp(-0.006 * (m * m + n * n))
-            if -5.2 < k < 5.2 and amp > 0.012:
-                vals.append((k, amp))
-    for k, amp in vals:
-        x = 550 + 27 * k
-        y = 365 - 255 * min(amp, 1)
-        width = 1.2 + 2.5 * min(amp, 1)
-        p.append(f'<line x1="{x:.1f}" y1="365" x2="{x:.1f}" y2="{y:.1f}" style="stroke:{LIGHT["green"]};stroke-width:{width:.1f}"/>')
-    p.append('<rect class="paperbox" x="430" y="78" width="274" height="62" rx="10"/>')
-    p.append('<text class="small" x="446" y="102">強い peak は疎</text>')
-    p.append('<text class="small" x="446" y="126">弱い peak まで含めると高密度</text>')
-    p.append('<text class="math" x="200" y="405" text-anchor="middle">k / k₀</text>')
-    p.append('<text class="math" x="550" y="405" text-anchor="middle">k / k₀</text>')
+            a=math.pi*w*u
+            I=(math.sin(a)/a)**2 if abs(a)>1e-12 else 1
+            x=555+35*k
+            p.append(f'<line class="secondary" x1="{x:.3f}" x2="{x:.3f}" y1="355" y2="{355-275*I:.3f}" style="stroke-width:2"/>')
+    p.append('<text class="math" x="17" y="48">I(k)/I(0)</text>')
     save("diffraction-fourier-module.svg", p)
 
 

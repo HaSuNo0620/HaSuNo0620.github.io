@@ -1,9 +1,12 @@
 ---
-title: "1次元一様第二近接 cosine スピン系 — Z2・Zq・U(1)を三つの解像度で見る"
-summary: "第二近接 cosine スピン系を、Z2・Zq・U(1)という局所状態空間の違いだけを動かして比較する。interacting wall、locked 離散ねじれ、連続らせんを、saddle point、局所遷移、転送スペクトルという三つの解像度で対応づける。"
+title: "競合相互作用と局所状態空間：Ising・Clock・XY鎖の比較"
+summary: "第二近接相互作用を固定し、角度制約が基底配置、カイラリティ、相関と応答に及ぼす影響を比較する。"
 publishedAt: 2026-09-13T22:45:00+09:00
-updatedAt: 2026-09-19
+updatedAt: 2026-11-28
 area: "Physics"
+field: statistical-physics
+kind: comparison
+prerequisites: ["ising-r2-transfer-matrix", "clock-chain-second-neighbor", "xy-chain-second-neighbor"]
 topics: ["spin model", "clock model", "Ising model", "XY model", "second-neighbor interaction", "chirality", "transfer matrix"]
 status: growing
 system:
@@ -16,518 +19,67 @@ system:
   role: comparison
 ---
 
-第二近接 cosine 系では
+最近接の強磁性結合と第二近接の反強磁性結合を持つ一次元鎖では、局所スピンの状態空間を変えるだけで基底配置が変化する。Ising鎖の周期4状態とXY鎖の螺旋状態は、同じ相互作用の異なる制約下での最小解である。有限状態のClock鎖を介して、その違いを調べる。
+
+## 基底状態の制約
+
+$J_1>0$、$J_2=-\kappa J_1$、$\kappa\ge0$ とする。隣接角度差 $\phi_i$ によるエネルギーは
 
 $$
-\boxed{
-H=
--J_1\sum_i\cos(\theta_{i+1}-\theta_i)
--J_2\sum_i\cos(\theta_{i+2}-\theta_i)
-}
+H=J_1\sum_i[-\cos\phi_i+\kappa\cos(\phi_i+\phi_{i+1})].
 $$
 
-を固定したまま、
+Ising、$q$ 状態Clock、XY模型の違いは、増分が属する集合 $\{0,\pi\}$、$2\pi\mathbb Z_q/q$、$S^1$ にある。
+
+[第二近接Clock鎖](/notes/clock-chain-second-neighbor/)で示したように、隣接増分の対称エネルギー
 
 $$
-\boxed{
-Z_2
-\longrightarrow
-Z_q
-\longrightarrow
-U(1)
-}
+E(a,b)=J_1[-(\cos a+\cos b)/2+\kappa\cos(a+b)]
 $$
 
-と 局所状態空間 だけを変えられる。
+の最小値が熱力学極限の基底エネルギーとなる。最小化する対を交互に並べれば下限を達成するためである。連続角度でも同じ下限の議論が成立する。
 
-個別導出は
-
-- [第二近接 cosine-$Z_2$](/notes/ising-r2-transfer-matrix)
-- [第二近接 cosine-$Z_q$](/notes/clock-chain-second-neighbor)
-- [第二近接 cosine-$U(1)$](/notes/xy-chain-second-neighbor)
-
-に分け、このノートでは三者を同じ解像度で比較する。
-
-## 比較座標
-
-固定するのは
+$s=(a+b)/2$、$d=(a-b)/2$ とすると
 
 $$
-\boxed{
-(d=1,\ \text{uniform},\ R=2,\ \text{cosine},\ \text{classical})
-}
+E/J_1=-\cos s\cos d+\kappa\cos2s.
 $$
 
-である。
+連続角度では、与えられた $s$ に対して第一項を最小化できる。角度の代表元を適切に選び直せば $d=0$ の一様ねじれで下限を達成できる。一方、有限角度では $s,d$ は独立な連続変数ではない。特に $s$ が角度刻みの半整数倍になると、$d=0$ を選べない場合がある。ここに交互増分状態が現れる余地がある。
 
-動かすのは
+## 離散化が基底状態境界を変える
 
-状態空間 / 対称性 だけで、
+Ising鎖では強磁性配置と周期4配置のエネルギーが $\kappa=1/2$ で一致する。XY鎖では $\kappa=1/4$ から連続的な螺旋が選ばれる。
 
-$$
-Z_2
-\leftrightarrow
-Z_q
-\leftrightarrow
-U(1)
-$$
+有限Clock鎖について、例えば $q=3$ では角度を $0,\pm2\pi/3$ とできる。対称性を使って候補を整理すると、
 
-を比較する。
+| 増分対 | $E/J_1$ |
+| --- | ---: |
+| $(0,0)$ | $-1+\kappa$ |
+| $(0,2\pi/3)$ | $-1/4-\kappa/2$ |
+| $(2\pi/3,2\pi/3)$ | $1/2-\kappa/2$ |
+| $(2\pi/3,-2\pi/3)$ | $1/2+\kappa$ |
 
-共通の読み順は
+従って $\kappa>1/2$ では、一様螺旋ではなく $0$ と $2\pi/3$（または $-2\pi/3$）の交互増分が最低エネルギーを与える。元のスピンは一般に周期6となる。Ising鎖の周期4状態と同様、角度格子の制約が単純な一様ねじれとは異なる配置を作る。
 
-$$
-\boxed{
-\text{defect / texture}
-\longleftrightarrow
-\text{局所遷移 rule}
-\longleftrightarrow
-\text{転送スペクトル}
-}
-$$
+固定した $\kappa$ で $q$ を増やせば基底エネルギーはXY鎖の値に収束する。ただし状態集合は任意の $q$ 同士で包含関係にないので、収束が単調とは限らない。
 
-である。
+## 有限温度で区別すべき観測量
 
-## 1. 局所相対変数は三者で同じ形に統一できる
+三模型とも増分の平衡転送核は $T(a,b)=\exp[-\beta E(a,b)]$ である。有限温度の熱力学極限では、最大固有値と固有関数を用いて一次のMarkov核を構成できる。状態空間が連続化しても、増分の相互作用は残る。
 
-$\phi_i=\theta_{i+1}-\theta_i$ と置けば、
+スピン相関には位相因子 $e^{i\phi}$ を挿入した傾斜転送作用素が必要である。通常の転送作用素は増分自体の相関を記述する。この違いは、特にカイラリティ $\sin\phi$ が非自明になるClock鎖とXY鎖で重要である。Ising鎖ではこの観測量は恒等的にゼロだが、ドメイン壁の相関は存在する。
 
-$$
-\boxed{
-H=
--J_1\sum_i\cos\phi_i
--J_2\sum_i\cos(\phi_i+\phi_{i+1})
-}
-$$
-
-である。
-
-違うのは $\phi_i$ の状態空間だけで、
-
-$$
-\phi_i\in
-\begin{cases}
-\{0,\pi\}, & Z_2,\\[1mm]
-\left\{\dfrac{2\pi a}{q}\right\}, & Z_q,\\[3mm]
-S^1, & U(1).
-\end{cases}
-$$
-
-したがって $R=2$ の本質は三者とも
-
-$$
-\boxed{
-\text{independent 局所増分}
-\longrightarrow
-\text{相互作用する局所増分}
-}
-$$
-
-である。
-
-## 2. 実空間の構造はドメイン壁 → ロックされたねじれ → 連続らせんと変わる
-
-### $Z_2$
-
-$\tau_i=e^{i\phi_i}=\pm1$ とすれば
-
-$$
-\boxed{
-H=
--J_1\sum_i\tau_i
--J_2\sum_i\tau_i\tau_{i+1}
-}
-$$
-
-であり、第二近接相互作用は 壁配置 を相互作用させる。
-
-### $Z_q$
-
-$\phi_i=2\pi a_i/q$ なので、一様 ねじれ の候補も離散的である。
-
-$$
-\boxed{
-q_\ast^{(q)} = \frac{2\pi a_\ast}{q}
-}
-$$
-
-は
-
-$$
-a_\ast = \operatorname*{arg\,min}_{a\in\mathbb Z_q}
-\left[
--J_1\cos\frac{2\pi a}{q}
--J_2\cos\frac{4\pi a}{q}
-\right]
-$$
-
-で決まる。
-
-したがって 選好ピッチ は 階段状にロックされる。
-
-### $U(1)$
-
-連続角度では
-
-選好ねじれ は $\cos q_\ast=-J_1/(4J_2)$ に従って連続的に動く。
-
-三者を並べると
-
-$$
-\boxed{
-\text{相互作用する壁}
-\to
-\text{ロックされた離散ねじれ}
-\to
-\text{連続らせん}
-}
-$$
-
-となる。
-
-## 3. カイラリティ の出方も 状態空間 に沿って連続化する
-
-非零 選好ねじれ があると、
-
-$+q_\ast$ と $-q_\ast$ という二つの向きが生じる。
-
-$Z_2$ では角度アルファベット が二値なので、独立な 連続カイラリティセクター は持たない。
-
-$Z_q$ では
-
-$$
-\boxed{
-+q_\ast^{(q)}
-\leftrightarrow
--q_\ast^{(q)}
-}
-$$
-
-という離散 カイラリティセクター が現れる。
-
-$U(1)$ ではその セクター内部に 連続位相揺らぎ も残る。
-
-したがって
-
-$$
-\boxed{
-\text{壁配置}
-\to
-\text{離散カイラリティ + ロックされたねじれ}
-\to
-\text{連続位相 + カイラリティ}
-}
-$$
-
-という階層になる。
-
-## 4. 鞍点 は「どの局所構造が選ばれるか」を見る
-
-三者で 鞍点 的に見る量は異なる。
-
-| 対称性 | 鞍点 / energetic object |
-| --- | --- |
-| $Z_2$ | 壁生成コスト / 壁配置 |
-| $Z_q$ | ロックされた選好ねじれ $q_\ast^{(q)}$ |
-| $U(1)$ | 連続選好ねじれ $q_\ast$ / カイラリティキンク |
-
-$Z_q$ では特に
-
-$$
-\boxed{
-\delta q_{\rm lock} = q_\ast^{(q)}-q_\ast
-}
-$$
-
-が finite-$q$ 固有の量になる。
-
-これは最近接 $Z_q$ にはなかった、第二近接だからこそ現れる angular discretization の効果である。
-
-## 5. 局所遷移 は 2状態 → $q$状態 → 連続核 へ移る
-
-第二近接では $\phi_i$ は マルコフ連鎖 になる。
-
-### $Z_2$
-
-2状態 transition $P(\tau_{i+1}\mid\tau_i)$ である。
-
-### $Z_q$
-
-$$
-\boxed{
-P(a_{i+1}|a_i),
-\qquad
-a_i\in\mathbb Z_q
-}
-$$
-
-という $q$-state transition になる。
-
-### $U(1)$
-
-連続条件付き確率密度 $P(\phi_{i+1}\mid\phi_i)$ になる。
-
-したがって
-
-$$
-\boxed{
-2\text{-state Markov}
-\to
-q\text{-state Markov}
-\to
-\text{連続マルコフ核}
-}
-$$
-
-と連続化する。
-
-## 6. 転送対象 も 2×2 → q×q → 積分作用素 になる
-
-増分表示で対称分割すると、
-
-$$
-T_{ab} = \exp\left[
-\frac{\beta J_1}{2}
-(\cos\phi_a+\cos\phi_b)
-+
-\beta J_2\cos(\phi_a+\phi_b)
-\right].
-$$
-
-$Z_2$ では $2\times2$、
-
-$Z_q$ では $q\times q$ の有限行列、
-
-$U(1)$ では $\mathcal T(\phi,\phi')$ という積分作用素になる。
-
-$$
-\boxed{
-2\times2
-\to
-q\times q
-\to
-\text{積分作用素}
-}
-$$
-
-は 状態空間の連続極限を転送空間で表したものである。
-
-## 7. 長距離 相関 は三者とも スペクトルの大きさと位相で読める
-
-長距離相関を担う tilted 転送対象 の支配固有値を
-
-$\Lambda_\ast=|\Lambda_\ast|e^{iq_{\rm corr}}$ とすれば、
-
-$$
-\boxed{
-\xi^{-1} = -\ln\left|
-\frac{\Lambda_\ast}{\Lambda_0}
-\right|
-}
-$$
-
-と
-
-$$
-\boxed{
-q_{\rm corr} = \arg\Lambda_\ast
-}
-$$
-
-が得られる。
-
-したがって全て
-
-$$
-\boxed{
-|\Lambda_\ast|
-\longrightarrow
-\text{相関長},
-\qquad
-\arg\Lambda_\ast
-\longrightarrow
-\text{相関位相}
-}
-$$
-
-という共通言語で比較できる。
-
-## 8. 「構造波数」は三者で同じ名前でも同じ量ではない
-
-$Z_2$ では $q_{\rm spec}$ が subleading eigenvalue の位相として現れ、$q_\chi$ は 応答ピーク の位置である。
-
-$Z_q$ では
-
-$$
-\boxed{
-q_\ast^{(q)},
-\qquad
-q_{\rm corr},
-\qquad
-Q_{\rm peak}
-}
-$$
-
-を分ける必要がある。
-
-$U(1)$ でも
-
-$$
-q_\ast,\qquad
-q_{\rm corr},\qquad
-Q_{\rm peak}
-$$
-
-は原理的に別である。
-
-比較すると、
-
-| 対称性 | 局所エネルギーが選ぶ波数 | 長距離相関波数 | 応答ピーク |
+| 模型 | 基底配置の例 | 増分の観測量 | スピン相関の計算 |
 | --- | --- | --- | --- |
-| $Z_2$ | 壁配置 / ground-state modulation | $q_{\rm spec}$ | $q_\chi$ |
-| $Z_q$ | $q_\ast^{(q)}$ | $q_{\rm corr}$ | $Q_{\rm peak}$ |
-| $U(1)$ | $q_\ast$ | $q_{\rm corr}$ | $Q_{\rm peak}$ |
+| Ising | 強磁性、周期4 | $s_i s_{i+1}$ | 二状態の傾斜行列 |
+| Clock | 一様または交互増分 | 離散角、カイラリティ | $q$ 状態の傾斜行列 |
+| XY | 一様螺旋 | 連続角、カイラリティ | 傾斜積分作用素 |
 
-となる。
+## 基底波数・相関波数・応答波数
 
-## 9. finite-$q$ は二つの意味で中間にいる
+基底配置のFourier成分、長距離相関を支配する固有値の偏角、構造因子の最大波数は異なる定義を持つ。交互増分を持つClock鎖では基底配置にも複数のFourier成分がありうる。
 
-最近接 $R=1$ の $Z_q$ では finite-$q$ 性は主に
+[第二近接Ising鎖](/notes/ising-r2-transfer-matrix/)では、実固有値の複素化と感受率のピーク分岐が異なる境界を持つ。[第二近接XY鎖](/notes/xy-chain-second-neighbor/)では、位相拡散と巻き方向の反転が相関に別々に寄与し、同様の波数の分離を有効模型から導ける。
 
-$$
-\boxed{
-\text{angular discretization}
-\longleftrightarrow
-\text{spectral aliasing}
-}
-$$
-
-に現れた。
-
-第二近接ではさらに
-
-$$
-\boxed{
-\text{angular discretization}
-\longrightarrow
-\text{pitch locking}
-}
-$$
-
-が加わる。
-
-したがって $R=2$ の $Z_q$ は
-
-$$
-\boxed{
-\text{spectral interpolation}
-+
-\text{空間構造の量子化}
-}
-$$
-
-という二重の役割を持つ。
-
-## 10. 三つの 情報フィルター を並べる
-
-| 解像度 | $Z_2$ | $Z_q$ | $U(1)$ |
-| --- | --- | --- | --- |
-| エネルギー / 鞍点 | 壁生成コスト / 壁配置 | ロックされたねじれ $q_\ast^{(q)}$ | 連続 $q_\ast$ / カイラリティキンク |
-| 局所遷移 | $P(\tau'|\tau)$ | $P(a'|a)$ | $P(\phi'|\phi)$ |
-| 転送対象 | $2\times2$ | $q\times q$ | 積分作用素 |
-| 長距離相関 | $(\xi,q_{\rm spec})$ | $(\xi,q_{\rm corr})$ | $(\xi,q_{\rm corr})$ |
-| 応答 | $q_\chi$ | $Q_{\rm peak}$ | $Q_{\rm peak}$ |
-
-この表で $Z_q$ は単なる「中間モデル」ではなく、
-
-$$
-\boxed{
-\text{離散欠陥統計}
-\leftrightarrow
-\text{連続テクスチャ統計}
-}
-$$
-
-を有限状態 マルコフ連鎖 でつなぐ位置にいる。
-
-## 11. $q\to\infty$ で消えるものと残るもの
-
-$q\to\infty$ では $\Delta\phi=2\pi/q\to0$ なので ねじれロッキング は消え、$q_\ast^{(q)}\to q_\ast$ となる。
-
-一方、
-
-$$
-\text{選好ねじれ},
-\qquad
-\text{カイラリティ},
-\qquad
-\text{correlated increments}
-$$
-
-そのものは残る。
-
-つまり 連続極限 で消えるのは
-
-$$
-\boxed{
-\text{角度の離散化によるロッキング}
-}
-$$
-
-であって、第二近接が作った構造相関ではない。
-
-## 得られた見方
-
-第二近接 cosine 系の 対称性 軸は
-
-$$
-\boxed{
-Z_2
-\to
-Z_q
-\to
-U(1)
-}
-$$
-
-に沿って
-
-$$
-\boxed{
-\text{相互作用する壁}
-\to
-\text{ロックされた離散ねじれ}
-\to
-\text{連続らせん}
-}
-$$
-
-と変化する。
-
-同時に 情報フィルター 側では
-
-$$
-\boxed{
-2\text{-state transition}
-\to
-q\text{-state transition}
-\to
-\text{連続核}
-}
-$$
-
-となり、転送対象 も
-
-$$
-\boxed{
-2\times2
-\to
-q\times q
-\to
-\text{積分作用素}
-}
-$$
-
-へ連続化する。
-
-したがって $R=2$ に $Z_q$ を入れることで、$Z_2$ と $U(1)$ の差を「離散か連続か」で終わらせず、**角度分解能が 壁配置 を ロックされたねじれ へ、さらに 連続らせん へどう変形するか**として追えるようになる。
+これらは、相関の振動が発生しただけでは最大応答波数を決められないことを示す。有限Clock鎖の役割は単に両端の模型を補間することではなく、角度制約による基底配置の変化と有限温度の転送スペクトルを同じ有限行列で比較できる点にある。

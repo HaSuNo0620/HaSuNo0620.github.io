@@ -1,0 +1,14 @@
+---
+import { isLegacyNote } from '../../lib/legacy-notes';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fields } from '../../lib/fields';
+import { getCollection } from 'astro:content';
+export function getStaticPaths(){return fields.map(field=>({params:{field:field.id},props:{field}}));}
+const {field}=Astro.props;
+const notes=await getCollection('notes',({id,data})=>!data.draft && !isLegacyNote(id));
+const byId=new Map(notes.map(n=>[n.id,n]));
+---
+<BaseLayout title={field.title} description={field.description}>
+<section class="index-intro"><a href="/fields/">分野一覧</a><h1>{field.title}</h1><p>{field.description}</p></section>
+{field.groups.map(group=><section class="garden-section"><h2>{group.title}</h2><div class="fragment-list">{group.ids.map(id=>byId.get(id)).filter(n=>n!==undefined).map(n=><a class="fragment-row" href={`/notes/${n.id}/`}><span class="fragment-main"><strong>{n.data.title}</strong><small>{n.data.summary}</small></span></a>)}</div></section>)}
+</BaseLayout>

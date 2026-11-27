@@ -1,0 +1,14 @@
+---
+import { isLegacyNote } from '../../lib/legacy-notes';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fields } from '../../lib/fields';
+import { getCollection } from 'astro:content';
+const notes=await getCollection('notes',({id,data})=>!data.draft && !isLegacyNote(id));
+import { fieldFor } from '../../lib/fields';
+---
+<BaseLayout title="分野">
+<section class="index-intro"><h1>分野</h1><p>主題ごとに記事を辿る。</p></section>
+<div class="fragment-list">
+{fields.map(f=><a class="fragment-row" href={`/fields/${f.id}/`}><span class="fragment-main"><strong>{f.title}</strong><small>{f.description}</small></span><span>{notes.filter(n=>fieldFor(n.id,n.data.field)?.id===f.id).length} 件</span></a>)}
+</div>
+</BaseLayout>

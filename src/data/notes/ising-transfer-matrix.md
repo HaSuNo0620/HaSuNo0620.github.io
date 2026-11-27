@@ -1,9 +1,13 @@
 ---
-title: "1次元一様最近接 cosine-Z2 スピン系 — 空間相関と応答"
-summary: "最近接相互作用だけを持つ1次元Ising鎖を、有限相互作用範囲系列の基準点として読む。転送行列、ドメイン壁、相関長、一様外場、波数依存感受率、空間振動外場への応答を同じ構造としてつなぐ。"
+title: "一次元最近接Ising鎖の厳密解と空間相関"
+summary: "ドメイン壁の統計から二点相関を導き、転送行列による磁化、波数依存感受率、相互情報量との関係を調べる。"
 publishedAt: 2025-05-27T21:25:00+09:00
-updatedAt: 2026-09-19
+updatedAt: 2026-11-28
 area: "Physics"
+field: statistical-physics
+kind: model
+prerequisites: ["finite-range-symmetry-comparison"]
+related: ["ising-r2-transfer-matrix", "ising-r1-periodic", "clock-chain-nearest-neighbor"]
 topics: ["statistical mechanics", "Ising model", "transfer matrix", "correlation", "linear response"]
 status: growing
 system:
@@ -16,555 +20,169 @@ system:
   role: model
 ---
 
-1次元 Ising 模型は「厳密に解ける簡単な模型」というだけでなく、相互作用範囲を伸ばしたときに何が新しく生まれるかを見る基準点として使いやすい。
+一次元最近接Ising鎖では、零外場の二点相関を決める量が、隣接スピンの相関 $\tanh(\beta J)$ に限られる。この結果は転送行列からも、ドメイン壁の確率分布からも導ける。以下では両者の対応を示し、空間的に変化する外場への応答と相互情報量を求める。
 
-有限範囲 $R$ の模型を
+## 零外場の分配関数
 
-$$
-H_R=-\sum_i\sum_{r=1}^{R}J_r s_i s_{i+r}-\sum_i h_i s_i,
-\qquad s_i=\pm1
-$$
-
-と書くと、最近接模型は
+スピン $s_i=\pm1$ に対して
 
 $$
-\boxed{
-H=-J\sum_i s_i s_{i+1}-\sum_i h_i s_i
-}
+H=-J\sum_i s_i s_{i+1}-\sum_i h_i s_i,\qquad
+\beta=(k_{\mathrm B}T)^{-1},\quad K=\beta J
 $$
 
-である。以下では
+と定義する。格子間隔は1とする。零外場の転送行列は
 
 $$
-\beta\equiv\frac{1}{k_{\mathrm B}T},
-\qquad
-K\equiv\beta J=\frac{J}{k_{\mathrm B}T}
+T=\begin{pmatrix}e^K&e^{-K}\\e^{-K}&e^K\end{pmatrix}
 $$
 
-とする。
+であり、対称・反対称な固有ベクトルに対応する固有値は $\lambda_+=2\cosh K$、$\lambda_-=2\sinh K$ である。周期鎖では $Z_N=\lambda_+^N+\lambda_-^N$、開鎖では $Z_N=2\lambda_+^{N-1}$ となる。有限温度の熱力学極限では、どちらの境界条件からも自由エネルギー密度 $f=-\beta^{-1}\ln\lambda_+$ を得る。
 
-この模型で特別なのは、零外場なら「局所相関」「欠陥」「相関」「波数応答」がすべて一つの量へ還元されることである。
+## ドメイン壁と二点相関
 
-## 系の座標
-
-$$
-\boxed{
-(d=1,\ \text{uniform},\ R=1,\ \text{cosine},\ Z_2)
-}
-$$
-
-基準 Hamiltonian は
+隣接スピンの積 $\tau_i=s_i s_{i+1}$ を導入する。開鎖では初期スピンと全ての $\tau_i$ を与えれば、
 
 $$
-H=-J\sum_i s_i s_{i+1},
-\qquad s_i=\pm1,
+s_i=s_1\prod_{j=1}^{i-1}\tau_j
 $$
 
-局所変数 は
+によって配置を一意に復元できる。零外場のエネルギーは $H=-J\sum_i\tau_i$ となり、各結合変数は独立である。周期鎖には $\prod_i\tau_i=1$ という制約があるため、有限サイズでは独立性は厳密には成立しない。以降は開鎖の内部または熱力学極限を考える。
+
+強磁性結合 $J>0$ では $\tau_i=-1$ がドメイン壁であり、その励起エネルギーは $2J$ である。壁の存在確率は
 
 $$
-\tau_i=s_i s_{i+1}.
+p_{\mathrm{dw}}=\frac{1}{1+e^{2K}},\qquad
+\langle\tau_i\rangle=1-2p_{\mathrm{dw}}=\tanh K.
 $$
 
-この座標では $\tau_i$ が独立になることが、長距離相関と応答の基準点になる。
-
-
-$Z_2$ では $\theta_i\in\{0,\pi\}$ と置けば
+距離 $r$ にわたる壁数を $N_{\mathrm{dw}}$ とすると $s_i s_{i+r}=(-1)^{N_{\mathrm{dw}}}$ である。独立な結合変数の平均を取ると
 
 $$
-\cos(\theta_i-\theta_j)=s_i s_j
+C(r)=\langle s_i s_{i+r}\rangle
+=(\tanh K)^{|r|}.
 $$
 
-なので、標準 bilinear Ising 相互作用と cosine-$Z_2$ 表現は同値である。
-
-## 1. 局所相関は1スピンで閉じる
-
-零外場では
-
-$$
-H=-J\sum_{i=1}^{N-1}s_i s_{i+1}.
-$$
-
-最後のスピンを固定した部分分配関数を使えば
-
-$$
-\begin{pmatrix}
-Z_N^{(+)}\\
-Z_N^{(-)}
-\end{pmatrix} = \begin{pmatrix}
-e^K&e^{-K}\\
-e^{-K}&e^K
-\end{pmatrix}
-\begin{pmatrix}
-Z_{N-1}^{(+)}\\
-Z_{N-1}^{(-)}
-\end{pmatrix}.
-$$
-
-新しいスピンを加えるとき必要なのは直前の1スピンだけで、転送行列は $2\times2$ で閉じる。
-
-固有値は
-
-$$
-\lambda_+=2\cosh K,
-\qquad
-\lambda_-=2\sinh K,
-$$
-
-したがって非自明な固有値比は
-
-$$
-\boxed{
-\frac{\lambda_-}{\lambda_+}=\tanh K
-}
-$$
-
-だけである。この比が空間相関の1-step retentionになる。
-
-## 2. ドメイン壁表示では相互作用が消える
-
-bond変数
-
-$$
-\tau_i\equiv s_i s_{i+1}=\pm1
-$$
-
-を導入すると、$\tau_i=-1$ がドメイン壁に対応する。
-
-基準スピン $s_1$ を残せば
-
-$$
-\boxed{
-s_i=s_1\prod_{k=1}^{i-1}\tau_k
-}
-$$
-
-なので、開鎖では
-
-$$
-\{s_i\}
-\longleftrightarrow
-\left(s_1,\{\tau_i\}\right)
-$$
-
-は情報を失わない変数変換である。
-
-零外場の Hamiltonian は
-
-$$
-\boxed{
-H=-J\sum_i\tau_i
-}
-$$
-
-となり、異なる $\tau_i$ 同士の結合が消える。
-
-$$
-\boxed{
-\text{相互作用するスピン}
-\longrightarrow
-\text{独立なドメイン壁変数}
-}
-$$
-
-という単純化が最近接鎖の核心である。
-
-強磁性 $J>0$ では壁1個の生成コストは $2J$ なので
-
-$$
-p_{\mathrm{dw}}
-=\frac{1}{1+e^{2K}}
-\simeq e^{-2K}
-\qquad(K\gg1).
-$$
-
-また
-
-$$
-\langle\tau\rangle
-=1-2p_{\mathrm{dw}}
-=\tanh K,
-$$
-
-したがって
-
-$$
-\boxed{
-\frac{\lambda_-}{\lambda_+}
-=\langle\tau\rangle
-=1-2p_{\mathrm{dw}}
-=\tanh K
-}
-$$
-
-となる。転送スペクトル と実空間の欠陥密度が同じ量を見ている。
-
-外場項は
-
-$$
--h\sum_i s_i
-=-hs_1\sum_i\prod_{k=1}^{i-1}\tau_k
-$$
-
-となるので、ドメイン壁表示は外場に対しては非局所的になる。表示の良し悪しではなく、**何を局所化する変数なのか**が違う。
-
-## 3. 相関は壁数の偶奇を読む
-
-二点間では
-
-$$
-s_i s_{i+r}
-=\prod_{j=i}^{i+r-1}\tau_j
-=(-1)^{N_{\mathrm{wall}}(i,i+r)}.
-$$
-
-相関関数は壁の本数そのものではなく、その偶奇を見ている。
-
-$\tau_i$ が独立なので
-
-$$
-\boxed{
-C(r)
-\equiv\langle s_i s_{i+r}\rangle
-=(\tanh K)^r
-=\left(\frac{\lambda_-}{\lambda_+}\right)^r
-}
-$$
-
-となる。
+転送行列の固有値比 $\lambda_-/\lambda_+$ は、この壁数の偶奇の平均を1結合について評価した量に等しい。
 
 ![距離に対する二点相関関数](/figures/ising-r1/correlation-distance.svg)
 
-*最近接強磁性鎖の二点相関。非自明な減衰モードは一つだけで、相関は単一指数になる。*
+*強磁性鎖における二点相関の距離依存性。*
 
-$C(r)=e^{-r/\xi}$ と書けば
+相関長は $\xi^{-1}=-\ln|\tanh K|$ である。反強磁性 $J<0$ では相関の符号が交互に変わるが、包絡の相関長は同じ式で求まる。$J=0$ では異なるサイトの相関はゼロである。
 
-$$
-\boxed{
-\xi^{-1}
-=-\ln|\tanh K|
-=\ln\left|\frac{\lambda_+}{\lambda_-}\right|
-}
-$$
-
-であり、低温では
+強磁性低温では $p_{\mathrm{dw}}\simeq e^{-2K}$ なので、
 
 $$
-\boxed{
-\xi\simeq\frac12e^{2K}
-=\frac12\exp\left(\frac{2J}{k_{\mathrm B}T}\right)
-}
+\xi\simeq\frac{1}{2p_{\mathrm{dw}}}\simeq \frac12e^{2K}.
 $$
 
-となる。
+平均壁間隔 $1/p_{\mathrm{dw}}$ と相関長の間に係数2が現れるのは、相関が壁の有無ではなく壁数の偶奇を測るためである。
 
 ![相関長の温度依存](/figures/ising-r1/correlation-length-temperature.svg)
 
-*相関長の厳密式と低温漸近形。$T\to0$ では急速に増大するが、任意の有限温度では有限である。*
+*相関長の厳密式と強磁性低温での漸近形。*
 
-低温では平均壁間隔 $\ell_{\mathrm{wall}}\simeq p_{\mathrm{dw}}^{-1}$ なので
+## 一様外場における磁化
 
-$$
-\boxed{
-\ell_{\mathrm{wall}}\simeq2\xi
-}
-$$
-
-となる。係数2は、相関が最初の壁ではなく $(-1)^{N_{\mathrm{wall}}}$ を測ることから出る。
-
-## 4. 一様外場は $q=0$ 応答として位置づけられる
-
-一様外場では
+一様外場 $h$ を加えると、結合変数では外場項が $-hs_1\sum_i\prod_{j<i}\tau_j$ となる。独立性を失うので、絶対スピンを状態とする転送行列を用いる。外場エネルギーを両端に等分すれば
 
 $$
-H=-J\sum_i s_i s_{i+1}-h\sum_i s_i
+T_h=\begin{pmatrix}e^{K+\beta h}&e^{-K}\\e^{-K}&e^{K-\beta h}\end{pmatrix},
 $$
 
-で、split-field 転送行列 は
-
 $$
-T=
-\begin{pmatrix}
-e^{K+\beta h}&e^{-K}\\
-e^{-K}&e^{K-\beta h}
-\end{pmatrix}.
+\lambda_\pm=e^K\left[\cosh(\beta h)\pm
+\sqrt{\sinh^2(\beta h)+e^{-4K}}\right].
 $$
 
-固有値は
+磁化は $m=-\partial f/\partial h$ から
 
 $$
-\lambda_\pm
-=e^K\left[
-\cosh(\beta h)
-\pm\sqrt{\sinh^2(\beta h)+e^{-4K}}
-\right].
+m(h)=\frac{\sinh(\beta h)}{\sqrt{\sinh^2(\beta h)+e^{-4K}}}
 $$
 
-熱力学極限で
+となる。有限温度では $h\to0$ で磁化は消失する。一様感受率は
 
 $$
-\boxed{
-m(h)
-=\frac{\sinh(\beta h)}
-{\sqrt{\sinh^2(\beta h)+e^{-4K}}}
-}
+\chi(0)=\left.\frac{\partial m}{\partial h}\right|_{h=0}
+=\beta e^{2K}.
 $$
-
-となる。
 
 ![一様外場に対する磁化](/figures/ising-r1/magnetization-field.svg)
 
-*低温ほど $h=0$ 近傍の応答は急になるが、有限温度では自発磁化は生じない。*
+*一様外場下の磁化。低温の強磁性鎖では零外場付近の傾きが大きくなる。*
 
-零外場感受率は
+## 波数依存感受率
 
-$$
-\boxed{
-\chi(0)=\beta e^{2K}
-}
-$$
-
-である。これは後で波数依存感受率の $q=0$ 成分として回収できる。
-
-## 5. 実空間相関はそのまま波数フィルタになる
-
-微小な位置依存外場に対して
+零外場の線形応答は $\chi_{ij}=\beta C(i-j)$ である。$t=\tanh K$ とおいて幾何級数を評価すると、
 
 $$
-\delta\langle s_i\rangle
-=\sum_j\chi_{ij}\delta h_j,
+\begin{aligned}
+\chi(Q)&=\beta\sum_{r\in\mathbb Z}t^{|r|}e^{-iQr}\\
+&=\beta\frac{1-t^2}{1-2t\cos Q+t^2}.
+\end{aligned}
 $$
 
-零外場では
-
-$$
-\chi_{ij}=\beta C(i-j).
-$$
-
-$t\equiv\tanh K$ とおけば
-
-$$
-\boxed{
-\chi(q)
-=\beta\frac{1-t^2}{1-2t\cos q+t^2}
-}
-$$
-
-となる。
+$Q=0$ では先ほどの一様感受率を回収する。強磁性では $Q=0$、反強磁性では $Q=\pi$ で最大となり、$J=0$ では波数に依存しない。
 
 ![波数依存感受率](/figures/ising-r1/susceptibility-q.svg)
 
-*$J>0$ では $q=0$ が最大で、低温ほどピークが狭くなる。*
+*強磁性鎖の波数依存感受率。*
 
-$q=0$ では
-
-$$
-\chi(0)=\beta\frac{1+t}{1-t}=\beta e^{2K}
-$$
-
-となり、一様外場から得た結果と一致する。
-
-強磁性 $J>0$ では $q_*=0$、反強磁性 $J<0$ では $q_*=\pi$ が選ばれる。最近接模型では自然な構造波数はこの二つに限られる。
-
-## 6. 長波長極限では $q\xi$ が自然な変数になる
-
-強磁性低温で $t=e^{-1/\xi}\simeq1-\xi^{-1}$、$q\ll1$ とすると
+強磁性で $\xi\gg1$、かつ $|Q|\ll1$ なら $t=e^{-1/\xi}$ を展開して
 
 $$
-\boxed{
-\chi(q)
-\simeq
-\frac{2\beta\xi}{1+(q\xi)^2}
-}
+\chi(Q)\simeq\frac{2\beta\xi}{1+(Q\xi)^2}
 $$
 
-となる。
+を得る。外場の変化が相関長に比べて緩やかなら、相関した領域のスピンはほぼ同じ向きの外場を受ける。逆に $Q\xi$ が大きくなると、領域内で外場の符号が変化するため応答が相殺される。
 
-$q^{-1}$ は外場が変化する長さ、$\xi$ は系が内部で相関を保つ長さである。
-
-- $q\xi\ll1$：一つの相関領域の中で外場はほぼ一様
-- $q\xi\gg1$：一つの相関領域の内部で外場が何度も符号反転し、応答が相殺
-
-という対応になる。
-
-最近接 Ising 鎖は、空間 Fourier mode に対する単純な **波数フィルター** として読める。
-
-## 7. 空間振動外場は相関長を直接 probe する
+外場 $h_i=h_Q\cos(Qi+\varphi)$ に対しては、スピン反転対称性により
 
 $$
-h_i=h_q\cos(qi+\phi)
-$$
-
-とすると、線形応答では
-
-$$
-\boxed{
-\langle s_i\rangle
-=\chi(q)h_q\cos(qi+\phi)+O(h_q^3)
-}
+\langle s_i\rangle=\chi(Q)h_Q\cos(Qi+\varphi)+O(h_Q^3)
 $$
 
 となる。
 
 ![空間振動外場と磁化応答](/figures/ising-r1/spatial-field-response.svg)
 
-*$\beta J=1.2$、$h_q/J=0.05$。長波長では応答が大きく、短波長では強く抑制される。*
-
-同じ外場振幅でも、波数が違えば応答は大きく変わる。これは $\chi(q)$ が実空間の相関長を Fourier 空間で読んだ量だからである。
-
-有限振幅では位置依存 転送行列
-
-$$
-T_i(s_i,s_{i+1})
-=\exp\left[
-\beta J s_i s_{i+1}
-+\frac{\beta}{2}
-(h_i s_i+h_{i+1}s_{i+1})
-\right]
-$$
-
-を使える。
-
-外場が周期 $L$ を持つなら
-
-$$
-M_L=T_1T_2\cdots T_L
-$$
-
-と一周期をまとめ、最大固有値 $\Lambda_+$ から
-
-$$
-\boxed{
-f=-\frac{1}{\beta L}\ln\Lambda_+}
-$$
-
-を得る。
+*外場の空間変調に対する応答。既存図の条件は $\beta J=1.2$、$h_Q/J=0.05$。*
 
 有限振幅では
 
 $$
-m_i=m_q\cos(qi)+m_{3q}\cos(3qi)+\cdots
+T_i(s,s')=\exp\left[Kss'+\frac{\beta}{2}(h_i s+h_{i+1}s')\right]
 $$
 
-のような高調波も現れうる。
+を用いる。外場に整数周期 $L$ がある場合、一周期の積 $M=T_1\cdots T_L$ の最大固有値 $\Lambda_+$ から $f=-(\beta L)^{-1}\ln\Lambda_+$ を得る。非線形応答では奇数次の高調波が現れうる。格子上では波数を $2\pi$ を法として扱う必要がある。
 
-## 8. 相関は情報保持としても読める
+## 二点相関と相互情報量
 
-左端 $s_0=\pm1$ を1 bitの入力と考える。零外場では
-
-$$
-P(s_r=s_0\mid s_0)=\frac{1+C(r)}{2},
-\qquad
-P(s_r\neq s_0\mid s_0)=\frac{1-C(r)}{2}.
-$$
-
-$s_0\to s_r$ は、熱的ドメイン壁が作る binary channel として読める。
-
-ただし壁そのものが情報を消すわけではない。全ての $\tau_i$ が既知なら
-
-$$
-s_r=s_0\prod_{k=0}^{r-1}\tau_k
-$$
-
-から完全に復元できる。情報損失は、壁配置を観測せず粗視化したときに現れる。
-
-零外場では
+零外場の二点同時確率は
 
 $$
 P(s_0,s_r)=\frac14[1+s_0s_rC(r)]
 $$
 
-なので mutual information は
+である。各スピンの周辺分布は一様なので、自然対数を用いた相互情報量は
 
 $$
-\boxed{
-I(s_0:s_r)
-=\frac{1+C(r)}{2}\ln[1+C(r)]
-+\frac{1-C(r)}{2}\ln[1-C(r)]
-}
+I(s_0:s_r)=\frac{1+C(r)}2\ln[1+C(r)]
++\frac{1-C(r)}2\ln[1-C(r)].
 $$
 
-となる。
-
-遠距離で $|C(r)|\ll1$ なら
+ビット単位にするには $\ln2$ で割る。遠距離で $|C(r)|\ll1$ なら
 
 $$
-I(s_0:s_r)\simeq\frac12C(r)^2
-\sim e^{-2r/\xi}.
+I(s_0:s_r)=\frac12 C(r)^2+O(C(r)^4).
 $$
 
-相関長 $\xi$ は線形相関の減衰長であり、二点 mutual information の漸近減衰長は $\xi/2$ になる。相関と情報は同じ量ではない。
+従って相互情報量の漸近減衰長は $\xi/2$ である。壁配置が全て分かれば一方のスピンから他方を完全に復元できるが、壁配置を観測しない場合には二点間の情報量が減少する。
 
-測定・フィードバックを別途導入した場合には、残った情報の熱力学的価値を $k_{\mathrm B}TI$ の尺度で読むこともできる。ただし平衡 Ising 鎖そのものが自発的に仕事を生成するという意味ではない。
+測定とフィードバックを含む熱力学的操作では、相互情報量に由来する仕事の上限に $k_{\mathrm B}TI$ が現れる場合がある。ただし、仕事の収支には操作の条件や測定・記憶の扱いが関わる。平衡スピン鎖の相互情報量だけから利用可能な仕事を決めることはできない。
 
-## 9. 第二近接は「独立な壁」を相互作用させる
+## 相互作用範囲を広げる場合
 
-第二近接相互作用を加えると
-
-$$
-H
-=-J_1\sum_i s_i s_{i+1}
--J_2\sum_i s_i s_{i+2}.
-$$
-
-$$
-s_i s_{i+2}=\tau_i\tau_{i+1}
-$$
-
-なので
-
-$$
-\boxed{
-H
-=-J_1\sum_i\tau_i
--J_2\sum_i\tau_i\tau_{i+1}
-}
-$$
-
-となる。
-
-$$
-\boxed{
-\text{independent ドメイン壁s}
-\longrightarrow
-\text{相互作用するドメイン壁}
-}
-$$
-
-が、最近接から第二近接への質的な変化である。
-
-一般に
-
-$$
-s_i s_{i+r}=\prod_{k=0}^{r-1}\tau_{i+k}
-$$
-
-だから、有限範囲 $R$ の模型は
-
-$$
-\boxed{
-H_R
-=-\sum_i\left[
-J_1\tau_i
-+J_2\tau_i\tau_{i+1}
-+\cdots
-+J_R\prod_{k=0}^{R-1}\tau_{i+k}
-\right]
-}
-$$
-
-と書ける。
-
-スピン表示では相互作用範囲が伸びるほど 転送状態 が過去のスピンを多く保持し、ドメイン壁表示では局所多体結合が増える。
-
-$$
-\boxed{
-\text{相互作用範囲}
-\longleftrightarrow
-\text{有限の空間相関}
-}
-$$
-
-という対応が見える。
-
-最近接鎖は、相互作用範囲、欠陥、相関長、波数応答、情報保持が最も単純な形で一つにつながる基準点になっている。
+第二近接相互作用は結合変数の積 $\tau_i\tau_{i+1}$ となるので、独立な壁の模型ではなくなる。[第二近接Ising鎖](/notes/ising-r2-transfer-matrix/)では、その結果として振動相関と感受率ピークの分岐が生じる。一般の有限範囲における転送状態の構成は[共通理論](/notes/finite-range-symmetry-comparison/)で扱う。

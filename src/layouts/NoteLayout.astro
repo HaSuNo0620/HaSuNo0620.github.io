@@ -3,6 +3,9 @@ import BaseLayout from './BaseLayout.astro';
 import { topicSlug } from '../lib/topics';
 
 interface Props {
+  field?: {id:string;title:string};
+  prerequisites?: {id:string;title:string}[];
+  related?: {id:string;title:string}[];
   title: string;
   summary: string;
   publishedAt: Date;
@@ -12,7 +15,7 @@ interface Props {
   status: 'seed' | 'growing' | 'evergreen';
 }
 
-const { title, summary, publishedAt, updatedAt, area, topics, status } = Astro.props;
+const { title, summary, publishedAt, updatedAt, area, topics, status, field, prerequisites=[], related=[] } = Astro.props;
 const statusLabel = {
   seed: 'seed / 断片',
   growing: 'growing / 育ち途中',
@@ -29,7 +32,7 @@ const areaId = area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g
 <BaseLayout title={title} description={summary}>
   <article class="note-page">
     <header class="note-hero">
-      <a class="back-link" href="/notes/">← all notes</a>
+      <a class="back-link" href={field ? `/fields/${field.id}/` : "/notes/"}>← {field?.title ?? "全記事"}</a>
       <p class={`status status-${status}`}>{statusLabel}</p>
       <h1>{title}</h1>
       <p class="note-summary">{summary}</p>
@@ -43,13 +46,15 @@ const areaId = area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g
       </div>
     </header>
 
+    {prerequisites.length>0 && <aside><h2>前提となる記事</h2><ul>{prerequisites.map(n=><li><a href={`/notes/${n.id}/`}>{n.title}</a></li>)}</ul></aside>}
     <div class="prose">
       <slot />
     </div>
 
+    {related.length>0 && <aside><h2>関連記事</h2><ul>{related.map(n=><li><a href={`/notes/${n.id}/`}>{n.title}</a></li>)}</ul></aside>}
     <footer class="note-end">
       <span>∴</span>
-      <a href="/notes/">Notes に戻る</a>
+      <a href="/notes/">全記事一覧に戻る</a>
     </footer>
   </article>
 </BaseLayout>

@@ -1,329 +1,93 @@
 ---
-title: "Nash–Bertrand 均衡 — 値下げ競争はどこで止まるのか"
-summary: "イベント会場の水売り場と差別化されたスマートフォン市場を実際に計算しながら、Bertrand競争、供給能力制約、Nash均衡、markup、品質調整価格Zの意味をつなぐ。"
+title: "Bertrand価格競争と差別化需要の均衡"
+summary: "供給制約による残余需要とロジット需要下の価格最適化を区別し、Nash均衡と品質調整価格を計算する。"
 publishedAt: 2026-09-14T00:30:00+09:00
-updatedAt: 2026-09-14
+updatedAt: 2026-11-28
 area: "Economics"
+field: economics
+kind: theory
+prerequisites: ["consumer-choice-and-price-formation"]
 topics: ["Nash equilibrium", "Bertrand competition", "capacity constraints", "pricing", "product differentiation", "logit model"]
 status: growing
 ---
 
-品質調整価格
+価格競争の結果は、値下げによって需要がどれだけ移動するかに依存する。同質財ではわずかな値下げが全需要を移すことがあるが、供給能力や商品差別化を導入すると、その結論は変わる。
+
+## 同質財と供給能力
+
+同じ財を販売する二企業が同じ一定限界費用 $c$ を持ち、価格は連続変数であり、安い企業が全需要を供給できるとする。同価格では需要を分け、需要が正であると仮定すれば、両社が $p=c$ を選ぶことはNash均衡である。片方だけ値下げすると負の単位利潤となり、値上げすると需要を失う。
+
+供給能力が有限ならこの議論は成立しない。例えば来場者140人の支払意思額が全員180円、A店の価格120円・在庫100本、B店の限界費用100円・供給能力140本とする。消費者は安い店から購入し、在庫不足なら他店へ移り、留保価格でも購入すると仮定する。
+
+B店の利潤は同価格の配分を除けば
 
 $$
-Z=p-\theta q
+\pi_B(p_B)=
+\begin{cases}
+140(p_B-100)&p_B<120,\\
+40(p_B-100)&120<p_B\le180,\\
+0&p_B>180.
+\end{cases}
 $$
 
-まで考えると、次に残るのは価格そのものの内生性である。
+$p_B=120$ の需要は同価格での配分規約に依存する。120円未満での利潤の上限は2800円（整数価格なら119円で2660円）、180円での利潤は3200円である。この例では高価格で残余需要を取る方が有利になる。ただしこれはA店の価格を固定したB店の最適反応であって、両社の均衡を求めた結果ではない。供給制約付き価格競争では純粋戦略均衡の存在も一般には保証されない。
 
-競争が価格を下げるとしても、どこまで下がるかは商品差別化と供給能力で変わる。Nash–Bertrand は、その停止点を**互いの最適反応の固定点**として書く。
+## 差別化需要と最適価格
 
-## 1. 同質財では $p=c$ が極端な基準になる
-
-同じ水を売るA店とB店を考え、どちらも限界費用を100円とする。
-
-Aが120円、Bが119円なら、完全に同じ商品なら需要はBへ流れる。Aは118円にしたくなり、Bもさらに下げたくなる。
-
-安い側が市場全体を供給できるなら、この圧力は
-
-$$
-\boxed{p^*=c}
-$$
-
-まで続く。
-
-二社しかなくても完全競争のような価格になる、Bertrand paradox の基準像である。
-
-ただし、この結果には「安い企業が全需要を引き受けられる」という強い仮定が入っている。
-
-## 2. capacity constraint は残余需要を残す
-
-来場者140人、A店は120円だが在庫100本、B店の限界費用は100円とする。全員の支払意思額は180円とする。
-
-Bが120円以下なら140人を取れるので
-
-$$
-\pi_B=(p_B-100)\times140.
-$$
-
-一方 $120<p_B\le180$ でも、Aは100本で売り切れるため40人の残余需要が残る。
-
-$$
-\pi_B=(p_B-100)\times40.
-$$
-
-例えば
-
-$$
-\pi_B(120)=2800,
-\qquad
-\pi_B(180)=3200.
-$$
-
-となり、Aより高く売る方がBには有利になる。
-
-![供給能力制約がある水市場でのB店の利潤](/figures/nash-bertrand-price-competition/capacity-residual-demand.svg)
-
-*安いA店が売り切れると、B店には残余需要が残る。価格差があっても需要がゼロにならない。*
-
-供給能力 $K_i$ を明示すれば
-
-$$
-Q_i\le K_i
-$$
-
-という制約が入る。
-
-したがって $p=c$ は競争一般の結論ではなく、**同質財・完全代替・十分な供給能力**がそろった極限である。
-
-## 3. Nash–Bertrand は price best-response の fixed point である
-
-Bertrand は価格を戦略変数にする競争、Nash は互いの戦略が同時に最適反応になっている状態を表す。
-
-二社なら
-
-$$
-p_A^{\mathrm{BR}}=R_A(p_B),
-\qquad
-p_B^{\mathrm{BR}}=R_B(p_A)
-$$
-
-で、均衡は
-
-$$
-\boxed{
-p_A^*=R_A(p_B^*),
-\qquad
-p_B^*=R_B(p_A^*)}
-$$
-
-を満たす。
-
-社会全体の最適価格という意味ではなく、**一社だけ価格を動かしても利潤を増やせない固定点**である。
-
-## 4. 商品差別化は需要を滑らかにする
-
-スマートフォンのように品質・OS・デザイン・ブランドが違えば、1円の値下げで全需要が移るわけではない。
-
-$$
-U_i=V_i+\varepsilon_i,
-\qquad
-V_i=\beta q_i-\alpha p_i
-$$
-
-とし、$\varepsilon_i$ をGumbel型にすると
-
-$$
-\boxed{
-s_i=
-\frac{e^{V_i/\lambda}}
-{1+\sum_j e^{V_j/\lambda}}}
-$$
-
-となる。分母の1はoutside optionである。
-
-値上げしても需要が連続的に減るだけなので、企業には限界費用を上回るmarkupの余地が生まれる。
-
-## 5. markup は own-price sensitivity で決まる
-
-市場規模を $M$、限界費用を $c_i$ とすると
+[消費者選択の記事](/notes/consumer-choice-and-price-formation/)で導いた外部選択肢付きロジット需要を用いる。市場規模を $M$、一定限界費用を $c_i$ とすると単一商品企業の利潤は
 
 $$
 \pi_i=M(p_i-c_i)s_i(\mathbf p).
 $$
 
-一階条件は
+他社価格を固定した内部最適価格の条件は
 
 $$
-\boxed{
-p_i-c_i
-=-\frac{s_i}{\partial s_i/\partial p_i}}
+p_i-c_i=-\frac{s_i}{\partial_{p_i}s_i}
+=\frac1{\gamma(1-s_i)}
 $$
 
-である。
+となる。ここで $\gamma=\alpha/\lambda$ である。右辺は自商品需要が価格にどれだけ敏感かを表す。
 
-logit では
+ロジットでは他社価格を固定して $p_i\ge c_i$ を動かすと、$(p_i-c_i)(1-s_i)$ は狭義単調増加する。従ってこの一階条件には一意な解があり、利潤を最大にする。Nash均衡では全社について同時にこの条件が成立する。
 
-$$
-\frac{\partial s_i}{\partial p_i}
-=-\frac{\alpha}{\lambda}s_i(1-s_i)
-$$
+## 数値例
 
-なので
+二商品について $q_A=9,q_B=7,c_A=55,c_B=40$、$\alpha=0.1,\beta=1,\lambda=1$ とする。外部選択肢の系統的効用は0である。各商品の最適価格条件を連立して解くと、旧稿の計算では次の値が得られている。
 
-$$
-\boxed{
-p_i-c_i
-=\frac{\lambda}{\alpha(1-s_i)}}
-$$
+| 商品 | 価格 | シェア | 限界費用との差 |
+| --- | ---: | ---: | ---: |
+| A | 74.68 | 0.492 | 19.68 |
+| B | 56.71 | 0.402 | 16.71 |
+| 外部選択肢 | — | 0.106 | — |
 
-となる。
+数値は丸めた値であり、図の生成コードとの照合は別途行う。
 
-値上げしたときにどれだけ需要を失うかが、markupを直接決める。
+![二社の最適反応曲線](/figures/nash-bertrand-price-competition/best-response-intersection.svg)
 
-## 6. 二つのスマホでは best response が交点を作る
+最適反応が交差する点で、どちらの企業も単独の価格変更によって利潤を増やせない。この条件は消費者余剰や社会厚生の最大化とは別である。
 
-例として
+競合商品 $j$ が値上げすると自商品のシェアが増えるため、ロジット模型では自商品の最適反応価格も上昇する。これは価格最適化条件の左辺と右辺の単調性から確認できる。
 
-|  | A | B |
-| --- | ---: | ---: |
-| 品質 $q$ | 9 | 7 |
-| 限界費用 $c$ | 55 | 40 |
+## 品質調整価格で見た均衡
 
-とし
+$\theta=\beta/\alpha=10$ なので、上の数値例では $Z_A\simeq-15.32$、$Z_B\simeq-13.29$ である。実価格差17.97は品質調整後には約2.03となる。
+
+![実価格と品質調整価格の比較](/figures/nash-bertrand-price-competition/price-vs-quality-adjusted-price.svg)
+
+価格条件を $Z_i$ に書き直すと
 
 $$
-\alpha=0.1,
-\qquad
-\beta=1,
-\qquad
-\lambda=1
+Z_i=c_i-\theta q_i+\frac1{\gamma(1-s_i)}
 $$
 
-を置く。
+となる。品質調整価格の差は品質を考慮し忘れた結果とは限らない。品質調整後の費用や需要の価格感応度の違いによって、均衡でも差が残る。
 
-最適反応を同時に解くと
+価格競争に供給制約を追加するには、品切れ時の需要配分を含む需要関数を再定義しなければならない。品質まで企業が決定する場合は、[価格と品質の同時選択](/notes/price-quality-joint-choice/)の最適化問題になる。
 
-$$
-p_A^*\approx74.68,
-\qquad
-p_B^*\approx56.71
-$$
+## 参考文献
 
-で、シェアは
+- J. Tirole, *The Theory of Industrial Organization*, MIT Press (1988).
+- K. Train, *Discrete Choice Methods with Simulation*, 2nd ed. (2009).
 
-$$
-s_A^*\approx0.492,
-\qquad
-s_B^*\approx0.402,
-\qquad
-s_0^*\approx0.106.
-$$
-
-markup は
-
-$$
-p_A^*-c_A\approx19.68,
-\qquad
-p_B^*-c_B\approx16.71.
-$$
-
-![AとBのbest response曲線](/figures/nash-bertrand-price-competition/best-response-intersection.svg)
-
-*二本のbest response曲線の交点が、双方が同時に最適反応になっているNash–Bertrand均衡。*
-
-競合が値上げすると自社へ需要が流れ、その結果自社にも値上げ余地ができる。
-
-$$
-p_B\uparrow
-\Rightarrow
-s_A\uparrow
-\Rightarrow
-p_A^{\mathrm{BR}}\uparrow.
-$$
-
-価格は
-
-$$
-\boxed{
-\mathbf p
-\longrightarrow
-\mathbf s(\mathbf p)
-\longrightarrow
-\mathbf p}
-$$
-
-という固定点を作る。
-
-## 7. $p$ を $Z$ に写すと、価格差の見え方が変わる
-
-この例では
-
-$$
-\theta=\frac{\beta}{\alpha}=10
-$$
-
-なので
-
-$$
-Z_A=p_A^*-10q_A\approx-15.32,
-$$
-
-$$
-Z_B=p_B^*-10q_B\approx-13.29.
-$$
-
-実価格だけを見ると
-
-$$
-p_A-p_B\approx17.97
-$$
-
-とかなり差がある。一方、品質価値 $\theta q_i$ を差し引いて比較すると
-
-$$
-|Z_A-Z_B|\approx2.03
-$$
-
-まで縮む。
-
-![実価格から品質調整価格への変換](/figures/nash-bertrand-price-competition/price-vs-quality-adjusted-price.svg)
-
-*実価格の差の多くは品質差を補正すると消える。ただし $Z_A=Z_B$ にはならず、均衡markupや費用差などの寄与が残る。*
-
-ここで重要なのは、$p$ と $Z$ を別々の量として大小比較することではない。見るべきなのは
-
-$$
-\boxed{p_i\longrightarrow Z_i=p_i-\theta q_i}
-$$
-
-という変換で、商品間の距離がどう変わるかである。
-
-$\gamma=\alpha/\lambda$ とおけば価格条件は
-
-$$
-\boxed{
-Z_i
-=c_i-\theta q_i
-+\frac{1}{\gamma(1-s_i)}}
-$$
-
-となる。
-
-$$
-Z_i
-=\underbrace{c_i-\theta q_i}_{\text{費用と品質}}
-+\underbrace{\frac{1}{\gamma(1-s_i)}}_{\text{markup}}
-$$
-
-という分解である。
-
-したがって観測される $Z$ の分散は、市場が均衡していないことだけでは説明できない。費用、品質、代替可能性、市場支配力が違えば、**均衡そのものに $Z$ の幅が残る**。
-
-## 8. capacity を戻すと価格 fixed point に供給能力も入る
-
-供給能力が有限なら、低い $Z$ を持つ商品でも売り切れた時点で残余需要が他社へ流れる。
-
-短期には
-
-$$
-s_i=s_i(\mathbf Z;\mathbf K)
-$$
-
-と書く方が自然になる。
-
-長期には $K_i$ も設備投資によって内生化されうる。
-
-つまり価格は
-
-$$
-\boxed{
-\text{cost}
-+\text{substitutability}
-+\text{market share}
-+\text{capacity}}
-$$
-
-の固定点として決まる。
-
-さらに品質 $q_i$ 自体も企業が選ぶなら、戦略変数は $p_i$ だけでなく $(p_i,q_i)$ へ広がる。価格競争と商品設計はそこで同じ最適化問題へつながる。
+旧稿の供給制約の図は同価格時の扱いを修正して再生成する必要があるため、現段階では本文から外した。文献照合も未実施である。

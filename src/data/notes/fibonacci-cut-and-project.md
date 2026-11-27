@@ -1,269 +1,107 @@
 ---
-title: "Cut-and-project 法 — Fibonacci列はなぜ高次元格子から生まれるのか"
-summary: "2次元整数格子を無理数方向へ射影する発想から、Fibonacci chainを構成する。単なる射影では点が稠密になる理由と、acceptance windowが離散準周期構造を作る役割を図で理解する。"
+title: "Fibonacci点列の射影構成と置換則"
+summary: "二次元整数格子の選択窓を明示し、長短間隔と出現頻度を導き、Fibonacci置換との対応を整理する。"
 publishedAt: 2026-09-12T02:47:00+09:00
-updatedAt: 2026-09-14
+updatedAt: 2026-11-28
 area: "Mathematics"
+field: quasicrystals
+kind: theory
+prerequisites: ["quasiperiodic-functions-torus"]
 topics: ["Fibonacci chain", "cut and project", "quasicrystals", "aperiodic order", "golden ratio"]
 status: growing
 ---
 
-[前のノート](/notes/quasiperiodic-functions-torus/)では、1次元の準周期関数を、複数の位相を持つ高次元の周期構造として見直した。
+無理数方向へ整数格子を射影するだけでは、射影点は実軸上に稠密になる。Fibonacci点列では、射影と同時に内部座標による選別を行うことで、二種類の間隔を持つ離散的な点集合を得る。
 
-原子位置のような**離散点列**でも同じ見方ができるのか。Fibonacci chain は、その問いに対する最小の例になっている。
+## 格子と選択窓
 
-cut-and-project 法では、高次元格子から一部の点だけを選び、それを低次元へ射影する。全部の格子点を射影するだけでは点列にならない。この「選別」が本体である。
-
-![2次元格子からの cut-and-project](/figures/quasicrystals/cut-and-project.svg)
-
-*2次元格子の中に斜めの帯を置き、その帯に入った格子点だけを選ぶ。選ばれた点を帯に平行な直線へ落とすと、離散的な非周期点列が得られる。*
-
-## 1. Fibonacci chain の代数的な基準形
-
-Fibonacci chain は、長い間隔 $L$ と短い間隔 $S$ に対して
+黄金比を $\tau=(1+\sqrt5)/2$、$D=\sqrt{1+\tau^2}$ とする。整数格子の点 $(m,n)$ に対し
 
 $$
-L\mapsto LS,
-\qquad
-S\mapsto L
+x=\frac{m+\tau n}{D},\qquad
+y=\frac{-\tau m+n}{D}
 $$
 
-という置換を繰り返して作れる。
+を定義する。物理空間は $x$ 軸、内部空間は $y$ 軸である。変換は直交変換なので格子の基本胞面積は1のままである。
+
+全格子の $x$ 射影は稠密であり、また無理数性から単射である。そこで幅 $w=(1+\tau)/D$ の半開区間 $W=[0,w)$ を採用し、
 
 $$
-L
-\to LS
-\to LSL
-\to LSLLS
-\to LSLLSLSL
-\to\cdots
+\Lambda=\{x(m,n):y(m,n)\in W\}
 $$
 
-有限周期はないが、$L$ と $S$ の個数比は黄金比
+と定義する。この窓は単位正方形の内部方向への射影と同じ幅を持つ。窓を平行移動すると内部位相が変わり、端点に格子点が来る場合は採用規約が必要になる。
+
+![整数格子からの射影構成](/figures/quasicrystals/cut-and-project.svg)
+
+*選択窓に対応する帯の模式図。以下の半開区間の規約が点列を厳密に指定する。*
+
+## 隣接点への二種類の移動
+
+格子上のステップ $(1,0)$ と $(0,1)$ はそれぞれ
 
 $$
-\tau=\frac{1+\sqrt5}{2}
+(\Delta x,\Delta y)=(1/D,-\tau/D),\quad
+(\tau/D,1/D)
 $$
 
-へ近づく。
+を与える。短い間隔を $S=1/D$、長い間隔を $L=\tau/D$ とする。
 
-黄金比は置換則そのものから出る。1回の置換で $L$ は $LS$ を生み、$S$ は $L$ を生むので、個数ベクトルは
+現在の内部座標が $0\le y<\tau/D$ なら長いステップが窓に残り、$\tau/D\le y<w$ なら短いステップが窓に残る。両者は排他的かつ網羅的である。
 
-$$
-\begin{pmatrix}
-N_L'\\
-N_S'
-\end{pmatrix}
-=
-\begin{pmatrix}
-1&1\\
-1&0
-\end{pmatrix}
-\begin{pmatrix}
-N_L\\
-N_S
-\end{pmatrix}
-$$
+これが次の採用点であることも確認できる。二点間の差 $(u,v)$ が $0<\Delta x<L$ かつ $|\Delta y|<w$ を満たすなら、逆変換による整数 $u,v$ の範囲から候補は $(1,0)$ のみに限られる（$(0,1)$ は $\Delta x=L$）。従って短いステップが許されない場合は、長いステップより先に別の採用点はない。同様に短いステップより小さな正の間隔も存在しない。
 
-と更新される。
+以上の操作は逆方向にも続けられるため、$\Lambda$ は一様離散かつ相対稠密であり、隣接間隔は $S,L$ の二種類となる。
 
-置換行列
+## 内部座標の回転と頻度
+
+内部座標を $t=y/w\in[0,1)$ に規格化すると、隣接点への移動は
 
 $$
-M=
-\begin{pmatrix}
-1&1\\
-1&0
-\end{pmatrix}
+t\mapsto t+\alpha\pmod1,\qquad
+\alpha=\frac1{1+\tau}=\frac1{\tau^2}
 $$
 
-の固有値は
+となる。$t<1-\alpha$ では $L$、それ以外では $S$ を出力する。従って点列の間隔列は無理数回転を二つの区間で符号化した列である。
+
+無理数回転の一様分布性から、出現頻度は
 
 $$
-\lambda_{\pm}
-=\frac{1\pm\sqrt5}{2}
-=\tau,\ -\frac1\tau
+f_L=1-\alpha=\tau^{-1},\qquad f_S=\alpha=\tau^{-2}.
 $$
 
-である。
+比 $f_L/f_S=\tau$ が無理数であるため、間隔列は有限周期を持たない。
 
-置換を繰り返すと、絶対値の大きい固有値 $\tau$ に対応する方向が支配的になり、
+## Fibonacci置換との関係
 
-$$
-\frac{N_L}{N_S}\to\tau
-$$
-
-が出る。
-
-規格化すれば出現頻度は
+置換 $L\mapsto LS,\ S\mapsto L$ の個数行列は
 
 $$
-f_L=\frac1\tau,
-\qquad
-f_S=\frac1{\tau^2}
+M=\begin{pmatrix}1&1\\1&0\end{pmatrix}
 $$
 
-となる。
+であり、最大固有値は $\tau$、対応する固有ベクトルは $(\tau,1)$ である。置換を繰り返した列の頻度は射影構成と一致する。
 
-黄金比は後から付けた数字ではなく、**置換規則の成長率そのもの**として入っている。ただ、置換則だけでは高次元格子との接続は見えにくい。
+頻度の一致だけでは列の一致は証明できない。対応を示すには無理数回転の誘導写像を使う。長い間隔を出力する区間 $I=[0,1-\alpha)$ に初帰還する軌道を考える。短い間隔は連続して現れないため、帰還語は $L$ または $LS$ である。
 
-## 2. 2次元格子に physical space を埋め込む
+帰還写像は長さ $1-\alpha$ の円上で $\alpha$ を加える回転となる。区間を1に規格化すると回転量は $\alpha/(1-\alpha)=1-\alpha$ である。座標の向きを反転すると元の回転量 $\alpha$ に戻り、長い帰還語 $LS$ と短い帰還語 $L$ が再び元の区間分割に対応する。端点規約と位相を除けば、これが置換の自己相似性を与える。
 
-2次元整数格子
+この議論はFibonacci置換が生成する局所パターンの族と射影構成との対応を示すものであり、任意の窓の位置で同一の片側無限語が得られるという意味ではない。
 
-$$
-\mathbf n=(n_1,n_2)\in\mathbb Z^2
-$$
+## 平均点密度
 
-を考える。
-
-この平面内に、格子軸とは整合しない斜め方向を一本取り、最終的な1次元点列をこの方向に置く。この方向を $E_{\parallel}$ と書く。
-
-Fibonacci chain では黄金比を使って、例えば
+平均間隔は
 
 $$
-\mathbf e_{\parallel}
-=\frac{(1,\tau)}{\sqrt{1+\tau^2}}
+\bar a=f_L L+f_S S=\frac{1+\tau^{-2}}{D}.
 $$
 
-と選べる。
+したがって点密度は $\bar a^{-1}=D/(1+\tau^{-2})=w$ となる。これは二次元格子の密度1に内部窓の長さを掛けた値に一致する。
 
-これに直交する方向を $E_{\perp}$ として
+この点密度と内部窓を使うと、[回折測度](/notes/quasicrystal-diffraction-fourier-module/)に現れるBragg強度を規格化できる。
 
-$$
-\mathbf e_{\perp}
-=\frac{(-\tau,1)}{\sqrt{1+\tau^2}}
-$$
+## 参考文献
 
-とする。
+- M. Baake and U. Grimm, *Aperiodic Order, Vol. 1: A Mathematical Invitation* (2013).
 
-各格子点は
-
-$$
-x_{\parallel}=\mathbf n\cdot\mathbf e_{\parallel},
-\qquad
-x_{\perp}=\mathbf n\cdot\mathbf e_{\perp}
-$$
-
-で表せる。
-
-最終的な点位置として使う $x_{\parallel}$ 側が **physical space**、点を採用するかどうかの判定に使う $x_{\perp}$ 側が **internal space** である。
-
-internal space は追加の物理空間というより、点を選別するための補助方向と見るのが近い。
-
-## 3. 全射影が稠密集合を作ってしまう
-
-全ての整数格子点をそのまま $E_{\parallel}$ へ落とすと
-
-$$
-x_{\parallel}
-=\frac{n_1+\tau n_2}{\sqrt{1+\tau^2}}
-$$
-
-となる。
-
-$1$ と $\tau$ は有理数の比では結びつかない。そのため整数 $n_1,n_2$ を変えると、射影点はいくらでも近接できる。
-
-数学的には射影点の集合が実軸上で **稠密** になる。どんなに小さな区間にも射影点が入ってしまい、欲しかった離散原子列にはならない。
-
-$$
-\boxed{
-\text{cut-and-project}\neq\text{project all lattice points}
-}
-$$
-
-という区別がここで効いてくる。
-
-## 4. acceptance window が点列を離散化する
-
-internal space 側で、採用してよい範囲を有限区間に制限する。この区間が **acceptance window** である。
-
-条件は
-
-$$
-x_{\perp}\in W
-$$
-
-となる。
-
-2次元格子点のうち $E_{\parallel}$ に十分近いものだけを選び、その点だけを射影する。式では
-
-$$
-\boxed{
-\Lambda=
-\left\{
-P_{\parallel}\mathbf n
-\mid
-\mathbf n\in\mathbb Z^2,
-\ P_{\perp}\mathbf n\in W
-\right\}
-}
-$$
-
-となる。
-
-図では「斜めの帯に入った格子点だけ拾う」に相当する。window は補正項ではなく、**高次元格子のどの点を低次元へ残すかを決める規則そのもの**である。
-
-## 5. 長短二種類の間隔は射影された格子ステップである
-
-window に入った格子点を $E_{\parallel}$ に沿って順番に追う。
-
-隣の採用点へ移るとき、2次元格子上では異なる基本ステップが現れる。それぞれを $E_{\parallel}$ へ射影した長さが、1次元側の長い間隔 $L$ と短い間隔 $S$ になる。
-
-Fibonacci 構成に対応する方向と規格化を選ぶと
-
-$$
-\frac{L}{S}=\tau
-$$
-
-となる。
-
-置換則の記号だった $L,S$ が、**2次元格子の基本ステップを1次元へ射影した長さ**として読める。
-
-置換側では $L,S$ の個数比に、射影側では長さの比と無理数傾きに、同じ $\tau$ が現れる。代数と幾何が同じ黄金比で結ばれている。
-
-## 6. substitution と cut-and-project は生成則と幾何の対応になる
-
-置換則
-
-$$
-L\mapsto LS,
-\qquad
-S\mapsto L
-$$
-
-は、列をどう生成するかを見るのに向いている。
-
-cut-and-project は、同じ列を高次元格子との関係として見るのに向いている。
-
-$$
-\boxed{
-\begin{aligned}
-\text{substitution}&:\ \text{列を作る規則},\\
-\text{cut-and-project}&:\ \text{その規則の高次元幾何学}.
-\end{aligned}
-}
-$$
-
-どちらか一方が本質というより、同じ Fibonacci 秩序の別表現になっている。
-
-## 7. いま置いている像
-
-$E_{\perp}$ を実在する追加空間として考える必要はない。低次元で非周期に見える配置を、高次元の周期格子として整理するための補助座標である。
-
-ただし単なる記号遊びでもなく、同じ高次元格子は波数側の構造まで整理してくれる。
-
-今のところは
-
-$$
-\boxed{
-\text{Fibonacci chain}
-=\text{2D periodic lattice}
-+\text{irrational orientation}
-+\text{finite window}
-}
-$$
-
-という像で捉えている。
-
-この高次元格子を reciprocal space 側へ移すと、準結晶の Bragg peak と Fourier module へつながる。
+既存図は模式図として残した。窓の端点と置換の対応の厳密な文献照合は公開前に行う。

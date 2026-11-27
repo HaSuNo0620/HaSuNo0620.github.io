@@ -1,9 +1,13 @@
 ---
-title: "1次元一様最近接 cosine-Zq スピン系 — 離散位相増分と角度相関"
-summary: "1次元最近接clock鎖を、Isingの離散的な反転相関とXYの連続的な位相増分相関の間を埋める模型として読む。有限qの離散位相増分、transfer spectrum、XYスペクトルのaliasing、rare jumpからphase diffusionへのcross-overを通して、Z2→Zq→U(1)で何が連続的に変わるかを整理する。"
+title: "最近接Clock鎖の離散スペクトルとXY極限"
+summary: "角度の離散化が相関スペクトルを折り畳む仕組みと、有限状態の活性化型相関から連続角度の位相拡散への移行を導く。"
 publishedAt: 2026-09-17T10:20:00+09:00
-updatedAt: 2026-09-19
+updatedAt: 2026-11-28
 area: "Physics"
+field: statistical-physics
+kind: model
+prerequisites: ["finite-range-symmetry-comparison"]
+related: ["ising-transfer-matrix", "xy-chain-nearest-neighbor", "clock-chain-second-neighbor"]
 topics: ["statistical mechanics", "clock 模型", "spin model", "transfer matrix", "phase diffusion", "correlation", "Fourier spectrum"]
 status: growing
 system:
@@ -16,846 +20,161 @@ system:
   role: model
 ---
 
-Ising鎖では、隣接スピンの関係は「反転したか、していないか」という二値で記録できる。一方XY鎖では、隣接角度差は連続量であり、小さな位相増分の累積が遠距離の角度相関を失わせる。
+最近接Clock鎖では、相互作用を変えずにスピンの取りうる角度の数を増やすことで、Ising鎖からXY鎖への移行を調べられる。ただし、角度の数が多ければ常にXY鎖に近いとは限らない。低温では有限の角度刻みが励起エネルギーを決めるためである。
 
-この二つの間で、局所的に区別できる角度差の数だけを増やしていくと何が変わるのか。
+## 離散角度と転送スペクトル
 
-clock 模型では
-
-$$
-\theta_i=\frac{2\pi n_i}{q},
-\qquad
-n_i\in\mathbb Z_q
-$$
-
-とし、最近接Hamiltonianを
+強磁性結合 $J>0$ を持つ零外場の鎖を考える。
 
 $$
-H=-J\sum_i\cos(\theta_{i+1}-\theta_i)
+H=-J\sum_i\cos(\theta_{i+1}-\theta_i),\qquad
+\theta_i=\frac{2\pi a_i}{q},\quad a_i\in\mathbb Z_q,
 $$
 
-とする。以下では
+ここで整数 $q\ge2$ は状態数、$K=\beta J$、$\beta=(k_{\mathrm B}T)^{-1}$ とする。格子間隔は1である。開鎖または熱力学極限では隣接角度差 $\phi_i$ は独立で、
 
 $$
-\beta\equiv\frac{1}{k_{\mathrm B}T},
-\qquad
-K\equiv\beta J
+P(\phi=2\pi a/q)=\frac{e^{K\cos(2\pi a/q)}}{\Lambda_0^{(q)}}.
 $$
 
-と書く。
-
-$q=2$ではIsing、$q\to\infty$ではXYへ近づく。しかし、重要なのは単に局所状態数が増えることではない。局所角度差の離散性が弱まり、長距離相関を担う転送スペクトルの構造そのものが変わる。
-
-## 系の座標
-
-$$
-\boxed{
-(d=1,\ \text{uniform},\ R=1,\ \text{cosine},\ Z_q)
-}
-$$
-
-Hamiltonian は
-
-$$
-H=-J\sum_i\cos(\theta_{i+1}-\theta_i),
-\qquad
-\theta_i=\frac{2\pi n_i}{q},
-$$
-
-局所変数 は
-
-$$
-\phi_i=\theta_{i+1}-\theta_i = \frac{2\pi a_i}{q}.
-$$
-
-$Z_2$ と $U(1)$ の間で動かすのは 対称性 / 局所状態の集合 だけである。
-
-## 1. 局所変数は離散化された位相増分である
-
-隣接角度差を
-
-$$
-\phi_i\equiv\theta_{i+1}-\theta_i
-$$
-
-とする。clock 模型では
-
-$$
-\boxed{
-\phi_i=\frac{2\pi a_i}{q},
-\qquad
-a_i\in\mathbb Z_q
-}
-$$
-
-である。
-
-したがって最近接・零外場では
-
-$$
-\boxed{
-H=-J\sum_i\cos\phi_i
-}
-$$
-
-となる。
-
-この形だけを見ればIsing、clock、XYは共通であり、違いは$\phi_i$が取りうる集合にある。
-
-$$
-\begin{array}{c|c}
-\text{模型} & \text{許される位相増分}\\
-\hline
-Z_2 & \{0,\pi\}\\[1mm]
-Z_q & \left\{\dfrac{2\pi a}{q}\right\}_{a=0}^{q-1}\\[3mm]
-U(1) & [0,2\pi)
-\end{array}
-$$
-
-Isingのドメイン壁変数
-
-$$
-\tau_i=s_i s_{i+1}=\pm1
-$$
-
-は、$q=2$ clockで
-
-$$
-e^{i\phi_i}=\pm1
-$$
-
-と書いたものに対応する。
-
-この意味で
-
-$$
-\boxed{
-Z_2\to Z_q\to U(1)
-}
-$$
-
-は
-
-$$
-\boxed{
-\text{二値増分}
-\to
-\text{離散位相増分}
-\to
-\text{連続位相増分}
-}
-$$
-
-という局所状態の集合の連続化として読める。
-
-## 2. 遠距離の角度相関は局所増分の積で決まる
-
-距離$r$だけ離れた角度差は
-
-$$
-\theta_r-\theta_0
-=\sum_{j=0}^{r-1}\phi_j
-$$
-
-なので
-
-$$
-\boxed{
-e^{im(\theta_r-\theta_0)}
-=\prod_{j=0}^{r-1}e^{im\phi_j}
-}
-$$
-
-となる。
-
-最近接・零外場では各$\phi_j$は独立だから
-
-$$
-C_m(r)
-\equiv
-\left\langle e^{im(\theta_r-\theta_0)}\right\rangle = \left\langle e^{im\phi}\right\rangle^r.
-$$
-
-したがって1 bond進んだときの$m$次角度情報のretentionを
-
-$$
-\boxed{
-\rho_m^{(q)}
-\equiv
-\left\langle e^{im\phi}\right\rangle
-}
-$$
-
-とすれば
-
-$$
-\boxed{
-C_m(r)=\left[\rho_m^{(q)}\right]^r
-}
-$$
-
-である。
-
-通常のスピン相関は$m=1$で
-
-$$
-C(r)=\left[\rho_1^{(q)}\right]^r,
-\qquad
-\boxed{
-\xi_1^{-1}=-\ln|\rho_1^{(q)}|
-}
-$$
-
-となる。
-
-## 3. 転送スペクトルは離散Fourierスペクトルになる
-
-1 bondの転送行列は
-
-$$
-T_{ab} = \exp\left[
-K\cos\frac{2\pi(a-b)}q
-\right]
-$$
-
-である。$T_{ab}$は$a-b$だけに依存するcirculant matrixなので、固有vectorは離散Fourier mode
-
-$$
-\psi_m(a)=e^{2\pi i m a/q}
-$$
-
-となる。
-
-固有値は
-
-$$
-\boxed{
-\Lambda_m^{(q)} = \sum_{a=0}^{q-1}
-\exp\left[K\cos\frac{2\pi a}{q}\right]
-e^{-2\pi i m a/q}
-}
-$$
-
-であり、最大固有値は$m=0$である。
-
-したがって
-
-$$
-\boxed{
-\rho_m^{(q)} = \frac{\Lambda_m^{(q)}}{\Lambda_0^{(q)}}
-}
-$$
-
-となる。
-
-有限$q$では
-
-$$
-\Lambda_{m+q}^{(q)}=\Lambda_m^{(q)},
-\qquad
-\Lambda_{q-m}^{(q)}=\Lambda_m^{(q)}
-$$
-
-なので、独立な高調波セクターは有限個しかない。
-
-$$
-\boxed{
-m\in\mathbb Z
-\quad\longrightarrow\quad
-m\bmod q
-}
-$$
-
-という同一視が起きている。
-
-## 4. $q=2$ではIsingの単一相関モードを回収する
-
-$q=2$では角度差は$0$または$\pi$だけで、転送行列は
-
-$$
-T=
-\begin{pmatrix}
-e^K&e^{-K}\\
-e^{-K}&e^K
-\end{pmatrix}.
-$$
-
-固有値は
-
-$$
-\Lambda_0^{(2)}=2\cosh K,
-\qquad
-\Lambda_1^{(2)}=2\sinh K
-$$
-
-だから
-
-$$
-\boxed{
-\rho_1^{(2)}=\tanh K
-}
-$$
-
-となる。
-
-したがって
-
-$$
-C(r)=(\tanh K)^r
-$$
-
-であり、最近接Ising鎖の結果そのものを回収する。
-
-$q=2$では非自明なsectorが$m=1$の一つしかない。そのため最近接Isingの長距離相関は単一指数で完全に閉じる。
-
-## 5. $q\to\infty$ではXYの無限高調波階層へつながる
-
-$q$を大きくすると離散和は円周上の積分へ近づき、
+転送行列 $T_{ab}=e^{K\cos[2\pi(b-a)/q]}$ は巡回行列である。離散Fourier基底で対角化すると
 
 $$
 \Lambda_m^{(q)}
-\sim
-q I_m(K)
+=\sum_{a=0}^{q-1}e^{K\cos(2\pi a/q)}e^{-2\pi ima/q}.
 $$
 
-となる。ここで
+計数測度を使っているので自由エネルギー密度は $-\beta^{-1}\ln\Lambda_0^{(q)}$ である。角度相関は
 
 $$
-I_m(K)
-=\frac1{2\pi}
-\int_0^{2\pi}
-e^{K\cos\phi}e^{-im\phi}\,d\phi
+C_m(r)=\langle e^{im(\theta_r-\theta_0)}\rangle
+=\left(\frac{\Lambda_m^{(q)}}{\Lambda_0^{(q)}}\right)^r.
 $$
 
-は修正Bessel関数である。
+非自明な相関の減衰長を $\xi_m^{-1}=-\ln|\Lambda_m^{(q)}/\Lambda_0^{(q)}|$ とする。有限の周期鎖では角度差の総和に閉路制約があるため、独立増分による式はそのまま適用できない。
 
-したがって
+## Ising鎖とXY鎖
 
-$$
-\boxed{
-\lim_{q\to\infty}\rho_m^{(q)} = \frac{I_m(K)}{I_0(K)}
-}
-$$
+$q=2$ では許される角度は $0,\pi$ の二つであり、$\Lambda_1/\Lambda_0=\tanh K$ となる。これが[最近接Ising鎖](/notes/ising-transfer-matrix/)の相関である。
 
-となり、最近接XY鎖の相関スペクトルへつながる。
-
-有限$q$では有限個だった高調波セクターが、$q\to\infty$で
+一方、固定した $K,m$ に対して $q\to\infty$ とすると、規格化した離散和は積分に収束する。
 
 $$
-m=1,2,3,\ldots
+\frac{\Lambda_m^{(q)}}{q}\longrightarrow I_m(K)
+=\frac{1}{2\pi}\int_{-\pi}^{\pi}e^{K\cos\phi}e^{-im\phi}d\phi.
 $$
 
-という無限の高調波階層になる。
+従って相関の固有値比は $I_m(K)/I_0(K)$ に収束する。これは[最近接XY鎖](/notes/xy-chain-nearest-neighbor/)の厳密相関である。自由エネルギーを比較する際は、有限群でも測度を $1/q$ で規格化しておく必要がある。
 
-## 6. clockスペクトルはXYスペクトルを折り畳んだものとして書ける
+## 角度離散化によるスペクトルの折り畳み
 
-Fourier展開
-
-$$
-e^{K\cos\phi}
-=\sum_{n=-\infty}^{\infty}I_n(K)e^{in\phi}
-$$
-
-をclock角
+円周上のBoltzmann重みをFourier展開すると
 
 $$
-\phi_a=\frac{2\pi a}{q}
+e^{K\cos\phi}=\sum_{n\in\mathbb Z}I_n(K)e^{in\phi}.
 $$
 
-でサンプリングする。
-
-離散Fourier和
+離散角 $\phi=2\pi a/q$ 上では、$n$ と $n+q$ のFourier成分を区別できない。離散Fourier和の直交性から
 
 $$
-\sum_{a=0}^{q-1}
-e^{2\pi i(n-m)a/q}
-=q\,\delta_{n,m\ ({\rm mod}\ q)}
+\Lambda_m^{(q)}=q\sum_{\ell\in\mathbb Z}I_{m+\ell q}(K),
 $$
 
-から
-
 $$
-\boxed{
-\Lambda_m^{(q)} = q\sum_{\ell\in\mathbb Z}I_{m+\ell q}(K)
-}
+\frac{\Lambda_m^{(q)}}{\Lambda_0^{(q)}}
+=\frac{\sum_\ell I_{m+\ell q}(K)}{\sum_\ell I_{\ell q}(K)}
 $$
 
-を得る。
-
-よって
-
-$$
-\boxed{
-\rho_m^{(q)} = \frac{
-\displaystyle\sum_{\ell\in\mathbb Z}I_{m+\ell q}(K)
-}{
-\displaystyle\sum_{\ell\in\mathbb Z}I_{\ell q}(K)
-}
-}
-$$
-
-である。
-
-有限$q$のclockスペクトルは、XYで本来独立な
-
-$$
-\ldots,m-q,m,m+q,\ldots
-$$
-
-を一つのセクターへ重ね合わせたものになっている。
-
-$$
-\boxed{
-\text{finite angular discretization}
-\longleftrightarrow
-\text{高調波-space aliasing}
-}
-$$
-
-という対応がある。
+を得る。有限角度のスペクトルは、連続角度のスペクトルを整数 $q$ ごとに折り畳んだものになっている。独立な指標は $m\bmod q$ であり、実対称な相関では $m$ と $-m$ が同じ値を持つ。
 
 ![有限$q$の相関スペクトルとXY極限](/figures/clock-r1/memory-spectrum-folding.svg)
 
-*$K=20$における$\rho_m^{(q)}$。有限$q$では独立セクターが$m\le q/2$までに折り畳まれる。$q$を増やすと低い高調波からXYの無限スペクトルへ収束し、細かい角度情報ほど有限$q$性を長く残す。*
+*$K=20$ における離散スペクトルと連続極限の比較。*
 
-## 7. 低温では局所位相増分に二つの見え方が現れる
+## 低温での励起と相関長
 
-基底状態$\phi=0$に対し、最小非零位相増分は
-
-$$
-\Delta\phi=\frac{2\pi}{q}
-$$
-
-である。
-
-その励起コストは
+有限 $q$ の最小非零角度差を $\Delta=2\pi/q$ とすると、励起エネルギーは $E_q=J(1-\cos\Delta)$ である。$q\ge3$ を固定し、$K(1-\cos\Delta)\gg1$ とすれば、最小励起は正負の二つの角度差からなる。
 
 $$
-\boxed{
-\Delta E_q
-=J\left(1-\cos\frac{2\pi}{q}\right)
-}
+1-\frac{\Lambda_1^{(q)}}{\Lambda_0^{(q)}}
+\simeq2(1-\cos\Delta)e^{-K(1-\cos\Delta)},
 $$
 
-であり、大きな$q$では
-
 $$
-\Delta E_q
-\simeq
-\frac{J}{2}\left(\frac{2\pi}{q}\right)^2.
+\xi_1\simeq\frac{e^{K(1-\cos\Delta)}}{2(1-\cos\Delta)}.
 $$
 
-一方、XY低温極限では
+$q=2$ では正負の励起が同じ状態なので係数が異なり、$\xi_1\simeq e^{2K}/2$ となる。有限状態数での相関長は活性化型に増大する。
+
+XY鎖では小角度揺らぎの分散が $K^{-1}$ であり、$\xi_1\simeq2K$ となる。角度刻みと熱揺らぎ幅の比
 
 $$
-K\cos\phi
-\simeq
-K-\frac K2\phi^2
+\eta=\frac{2\pi\sqrt K}{q}
 $$
 
-なので、局所角度揺らぎの熱揺らぎ幅は
+が離散性の尺度である。$\eta\gg1$ なら角度変化は稀な離散励起によって生じ、$\eta\ll1$ なら熱揺らぎ幅に多数の角度状態が含まれる。
+
+### 二重スケーリング極限
+
+$K,q\to\infty$ で $\eta$ を有限に固定する。整数 $a$ を原点近傍の角度差の指標とすると、局所分布は
 
 $$
-\boxed{
-\sigma_T\sim K^{-1/2}
-}
+P(a)\longrightarrow
+\frac{e^{-\eta^2a^2/2}}{\sum_{b\in\mathbb Z}e^{-\eta^2b^2/2}}
 $$
 
-である。
-
-clock角の刻みと熱揺らぎ幅の比を
+となる。$\Delta=\eta/\sqrt K$ を使って余弦を展開すれば
 
 $$
-\boxed{
-\eta
-\equiv
-\frac{\Delta\phi}{\sigma_T}
-\sim
-\frac{2\pi\sqrt K}{q}
-}
+\xi_1^{-1}\sim\frac{\eta^2}{2K}
+\frac{\sum_a a^2e^{-\eta^2a^2/2}}{\sum_a e^{-\eta^2a^2/2}}.
 $$
 
-とする。
+従って $\xi_1/(2K)$ はこの極限で $\eta$ だけの関数となる。$\eta\to0$ では離散和をGaussian積分に置き換えることができ、その比は1に近づく。
 
-$\eta\gg1$ではthermal windowの中に$\phi=0$以外の状態がほとんど入らない。非零位相増分は稀な離散励起として現れ、局所列は
+![相関長のClockからXYへの移行](/figures/clock-r1/correlation-length-crossover.svg)
 
-$$
-0,0,0,0,\Delta\phi,0,0,\ldots
-$$
+*角度の状態数と熱揺らぎ幅の比による相関長の整理。*
 
-のようなsparse jump processになる。
-
-一方
+固定温度では $q\to\infty$ によりXY鎖を回収するが、固定した有限 $q$ では低温にすると活性化型の漸近形が支配する。非可換性は相関長の比によって明示できる。
 
 $$
-\eta\ll1
+\lim_{K\to\infty}\lim_{q\to\infty}\frac{\xi_1^{(q)}}{\xi_1^{XY}}=1,
+\qquad
+\lim_{q\to\infty}\lim_{K\to\infty}\frac{\xi_1^{(q)}}{\xi_1^{XY}}=\infty.
 $$
 
-ではthermal windowの中に多数のclock statesが入り、各bondは小さな位相増分を頻繁に取る。すると
+## 高調波相関
+
+連続角度では固定した整数 $m$ に対し低温で $I_m(K)/I_0(K)\simeq e^{-m^2/(2K)}$ となり、$\xi_m\simeq2K/m^2$ を得る。離散角度では折り畳みによりこの階層が変わる。Gaussian近似が妥当な波数範囲では
 
 $$
-\theta_r-\theta_0
-=\sum_{j=0}^{r-1}\phi_j
+\frac{\Lambda_m^{(q)}}{\Lambda_0^{(q)}}\simeq
+\frac{\sum_\ell e^{-(m+\ell q)^2/(2K)}}{\sum_\ell e^{-(\ell q)^2/(2K)}}.
 $$
 
-は連続的なrandom walkとして見える。
-
-$$
-\boxed{
-\text{稀な離散ジャンプ}
-\longrightarrow
-\text{dense small-step 位相拡散}
-}
-$$
-
-というcross-overの実体は、熱揺らぎ幅の中にいくつの局所角度状態が解像されるかにある。
-
-## 8. 相関長はactivated型からdiffusive型へ変わる
-
-有限$q$を固定して低温へ行くと、最小非零stepのBoltzmann重みは
-
-$$
-\exp\left[
--K\left(1-\cos\frac{2\pi}{q}\right)
-\right]
-$$
-
-で抑制される。
-
-$q\ge3$ではleading orderで
-
-$$
-\rho_1^{(q)}
-\simeq
-1
--2\left(1-\cos\frac{2\pi}{q}\right)
-\exp\left[
--K\left(1-\cos\frac{2\pi}{q}\right)
-\right]
-$$
-
-なので
-
-$$
-\boxed{
-\xi_1
-\simeq
-\frac{
-\exp\left[K\left(1-\cos\frac{2\pi}{q}\right)\right]
-}{
-2\left(1-\cos\frac{2\pi}{q}\right)
-}
-}
-$$
-
-となる。
-
-有限$q$では相関長はactivatedに増大する。
-
-一方XYでは
-
-$$
-\frac{I_1(K)}{I_0(K)}
-\simeq
-\exp\left(-\frac1{2K}\right)
-$$
-
-なので
-
-$$
-\boxed{
-\xi_{\rm XY}\simeq2K
-}
-$$
-
-である。
-
-有限$q$の活性化型相関と、XYの拡散型相関は低温漸近形そのものが異なる。
-
-## 9. cross-over変数は$q/\sqrt K$になる
-
-最小stepの熱コストは
-
-$$
-K\left(1-\cos\frac{2\pi}{q}\right)
-\simeq
-\frac{2\pi^2K}{q^2}.
-$$
-
-したがって離散性が熱揺らぎと競合する条件は
-
-$$
-\frac{q}{\sqrt K}=O(1)
-$$
-
-となる。
-
-相関長の数値評価でも、異なる$K$に対する
-
-$$
-\frac{\xi_q}{\xi_{\rm XY}}
-$$
-
-は
-
-$$
-\boxed{
-\frac{q}{\sqrt K}
-}
-$$
-
-で整理するとほぼ同じcross-overを示す。
-
-実用的に$\xi_q$がXY値の数%以内へ入る条件も
-
-$$
-q\sim O(\sqrt K)
-$$
-
-となる。
-
-これは$q$の大きさ単独ではXYらしさが決まらないことを意味する。同じ$q$でも低温へ行けば再び角度刻みが見える。
-
-![相関長のclockからXYへのcross-over](/figures/clock-r1/correlation-length-crossover.svg)
-
-*$\xi_q/\xi_{XY}$を$q/\sqrt K$で整理したもの。異なる温度の曲線が同じ領域で急速にXY値へ近づき、局所角度刻み$2\pi/q$と熱揺らぎ幅$K^{-1/2}$の競合がcross-overを支配することが見える。*
-
-## 10. 高い高調波ほど遅くXY化する
-
-XY低温では
-
-$$
-\frac{I_m(K)}{I_0(K)}
-\simeq
-\exp\left(-\frac{m^2}{2K}\right)
-$$
-
-だから
-
-$$
-\boxed{
-\xi_m^{XY}
-\simeq
-\frac{2K}{m^2}
-}
-$$
-
-となる。
-
-clock 模型ではエイリアシング表示から
-
-$$
-\boxed{
-\rho_m^{(q)}
-\simeq
-\frac{
-\displaystyle
-\sum_{\ell\in\mathbb Z}
-\exp\left[-\frac{(m+\ell q)^2}{2K}\right]
-}{
-\displaystyle
-\sum_{\ell\in\mathbb Z}
-\exp\left[-\frac{(\ell q)^2}{2K}\right]
-}
-}
-$$
-
-と書ける。
-
-$m$ セクターに対する最も近いaliasは$m-q$なので、本来のXY成分に対するaliasの比は
-
-$$
-\boxed{
-\epsilon_m
-\sim
-\exp\left[-\frac{q(q-2m)}{2K}\right]
-}
-$$
-
-となる。
-
-$m$が大きいほど$q-2m$が小さくなるため、高い高調波ほどfinite-$q$ foldingの影響を強く受ける。
-
-$$
-\boxed{
-\text{低角度分解能の相関}
-\text{ が先にXY化し、}
-\text{高角度分解能の相関}
-\text{ は後まで離散性を残す}
-}
-$$
-
-という階層が現れる。
+これは特に前節の二重スケーリング極限に適した近似であり、任意の大きな $m,q$ に一様に成立するわけではない。$0<m\le q/2$ では最近接の折り畳み成分と元の成分の比はおよそ $e^{-q(q-2m)/(2K)}$ である。従って高調波ほど離散化の影響が残りやすい。
 
 ![高調波ごとの相関長](/figures/clock-r1/harmonic-memory-hierarchy.svg)
 
-*$K=20$での$\xi_m/\xi_1$。$q$が大きくなるにつれてXY低温則$\xi_m/\xi_1\simeq m^{-2}$が低い高調波から回復する。有限$q$ではNyquist境界$m\sim q/2$へ近づくほどfoldingの影響が強くなる。*
+*有限状態数での高調波相関長とXY鎖の低温漸近則。*
 
-## 11. $q\to\infty$と$T\to0$は同じ極限ではない
+## 外場応答
 
-有限$q$を固定して$K\to\infty$とすると
-
-$$
-\eta=\frac{2\pi\sqrt K}{q}\to\infty
-$$
-
-なので、必ずrare-jump regimeへ戻る。
-
-したがって
+観測量を $\cos\theta_i$ とすると、$q>2$ の零外場では回転対称性から $\langle\cos\theta_i\cos\theta_j\rangle=C_1(|i-j|)/2$ である。$t=\Lambda_1/\Lambda_0$ と置けば、波数 $Q$ の感受率は
 
 $$
-\xi_q
-\sim
-\exp\left[
-K\left(1-\cos\frac{2\pi}{q}\right)
-\right].
+\chi_{xx}(Q)=\frac{\beta}{2}
+\frac{1-t^2}{1-2t\cos Q+t^2}.
 $$
 
-一方、先に$q\to\infty$としてXY模型へ移れば局所励起gapは閉じており、低温でも
+$q=2$ ではスピンの分散が1であるため係数 $\beta/2$ は $\beta$ になる。XY鎖も $q>2$ と同じ規格化である。強磁性の長相関長極限ではピーク幅が $\xi_1^{-1}$ に比例する。
+
+奇数 $q$ では角度集合が $\pi$ 回転に対して不変ではないため、磁化の二次応答は一般には消えない。例えば $q=3$ の独立スピンでは、$x=\beta h$ とすると
 
 $$
-\xi_{XY}\simeq2K
+m(h)=\frac{e^x-e^{-x/2}}{e^x+2e^{-x/2}}
+=\frac{x}{2}+\frac{x^2}{8}+O(x^3).
 $$
 
-である。
-
-有限$q$のclock chainは、どれほど$q$が大きくても十分低温では離散模型として振る舞う。
-
-$$
-\boxed{
-q=\infty
-\text{ は単なる「非常に大きな有限 }q\text{」ではない}
-}
-$$
-
-という違いは、局所位相増分のgapが本当に閉じているかどうかに現れる。
-
-
-## 12. 一様外場と周期外場は \(m=1\) 相関を読む
-
-固定方向の外場を
-
-$$
-H_h =
--\sum_i h_i\cos\theta_i
-$$
-
-として加える。
-
-零外場では回転対称性から \(\langle\cos\theta_i\rangle=0\) で、線形応答は
-
-$$
-\delta\langle\cos\theta_i\rangle =
-\sum_j\chi_{ij}h_j
-$$
-
-と書ける。
-
-一様外場 \(h_i=h\) は \(Q=0\) 成分を読み、
-
-$$
-\boxed{
-m_x=\chi(0)h+O(h^3)
-}
-$$
-
-となる。
-
-周期外場
-
-$$
-h_i=h_Q\cos(Qi+\varphi)
-$$
-
-に対しては
-
-$$
-\boxed{
-\delta\langle\cos\theta_i\rangle =
-\chi(Q)h_Q\cos(Qi+\varphi)
-+O(h_Q^3)
-}
-$$
-
-である。
-
-ここで
-
-$$
-\chi(Q) =
-\beta\sum_r
-e^{-iQr}
-\langle\cos\theta_r\cos\theta_0\rangle
-$$
-
-なので、外場応答が読むのは主に \(m=1\) の角度相関である。
-
-最近接一様鎖では自然な中心波数は \(Q=0\) だが、有限 \(q\) による違いは
-
-$$
-\boxed{
-\rho_1^{(q)} =
-\frac{\Lambda_1^{(q)}}{\Lambda_0^{(q)}}
-}
-$$
-
-を通じて応答幅と相関長に残る。
-
-## 13. 得られた見方
-
-clock 模型をIsingとXYの間に置くと、対称性の違いは単なるスピン状態数の違いではなく、局所相関の角度分解能の違いとして見える。
-
-$$
-\boxed{
-Z_2
-\to
-Z_q
-\to
-U(1)
-}
-$$
-
-は
-
-$$
-\boxed{
-\text{one nontrivial 相関モード}
-\to
-\text{finite 高調波 相関スペクトル}
-\to
-\text{infinite 高調波階層}
-}
-$$
-
-という変化でもある。
-
-実空間では
-
-$$
-\boxed{
-\Delta\phi=\frac{2\pi}{q}
-}
-$$
-
-という有限刻みが稀な離散ジャンプを作り、Fourier空間では同じ離散化が
-
-$$
-\boxed{
-m\sim m+q}
-$$
-
-というspectral aliasingを作る。
-
-したがって
-
-$$
-\boxed{
-\text{angular discretization}
-\longleftrightarrow
-\text{スペクトルの折り畳み}
-}
-$$
-
-は同じ有限-$q$性を二つの表示で見たものになる。
-
-$q$を増やしたときに起きるのは、反転相関がただ滑らかになることではない。熱揺らぎ幅の中へ利用可能な局所状態が増え、sparse jump processがdense 位相拡散へ変わり、それと同時に有限個へ折り畳まれていた相関スペクトルがXYの無限高調波階層へ展開されていく。
+線形感受率の形が共通していても、非線形応答は対称性の違いを反映する。

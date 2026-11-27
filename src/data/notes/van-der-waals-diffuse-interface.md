@@ -1,369 +1,176 @@
 ---
-title: "van der Waalsのdiffuse interface — 界面を密度場として解く"
-summary: "Gibbsが界面をsurface excessへ縮約したのに対し、van der Waalsは密度を空間場として扱い、有限幅界面と表面張力を界面構造から導く道を開いた。square-gradient近似が何を残し、何を捨てるのかまで整理する。"
+title: "平方勾配近似による有限幅界面の理論"
+summary: "非局所相互作用の長波長展開から平方勾配係数を導き、平面界面の密度分布、表面張力、有限波数応答に対する近似の限界を調べる。"
 publishedAt: 2026-09-09T22:30:00+09:00
-updatedAt: 2026-09-14
+updatedAt: 2026-11-28
 area: "Physics"
+field: interfaces
+kind: theory
+related: ["gibbs-to-tolman-gauge-curvature", "kirkwood-buff-stress-anisotropy"]
 topics: ["interfacial physics", "diffuse interface", "van der Waals", "square-gradient theory", "capillarity"]
 status: growing
 ---
 
-[前のNote](/notes/gibbs-to-tolman-gauge-curvature/)では、Gibbsが有限幅をもつ実在界面を直接解く代わりに、厚さゼロのdividing surfaceとsurface excessを用いて界面熱力学を構成した。
+液体と気体の共存を局所自由エネルギーだけで記述すると、二相を隔てる密度変化の幅は決まらない。密度場の空間変化に対してエネルギーを割り当てることで、界面幅と表面張力を同じ変分問題から求められる。van der Waalsの連続密度理論を、現代的な平方勾配近似の形式で考える。
 
-van der Waalsの1893年の毛管理論は、その粗視化を逆向きにたどる。**密度が界面を横切って連続的に変化する**と考え、界面を空間的なtransition layerとして扱う。
+## 非局所相互作用から平方勾配項へ
 
-Gibbsのsurface thermodynamicsと競合するというより、Gibbsが積分量へ縮約した界面内部を、密度場としてもう一度展開する位置づけに近い。
-
-## sharp interface から密度プロファイルへ
-
-Young–LaplaceやGibbsでは、界面は巨視的には厚さゼロの面として扱える。
-
-sharp-interface描像なら、液体と気体の密度は概念的には
+数密度 $\rho(\mathbf r)$ に対する模型自由エネルギーを
 
 $$
-\rho(z)=
-\begin{cases}
-\rho_l,&z<0,\\
-\rho_v,&z>0
-\end{cases}
+F[\rho]=\int f_{\rm ref}(\rho)\,d\mathbf r+
+\frac12\int d\mathbf r\,d\mathbf s\,
+\rho(\mathbf r)w(s)\rho(\mathbf r+\mathbf s)
 $$
 
-のように不連続に切り替わる。
+とする。$w(s)$ は等方的な有効相互作用核である。これは二体密度を一体密度の積で近似する平均場型の模型であり、一般の分子流体の厳密な自由エネルギー汎関数ではない。
 
-van der Waalsでは
-
-$$
-\rho_l\longrightarrow\rho(z)\longrightarrow\rho_v
-$$
-
-という連続的なtransition layerが現れる。
-
-界面は幾何学的な境界ではなく、**局所密度そのものが空間的に変化する領域**になる。理論の主役も、界面位置から密度プロファイルへ移る。
-
-## bulk自由エネルギーだけでは有限幅を選べない
-
-一様流体のHelmholtz自由エネルギー密度を $f_0(\rho)$ とする。
-
-非一様系に対して
+密度変化が相互作用核の代表長さより十分緩やかであれば、$\rho(\mathbf r+\mathbf s)$ を展開できる。$d$ 次元で
 
 $$
-F[\rho]=\int d\mathbf r\,f_0(\rho(\mathbf r))
+W_n=\int |\mathbf s|^n w(s)\,d\mathbf s
 $$
 
-とだけ書くと、各点の自由エネルギーはその場所の密度だけで決まる。
-
-二相共存では、液体密度 $\rho_l$ と気体密度 $\rho_v$ はbulkの熱力学的に許された二つの状態である。しかし局所項だけでは、これらを空間的にどれだけ急激に切り替えるかに対する十分なコストがない。
-
-現実の界面には有限の自由エネルギーと有限の厚さがある。したがって自由エネルギーは密度の値だけでなく、**密度が空間的にどのように変化するか**も持つ必要がある。
-
-## square-gradient form は現代語での最小表現
-
-van der Waalsの考えを現代の汎関数記法へ翻訳すると、基本形は
+とすると、等方性より $\int s_i w(s)d\mathbf s=0$、$\int s_i s_jw(s)d\mathbf s=\delta_{ij}W_2/d$ である。二次まで残し、境界項が消える条件で部分積分すると
 
 $$
-F[\rho]=\int d\mathbf r\left[f_0(\rho)+\frac{\kappa}{2}|\nabla\rho|^2\right]
+F[\rho]\simeq\int d\mathbf r
+\left[f_{\rm ref}(\rho)+\frac{W_0}{2}\rho^2
+-\frac{W_2}{4d}|\nabla\rho|^2\right].
 $$
 
-と書ける。
-
-$\kappa$ は密度の空間変化に対するコストを決める係数である。
-
-これは1893年の原論文をそのまま転記した式ではない。原論文では界面内の局所自由エネルギーへの補正が密度の二階微分を含む形で現れ、後世のsquare-gradient theoryでは部分積分と境界条件を使って $|\nabla\rho|^2$ 型へ整理する。
-
-したがって、ここで使うsquare-gradient formは**van der Waalsの考えを現代語に翻訳したもの**として扱う。
-
-## gradient の二乗は対称性と長波長展開の両方から出る
-
-平面界面で $\rho=\rho(z)$ とする。
-
-界面の向きを反転しても界面自由エネルギーは変わらないため、$d\rho/dz$ に一次の項は使いにくい。最低次のスカラー補正は
+従って $f_0=f_{\rm ref}+W_0\rho^2/2$ と置けば
 
 $$
-\left(\frac{d\rho}{dz}\right)^2
+F[\rho]=\int d\mathbf r\left[f_0(\rho)+\frac{\kappa}{2}|\nabla\rho|^2\right],
+\qquad \kappa_{\rm nl}=-\frac{W_2}{2d}.
 $$
 
-になる。
+引力核が負であればこの寄与は正となる。ただし一般の密度汎関数では参照系の非局所性も勾配係数に寄与しうる。展開には少なくとも核の零次・二次モーメントの絶対収束が必要である。四次まで解析的に展開できるとは限らず、例えば三次元の非切断の $r^{-6}$ 尾では四次モーメントは発散する。
 
-ただし、この項は対称性だけの便宜的な選択ではない。**非局所分子間相互作用の長波長展開**としても現れる。
+ここで用いる $f_0$ は一様密度を仮定した模型の局所自由エネルギーである。相分離を許した巨視的な平衡自由エネルギーは凸包化されるので、非凸な局所関数をそれと同一視してはならない。
 
-## 非局所相互作用の低波数部分だけを残す
+## 平面界面の変分問題
 
-mean-field的な引力エネルギーなら、概略
-
-$$
-F_{\mathrm{nl}}=\frac12\int d\mathbf r\,d\mathbf r'\,\rho(\mathbf r)w(|\mathbf r-\mathbf r'|)\rho(\mathbf r')
-$$
-
-と書ける。
-
-$\mathbf s=\mathbf r'-\mathbf r$ とし、密度が相互作用距離に比べてゆっくり変化すると
+一定温度・化学ポテンシャルの下で
 
 $$
-\rho(\mathbf r+\mathbf s)
-=
-\rho(\mathbf r)
-+s_i\partial_i\rho
-+\frac12s_is_j\partial_i\partial_j\rho
-+\cdots
+\Omega[\rho]=\int d\mathbf r\left[
+\omega(\rho)+\frac{\kappa}{2}|\nabla\rho|^2
+\right],\qquad \omega(\rho)=f_0(\rho)-\mu\rho
 $$
 
-と展開できる。
-
-相互作用が等方的なら一次項は角度積分で消え、二次項から $\rho\nabla^2\rho$ 型の寄与が出る。部分積分すると、境界項を除いて
+とする。以下では $\kappa>0$ を密度に依存しない定数とする。変分により
 
 $$
-\int d\mathbf r\,\rho\nabla^2\rho
-=-\int d\mathbf r\,|\nabla\rho|^2
+\omega'(\rho)-\kappa\nabla^2\rho=0
 $$
 
-となる。
+を得る。平面界面では $\rho(-\infty)=\rho_v$、$\rho(+\infty)=\rho_l$、両端で $\rho'=0$ とする。共存条件は $\omega'(\rho_v)=\omega'(\rho_l)=0$、$\omega(\rho_v)=\omega(\rho_l)=\omega_b$ である。
 
-square-gradient termは、**非局所相互作用を長波長で局所化した最低次の項**と読める。
-
-相互作用長を $\ell$、密度変化の代表波数を $k$ とすれば、背後の小さいパラメータは $k\ell\ll1$ である。
-
-## 平衡密度プロファイルは変分で決まる
-
-一定温度・一定化学ポテンシャルでgrand potentialを
+方程式に $\rho'$ を掛けて積分すると
 
 $$
-\Omega[\rho]
-=
-\int d\mathbf r\left[f_0(\rho)-\mu\rho+\frac{\kappa}{2}|\nabla\rho|^2\right]
+\frac{\kappa}{2}(\rho')^2=\omega(\rho)-\omega_b.
 $$
 
-とする。
-
-平衡状態では $\delta\Omega/\delta\rho=0$ なので
+右辺が二相間で正なら、単調な界面プロファイルは
 
 $$
-\frac{df_0}{d\rho}-\mu-\kappa\nabla^2\rho=0
+z-z_0=\int_{\rho(z_0)}^{\rho(z)}
+\sqrt{\frac{\kappa}{2[\omega(u)-\omega_b]}}\,du
 $$
 
-となる。
+から決まる。局所自由エネルギーが中間密度を取ることに伴うコストと、密度勾配のコストが釣り合うことで有限幅の界面が形成される。
 
-ここで $\rho(\mathbf r)$ は説明用の模式図ではなく、**変分原理から決定される未知関数**になっている。
+## 対称二重井戸の厳密プロファイル
 
-Gibbsでは界面内部を解かずにsurface excessへ縮約した。van der Waalsでは、その内部構造自体を解く。
-
-## first integral は界面を二つのコストの競合として書く
-
-平面界面では $\rho=\rho(z)$ とし、grand-potential densityを $\omega(\rho)=f_0(\rho)-\mu\rho$ と定義する。
-
-平衡方程式は
+秩序変数 $\phi$ に対し、局所ポテンシャルを
 
 $$
-\kappa\frac{d^2\rho}{dz^2}=\frac{d\omega}{d\rho}
+V(\phi)=\frac b4(\phi^2-\phi_b^2)^2,\qquad
+\phi_b=\sqrt{a/b},\quad a,b>0
 $$
 
-となる。
-
-両辺に $d\rho/dz$ を掛けて積分すると、bulk共存状態での値を $\omega_{\mathrm{coex}}$ として
+とする。これはvan der Waals原論文そのものではなく、対称化したLandau型模型である。第一積分
 
 $$
-\frac{\kappa}{2}\left(\frac{d\rho}{dz}\right)^2
-=
-\omega(\rho)-\omega_{\mathrm{coex}}
+\frac{\kappa}{2}(\phi')^2=\frac b4(\phi^2-\phi_b^2)^2
 $$
 
-を得る。
-
-左辺は密度を急激に変化させるgradient cost、右辺はbulkとしては不利な中間密度を取るthermodynamic costである。
-
-界面は、**二相へ分かれたがるbulk thermodynamicsと、密度を無限に急変させない非局所相互作用の競合**として現れる。界面中の中間密度が、新しいbulk安定相になっているわけではない。
-
-## 界面幅が理論内部の長さになる
-
-後世のLandau型の対称double-wellを例に取ると、order parameterを $\phi$ として
+を分離積分すると
 
 $$
-F[\phi]=\int dz\left[-\frac{a}{2}\phi^2+\frac{b}{4}\phi^4+\frac{\kappa}{2}\left(\frac{d\phi}{dz}\right)^2\right]
+\phi(z)=\phi_b\tanh\frac{z-z_0}{\ell},
+\qquad \ell=\sqrt{\frac{2\kappa}{a}}
 $$
 
-と書ける。
+を得る。$\ell$ はtanh関数の引数で定義した幅である。秩序変数の全変化量の10%から90%までの距離を幅とするなら $w_{10-90}=2\ell\operatorname{atanh}(0.8)$ となる。バルク近傍の線形応答の相関長は $\sqrt{\kappa/(2a)}=\ell/2$ であり、界面幅の規約と区別する必要がある。
 
-このとき平衡界面はtanh型になり、代表的な界面幅は
+## 表面張力
 
-$$
-\xi\sim\sqrt{\frac{\kappa}{a}}
-$$
-
-で決まる。
-
-この具体形はvan der Waals原論文そのものではなく、後のLandau–Ginzburg/Cahn–Hilliard的な単純化である。ただ、**有限幅がbulk thermodynamicsとgradient costの比から生まれる**ことは明瞭に見える。
-
-Young–Laplaceでは外から見えなかった界面厚さが、ここでは理論内部の長さになる。
-
-## 表面張力が入力値から出力量へ変わる
-
-平面界面のexcess grand potential per unit areaとして
+平面界面の過剰グランドポテンシャルの面積密度は
 
 $$
-\gamma
-=
-\int_{-\infty}^{\infty}dz\left[
-\omega(\rho)-\omega_{\mathrm{coex}}
-+\frac{\kappa}{2}\left(\frac{d\rho}{dz}\right)^2
-\right]
+\gamma=\int dz\left[\omega(\rho)-\omega_b+\frac{\kappa}{2}(\rho')^2\right].
 $$
 
-と書ける。
-
-平衡時にはfirst integralから
+第一積分を用いれば
 
 $$
-\gamma
-=
-\int_{-\infty}^{\infty}dz\,\kappa\left(\frac{d\rho}{dz}\right)^2
+\gamma=\int dz\,\kappa(\rho')^2
+=\int_{\rho_v}^{\rho_l}\sqrt{2\kappa[\omega(\rho)-\omega_b]}\,d\rho.
 $$
 
-となる。
-
-さらに積分変数を $z$ から $\rho$ へ変えると
+対称二重井戸模型では $\phi'=(\phi_b/\ell)\operatorname{sech}^2[(z-z_0)/\ell]$ なので、
 
 $$
-\gamma
-=
-\int_{\rho_v}^{\rho_l}d\rho\,
-\sqrt{2\kappa\left[\omega(\rho)-\omega_{\mathrm{coex}}\right]}
+\gamma=\frac{4\kappa\phi_b^2}{3\ell}
+=\frac{2\sqrt{2\kappa}\,a^{3/2}}{3b}.
 $$
 
-と書ける。
+したがって界面幅と表面張力は独立の入力値ではない。局所自由エネルギーと勾配係数を与えれば、両者が同時に決まる。求めた密度プロファイルから[Gibbsの表面過剰量](/notes/gibbs-to-tolman-gauge-curvature/)を計算することもできる。
 
-ここで界面理論の役割が変わる。
+![平方勾配模型の界面構造](/figures/interfaces/square-gradient-profile.svg)
 
-Young–Laplaceでは $\gamma$ を与えて力学を閉じた。Gibbsでは $\gamma$ を界面熱力学の状態量として扱った。van der Waals型diffuse-interface theoryでは
+*対称二重井戸模型の秩序変数と勾配エネルギーに由来する規格化張力密度（Π = κ(φ′)²）。二つの量は異なる単位を持つため、各々を規格化して比較する。*
 
-$$
-f_0(\rho),\ \kappa
-\quad\longrightarrow\quad
-\rho(z)
-\quad\longrightarrow\quad
-\gamma
-$$
+## 密度応答から見た近似の限界
 
-という順序で、表面張力を界面構造から計算できる。
-
-## Gibbs と van der Waals は解像度が違う
-
-Gibbsでは、有限幅の実在界面を任意のdividing surfaceとsurface excessへ写像した。
-
-van der Waalsでは、その有限幅界面を密度場として解く。
-
-両者は競合する理論というより、異なる解像度の記述である。
-
-van der Waals型理論から $\rho(z)$ を得たあとでdividing surfaceを選べば、Gibbsのsurface excessを計算できる。
+安定な一様相 $\rho_b$ の周りで $\rho=\rho_b+\delta\rho$ とし、二次変分を取ると
 
 $$
-\text{diffuse profile}
-\quad\xrightarrow{\text{coarse grain}}\quad
-\text{Gibbs surface excess}
+\delta^2 F/2=\frac12\int\frac{d^d k}{(2\pi)^d}
+[f_0''(\rho_b)+\kappa k^2]|\delta\rho_{\mathbf k}|^2
 $$
 
-という関係になる。
-
-## square-gradient が捨てるもの
-
-van der Waals型のsquare-gradient theoryは、sharp interfaceよりははるかに多くの構造を残す。ただし、分子間相互作用の非局所性をそのまま保持した理論ではない。
-
-出発点では非局所kernel $w(|\mathbf r-\mathbf r'|)$ が二点間の結合をすべて持っていた。それを長波長展開して最低次で切ることで、非局所kernel全体を局所的な係数 $\kappa$ へ圧縮している。
-
-Fourier空間で、密度揺らぎに対する二次の自由エネルギーを
+となる。外部ポテンシャル $V_{\rm ext}$ が $\int\rho V_{\rm ext}\,d\mathbf r$ と結合する場合、線形応答は
 
 $$
-\Delta F^{(2)}
-=
-\frac12\int\frac{d\mathbf k}{(2\pi)^d}\,A(k)|\delta\rho_{\mathbf k}|^2
+\delta\rho_{\mathbf k}=-\frac{V_{{\rm ext},\mathbf k}}
+{f_0''(\rho_b)+\kappa k^2}.
 $$
 
-と書くと、square-gradient approximationは $A(k)$ の $k=0$ 近傍だけを
+Gaussian揺らぎ近似では、通常の粒子数で規格化した構造因子は
 
 $$
-A(k)=A_0+A_2k^2+O(k^4)
+S(k)=\frac{k_{\rm B}T}{\rho_b[f_0''(\rho_b)+\kappa k^2]}
 $$
 
-と残していることに対応する。
-
-実空間の $A_2k^2$ が $|\nabla\rho|^2$ に対応する。保持しているのは、**十分長い波長に対するbulk responseの最初の曲率**であり、それ以外の $k$ 依存は捨てている。
-
-### kernel の詳細な非局所形状
-
-元の非局所理論では、ある点の密度は周囲の有限距離にわたる密度分布と結合している。
-
-square-gradient theoryでは、この情報を $A_0$ と $A_2$、あるいは $f_0(\rho)$ と $\kappa$ のような少数の量へ縮約する。
-
-相互作用距離と同程度のスケールで密度が変化すると、$k\ell\ll1$ という前提そのものが崩れる。
-
-### 分子直径スケールの packing
-
-高密度液体では、排除体積によってpair correlationが分子スケールで振動する。
-
-このpackingは $k=0$ 近傍の情報ではなく、分子間距離に対応する**有限波数**の構造として現れる。
-
-最低次square-gradient theoryでは、このpreferred wavelengthを持てない。
-
-### oscillatory layering
-
-壁や強い界面の近傍では
+となる。正の $\kappa$ と $f_0''(\rho_b)$ の下で、この関数は波数とともに単調減少する。壁近傍で外部ポテンシャルが消える領域の線形方程式も
 
 $$
-\rho(z)-\rho_b
-\sim
- e^{-\alpha z}\cos(qz+\phi)
+\kappa\delta\rho''=f_0''(\rho_b)\delta\rho
 $$
 
-のような減衰振動が現れることがある。
+であり、減衰解は $\exp[-z\sqrt{f_0''(\rho_b)/\kappa}]$ となる。複素波数を持つ減衰振動はこの斉次方程式からは得られない。
 
-一方、square-gradientの線形化から得られる基本的なbulk tailは
+高密度液体では排除体積に由来する有限波数の構造因子ピークや、壁に沿った層状の密度振動が現れることがある。これらを扱うには、平方勾配近似より多くの波数依存性を保持した非局所密度汎関数などが必要になる。単純に界面幅のパラメータを調整しても、欠落した有限波数構造は復元できない。
 
-$$
-\delta\rho(z)\sim e^{-z/\xi}
-$$
+## 参考文献
 
-のような単調減衰である。
-
-$A(k)$ を $A_0+A_2k^2$ までしか残さなければ、有限の実波数を選ぶ構造が消えるためである。
-
-### bulk correlation の有限波数構造
-
-一様液体のstructure factor $S(k)$ は、一般には $k=0$ だけで特徴づけられない。高密度液体では分子間距離に対応する有限 $k$ に第一ピークが現れる。
-
-square-gradient theoryは、そのような有限波数の応答を区別せず、長波長極限へ押し込める。
-
-壁がbulk液体自身のpreferred wavelengthを励起してlayeringを作る、といった現象は最低次の理論からは見えない。
-
-## 残したものと捨てたもの
-
-概念的には
-
-$$
-\text{full nonlocal interaction}
-\quad\longrightarrow\quad
-\text{long-wavelength moments}
-\quad\longrightarrow\quad
-f_0(\rho),\ \kappa
-$$
-
-である。
-
-この操作で残るのは、相分離を生むbulk thermodynamics、滑らかな密度変化、有限の界面幅、そしてそのプロファイルから得られる表面張力である。
-
-一方で捨てられるのは、kernelの細かな形、packing、有限波数のbulk correlation、分子スケールのlayeringである。
-
-したがってvan der Waalsの理論は「界面内部を解く理論」であると同時に、**界面内部のうち長波長成分だけを残した理論**でもある。
-
-残る問いは、$k=0$ 周りだけを見るのをやめ、液体がもつ有限波数の構造を残したとき、界面や壁近傍の密度場がどう変わるかである。
-
-## 歴史の中での位置
-
-Young–Laplaceは界面内部を捨てて $\gamma$ を与え、Gibbsは界面内部を解かずsurface excessとして熱力学へ組み込み、van der Waalsは有限幅の密度場を解いて界面構造から $\gamma$ を導く道を開いた。
-
-後にCahn–Hilliardは、このsquare-gradient型の自由エネルギーを一般の組成場に対する汎関数として整理し、保存則と組み合わせて相分離動力学へ発展させる。静的な界面論の骨格だけを見れば、van der Waalsから続く同じsquare-gradient familyにある。
-
-一方、液体固有のpackingやfinite-$k$ structureを保持する方向は、square-gradientをさらに一般化するというより、そこで捨てた**非局所なbulk correlation**へ戻る方向である。
-
-## References
-
-- J. D. van der Waals, *Thermodynamische theorie der cappillariteit in de onderstelling van continue dichtheidsverandering* (1893).
-- J. S. Rowlinson, “Translation of J. D. van der Waals' ‘The thermodynamic theory of capillarity under the hypothesis of a continuous variation of density’,” *Journal of Statistical Physics* **20**, 197–244 (1979), DOI: 10.1007/BF01011514.
+- J. D. van der Waals, *Thermodynamische theorie der capillariteit in de onderstelling van continue dichtheidsverandering* (1893).
+- J. S. Rowlinson, “Translation of J. D. van der Waals' ‘The thermodynamic theory of capillarity under the hypothesis of a continuous variation of density’,” *Journal of Statistical Physics* **20**, 197–244 (1979).
 - J. S. Rowlinson and B. Widom, *Molecular Theory of Capillarity*, Clarendon Press (1982).
+
+歴史的な原論文と現代的な平均場・勾配展開は区別した。書誌情報と原典の詳細は別途照合する。

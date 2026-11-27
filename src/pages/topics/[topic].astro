@@ -1,4 +1,5 @@
 ---
+import { isLegacyNote } from '../../lib/legacy-notes';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { topicSlug } from '../../lib/topics';
@@ -14,7 +15,7 @@ export async function getStaticPaths() {
 }
 
 const { topic } = Astro.props;
-const notes = (await getCollection('notes', ({ data }) => !data.draft && data.topics.includes(topic)))
+const notes = (await getCollection('notes', ({ id, data }) => !data.draft && !isLegacyNote(id) && data.topics.includes(topic)))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
 const relatedTopics = [...new Set(
@@ -44,6 +45,7 @@ const areaId = (area: string) => area.toLowerCase().replace(/[^a-z0-9]+/g, '-').
     </section>
   )}
 
+  {notes.length===0 && <p>この概念に関する旧記事は統合されました。<a href="/topics/">現在の概念索引</a>から関連する記事を探せます。</p>}
   <div class="topic-filtered-notes">
     {notes.map((note) => (
       <article class="topic-note-entry">

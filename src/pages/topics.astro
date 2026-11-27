@@ -1,9 +1,10 @@
 ---
+import { isLegacyNote } from '../lib/legacy-notes';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { topicSlug } from '../lib/topics';
 
-const notes = (await getCollection('notes', ({ data }) => !data.draft))
+const notes = (await getCollection('notes', ({ id, data }) => !data.draft && !isLegacyNote(id)))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
 const areaOrder = ['Physics', 'Mathematics', 'Computing', 'Economics', 'Culture & Media'] as const;
