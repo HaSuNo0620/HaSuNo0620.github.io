@@ -122,4 +122,6 @@ $$
 - J. H. Irving and J. G. Kirkwood, “The Statistical Mechanical Theory of Transport Processes. IV. The Equations of Hydrodynamics,” *Journal of Chemical Physics* **18**, 817–829 (1950).
 - J. S. Rowlinson and B. Widom, *Molecular Theory of Capillarity*, Clarendon Press (1982).
 
-原典の式番号との照合は別途行う。
+- [A perspective on the microscopic pressure (stress) tensor: History, current understanding, and future challenges](https://doi.org/10.1063/5.0132487) (2023).
+
+局所圧力の経路依存性について上記レビューと照合した。Kirkwood–BuffおよびIrving–Kirkwoodの原論文の式番号単位の照合は未完了である。
