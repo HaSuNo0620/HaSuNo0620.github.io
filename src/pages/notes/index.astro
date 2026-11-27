@@ -1,433 +1,72 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fields, fieldFor, revisionDate, formatDate } from '../../lib/fields';
 import { topicSlug } from '../../lib/topics';
-
-const notes = (await getCollection('notes', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
-
-const statusLabel = { seed: '○ seed', growing: '◐ growing', evergreen: '● evergreen' };
-const formatDate = (date: Date) => date.toLocaleDateString('ja-JP', {
-  year: 'numeric', month: '2-digit', day: '2-digit',
-}).replaceAll('/', '.');
-const areaId = (area: string) => area.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
-const systems = notes.flatMap((note) => note.data.system ? [note.data.system] : []);
-const unique = (values: string[]) => [...new Set(values)];
-const dimensions = unique(systems.map((s) => String(s.dimension))).sort((a, b) => Number(a) - Number(b));
-const spatials = unique(systems.map((s) => s.spatial));
-const ranges = unique(systems.flatMap((s) => Array.isArray(s.range) ? s.range : [s.range]));
-const interactions = unique(systems.map((s) => s.interaction));
-const symmetries = unique(systems.flatMap((s) => s.symmetry));
-const mechanics = unique(systems.map((s) => s.mechanics));
-
-const spatialLabel: Record<string, string> = {
-  uniform: '一様',
-  periodic: '周期',
-  quasiperiodic: '準周期',
-  random: 'ランダム',
-};
-const rangeLabel: Record<string, string> = {
-  R1: '最近接',
-  R2: '第二近接',
-  Rn: '有限範囲',
-};
-const mechanicsLabel: Record<string, string> = {
-  classical: '古典',
-  quantum: '量子',
-};
+const notes=(await getCollection('notes',({data})=>!data.draft)).sort((a,b)=>revisionDate(b.data).valueOf()-revisionDate(a.data).valueOf());
+const states={seed:'構想・断片',growing:'執筆・検討中',evergreen:'まとまった記事'};
 ---
-
-<BaseLayout title="Notes" description="勉強、計算、実装、考察。完成した記事だけではなく途中の断片も含むノート。">
+<BaseLayout title="記事一覧" description="分野、キーワード、更新日から記事を探す。">
   <section class="index-intro">
-    <p class="section-label">archive / growing</p>
-    <h1>Notes</h1>
-    <p>
-      勉強したこと、試した計算、実装メモ、考察。<br />
-      ○ は断片、◐ は育ち途中、● はある程度まとまったノートです。
-    </p>
+    <h1>記事一覧</h1>
+    <p>理論、計算、考察、研究構想。分野やキーワードから探す。</p>
   </section>
-
-  <section class="system-hubs" aria-label="スピン系の入口">
-    <div>
-      <p class="section-label">spin systems</p>
-      <p class="system-hubs-copy">模型ごとの系列を辿る場合は、専用ページから入れます。</p>
-    </div>
-    <div class="system-hub-links">
-      <a href="/notes/ising/">
-        <span>Z2</span>
-        <strong>Ising</strong>
-        <small>R と空間構造で辿る →</small>
-      </a>
-      <a href="/notes/spin-model-thinking-map/">
-        <span>map</span>
-        <strong>Spin systems</strong>
-        <small>状態空間 × R × 空間構造 →</small>
-      </a>
-    </div>
+  <section class="archive-controls" aria-label="記事の検索と絞り込み">
+    <label class="search"><span>キーワード</span><input type="search" data-search placeholder="タイトル・概要・概念" /></label>
+    <label><span>分野</span><select data-field><option value="">すべて</option>{fields.map(f=><option value={f.id}>{f.title}</option>)}</select></label>
+    <label><span>状態</span><select data-status><option value="">すべて</option>{Object.entries(states).map(([id,title])=><option value={id}>{title}</option>)}</select></label>
+    <label><span>並び順</span><select data-sort><option value="updated">更新順</option><option value="published">公開順</option></select></label>
+    <button type="button" data-reset>条件を解除</button>
+    <p data-count aria-live="polite">{notes.length} 件</p>
   </section>
-
-  <section class="system-controls" aria-label="スピン系ノートの絞り込みと並べ替え">
-    <div class="system-controls-head">
-      <div>
-        <p class="section-label">system coordinates</p>
-        <p class="system-controls-copy">構造化されたスピン系ノートは、各座標で絞り込み・並べ替えできます。</p>
-      </div>
-      <button type="button" class="system-reset" data-system-reset>reset</button>
-    </div>
-
-    <div class="system-filter-grid">
-      <label>
-        <span>dimension</span>
-        <select data-system-filter="dimension">
-          <option value="">all</option>
-          {dimensions.map((value) => <option value={value}>{value}D</option>)}
-        </select>
-      </label>
-      <label>
-        <span>spatial</span>
-        <select data-system-filter="spatial">
-          <option value="">all</option>
-          {spatials.map((value) => <option value={value}>{spatialLabel[value] ?? value}</option>)}
-        </select>
-      </label>
-      <label>
-        <span>range</span>
-        <select data-system-filter="range">
-          <option value="">all</option>
-          {ranges.map((value) => <option value={value}>{rangeLabel[value] ?? value}</option>)}
-        </select>
-      </label>
-      <label>
-        <span>interaction</span>
-        <select data-system-filter="interaction">
-          <option value="">all</option>
-          {interactions.map((value) => <option value={value}>{value}</option>)}
-        </select>
-      </label>
-      <label>
-        <span>symmetry</span>
-        <select data-system-filter="symmetry">
-          <option value="">all</option>
-          {symmetries.map((value) => <option value={value}>{value}</option>)}
-        </select>
-      </label>
-      <label>
-        <span>mechanics</span>
-        <select data-system-filter="mechanics">
-          <option value="">all</option>
-          {mechanics.map((value) => <option value={value}>{mechanicsLabel[value] ?? value}</option>)}
-        </select>
-      </label>
-      <label class="system-sort">
-        <span>sort</span>
-        <select data-system-sort>
-          <option value="published">新しい順</option>
-          <option value="symmetry">symmetry</option>
-          <option value="range">interaction range</option>
-          <option value="spatial">spatial organization</option>
-          <option value="interaction">interaction family</option>
-          <option value="mechanics">classical / quantum</option>
-        </select>
-      </label>
-    </div>
-    <p class="system-result" data-system-result>{notes.length} notes</p>
-  </section>
-
-  <div class="notes-index" data-notes-index>
-    {notes.map((note, index) => {
-      const system = note.data.system;
-      const symmetry = system?.symmetry.join('|') ?? '';
-      const range = system ? (Array.isArray(system.range) ? system.range.join('|') : system.range) : '';
-      return (
-        <article
-          class="index-row"
-          data-note-row
-          data-original-index={index}
-          data-published={note.data.publishedAt.valueOf()}
-          data-system={system ? 'true' : 'false'}
-          data-dimension={system?.dimension ?? ''}
-          data-spatial={system?.spatial ?? ''}
-          data-range={range}
-          data-interaction={system?.interaction ?? ''}
-          data-symmetry={symmetry}
-          data-mechanics={system?.mechanics ?? ''}
-        >
-          <div class="index-date">{formatDate(note.data.publishedAt)}</div>
-          <div class="index-body">
-            <div class="index-title-line">
-              <span class={`status-text status-${note.data.status}`}>{statusLabel[note.data.status]}</span>
-              <h2><a href={`/notes/${note.id}/`}>{note.data.title}</a></h2>
-            </div>
-            <p>{note.data.summary}</p>
-            {system && (
-              <div class="system-tags" aria-label="system coordinates">
-                <span>{system.dimension}D</span>
-                <span>{spatialLabel[system.spatial] ?? system.spatial}</span>
-                {(Array.isArray(system.range) ? system.range : [system.range]).map((value) => <span>{rangeLabel[value] ?? value}</span>)}
-                <span>{system.interaction}</span>
-                {system.symmetry.map((value) => <span>{value}</span>)}
-                <span>{mechanicsLabel[system.mechanics] ?? system.mechanics}</span>
-              </div>
-            )}
-            <div class="index-topics">
-              <a class="area-tag" href={`/topics/#${areaId(note.data.area)}`}>{note.data.area}</a>
-              {note.data.topics.map((topic) => (
-                <a class="topic-link" href={`/topics/${topicSlug(topic)}/`}>#{topic}</a>
-              ))}
-            </div>
-          </div>
-          <a class="index-arrow" href={`/notes/${note.id}/`} aria-label={`${note.data.title}を読む`}>↗</a>
-        </article>
-      );
+  <div class="notes-index" data-index>
+    {notes.map(note=>{
+      const field=fieldFor(note.id,note.data.field);
+      return <article class="index-row" data-row data-field-id={field?.id??''} data-state={note.data.status} data-search-text={[note.data.title,note.data.summary,...note.data.topics,field?.title??''].join(' ')} data-updated={revisionDate(note.data).valueOf()} data-published={note.data.publishedAt.valueOf()}>
+        <div class="index-date">{formatDate(revisionDate(note.data))}</div>
+        <div class="index-body"><h2><a href={`/notes/${note.id}/`}>{note.data.title}</a></h2><p>{note.data.summary}</p>
+        <div class="index-topics">{field&&<a class="area-tag" href={`/fields/${field.id}/`}>{field.title}</a>}<span>{states[note.data.status]}</span>{note.data.topics.map(t=><a href={`/topics/${topicSlug(t)}/`}>#{t}</a>)}</div></div>
+        <a class="index-arrow" href={`/notes/${note.id}/`} aria-label={`${note.data.title}を読む`}>↗</a>
+      </article>;
     })}
   </div>
+  <p data-empty hidden>条件に一致する記事がありません。</p>
 </BaseLayout>
-
 <script>
-  const index = document.querySelector<HTMLElement>('[data-notes-index]');
-  const rows = Array.from(document.querySelectorAll<HTMLElement>('[data-note-row]'));
-  const filters = Array.from(document.querySelectorAll<HTMLSelectElement>('[data-system-filter]'));
-  const sortSelect = document.querySelector<HTMLSelectElement>('[data-system-sort]');
-  const reset = document.querySelector<HTMLButtonElement>('[data-system-reset]');
-  const result = document.querySelector<HTMLElement>('[data-system-result]');
-
-  const order = {
-    symmetry: ['Z2', 'Zq', 'U(1)', 'SU(2)'],
-    range: ['R1', 'R2', 'Rn'],
-    spatial: ['uniform', 'periodic', 'quasiperiodic', 'random'],
-    mechanics: ['classical', 'quantum'],
-  };
-
-  const rank = (field, value) => {
-    const values = order[field] ?? [];
-    const position = values.indexOf(value);
-    return position === -1 ? values.length + 1 : position;
-  };
-
-  const apply = () => {
-    const active = Object.fromEntries(
-      filters.map((select) => [select.dataset.systemFilter, select.value])
-    );
-
-    let visible = 0;
-    rows.forEach((row) => {
-      const hasActiveFilter = Object.values(active).some(Boolean);
-      let matches = !hasActiveFilter || row.dataset.system === 'true';
-
-      for (const [field, expected] of Object.entries(active)) {
-        if (!expected || !matches) continue;
-        if (field === 'symmetry' || field === 'range') {
-          const values = (row.dataset[field] ?? '').split('|').filter(Boolean);
-          matches = values.includes(expected);
-        } else {
-          matches = row.dataset[field] === expected;
-        }
-      }
-
-      row.hidden = !matches;
-      if (matches) visible += 1;
+  const search=document.querySelector<HTMLInputElement>('[data-search]')!;
+  const field=document.querySelector<HTMLSelectElement>('[data-field]')!;
+  const status=document.querySelector<HTMLSelectElement>('[data-status]')!;
+  const sort=document.querySelector<HTMLSelectElement>('[data-sort]')!;
+  const rows=Array.from(document.querySelectorAll<HTMLElement>('[data-row]'));
+  const index=document.querySelector<HTMLElement>('[data-index]')!;
+  const count=document.querySelector<HTMLElement>('[data-count]')!;
+  const empty=document.querySelector<HTMLElement>('[data-empty]')!;
+  const normalize=(s:string)=>s.normalize('NFKC').toLocaleLowerCase();
+  function apply(){
+    const words=normalize(search.value).trim().split(/\s+/).filter(Boolean);
+    let n=0;
+    rows.forEach(row=>{
+      const visible=(!field.value||row.dataset.fieldId===field.value)&&(!status.value||row.dataset.state===status.value)&&words.every(w=>normalize(row.dataset.searchText??'').includes(w));
+      row.hidden=!visible;
+      if(visible)n++;
     });
-
-    const sort = sortSelect?.value ?? 'published';
-    const sorted = [...rows].sort((a, b) => {
-      if (sort === 'published') return Number(b.dataset.published) - Number(a.dataset.published);
-
-      const aStructured = a.dataset.system === 'true';
-      const bStructured = b.dataset.system === 'true';
-      if (aStructured !== bStructured) return aStructured ? -1 : 1;
-
-      const av = (sort === 'symmetry' || sort === 'range')
-        ? (a.dataset[sort] ?? '').split('|')[0]
-        : (a.dataset[sort] ?? '');
-      const bv = (sort === 'symmetry' || sort === 'range')
-        ? (b.dataset[sort] ?? '').split('|')[0]
-        : (b.dataset[sort] ?? '');
-
-      if (sort in order) {
-        const diff = rank(sort, av) - rank(sort, bv);
-        if (diff !== 0) return diff;
-      } else {
-        const diff = av.localeCompare(bv);
-        if (diff !== 0) return diff;
-      }
-      return Number(a.dataset.originalIndex) - Number(b.dataset.originalIndex);
-    });
-
-    sorted.forEach((row) => index?.appendChild(row));
-    if (result) result.textContent = `${visible} / ${rows.length} notes`;
-  };
-
-  filters.forEach((select) => select.addEventListener('change', apply));
-  sortSelect?.addEventListener('change', apply);
-  reset?.addEventListener('click', () => {
-    filters.forEach((select) => { select.value = ''; });
-    if (sortSelect) sortSelect.value = 'published';
-    apply();
-  });
-
+    const key=sort.value==='published'?'published':'updated';
+    [...rows].sort((a,b)=>Number(b.dataset[key])-Number(a.dataset[key])).forEach(r=>index.append(r));
+    count.textContent=`${n} / ${rows.length} 件`;
+    empty.hidden=n!==0;
+  }
+  search.addEventListener('input',apply);
+  [field,status,sort].forEach(el=>el.addEventListener('change',apply));
+  document.querySelector('[data-reset]')?.addEventListener('click',()=>{search.value='';field.value='';status.value='';sort.value='updated';apply();});
   apply();
 </script>
-
 <style>
-  .index-title-line h2 a,
-  .index-arrow,
-  .topic-link {
-    text-decoration: none;
-  }
-
-  .index-title-line h2 a:hover,
-  .index-arrow:hover,
-  .topic-link:hover {
-    color: var(--accent);
-  }
-
-  .topic-link {
-    color: var(--accent);
-  }
-
-  .topic-link:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-
-  .system-hubs {
-    margin: 2.5rem 0 1rem;
-    display: grid;
-    grid-template-columns: minmax(180px, .7fr) minmax(0, 2fr);
-    gap: 1rem 1.5rem;
-    align-items: start;
-  }
-
-  .system-hubs-copy {
-    margin: .25rem 0 0;
-    color: var(--muted);
-    font-size: .88rem;
-    line-height: 1.6;
-  }
-
-  .system-hub-links {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: .7rem;
-  }
-
-  .system-hub-links a {
-    display: grid;
-    gap: .18rem;
-    padding: .9rem 1rem;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .system-hub-links a:hover {
-    border-color: var(--accent);
-  }
-
-  .system-hub-links span,
-  .system-hub-links small {
-    color: var(--muted);
-    font-size: .74rem;
-  }
-
-  .system-controls {
-    margin: 2.5rem 0 2rem;
-    padding: 1.1rem 1.2rem 1.2rem;
-    border: 1px solid var(--line);
-    border-radius: 12px;
-  }
-
-  .system-controls-head {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: start;
-    margin-bottom: 1rem;
-  }
-
-  .system-controls-copy,
-  .system-result {
-    margin: .25rem 0 0;
-    color: var(--muted);
-    font-size: .88rem;
-  }
-
-  .system-reset {
-    border: 0;
-    background: none;
-    color: var(--accent);
-    padding: .15rem 0;
-    cursor: pointer;
-    font: inherit;
-  }
-
-  .system-filter-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
-    gap: .75rem;
-  }
-
-  .system-filter-grid label {
-    display: grid;
-    gap: .3rem;
-  }
-
-  .system-filter-grid label > span {
-    color: var(--muted);
-    font-size: .72rem;
-    letter-spacing: .04em;
-  }
-
-  .system-filter-grid select {
-    width: 100%;
-    min-width: 0;
-    padding: .48rem .55rem;
-    border: 1px solid var(--line);
-    border-radius: 7px;
-    background: var(--paper);
-    color: var(--ink);
-    font: inherit;
-    font-size: .84rem;
-  }
-
-  .system-sort {
-    grid-column: span 2;
-  }
-
-  .system-result {
-    margin-top: .8rem;
-  }
-
-  .system-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .35rem;
-    margin: .55rem 0 .1rem;
-  }
-
-  .system-tags span {
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: .12rem .48rem;
-    color: var(--muted);
-    font-size: .72rem;
-    line-height: 1.35;
-  }
-
-  [hidden] {
-    display: none !important;
-  }
-
-  @media (max-width: 620px) {
-    .system-hubs,
-    .system-hub-links {
-      grid-template-columns: 1fr;
-    }
-
-    .system-sort {
-      grid-column: auto;
-    }
-  }
+  .archive-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:2rem 0;padding:1.25rem 0;border-block:1px solid var(--line)}
+  .search{grid-column:1/-1}
+  label{display:grid;gap:.35rem;font-size:.85rem;color:var(--muted)}
+  input,select{box-sizing:border-box;width:100%;padding:.65rem;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px;font:inherit}
+  button{background:none;border:0;color:var(--accent);font:inherit;text-align:left;cursor:pointer;padding:0}
+  [data-count]{grid-column:2/-1;text-align:right;margin:0;color:var(--muted)}
+  [hidden]{display:none!important}
+  @media(max-width:550px){.archive-controls{grid-template-columns:1fr 1fr}.search{grid-column:1/-1}[data-count]{grid-column:auto}}
 </style>
