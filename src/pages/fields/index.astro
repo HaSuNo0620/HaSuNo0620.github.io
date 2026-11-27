@@ -1,8 +1,9 @@
 ---
+import { isLegacyNote } from '../../lib/legacy-notes';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fields } from '../../lib/fields';
 import { getCollection } from 'astro:content';
-const notes=await getCollection('notes',({data})=>!data.draft);
+const notes=await getCollection('notes',({id,data})=>!data.draft && !isLegacyNote(id));
 import { fieldFor } from '../../lib/fields';
 ---
 <BaseLayout title="分野">
