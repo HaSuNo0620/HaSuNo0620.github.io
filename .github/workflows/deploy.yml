@@ -20,6 +20,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install figure generation dependencies
+        run: python -m pip install numpy scipy matplotlib sympy
       - name: Install, build, and upload
         uses: withastro/action@v6
         with:
