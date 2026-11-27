@@ -1,9 +1,10 @@
 ---
+import { isLegacyNote } from '../../lib/legacy-notes';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fields, fieldFor, revisionDate, formatDate } from '../../lib/fields';
 import { topicSlug } from '../../lib/topics';
-const notes=(await getCollection('notes',({data})=>!data.draft)).sort((a,b)=>revisionDate(b.data).valueOf()-revisionDate(a.data).valueOf());
+const notes=(await getCollection('notes',({id,data})=>!data.draft && !isLegacyNote(id))).sort((a,b)=>revisionDate(b.data).valueOf()-revisionDate(a.data).valueOf());
 const states={seed:'構想・断片',growing:'執筆・検討中',evergreen:'まとまった記事'};
 ---
 <BaseLayout title="記事一覧" description="分野、キーワード、更新日から記事を探す。">
