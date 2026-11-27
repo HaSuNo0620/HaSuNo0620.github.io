@@ -173,4 +173,7 @@ $$
 - T. Giamarchi, *Quantum Physics in One Dimension*, Oxford University Press (2004).
 - M. Takahashi, *Thermodynamics of One-Dimensional Solvable Models*, Cambridge University Press (1999).
 
-本文のBethe仮設の定数と低エネルギー理論は既知の結果として用いた。詳細な原典の式番号との照合は別途行う。
+- S. Lukyanov and V. Terras, [Long-distance asymptotics of spin–spin correlation functions for the XXZ spin chain](https://www.sciencedirect.com/science/article/pii/S0550321302011410), Nuclear Physics B 654 (2003).
+- [Dynamical conductivity of disordered quantum chains](https://doi.org/10.1140/epjd/s10053-022-00524-1) (2022).
+
+Luttingerパラメータの規約と等方点の対数補正を上記文献と照合した。Bethe方程式からの速度の独立導出と原典全文の確認は未完了である。
