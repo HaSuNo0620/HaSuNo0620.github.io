@@ -116,6 +116,10 @@ $$
 
 これは局所応力の任意の高次モーメントも不変であるという意味ではない。応力分布の一次モーメントを曲率補正や張力面の位置と結びつけるには、熱力学的な分割面と局所応力の定義を区別し、別途導出する必要がある。
 
+![同じ粒子対の相互作用を直線経路と折れ線経路で局所的に配分する模式図](/figures/interfaces/local-stress-paths.svg)
+
+*同じ粒子対の相互作用を直線経路と折れ線経路で局所的に配分する模式図。全ビリアルが同じでも、局所応力分布は一致するとは限らない。*
+
 ## 参考文献
 
 - J. G. Kirkwood and F. P. Buff, “The Statistical Mechanical Theory of Surface Tension,” *Journal of Chemical Physics* **17**, 338–343 (1949).
