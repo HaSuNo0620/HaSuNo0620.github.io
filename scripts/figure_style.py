@@ -121,7 +121,8 @@ def _make_svg_theme_aware(path: Path) -> None:
   }}
 }}
 </style>"""
-    svg_end = svg.find(">")
+    svg_start = re.search(r"<svg\b[^>]*>", svg, flags=re.S)
+    svg_end = svg_start.end() - 1 if svg_start else -1
     if svg_end >= 0 and 'id="matplotlib-figure-theme"' not in svg:
         svg = svg[: svg_end + 1] + "\n" + theme_css + svg[svg_end + 1 :]
     path.write_text(svg, encoding="utf-8")
