@@ -1,8 +1,9 @@
 ---
+import { isLegacyNote } from '../lib/legacy-notes';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import {fields,revisionDate,formatDate} from '../lib/fields';
-const recent=(await getCollection('notes',({data})=>!data.draft)).sort((a,b)=>revisionDate(b.data).valueOf()-revisionDate(a.data).valueOf()).slice(0,5);
+const recent=(await getCollection('notes',({id,data})=>!data.draft && !isLegacyNote(id))).sort((a,b)=>revisionDate(b.data).valueOf()-revisionDate(a.data).valueOf()).slice(0,5);
 ---
 <BaseLayout>
 <section class="home-hero"><h1>HaSuNo Garden</h1><p class="hero-copy">物理学、数学を中心とした研究と考察の記録。</p><div class="hero-links"><a href="/notes/">全記事一覧 →</a><a href="/topics/">概念索引 →</a></div></section>
