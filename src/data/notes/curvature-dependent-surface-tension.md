@@ -135,4 +135,7 @@ $$
 - R. C. Tolman, “The Effect of Droplet Size on Surface Tension,” *Journal of Chemical Physics* **17**, 333–337 (1949).
 - J. S. Rowlinson and B. Widom, *Molecular Theory of Capillarity*, Clarendon Press (1982).
 
-原典の式番号と書誌情報の照合、および局所応力の具体的な経路依存性の文献調査は別工程とする。
+- E. M. Blokhuis and D. Bedeaux, [Pressure Tensor of a Spherical Interface](https://scholarlypublications.universiteitleiden.nl/handle/1887/81494) (1992).
+- E. M. Blokhuis and J. Kuipers, [Thermodynamic expressions for the Tolman length](https://doi.org/10.1063/1.2167642) (2006).
+
+有限半径のTolman方程式は既存の熱力学的表現と照合した。BlokhuisとBedeauxの論文の抄録は、力学的代表面の距離と熱力学的Tolman長の単純な同一視を支持しない。原論文全文の式番号単位の照合は未完了である。
