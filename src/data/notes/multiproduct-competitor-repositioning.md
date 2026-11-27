@@ -1,297 +1,147 @@
 ---
-title: "複数商品企業は競合をどう見るか — 所有構造・diversion・商品ライン設計"
-summary: "Basic・Standard・Proを持つ企業Aと、単独商品Xを持つ企業Bを例に、需要の代替関係だけでなく『誰がどの商品を所有しているか』が価格と品質設計をどう変えるかを整理する。ownership matrix、diversion ratio、multi-product pricing を通じて、競争が商品ライン全体へ伝わる理由を見る。"
+title: "複数商品企業の価格設定と所有構造"
+summary: "需要のJacobianと所有行列から価格条件を導き、自社内代替が価格・品質選択に作用する仕組みを明示する。"
 publishedAt: 2026-09-14T02:15:00+09:00
-updatedAt: 2026-09-14
+updatedAt: 2026-11-28
 area: "Economics"
+field: economics
+kind: theory
+prerequisites: ["consumer-choice-and-price-formation", "nash-bertrand-price-competition", "price-quality-joint-choice"]
 topics: ["multiproduct firm", "ownership matrix", "diversion ratio", "product line", "pricing", "product differentiation"]
 status: growing
 ---
 
-一つの企業が Basic・Standard・Pro を同時に売っているとき、三つの商品は単純な競争相手ではない。
+複数の商品を販売する企業にとって、ある商品の値上げによる需要減少は、そのまま企業全体の需要減少にはならない。失われた需要の一部が自社の別商品へ移るためである。ただし移転先の利幅が異なれば、販売数量が保存されても利潤は変わる。
 
-Standard の客が Pro へ移っても企業Aの顧客であることは変わらない。一方、競合企業の商品 $X$ へ移れば、その需要は企業Aから失われる。
+## 所有行列と価格条件
 
-したがって競争の強さは商品間距離だけでは決まらず
-
-$$
-\boxed{
-\text{代替先の商品を誰が所有しているか}}
-$$
-
-まで含めて考える必要がある。
-
-## 1. 需要構造が同じでも ownership が価格条件を変える
-
-企業Aが Basic・Standard・Pro、企業Bが商品 $X$ を持つとする。
-
-企業Aの利潤は
+企業 $A$ が所有する商品集合を $\mathcal A$ とし、商品 $i$ の価格、限界費用、需要を $p_i,c_i,Q_i(\mathbf p)$ とする。一定限界費用の下で
 
 $$
-\pi_A
-=\sum_{i\in A}(p_i-c_i)Q_i(\mathbf p)
+\pi_A=\sum_{i\in\mathcal A}(p_i-c_i)Q_i.
 $$
 
-である。
-
-Standard の価格 $p_S$ を少し上げると、その需要の一部は Basic、Pro、$X$ へ流れる。
-
-自社内の Basic・Pro へ移った需要は企業A全体では回収されるが、$X$ へ移った需要は失われる。
-
-したがって価格条件は
+商品 $j\in\mathcal A$ の価格に関する内部最適条件は
 
 $$
-Q_S
-+\sum_{i\in A}(p_i-c_i)
-\frac{\partial Q_i}{\partial p_S}
-=0
+Q_j+\sum_{i\in\mathcal A}(p_i-c_i)
+\frac{\partial Q_i}{\partial p_j}=0.
 $$
 
-となる。
-
-需要関数だけでなく、**どのcross-price effectを自社利潤として内部化するか**が価格を決めている。
-
-## 2. ownership matrix は内部化する代替関係を選ぶ
-
-商品 $i,j$ が同じ企業に属するかを
+需要のJacobianを $J_{ij}=\partial Q_i/\partial p_j$、所有行列を同一企業なら $\Omega_{ij}=1$、別企業なら0と定義する。利幅ベクトルを $\mathbf m=\mathbf p-\mathbf c$ とすると、全社の一階条件は
 
 $$
-\Omega_{ij}
-=\begin{cases}
-1,&i,j\text{ が同じ企業},\\
-0,&\text{別企業}
-\end{cases}
+\mathbf Q+(\Omega\odot J)^{\mathsf T}\mathbf m=0.
 $$
 
-とする。
-
-商品 $j$ の価格一階条件は
+$\odot$ は要素ごとの積である。逆行列が存在する場合は
 
 $$
-\boxed{
-Q_j
-+\sum_i\Omega_{ij}(p_i-c_i)
-\frac{\partial Q_i}{\partial p_j}
-=0}
+\mathbf m=-[(\Omega\odot J)^{\mathsf T}]^{-1}\mathbf Q.
 $$
 
-である。
+これは均衡で満たすべき条件であり、右辺も価格に依存する。一階条件だけでは大域的な最適性や均衡の存在は保証されない。
 
-需要関数や費用を変えなくても $\Omega$ を変えるだけで均衡価格が変わる。
+## 需要流出率と利幅
 
-企業合併が価格へ効くのも、代替関係そのものが急に変わるからではなく、**以前は外部だった需要移動が同じ企業内へ取り込まれる**からだと読める。
-
-## 3. diversion ratio は「失った客がどこへ行くか」を測る
-
-Standard の値上げで失われる需要のうち
-
-- 40% が Basic
-- 20% が Pro
-- 30% が競合 $X$
-- 10% が市場退出
-
-するとする。
-
-企業Aが内部で回収できるのは Basic と Pro へ流れた60%である。
-
-需要流出を
+$\partial_{p_j}Q_j<0$ として、商品 $j$ の値上げから商品 $i$ への需要流出率を
 
 $$
-\boxed{
-D_{j\to i}
-=\frac{\partial Q_i/\partial p_j}
-{-\partial Q_j/\partial p_j}}
+D_{j\to i}=\frac{\partial_{p_j}Q_i}{-\partial_{p_j}Q_j}
 $$
 
-と書けば、競争の強さは単なる品質距離 $|q_i-q_j|$ よりも直接的に表せる。
+と定める。代替財だけからなる固定市場規模の離散選択模型では、外部選択肢も含めた流出率の和は1である。補完財や市場規模が変わる需要では、この解釈は一般には成立しない。
 
-品質が近くても diversion が小さければ弱い競合であり、品質が多少離れていても diversion が大きければ強い競合になる。
-
-## 4. multi-product markup は portfolio 全体で決まる
-
-単一商品企業なら
+価格条件は
 
 $$
-Q_j+(p_j-c_j)\frac{\partial Q_j}{\partial p_j}=0
+m_j=-\frac{Q_j}{\partial_{p_j}Q_j}
++\sum_{i\in\mathcal A,\ i\ne j}m_iD_{j\to i}
 $$
 
-で、自商品の需要損失だけを見ればよい。
+と分解できる。例えばStandardの値上げで失われる需要の40%がBasic、20%がProへ移るなら、自社内移転の寄与は $0.4m_B+0.2m_P$ となる。回収される顧客数だけでなく移転先の利幅が重要である。
 
-複数商品企業では、値上げで失った需要の一部を自社別商品で回収できる。そのため各価格は
+## 同質ロジット需要での厳密な簡約
 
-$$
-\boxed{\text{portfolio profit}}
-$$
-
-を最大化する条件で決まる。
-
-競合 $X$ が Standard に近くても、Standard だけを値下げすればよいとは限らない。Standard の価格変更は Basic・Pro との cannibalization も変えるからである。
-
-## 5. 一つの競合参入が商品ライン全体を repricing する
-
-3タイプの消費者を使った数値例では、企業Aだけなら
+外部選択肢付きの同質ロジット需要を考える。$Q_i=Ms_i$、価格感応度を $\gamma>0$ とすると
 
 $$
-(p_B,p_S,p_P)
-\simeq(4.59,13.13,50.90)
+J_{ij}=-M\gamma s_i(\delta_{ij}-s_j).
 $$
 
-だった。
-
-中間品質の商品 $X$ を一つ入れると
+所有商品についての一階条件を $Ms_j$ で割ると、
 
 $$
-(p_B,p_S,p_P)
-\simeq(3.42,7.24,39.09)
+1-\gamma m_j+\gamma\sum_{i\in\mathcal A}s_i m_i=0.
 $$
 
-へ動いた。
-
-![競合参入前後の価格変化](/figures/multiproduct-competitor-repositioning/competitor-entry-price-response.svg)
-
-*競合がStandard近傍へ入っても、反応はStandard一商品に閉じず、Basic・Proまで同時に動く。*
-
-この変化は
+従って同一企業の商品は共通の利幅 $m_A$ を持つ。企業シェアを $S_A=\sum_{i\in\mathcal A}s_i$ とすれば、
 
 $$
-\boxed{
-\text{ownership}
-\longrightarrow
-\text{internalized substitution}
-\longrightarrow
-\text{portfolio-wide repricing}}
+m_A=\frac1{\gamma(1-S_A)}.
 $$
 
-という因果鎖で整理できる。
+単一商品企業での利幅の式が、企業全体のシェアによって置き換わる。商品ごとの利幅を変えるには、異質な消費者、異なる価格感応度、供給制約など、この単純な需要の仮定を緩める必要がある。
 
-## 6. 品質を動かすと cannibalization と competitor stealing が競合する
+## 競合参入の再現可能な例
 
-品質 $q_i$ も企業が選ぶなら
+企業AがBasic、Standard、Proを所有するとする。品質調整価格の単位で、各商品の品質調整後の費用を $-2,-1,0$、価格感応度を $\gamma=1$ と設定する。競合Bは品質調整後の費用 $-1$ の商品Xを持つ。外部選択肢の効用は0である。
+
+企業ごとの指数重みの和は
 
 $$
-\pi_A
-=\sum_{i\in A}[p_i-c_i(q_i)]Q_i(\mathbf p,\mathbf q)
+B_A=e^2+e+1,\qquad B_B=e.
 $$
 
-である。
+企業の共通利幅を $m_A,m_B$ とすれば
 
-商品 $j$ の品質を変えたとき
+$$
+S_A=\frac{B_Ae^{-m_A}}
+{1+B_Ae^{-m_A}+B_Be^{-m_B}},\quad
+S_B=\frac{B_Be^{-m_B}}
+{1+B_Ae^{-m_A}+B_Be^{-m_B}}.
+$$
+
+参入前は $B_B=0$ とし、$m_A=1/(1-S_A)$ を解く。参入後は $m_A=1/(1-S_A),m_B=1/(1-S_B)$ を連立する。以下の擬似コードで再現できる。
+
+    from scipy.optimize import root
+    import numpy as np
+
+    B = np.array([np.exp(2)+np.exp(1)+1, np.exp(1)])
+    def residual(m, B):
+        v = B*np.exp(-m)
+        s = v/(1+v.sum())
+        return m-1/(1-s)
+    before = root(residual, [2.0], args=(B[:1],))
+    after = root(residual, [2.0, 1.5], args=(B,))
+    for sol, weights in [(before,B[:1]), (after,B)]:
+        assert sol.success
+        assert np.max(np.abs(residual(sol.x,weights))) < 1e-8
+        print(sol.x)
+
+参入によってAの全商品の価格が共通利幅を通じて連動する。ただし、この例では同質ロジットの制約により、Aの商品間の価格差は変化しない。異質な需要を含む場合には商品ごとの値下げ幅が異なりうる。
+
+この例は旧稿の三タイプ消費者の数値例を再現したものではない。旧計算はパラメータと生成コードを確認できなかったため、条件を明記した別の模型に置き換えた。旧図も再現性が確認できるまで本文には掲載しない。
+
+## 品質を選択する企業
+
+品質を変数とし、商品ごとの限界費用 $c_i(q_i)$ を導入すると、企業Aの商品 $j$ の品質条件は
 
 $$
 \frac{\partial\pi_A}{\partial q_j}
-=\sum_{i\in A}(p_i-c_i)
-\frac{\partial Q_i}{\partial q_j}
--Q_jc_j'(q_j)
+=\sum_{i\in\mathcal A}(p_i-c_i)\partial_{q_j}Q_i
+-Q_jc_j'(q_j)=0.
 $$
 
-となる。
+商品品質の改善によって自社商品から需要を奪った場合でも、利幅差によって利潤は変わる。競合商品からの需要移転に加え、購入しなかった消費者の新規購入も区別する必要がある。
 
-Standard を良くして増えた需要が Basic・Pro から移っただけなら自社内 cannibalization であり、競合 $X$ から奪った需要なら企業A全体の純増になる。
+すべての消費者が共通の品質評価 $\theta$ を持ち、需要が品質調整価格のみに依存し、費用が商品ごとに分離できるなら、複数商品企業でも固定 $\mathbf Z$ で品質を独立に最適化できる。この場合の品質条件は[単一商品企業の場合](/notes/price-quality-joint-choice/)と同じ $c_j'(q_j)=\theta$ になる。
 
-$$
-\boxed{
-\text{internal cannibalization}
-\quad\text{vs}\quad
-\text{competitor stealing}}
-$$
+一方、異質な品質評価を持つ消費者がいる場合、各商品の品質変更が需要の代替関係自体を変える。競合商品の品質だけから最も強い競争相手を特定することはできず、タイプ別の効用と需要微分が必要になる。
 
-の釣り合いが商品ラインの品質配置を決める。
+## 参考文献
 
-## 7. 競合の位置は最寄り商品だけでなくライン全体を動かす
+- K. Train, *Discrete Choice Methods with Simulation*, 2nd ed. (2009).
+- J. Tirole, *The Theory of Industrial Organization* (1988).
 
-競合 $X$ が低品質側なら Basic、中間なら Standard、高品質側なら Pro が直接競争しやすい。
-
-しかし企業Aは商品単体ではなく portfolio 全体の利潤を見ているため、反応は最寄り商品一つには閉じない。
-
-![競合品質に対する商品ラインの再配置](/figures/multiproduct-competitor-repositioning/competitor-quality-sweep.svg)
-
-*競合品質を動かすと、Basic・Standard・Pro の価格と品質が連動して再配置される。*
-
-$$
-\boxed{
-\text{競争は product vs product だけでなく portfolio vs product でも起こる}}
-$$
-
-という構造がここにある。
-
-## 8. $Z$ 空間では競合が作る地形に自社商品を配置する問題になる
-
-消費者タイプ $t$ にとって
-
-$$
-Z_{ti}=p_i-\theta_tq_i
-$$
-
-とする。
-
-企業Aは自社商品の
-
-$$
-Z_{tB},\qquad Z_{tS},\qquad Z_{tP}
-$$
-
-を価格と品質の両方から動かせるが、競合 $X$ の
-
-$$
-Z_{tX}
-$$
-
-は直接制御できない。
-
-したがって商品ライン設計は
-
-$$
-\boxed{
-\text{external competitor landscape }Z_{tX}
-\text{ の中へ自社の }Z_{ti}\text{ を配置する問題}}
-$$
-
-と見られる。
-
-この見方なら
-
-- 競合から距離を取る
-- 競合を自社商品の間で挟む
-- ある顧客層を競合へ譲る
-- 別の顧客層へ集中する
-
-といった戦略を同じ座標で扱える。
-
-## 9. ownership と diversion が product-line design までつながる
-
-単一商品企業では
-
-$$
-\pi_i=(p_i-c_i)Q_i
-$$
-
-だけだった。
-
-複数商品所有を入れると
-
-$$
-\boxed{
-\text{demand substitution}
-+\text{ownership structure}}
-$$
-
-が価格を決める。
-
-品質も内生化すると、同じ代替構造が商品ライン設計まで伝わる。
-
-$$
-\boxed{
-\text{single-product pricing}
-\longrightarrow
-\text{ownership matrix}
-\longrightarrow
-\text{diversion ratios}
-\longrightarrow
-\text{portfolio pricing}
-\longrightarrow
-\text{product-line design}}
-$$
-
-という一本の構造になる。
-
-企業が「何を売るか」と「いくらで売るか」は別問題ではなく、同じ需要代替ネットワーク上の最適化として結びついている。
+文献照合と新規数値例の実行検証は別途行う。
