@@ -150,8 +150,7 @@ $$
 
 $$
 \begin{aligned}
-N(x)&=1-b^2-2a(c-a)-2a^2+2[c(1+b)-ab]x\\
-&=1-b^2-2ac+2[c(1+b)-ab]x,\\
+N(x)&=1+a^2-b^2-2ac+2[c(1+b)-a]x,\\
 D(x)&=(1-b)^2+a^2-2a(1+b)x+4bx^2.
 \end{aligned}
 $$
