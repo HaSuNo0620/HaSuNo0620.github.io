@@ -1,21 +1,23 @@
 ---
 import { getCollection, render } from 'astro:content';
 import { fieldFor } from '../../lib/fields';
+import { legacyNotes, isLegacyNote } from '../../lib/legacy-notes';
 import NoteLayout from '../../layouts/NoteLayout.astro';
 
 export async function getStaticPaths() {
   const notes = await getCollection('notes', ({ data }) => !data.draft);
-  return notes.map((note) => ({ params: { id: note.id }, props: { note } }));
+  return notes.map((note) => ({ params: { id: note.id }, props: { note, destination: legacyNotes[note.id] ?? null } }));
 }
 
-const { note } = Astro.props;
+const { note, destination } = Astro.props;
 const field=fieldFor(note.id,note.data.field);
 const all=await getCollection('notes',({data})=>!data.draft);
-const links=(ids:string[])=>ids.flatMap(id=>{const n=all.find(n=>n.id===id);return n?[{id:n.id,title:n.data.title}]:[];});
+const links=(ids:string[])=>ids.flatMap(id=>{const n=all.find(n=>n.id===id && !isLegacyNote(n.id));return n?[{id:n.id,title:n.data.title}]:[];});
 const { Content } = await render(note);
+const canonical=destination ? new URL(destination, Astro.site ?? Astro.url) : null;
 ---
 
-<NoteLayout
+{destination ? <html lang="ja"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width"/><meta name="robots" content="noindex,follow"/><link rel="canonical" href={canonical}/><meta http-equiv="refresh" content={`0;url=${destination}`}/><title>記事の移転</title></head><body><main><h1>記事を移転しました</h1><p><a href={destination}>移転先の記事・分野案内を読む</a></p></main></body></html> : <NoteLayout
   title={note.data.title}
   summary={note.data.summary}
   publishedAt={note.data.publishedAt}
@@ -28,4 +30,4 @@ const { Content } = await render(note);
   related={links(note.data.related)}
 >
   <Content />
-</NoteLayout>
+</NoteLayout>}
