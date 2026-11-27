@@ -1,10 +1,11 @@
 ---
+import { isLegacyNote } from '../../lib/legacy-notes';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { fields } from '../../lib/fields';
 import { getCollection } from 'astro:content';
 export function getStaticPaths(){return fields.map(field=>({params:{field:field.id},props:{field}}));}
 const {field}=Astro.props;
-const notes=await getCollection('notes',({data})=>!data.draft);
+const notes=await getCollection('notes',({id,data})=>!data.draft && !isLegacyNote(id));
 const byId=new Map(notes.map(n=>[n.id,n]));
 ---
 <BaseLayout title={field.title} description={field.description}>
