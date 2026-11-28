@@ -1,6 +1,6 @@
 ---
-title: "円から楕円関数へ — Gauss・Jacobi・Weierstrass"
-summary: "円と楕円の弧長からJacobi関数を構成し、Gaussのレムニスケートと算術幾何平均、Weierstrassの周期格子を経て、三つの形式を統一する。"
+title: "円から楕円関数へ — 楕円積分の幾何学"
+summary: "円と楕円の弧長からJacobi関数を構成し、Gaussのレムニスケート、算術幾何平均と非線形振動へ進む。"
 publishedAt: 2026-09-09T18:30:00+09:00
 updatedAt: 2026-11-28
 area: "Mathematics"
@@ -12,7 +12,7 @@ status: growing
 
 円では角度と弧長が比例する。楕円ではこの関係が失われ、弧長を求めるだけでも初等関数では表せない積分が現れる。円の三角関数に相当するものを楕円について構成できるだろうか。
 
-この問いから出発し、Jacobi、Gauss、Weierstrassの三つの構成を順に考える。最初から三者の同値性を仮定せず、それぞれが何を解決するために導入されるかを明らかにした後で接続する。
+この問いから出発し、楕円とレムニスケートという二つの曲線からJacobiとGaussの関数を構成する。実変数の積分と幾何学を主題とし、複素周期格子との接続は別稿に譲る。
 
 ## 1. 円から楕円へ
 
@@ -30,7 +30,7 @@ $$
 ds=a\sqrt{1-k^2\sin^2\phi}\,d\phi.
 $$
 
-円と異なり、媒介変数 $\phi$ の等間隔の変化は等しい弧長を与えない。原点からの弧長は第二種楕円積分
+円と異なり、媒介変数 $\phi$ の等間隔の変化は等しい弧長を与えない。媒介角 $\phi=0$ の点からの弧長は第二種楕円積分
 
 $$
 s=aE(\phi,k),\qquad E(\phi,k)=\int_0^\phi\sqrt{1-k^2\sin^2 t}\,dt
@@ -209,138 +209,9 @@ $$
 
 これは降下型Landen変換である。$k$ が小さくなると $k_1\sim k^2/4$ となるため、反復によって急速に三角関数の極限に近づく。積分を保存しながら母数を変えることが、高速計算を可能にする。
 
-## 6. Weierstrassの構成：複素平面の周期格子
+## 6. 応用：非線形振動
 
-ここでは積分の逆関数から出発せず、周期性そのものを指定する。実線形独立な複素数 $\omega_1,\omega_2$ により
-
-$$
-\Lambda=\mathbb Z\omega_1+\mathbb Z\omega_2
-$$
-
-を定める。$\Lambda$ の平行移動で不変な有理型関数を楕円関数と呼ぶ。基本平行四辺形の対辺を同一視した空間は複素トーラス $\mathbb C/\Lambda$ である。
-
-非定数の楕円関数は極を持たなければならない。極がなければ基本領域上で有界であり、周期性から複素平面全体で有界となるため、Liouvilleの定理により定数になる。また基本領域内の留数の和は、対辺の積分が相殺するためゼロである。従って単純極ただ一つでは構成できない。
-
-最も簡単な候補は各格子点に二位の極を持つ関数である。ただし単純な格子和は絶対収束しないため、定数項を差し引く：
-
-$$
-\wp(z)=\frac1{z^2}+
-\sum_{\omega\in\Lambda\setminus\{0\}}
-\left[\frac1{(z-\omega)^2}-\frac1{\omega^2}\right].
-$$
-
-差は大きな $|\omega|$ に対し $O(|\omega|^{-3})$ であり、二次元格子上で局所一様に絶対収束する。$\wp$ は偶関数である。微分した級数は絶対収束し、添字の移動から $\wp'$ の周期性が従う。したがって基本周期だけずらした $\wp$ の差は定数だが、偶性を用いればその定数もゼロと分かる。
-
-![複素周期格子と基本平行四辺形](/figures/mathematics/period-lattice.svg)
-
-*二つの独立な周期が張る基本領域。対辺を同一視すると複素トーラスになる。格子の形状は一般の場合を示す模式図である。*
-
-## 7. 格子から三次曲線が生まれる
-
-原点付近で格子和を展開すると、
-
-$$
-\wp(z)=z^{-2}+\frac{g_2}{20}z^2+\frac{g_3}{28}z^4+O(z^6),
-$$
-
-$$
-g_2=60\sum_{\omega\ne0}\omega^{-4},\qquad
-g_3=140\sum_{\omega\ne0}\omega^{-6}.
-$$
-
-$\wp$ と $\wp'$ の極の次数はそれぞれ2と3なので、$(\wp')^2$ と $\wp^3$ はともに6位の極を持つ。主要部を相殺する組合せを順に選ぶと、
-
-$$
-H=(\wp')^2-4\wp^3+g_2\wp+g_3
-$$
-
-には極がなく、原点での極限もゼロになる。正則な楕円関数は定数であることから
-
-$$
-(\wp')^2=4\wp^3-g_2\wp-g_3.
-$$
-
-こうして周期格子から三次曲線
-
-$$
-y^2=4x^3-g_2x-g_3
-$$
-
-が現れる。格子に由来する不変量では判別式 $g_2^3-27g_3^2$ はゼロでない。逆に非特異な複素三次曲線は、無限遠点を加えると適切な格子の複素トーラスとして一様化できる。写像は $z\mapsto(\wp(z),\wp'(z))$ であり、格子点は無限遠点に対応する。
-
-## 8. 三つの構成を接続する
-
-### GaussとJacobi
-
-$k=1/\sqrt2$ のJacobi関数を用いて
-
-$$
-r(u)=\frac{1}{\sqrt2}
-\frac{\operatorname{sn}(\sqrt2 u,k)}{\operatorname{dn}(\sqrt2 u,k)}
-$$
-
-と置く。Jacobiの微分系と代数関係を使うと $(r')^2=1-r^4$、$r(0)=0$、$r'(0)=1$ が得られる。したがって
-
-$$
-\operatorname{sl}(u)=\frac{\operatorname{sn}(\sqrt2 u,1/\sqrt2)}
-{\sqrt2\,\operatorname{dn}(\sqrt2 u,1/\sqrt2)}.
-$$
-
-同じ微分方程式と初期条件を満たすという事実が、二つの構成を結びつける。特に $\ell=K(1/\sqrt2)/\sqrt2$ である。
-
-### JacobiとWeierstrass
-
-三次式が実根 $e_1>e_2>e_3$ を持つ場合を考える。$A=e_1-e_3$、$k^2=(e_2-e_3)/A$ と置く。
-
-$$
-x=e_3+\frac{A}{s^2}
-$$
-
-を $(dx/dz)^2=4(x-e_1)(x-e_2)(x-e_3)$ に代入すれば、
-
-$$
-\left(\frac{ds}{dz}\right)^2=A(1-s^2)(1-k^2s^2).
-$$
-
-原点で $s\sim\sqrt A z$ となる枝を取ると、
-
-$$
-\wp(z)=e_3+
-\frac{A}{\operatorname{sn}^2(\sqrt A z,k)}.
-$$
-
-四次式と三次式は別々の問題ではなく、変数変換によって結びつく。一般の複素根の場合は根の選択と平方根の枝を指定する必要がある。
-
-Gaussの四次式についても $x=1/\operatorname{sl}^2u$ と置けば
-
-$$
-(x')^2=4x^3-4x,
-$$
-
-したがって $x=\wp(u;4,0)$ となる。これは正方形型の周期格子に対応する。
-
-### 複素周期と積分
-
-Jacobi関数を複素変数へ解析接続すると、$\operatorname{sn}$ の基本周期は $4K$ と $2iK'$（$K'=K(k')$）となる。$\operatorname{sn}^2$ の周期格子は $2K$ と $2iK'$ で生成され、上の変換に対応するWeierstrass関数の格子を与える。関数を二乗すると周期格子が変わることに注意したい。
-
-代数曲線上の微分 $dx/y$ を積分すると局所的に複素変数 $z$ が得られ、その積分の閉路に沿う値が周期を与える。逆に $z$ から曲線上の点を復元するのが楕円関数である。こうして積分、二重周期性、代数曲線という三つの記述がつながる。
-
-![三つの楕円関数の構成と代数曲線の関係](/figures/mathematics/elliptic-unification.svg)
-
-*異なる幾何学的出発点から得られる関数を、微分方程式と変数変換を通じて接続する概念図。*
-
-## 9. 退化極限と非線形振動
-
-$k\to0$ では $K\to\pi/2$、$K'\to\infty$ となり、Jacobi関数は三角関数へ退化する。$k\to1$ では $K\to\infty$ となり、固定した実引数で
-
-$$
-\operatorname{sn}u\to\tanh u,\qquad
-\operatorname{cn}u,\operatorname{dn}u\to\operatorname{sech}u.
-$$
-
-この極限は周期格子の一方向が無限に伸びることに対応する。
-
-応用として単振り子 $\ddot\theta+\omega_0^2\sin\theta=0$ を考える。最大振幅 $\theta_{\max}$ に対して $k=\sin(\theta_{\max}/2)$ とすると、エネルギー保存則は
+単振り子 $\ddot\theta+\omega_0^2\sin\theta=0$ を考える。最大振幅 $\theta_{\max}$ に対して $k=\sin(\theta_{\max}/2)$ とすると、エネルギー保存則は
 
 $$
 \dot\theta^2=4\omega_0^2[k^2-\sin^2(\theta/2)].
@@ -363,9 +234,12 @@ $$
 
 *完全第一種楕円積分による振り子の周期。小振幅で調和振動の周期に戻り、分離軌道に近づくと発散する。*
 
+## 7. 複素関数への接続
+
+ここまで実変数の幾何学と積分から関数を構成した。これらを複素変数へ拡張すると、実周期とは独立なもう一つの周期が現れる。周期格子から直接関数を構成する方法は [因数分解から楕円関数へ](./elliptic-factorization) で、二つの構成の対応と退化極限は [楕円関数の統一](./elliptic-unification) で扱う。
+
 ## 参考文献
 
 - [NIST Digital Library of Mathematical Functions, Chapter 19: Elliptic Integrals](https://dlmf.nist.gov/19)
 - [Chapter 22: Jacobian Elliptic Functions](https://dlmf.nist.gov/22)
-- [Chapter 23: Weierstrass Elliptic and Modular Functions](https://dlmf.nist.gov/23)
 - E. T. Whittaker and G. N. Watson, *A Course of Modern Analysis*.
